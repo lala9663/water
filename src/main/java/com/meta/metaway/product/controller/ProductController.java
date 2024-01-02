@@ -19,7 +19,7 @@ import com.meta.metaway.product.service.IProductService;
 public class ProductController {
 	
 	@Autowired
-	IProductService productService;
+	IProductService productService; 
 	
 	@GetMapping("/product/insert")
 	String productInsertForm() {
