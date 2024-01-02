@@ -1,6 +1,7 @@
 package com.meta.metaway.product.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -11,4 +12,6 @@ public class Product {
 	private String productModel;
 	private String productName;
 	private Date productDate;
+	
+	private List<Contract> contract;
 }

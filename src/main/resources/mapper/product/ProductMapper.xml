@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.meta.metaway.product.dao.IProductRepository">
+	<!-- 상품 등록  -->	
+    <insert id="productInsert" parameterType="com.meta.metaway.product.model.Product">
+        INSERT INTO product(product_id, form_id, product_model, product_name, product_date)
+        values (#{productId}, #{formId}, #{productModel}, #{productName}, #{productDate})
+    </insert>
+    <!-- 파일 등록  -->
+    <insert id="productFileInsert" parameterType="com.meta.metaway.product.model.UploadFile">
+    	INSERT INTO product_file(file_id, product_id, uuid_name, file_pass, file_name, file_size)
+    	values (#{fileId},#{productId},#{uuidFileName},#{filePath}, #{fileOriginalName},#{fileSize})
+    </insert>
+    <insert id="productContractInsert" parameterType="com.meta.metaway.product.model.Contract">
+    	INSERT INTO contract(contract_id, product_id, contract_year, contract_price)
+    	values (#{contractId},#{productId},#{contractYear},#{contractPrice})
+    </insert>
+    <!-- 상품 최대 번호 가져오기  -->
+    <select id="getNextMaxProductId" resultType="Integer">
+    	SELECT max(product_id) +1 from product
+    </select>
+    <select id="getNextMaxFileId" resultType="Integer">
+    	SELECT max(file_id) +1 from product_file
+    </select>
+    <select id="getNextMaxContractId" resultType="Integer">
+    	SELECT max(contract_id) +1 from contract
+    </select>
+    <delete id="productDelete" parameterType="String">
+    	DELETE FROM product WHERE id = #{productId}
+    </delete>
+</mapper>

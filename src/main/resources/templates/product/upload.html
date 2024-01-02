@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<form id="insertForm" action="/product/insert" enctype="multipart/form-data" method="post">
+		<div>
+			<label for="productModel">상품 모델</label>
+			<input type="text" id="productModel" name="productModel">
+		</div>
+		<div>
+			<label for="productName">상품 이름</label>
+			<input type="text" id="productName" name="productName">
+		</div>
+		<div>
+			<label for="formId">폼 아이디</label>
+			<input type="text" id="formId" name="formId">
+		</div>
+		<div>
+			<label for="productDate">제품출시일</label>
+			<input type="date" id="productDate" name="productDate">
+		</div>
+		<div>
+			<label for="productFile">이미지</label>
+			<input type="file" id="productFile" name="productFile">
+		</div>
+			<div id="contractForm">
+				
+			<button id="addButton">약정 추가</button>
+		</div>
+		<button>확인</button>
+	</form>
+
+</body>
+<script>
+	var itemIndex = 0;
+    var button = document.getElementById('addButton');
+	button.addEventListener("click", function (event) {
+		event.preventDefault();
+        addItem();
+	})
+
+	function addItem() {
+		var form = document.getElementById('contractForm');
+
+		var inputYear0 = document.createElement('input');
+		var inputYear3 = document.createElement('input');
+		var inputYear6 = document.createElement('input');
+		
+		inputYear0.type = 'radio'
+		inputYear0.name = 'contract[' + itemIndex + '].contractYear'
+		inputYear0.value = '0'
+		
+		inputYear3.type = 'radio'
+		inputYear3.name = 'contract[' + itemIndex + '].contractYear'
+		inputYear3.value = '3'
+
+		inputYear6.type = 'radio'
+		inputYear6.name = 'contract[' + itemIndex + '].contractYear'
+		inputYear6.value = '6'
+		
+		var labelYear0 = document.createElement('label');
+        labelYear0.textContent = '구매';
+
+        var labelYear3 = document.createElement('label');
+        labelYear3.textContent = '3년';
+
+        var labelYear6 = document.createElement('label');
+        labelYear6.textContent = '6년';
+
+		var inputPrice = document.createElement('input');
+		inputPrice.type = 'number';
+		inputPrice.name = 'contract[' + itemIndex + '].contractPrice'
+
+		form.appendChild(inputYear0);
+        form.appendChild(labelYear0);
+        form.appendChild(inputYear3);
+        form.appendChild(labelYear3);
+        form.appendChild(inputYear6);
+        form.appendChild(labelYear6);
+        form.appendChild(inputPrice);
+		itemIndex++;
+	}
+</script>
+
+</html>
