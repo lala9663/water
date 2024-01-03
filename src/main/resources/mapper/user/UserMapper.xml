@@ -3,7 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- UserMapper.xml -->
-<mapper namespace="com.meta.metaway.user.dao.UserRepository">
+<mapper namespace="com.meta.metaway.user.dao.IUserRepository">
 
     <select id="existsByAccount" resultType="boolean">
         SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
@@ -11,8 +11,22 @@
         WHERE user_account = #{account}
     </select>
     
+    <select id="findById" resultType="com.meta.metaway.user.model.User">
+    	SELECT user_id FROM users WHERE user_id = #{userId}
+	</select>
+    
+    
      <select id="findByAccount" resultType="com.meta.metaway.user.model.User">
 		SELECT u.user_account as account, u.user_password as password, a.authority_name as authorities 
+		FROM users u 
+		LEFT JOIN user_authority ua ON u.user_id = ua.user_id 
+		LEFT JOIN authority a ON ua.authority_name = a.authority_name 
+		WHERE u.user_account = #{account}
+    </select>
+    
+    <select id="findByInfo" resultType="com.meta.metaway.user.model.User">
+		SELECT u.user_account as account, u.user_email as email, u.user_name as name, u.user_phone as phone, u.user_age as age, u.user_address as address,
+		a.authority_name as authorities 
 		FROM users u 
 		LEFT JOIN user_authority ua ON u.user_id = ua.user_id 
 		LEFT JOIN authority a ON ua.authority_name = a.authority_name 
@@ -39,5 +53,25 @@
 	    INSERT INTO user_authority (user_id, authority_name)
 	    VALUES (#{id}, #{authorities})
 	</insert>    
+
+	<!-- 회원 수정 -->
+	<update id="updateUser" parameterType="com.meta.metaway.user.model.User">
+    UPDATE users
+    SET 
+        user_password = #{password},
+        user_email = #{email},
+        user_name = #{name},
+        user_phone = #{phone},
+        user_age = #{age},
+        user_address = #{address}
+    WHERE user_account = #{account}
+	</update>
+	
+	<!-- 회원 삭제 -->
+    <delete id="deleteUserByAccount" parameterType="String">
+        DELETE FROM users WHERE user_account = #{account}
+    </delete>
+
+	
 	
 </mapper>

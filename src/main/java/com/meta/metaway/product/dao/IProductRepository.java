@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.meta.metaway.product.model.Contract;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.product.model.UploadFile;
-import com.meta.metaway.product.model.contract;
 
 @Mapper
 @Repository

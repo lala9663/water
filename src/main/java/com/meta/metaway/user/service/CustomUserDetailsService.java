@@ -5,16 +5,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.meta.metaway.user.dao.UserRepository;
+import com.meta.metaway.user.dao.IUserRepository;
 import com.meta.metaway.user.dto.CustomUserDetails;
 import com.meta.metaway.user.model.User;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
+    public CustomUserDetailsService(IUserRepository userRepository) {
 
         this.userRepository = userRepository;
     }
