@@ -19,5 +19,7 @@ public interface IUserRepository {
     User findByInfo(String account);
     User updateUser(User user);
 
-    void deleteUserByAccount(String account);
+    void deleteUserByAccount(String username);
+    String getPasswordByAccount(String account);
+
 }

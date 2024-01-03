@@ -1,11 +1,13 @@
 package com.meta.metaway.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -78,6 +80,30 @@ public class UserController {
         } else {
             return ResponseEntity.badRequest().body("삭제 실패");
         }
+    }
+    
+    // 아직 미완성
+    @PostMapping("/check-password")
+    public ResponseEntity<String> checkPassword(@RequestHeader("Authorization") String token, @RequestBody String password) {
+        String username = jwtUtil.getUsername(token);
+
+        try {
+            boolean passwordMatches = userService.checkPasswordByAccount(username, password);
+            if (passwordMatches) {
+                return ResponseEntity.ok("비밀번호 일치");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호 불일치");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("오류: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/user/logout")
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
+
+    	
+        return ResponseEntity.ok("로그아웃 성공");
     }
 
 

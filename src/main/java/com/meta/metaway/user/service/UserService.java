@@ -97,9 +97,15 @@ public class UserService implements IUserService {
     }
     
     @Override
+    public boolean checkPasswordByAccount(String account, String password) {
+        String encryptedPassword = userRepository.getPasswordByAccount(account);
+        return encryptedPassword != null && bCryptPasswordEncoder.matches(password, encryptedPassword);
+    }
+    
+    @Override
     @Transactional
-    public void deleteUserByAccount(String account) {
-        userRepository.deleteUserByAccount(account);
+    public void deleteUserByAccount(String userAccount) {
+        userRepository.deleteUserByAccount(userAccount);
     }
 
 
