@@ -71,6 +71,11 @@
     <delete id="deleteUserByAccount" parameterType="String">
         DELETE FROM users WHERE user_account = #{account}
     </delete>
+    
+    <!--암호화된 비밀번호 가져오기 -->
+    <select id="getPasswordByAccount" resultType="String" parameterType="String">
+        SELECT user_password FROM users WHERE user_account = #{account}
+    </select>   
 
 	
 	
