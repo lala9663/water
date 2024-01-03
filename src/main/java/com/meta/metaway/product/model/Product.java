@@ -14,4 +14,5 @@ public class Product {
 	private Date productDate;
 	
 	private List<Contract> contract;
+	private List<Short> function;
 }

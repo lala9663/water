@@ -13,11 +13,67 @@
     	INSERT INTO product_file(file_id, product_id, uuid_name, file_pass, file_name, file_size)
     	values (#{fileId},#{productId},#{uuidFileName},#{filePath}, #{fileOriginalName},#{fileSize})
     </insert>
+    <!-- 약정 등록  -->
     <insert id="productContractInsert" parameterType="com.meta.metaway.product.model.Contract">
     	INSERT INTO contract(contract_id, product_id, contract_year, contract_price)
     	values (#{contractId},#{productId},#{contractYear},#{contractPrice})
     </insert>
-    <!-- 상품 최대 번호 가져오기  -->
+    <!-- 기능 등록  -->
+    <insert id="productFunctionInsert" parameterType="com.meta.metaway.product.model.Function">
+    	INSERT INTO product_function(product_id, function_id)
+    	values (#{productId},#{functionId})
+    </insert>
+    <!-- 기능 조회  -->
+    <select id="getProductKey" parameterType="Long" resultType="String">
+    	select function_name as function
+		from (select A.product_id, A.function_id, B.function_name
+		from product_function A join function B on A.function_id = B.function_id
+		where product_id = #{productId})
+    </select>
+    <!-- 상품 조회  -->
+    <select id="getTargetProductInfo" parameterType="Long" resultType="com.meta.metaway.product.model.Product">
+    	select product_id as productId,
+    	 	   form_id as formId,
+    	 	   product_model as productModel,
+    	 	   product_name as productName,
+    	 	   product_date as productDate
+    	from product
+    	where product_id = #{productId}
+    </select>
+    
+    <!-- 형태 조회  -->
+     <select id="getTargetProductForm" parameterType="Integer" resultType="String">
+    	select form_name as formName
+    	from form
+    	where form_id = #{productId}
+    </select>
+    
+    <!-- 상품 파일 조회  -->
+    <select id="getTargetProductFile" parameterType="Long" resultType="com.meta.metaway.product.model.UploadFile">
+    	select file_id as fileId,
+    	product_id as productId, 
+    	uuid_name as uuidFileName,
+    	file_pass as filePath,
+    	file_name as fileOriginalName,
+    	file_size as fileSize
+    	from product_file
+    	where product_id = #{productId}
+    </select>
+    <!-- 상품 약정 조회  -->
+    <select id="getProductContractList" parameterType="Long" resultType="com.meta.metaway.product.model.Contract">
+    	select 
+    	contract_id as contractId,
+    	product_id as productId,
+    	contract_year as contractYear,
+    	contract_price as contractPrice
+    	from contract
+    	where product_id = #{productId}
+    </select>
+    
+    
+    
+    
+    <!-- 최대 번호 가져오기  -->
     <select id="getNextMaxProductId" resultType="Integer">
     	SELECT max(product_id) +1 from product
     </select>
@@ -27,6 +83,8 @@
     <select id="getNextMaxContractId" resultType="Integer">
     	SELECT max(contract_id) +1 from contract
     </select>
+    
+    <!-- 상품 제거  -->
     <delete id="productDelete" parameterType="String">
     	DELETE FROM product WHERE id = #{productId}
     </delete>
