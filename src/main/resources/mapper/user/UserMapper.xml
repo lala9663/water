@@ -55,7 +55,7 @@
 	</insert>    
 
 	<!-- 회원 수정 -->
-	<update id="updateUserInfo" parameterType="com.meta.metaway.user.model.User">
+	<update id="updateUser" parameterType="com.meta.metaway.user.model.User">
     UPDATE users
     SET 
         user_password = #{password},
@@ -64,8 +64,14 @@
         user_phone = #{phone},
         user_age = #{age},
         user_address = #{address}
-    WHERE user_id = #{id}
+    WHERE user_account = #{account}
 	</update>
+	
+	<!-- 회원 삭제 -->
+<!--     <delete id="deleteUserByAccount" parameterType="String">
+        DELETE FROM users WHERE user_account = #{account}
+    </delete> -->
+
 	
 	
 </mapper>

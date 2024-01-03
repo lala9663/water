@@ -72,13 +72,36 @@ public class UserService implements IUserService {
     @Override
     @Transactional
     public User getUserByUsername(String username) {
+    	System.out.println("서비스 단에서 유저네임" + username);
         return userRepository.findByInfo(username);
     }
 
+    @Override
+    @Transactional
+    public User updateUser(User user) {
+        User existingUser = userRepository.findByInfo(user.getAccount());
+        
+        if (existingUser != null && existingUser.getAccount().equals(user.getAccount())) {
+            existingUser.setName(user.getName());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setPhone(user.getPhone());
+            existingUser.setAge(user.getAge());
+            existingUser.setAddress(user.getAddress());
 
+            userRepository.updateUser(existingUser);
+            return existingUser;
+        } else {
+            // 사용자 정보가 올바르지 않은 경우 처리
+            return null;
+        }
+    }
+    
 //    @Override
 //    @Transactional
-//    public void updateUser(User updatedUser) {
-//        userRepository.updateUserInfo(updatedUser);
+//    public void deleteUserByAccount(String account) {
+//        userRepository.deleteUserByAccount(account);
 //    }
+
+
+
 }

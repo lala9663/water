@@ -10,5 +10,7 @@ public interface IUserService {
     void joinProcess(JoinDTO joinDTO);
     
     User getUserByUsername(String username);
-//    void updateUser(User updatedUser);
+    User updateUser(User user);
+//    void deleteUserByAccount(String account);
+
 }

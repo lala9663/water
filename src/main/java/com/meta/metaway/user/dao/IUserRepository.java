@@ -17,6 +17,7 @@ public interface IUserRepository {
 	long selectUserMaxNo();
 	
     User findByInfo(String account);
-//    void updateUserInfo(User updatedUser);
+    User updateUser(User user);
 
+//    void deleteUserByAccount(String account);
 }
