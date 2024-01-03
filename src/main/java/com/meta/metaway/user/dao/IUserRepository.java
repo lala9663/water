@@ -7,7 +7,7 @@ import com.meta.metaway.user.model.User;
 
 @Repository
 @Mapper
-public interface UserRepository {
+public interface IUserRepository {
     Boolean existsByAccount(String account);
 
     User findByAccount(String account);
@@ -15,5 +15,8 @@ public interface UserRepository {
     void insertUser(User user);    
     void insertUserRole(User user);
 	long selectUserMaxNo();
+	
+    User findByInfo(String account);
+//    void updateUserInfo(User updatedUser);
 
 }
