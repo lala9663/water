@@ -96,11 +96,11 @@ public class UserService implements IUserService {
         }
     }
     
-//    @Override
-//    @Transactional
-//    public void deleteUserByAccount(String account) {
-//        userRepository.deleteUserByAccount(account);
-//    }
+    @Override
+    @Transactional
+    public void deleteUserByAccount(String account) {
+        userRepository.deleteUserByAccount(account);
+    }
 
 
 

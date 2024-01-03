@@ -11,6 +11,6 @@ public interface IUserService {
     
     User getUserByUsername(String username);
     User updateUser(User user);
-//    void deleteUserByAccount(String account);
+    void deleteUserByAccount(String account);
 
 }

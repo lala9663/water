@@ -68,9 +68,9 @@
 	</update>
 	
 	<!-- 회원 삭제 -->
-<!--     <delete id="deleteUserByAccount" parameterType="String">
+    <delete id="deleteUserByAccount" parameterType="String">
         DELETE FROM users WHERE user_account = #{account}
-    </delete> -->
+    </delete>
 
 	
 	

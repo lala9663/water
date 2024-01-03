@@ -67,18 +67,18 @@ public class UserController {
         }
     }
     
-//    @DeleteMapping("/delete")
-//    public ResponseEntity<String> deleteUser(@RequestHeader("Authorization") String token) {
-//        String username = jwtUtil.getUsername(token);
-//        
-//        User existingUser = userService.getUserByUsername(username);
-//        if (existingUser != null) {
-//            userService.deleteUserByAccount(username);
-//            return ResponseEntity.ok("사용자 삭제 성공");
-//        } else {
-//            return ResponseEntity.badRequest().body("삭제 실패");
-//        }
-//    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteUser(@RequestHeader("Authorization") String token) {
+        String username = jwtUtil.getUsername(token);
+        
+        User existingUser = userService.getUserByUsername(username);
+        if (existingUser != null) {
+            userService.deleteUserByAccount(username);
+            return ResponseEntity.ok("사용자 삭제 성공");
+        } else {
+            return ResponseEntity.badRequest().body("삭제 실패");
+        }
+    }
 
 
 }
