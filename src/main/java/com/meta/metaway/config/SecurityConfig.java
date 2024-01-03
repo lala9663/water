@@ -37,7 +37,7 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    @Bean
+    @Bean	
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
 
         return new BCryptPasswordEncoder();
@@ -75,7 +75,14 @@ public class SecurityConfig {
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
+        // 로그아웃
+        http
+        .logout(logout ->logout
+            .logoutUrl("/user/logout")
+            .logoutSuccessUrl("/login")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID"));
+        
         return http.build();
     }
 }
