@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.meta.metaway.user.dto.JoinDTO;
-import com.meta.metaway.user.service.UserService;
+import com.meta.metaway.user.service.IUserService;
 
 @RestController
 public class AuthController {
 
 	@Autowired
-	UserService userService;
+	IUserService userService;
 
 
     @PostMapping("/join")
