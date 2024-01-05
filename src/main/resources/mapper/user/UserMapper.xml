@@ -15,8 +15,12 @@
     	SELECT user_id FROM users WHERE user_id = #{userId}
 	</select>
     
-    
-     <select id="findByAccount" resultType="com.meta.metaway.user.model.User">
+ 	<!-- account로 user_id 얻기 -->
+	<select id="getUserIdByAccount" parameterType="String" resultType="Long">
+	    SELECT user_id FROM users WHERE user_account = #{account}
+	</select>
+	   
+    <select id="findByAccount" resultType="com.meta.metaway.user.model.User">
 		SELECT u.user_account as account, u.user_password as password, a.authority_name as authorities 
 		FROM users u 
 		LEFT JOIN user_authority ua ON u.user_id = ua.user_id 
@@ -32,13 +36,6 @@
 		LEFT JOIN authority a ON ua.authority_name = a.authority_name 
 		WHERE u.user_account = #{account}
     </select>
-    
-    <select id="selectUserMaxNo" resultType="long">
-	<![CDATA[
-		SELECT NVL(MAX(user_id),0) AS "userId"
-		FROM users
-	]]>
-	</select>	
 
     <insert id="insertUser" parameterType="com.meta.metaway.user.model.User">
         INSERT INTO 
@@ -56,15 +53,15 @@
 
 	<!-- 회원 수정 -->
 	<update id="updateUser" parameterType="com.meta.metaway.user.model.User">
-    UPDATE users
-    SET 
-        user_password = #{password},
-        user_email = #{email},
-        user_name = #{name},
-        user_phone = #{phone},
-        user_age = #{age},
-        user_address = #{address}
-    WHERE user_account = #{account}
+	    UPDATE users
+	    SET 
+	        user_password = #{password},
+	        user_email = #{email},
+	        user_name = #{name},
+	        user_phone = #{phone},
+	        user_age = #{age},
+	        user_address = #{address}
+	    WHERE user_account = #{account}
 	</update>
 	
 	<!-- 회원 삭제 -->
@@ -76,7 +73,12 @@
     <select id="getPasswordByAccount" resultType="String" parameterType="String">
         SELECT user_password FROM users WHERE user_account = #{account}
     </select>   
-
-	
+    
+    <select id="selectUserMaxNo" resultType="long">
+	<![CDATA[
+		SELECT NVL(MAX(user_id),0) AS "userId"
+		FROM users
+	]]>
+	</select>		
 	
 </mapper>
