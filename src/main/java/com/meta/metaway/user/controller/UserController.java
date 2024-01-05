@@ -42,32 +42,44 @@ public class UserController {
         }
     }
 
-    // 정보 수정
-    @PutMapping("/update")
-    public ResponseEntity<String> updateUser(@RequestHeader("Authorization") String token, @RequestBody User updatedUser) {
-
-    	String username = jwtUtil.getUsername(token);
-    	
-    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    	String newPassword = encoder.encode(updatedUser.getPassword());
-        
-        User existingUser = userService.getUserByUsername(username);
-        if (existingUser != null) {
-        	existingUser.setPassword(newPassword);
-            existingUser.setName(updatedUser.getName());
-            existingUser.setEmail(updatedUser.getEmail());
-            existingUser.setPhone(updatedUser.getPhone());
-            existingUser.setAge(updatedUser.getAge());
-            existingUser.setAddress(updatedUser.getAddress());
-
-            userService.updateUser(existingUser);
-            
-            return ResponseEntity.ok("변경 성공");
-        } else {
-            return ResponseEntity.badRequest().body("변경 실패");
-        }
-    }
+//    // 정보 수정
+//    @PutMapping("/update")
+//    public ResponseEntity<String> updateUser(@RequestHeader("Authorization") String token, @RequestBody User updatedUser) {
+//
+//    	String username = jwtUtil.getUsername(token);
+//    	
+//    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        
+//        User existingUser = userService.getUserByUsername(username);
+//        
+//    	String newPassword = encoder.encode(updatedUser.getPassword());
+//        if (existingUser != null) {
+//        	existingUser.setPassword(newPassword);
+//            existingUser.setName(updatedUser.getName());
+//            existingUser.setEmail(updatedUser.getEmail());
+//            existingUser.setPhone(updatedUser.getPhone());
+//            existingUser.setAge(updatedUser.getAge());
+//            existingUser.setAddress(updatedUser.getAddress());
+//
+//            userService.updateUser(existingUser);
+//            
+//            return ResponseEntity.ok("변경 성공");
+//        } else {
+//            return ResponseEntity.badRequest().body("변경 실패");
+//        }
+//    }
+    
+	  @PutMapping("/update")
+	  public ResponseEntity<String> updateUser(@RequestHeader("Authorization") String token, @RequestBody User updatedUser) {
+	
+	  	String username = jwtUtil.getUsername(token);
+	  	if(!username.isEmpty()) {
+	  		userService.updateUser(updatedUser);
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재합니다");
+	  	} else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재합니다");
+	  	}
+	  }    
     
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUser(@RequestHeader("Authorization") String token) {
@@ -99,7 +111,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user/logout")
+    @PostMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
 
     	
