@@ -96,25 +96,37 @@ public class UserService implements IUserService {
 //    }
 
     @Override
-    @Transactional
-    public User updateUser(User user) {
-        User existingUser = userRepository.findByInfo(user.getAccount());
+    public User updateUser(String account, User user) {
+        Long id = userRepository.getUserIdByAccount(account);
+        
+        if (id != null) {
+            User existingUser = userRepository.findByInfo(account);
+            if (existingUser != null) {
+                String newPassword = user.getPassword(); 
+                if (newPassword != null && !newPassword.isEmpty()) {
+                    String encryptedPassword = bCryptPasswordEncoder.encode(newPassword); 
+                    existingUser.setPassword(encryptedPassword); 
+                }
 
-        if (existingUser != null) {
-        	existingUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            existingUser.setName(user.getName());
-            existingUser.setEmail(user.getEmail());
-            existingUser.setPhone(user.getPhone());
-            existingUser.setAge(user.getAge());
-            existingUser.setAddress(user.getAddress());
+                existingUser.setName(user.getName());
+                existingUser.setEmail(user.getEmail());
+                existingUser.setPhone(user.getPhone());
+                existingUser.setAge(user.getAge());
+                existingUser.setAddress(user.getAddress());
 
-            userRepository.updateUser(existingUser);
+                userRepository.updateUser(existingUser); 
 
-            return existingUser;
+                return existingUser;
+            } else {
+                throw new IllegalArgumentException("해당 사용자를 찾을 수 없습니다.");
+            }
         } else {
-            return null; 
+            throw new IllegalArgumentException("해당 사용자를 찾을 수 없습니다.");
         }
     }
+
+
+
 
     
     @Override

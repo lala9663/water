@@ -11,15 +11,21 @@ public interface IUserRepository {
     Boolean existsByAccount(String account);
 
     User findByAccount(String account);
+
+    Long getUserIdByAccount(String account);
     
-    void insertUser(User user);    
+    void insertUser(User user);  
+    
     void insertUserRole(User user);
-	long selectUserMaxNo();
-	
+		
     User findByInfo(String account);
-    User updateUser(User user);
+    
+    void updateUser(User user);
 
     void deleteUserByAccount(String username);
+    
     String getPasswordByAccount(String account);
+
+    long selectUserMaxNo();
 
 }

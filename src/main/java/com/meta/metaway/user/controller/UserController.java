@@ -69,17 +69,26 @@ public class UserController {
 //        }
 //    }
     
-	  @PutMapping("/update")
-	  public ResponseEntity<String> updateUser(@RequestHeader("Authorization") String token, @RequestBody User updatedUser) {
-	
-	  	String username = jwtUtil.getUsername(token);
-	  	if(!username.isEmpty()) {
-	  		userService.updateUser(updatedUser);
-	        return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재합니다");
-	  	} else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재합니다");
-	  	}
-	  }    
+    @PutMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestHeader("Authorization") String token, @RequestBody User user) {
+        String username = jwtUtil.getUsername(token);
+
+        if (!username.isEmpty()) {
+            try {
+                User updated = userService.updateUser(username, user);
+                if (updated != null) {
+                    return ResponseEntity.ok("사용자 정보가 업데이트되었습니다.");
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 사용자를 찾을 수 없습니다.");
+                }
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증되지 않은 사용자입니다.");
+        }
+    }
+  
     
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUser(@RequestHeader("Authorization") String token) {
