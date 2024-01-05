@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.metaway.user.dao.IStaffRepository">
+	
+	<select id="getIdByAccount" parameterType="String" resultType="Long">
+	    SELECT user_id as id FROM users WHERE user_account = #{account}
+	</select>
+	
+	<!-- 사용자가 코디 또는 드라이버인지 확인-->
+	<select id="checkIfUserIsCodiOrDriver" parameterType="Long">
+	    SELECT authority_name
+	    FROM user_authority
+	    WHERE user_id = #{id}
+	    AND (authority_name = 'ROLE_CODI' OR authority_name = 'ROLE_DRIVER')
+	</select>
+
+	<!-- account로 user_id 얻기 -->
+	<select id="getUserIdByAccount" parameterType="String" resultType="Long">
+	    SELECT user_id FROM users WHERE user_account = #{account}
+	</select>
+	
+	<select id="getUserAuthority" parameterType="Long" resultType="String">
+        SELECT authority_name FROM user_authority WHERE user_id = #{id}
+    </select>
+	
+	<!-- 근무지 생성 -->
+	<insert id="createWorkPlace" parameterType="com.meta.metaway.user.model.Staff">
+	    INSERT INTO staff (staff_id, user_id, work_place)
+	    VALUES (#{staffId}, #{userId}, #{workPlace})
+	</insert>	
+	
+	
+	<!-- 근무지 정보를 업데이트-->
+	<update id="updateWorkPlace" parameterType="map">
+	    UPDATE staff
+	    SET work_place = #{workPlace}
+	    WHERE user_id = #{id}
+	</update>
+	
+	
+	<select id="selectStaffMaxNo" resultType="long">
+	<![CDATA[
+		SELECT NVL(MAX(staff_id),0) AS "staffId"
+		FROM staff
+	]]>
+	</select>	
+
+	   
+</mapper>

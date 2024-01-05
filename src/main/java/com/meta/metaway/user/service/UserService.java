@@ -76,12 +76,32 @@ public class UserService implements IUserService {
         return userRepository.findByInfo(username);
     }
 
+//    @Override
+//    @Transactional
+//    public User updateUser(User user) {
+//        User existingUser = userRepository.findByInfo(user.getAccount());
+//        
+//        if (existingUser != null && existingUser.getAccount().equals(user.getAccount())) {
+//            existingUser.setName(user.getName());
+//            existingUser.setEmail(user.getEmail());
+//            existingUser.setPhone(user.getPhone());
+//            existingUser.setAge(user.getAge());
+//            existingUser.setAddress(user.getAddress());
+//
+//            userRepository.updateUser(existingUser);
+//            return existingUser;
+//        } else {
+//            return null;
+//        }
+//    }
+
     @Override
     @Transactional
     public User updateUser(User user) {
         User existingUser = userRepository.findByInfo(user.getAccount());
-        
-        if (existingUser != null && existingUser.getAccount().equals(user.getAccount())) {
+
+        if (existingUser != null) {
+        	existingUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
             existingUser.setPhone(user.getPhone());
@@ -89,12 +109,13 @@ public class UserService implements IUserService {
             existingUser.setAddress(user.getAddress());
 
             userRepository.updateUser(existingUser);
+
             return existingUser;
         } else {
-            // 사용자 정보가 올바르지 않은 경우 처리
-            return null;
+            return null; 
         }
     }
+
     
     @Override
     public boolean checkPasswordByAccount(String account, String password) {
