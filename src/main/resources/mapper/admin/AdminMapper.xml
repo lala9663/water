@@ -50,6 +50,12 @@
 			select count(order_id) from orders where order_state = 0
 		]]>
 	</select>
+	
+	<select id="selectCompleteOrdersCount" resultType="int">
+		<![CDATA[
+			select count(order_id) from orders where order_state = 1
+		]]>
+	</select>
 		
 	<select id="searchOrderListByKeyword" parameterType="hashmap" resultType="com.meta.metaway.admin.dto.OrderDTO" >
 		<![CDATA[
@@ -91,8 +97,12 @@
 		]]>
 	</select>
 	
-	<!-- <delete id="">
-		
-	</delete> -->
+	<!--  주문 취소 -->
+	<update id="updateCancleOrder" parameterType="long">
+	    update orders
+	    SET order_state = 2
+	    WHERE order_id = #{order_id}
+	</update>
+
 	
 </mapper>

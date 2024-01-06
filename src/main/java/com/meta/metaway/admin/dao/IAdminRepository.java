@@ -14,8 +14,11 @@ public interface IAdminRepository {
 	List<OrderDTO> findAllOrderList(@Param("start") Integer start, @Param("end") Integer end);
 	int selectTotalOrdersCount();
 	int selectWaitingOrdersCount();
+	int selectCompleteOrdersCount();
+	
 	List<OrderDTO> searchOrderListByKeyword(@Param("keyword")  String keyword, 
 											@Param("orderState") Integer orderState, 
 											@Param("orderDate") String orderDate,
 											@Param("start") int start, @Param("end") int end);
+	void updateCancleOrder(long orderId);
 	}

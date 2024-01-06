@@ -8,5 +8,7 @@ public interface IAdminService {
 	List<OrderDTO> getArticleListByPaging(int page);
 	int selectTotalOrdersCount();
 	int selectWaitingOrdersCount();
+	int selectCompleteOrdersCount();
 	List<OrderDTO> searchOrderListByKeyword(String keyword, Integer orderState, String orderDate, int page);
+	void updateCancleOrder(long orderId);
 }
