@@ -26,14 +26,12 @@ public interface IProductRepository {
 	
 //	상품 기능 조회
 	List<String> getProductKey(long productId);
+//	상품 전체 조회
+	List<Product> getAllProductInfo();
 //	상품 정보 조회
 	Product getTargetProductInfo(long productId);
-//	상품 파일 조회
-	UploadFile getTargetProductFile(long productId);
 //	상품 약정 조회
 	List<Contract> getProductContractList(long productId);
-//	상품 형태 조회
-	String getTargetProductForm(int formId);
 
 //	시퀀스대용
 	int getNextMaxProductId();

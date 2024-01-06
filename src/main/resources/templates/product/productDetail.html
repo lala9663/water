@@ -4,16 +4,100 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/header.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" th:href="@{/css/productDetail.css}">
 	<title>Document</title>
 </head>
+
 <body>
-	<div th:text="${product.productModel}">
-		
+	<header th:replace="/include/header.html"></header>
+	<div id="productBox">
+		<div id="productImageBox">
+			<img th:src="'data:' + ${product.imageType} + ';base64,' + ${product.imageFile}" alt="productImage"
+				id="productImage">
+		</div>
+		<div id="productDetailBox">
+			<div id="productNameBox">
+				<div th:text="${product.productName}" id="productName"></div>
+				<div th:text="${product.productModel}" id="productModel"></div>
+				<hr>
+				<div id="productFunctionBox">
+					<h3>기능</h3>
+					<span th:each="func : ${product.functionList}" th:text="${func}"
+						class="functions btn btn-dark"></span>
+				</div>
+			</div>
+			<div id="productBuyBox">
+				<div id="buyType">
+					<div class="buyType btn btn-light btn-lg">렌탈</div>
+					<div class="buyType btn btn-light btn-lg">구매</div>
+				</div>
+				<hr>
+				<div id="contractBox">
+					<div>약정</div>
+					<div id="contractAll">
+						<div th:if="${cont.contractYear != 0}" th:each="cont, contstat : ${product.contract}"
+							th:data-price="${cont.contractPrice}" th:text="${cont.contractYear} + '년 약정'"
+							class="rental btn btn-secondary btn-sm"></div>
+					</div>
+					<div id="rentalBox">
+						<div>월 렌탈료 : <span id="rentalPrice"></span></div>
+					</div>
+				</div>
+				<div id="buttonBox">
+					<button class="btn btn-primary btn-lg">장바구니</button>
+					<button class="btn btn-primary btn-lg">구매하기</button>
+				</div>
+			</div>
+			<!-- Button trigger modal -->
+			<button type="button" class="redButton btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+				삭제하기
+			</button>
+
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">상품 삭제</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							해당 상품의 정보가 모두 삭제됩니다. 정말로 삭제하시겠습니까?
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+							<a type="button" class="btn btn-danger" th:href="'delete/' + ${product.productId}">삭제</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-    <div>
-        <img th:src="'data:image/jpeg;base64,' + ${productImage}"  alt="productImage">
-    </div>
 </body>
+<footer th:replace="/include/footer.html"></footer>
+<script>
+	window.addEventListener('DOMContentLoaded', (event) => {
+		document.querySelectorAll('.rental').forEach(item => {
+			item.addEventListener('click', function () {
+				var contractPrice = this.getAttribute('data-price');
+				document.getElementById('rentalPrice').textContent = contractPrice + '원';
+			});
+		});
+	});
+
+	$('#myModal').on('shown.bs.modal', function () {
+		$('#myInput').trigger('focus')
+	})
+
+	$('#myModal').modal({
+		keyboard: false
+	})
+</script>
+
 </html>

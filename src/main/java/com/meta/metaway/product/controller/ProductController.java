@@ -1,7 +1,4 @@
 package com.meta.metaway.product.controller;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.meta.metaway.product.model.Product;
-import com.meta.metaway.product.model.Function;
-import com.meta.metaway.product.dao.IProductRepository;
-import com.meta.metaway.product.model.Contract;
 import com.meta.metaway.product.service.IProductService;
 
 @Controller
@@ -31,21 +25,26 @@ public class ProductController {
 	String productInsertForm() {
 		return "product/upload";
 	}
+	@GetMapping("/product")
+	String GetProductAll(Model model) {
+		model.addAttribute("productList", productService.getAllProductInfo());
+		return "product/product";
+	}
 	
 	@GetMapping("/product/{productId}")
 	String productDetail(@PathVariable long productId, Model model) {
 		Product product = productService.getTargetProductInfo(productId);
+		product.setFunctionList(productService.getProductKey(productId));
+		product.setContract(productService.getProductContractList(productId));
 		model.addAttribute("product", product);
-		model.addAttribute("form",productService.getTargetProductForm(product.getFormId()));
-		model.addAttribute("contract", productService.getProductContractList(productId));
-		model.addAttribute("function", productService.getProductKey(productId));
-		try {
-			model.addAttribute("productImage", productService.getTargetProductFile(productId));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return "product/productDetail";
+	}
+	@GetMapping("product/update/{productId}")
+	String productUpdate(@PathVariable long productId, Model model){
+		Product product = productService.getTargetProductInfo(productId);
+		product.setFunctionList(productService.getProductKey(productId));
+		product.setContract(productService.getProductContractList(productId));
+		return "product/productUpdate";
 	}
 	
 	@PostMapping("/product/insert")
@@ -53,9 +52,9 @@ public class ProductController {
 		productService.productFileInsert(product, fileList); 
 		return "product/upload";
 	}
-	@DeleteMapping("product/delete/{productId}")
+	@GetMapping("product/delete/{productId}")
 	String productDelete(@PathVariable long productId) {
 		productService.productDelete(productId);
-		return "product/upload";
+		return "redirect:/product";
 	}
 }
