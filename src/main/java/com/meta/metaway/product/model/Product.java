@@ -12,7 +12,12 @@ public class Product {
 	private String productModel;
 	private String productName;
 	private Date productDate;
-	
-	private List<Contract> contract;
 	private List<Short> function;
+	
+//	표시할때 추가로 더 필요한 것들
+	private String imageType;
+	private String imageFile;
+	private String formName;
+	private List<String> functionList;
+	private List<Contract> contract;
 }

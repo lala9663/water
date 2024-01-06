@@ -10,4 +10,5 @@ import lombok.Data;
 		private String fileOriginalName;
 		private String filePath;
 		private long fileSize;
+		private String fileType;
 	}

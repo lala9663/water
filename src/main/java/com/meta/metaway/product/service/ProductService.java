@@ -13,13 +13,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,32 +60,26 @@ public class ProductService implements IProductService {
 
 	@Override
 	public Product getTargetProductInfo(long productId) {
-		return productRepository.getTargetProductInfo(productId);
+		Product product = productRepository.getTargetProductInfo(productId);
+		product.setImageFile(productImageString(product.getImageFile()));
+		product.setFunctionList(productRepository.getProductKey(product.getProductId()));
+		return product;
 	}
-
+	
 	@Override
-	public String getTargetProductFile(long productId) throws FileNotFoundException {
-		UploadFile uploadfile = productRepository.getTargetProductFile(productId);
-		try {
-			InputStream input = new FileInputStream(uploadfile.getFilePath());
-		
-		byte[] byteFile = input.readAllBytes();
-		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
-		return encodedByte;
-		} catch (Exception e) {
-			System.out.println(e);
-			return null;
+	public List<Product> getAllProductInfo() {
+		List<Product> AllProduct = productRepository.getAllProductInfo();
+		for(Product product : AllProduct) {
+			product.setImageFile(productImageString(product.getImageFile()));
+			product.setFunctionList(productRepository.getProductKey(product.getProductId()));
+			product.setContract(productRepository.getProductContractList(product.getProductId()));
 		}
+		return AllProduct;
 	}
 
 	@Override
 	public List<Contract> getProductContractList(long productId) {
 		return productRepository.getProductContractList(productId);
-	}
-
-	@Override
-	public String getTargetProductForm(int formId) {
-		return productRepository.getTargetProductForm(formId);
 	}
 	
 	
@@ -108,6 +95,7 @@ public class ProductService implements IProductService {
 			uploadFile.setUuidFileName(UUID.randomUUID().toString() + "_" + file.getOriginalFilename());
 			uploadFile.setFilePath("C://upload/" + uploadFile.getUuidFileName());
 			uploadFile.setFileSize(file.getSize());
+			uploadFile.setFileType(file.getContentType());
 			try {
 				file.transferTo(new File(uploadFile.getFilePath()));
 				productRepository.productFileInsert(uploadFile);
@@ -135,4 +123,17 @@ public class ProductService implements IProductService {
 			productRepository.productFunctionInsert(function);
 		}
 	}
+	private String productImageString(String filePath) {
+		try {
+			InputStream input = new FileInputStream(filePath);
+		
+		byte[] byteFile = input.readAllBytes();
+		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
+		return encodedByte;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+
 }
