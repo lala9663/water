@@ -47,6 +47,27 @@ public class ProductService implements IProductService {
 		}
 		return "상품 등록 성공";
 	}
+	
+	@Transactional
+	@Override
+	public String UpdateproductFile(Product product, List<MultipartFile> fileList) {
+		List<Contract> contractList = product.getContract();
+		productRepository.UpdateProductInfo(product);
+		
+		if(!product.getFunction().isEmpty()) {
+			productRepository.DeleteProductFunction(product.getProductId());
+			productFuntionInsert(product);
+		}
+		if(!contractList.isEmpty()) {
+			productRepository.DeleteProductContract(product.getProductId());
+			productContractInsert(product, contractList);
+		}
+		if (!fileList.get(0).getOriginalFilename().equals("") || !fileList.get(0).getOriginalFilename().equals(null)) {
+			productRepository.DeleteProductFile(product.getProductId());
+			productFileUpload(product, fileList);
+		}
+		return "상품 업데이트 성공";
+	}
 
 	@Override
 	public void productDelete(long productId) {
@@ -105,6 +126,9 @@ public class ProductService implements IProductService {
 			fileIndex++;
 		}
 	}
+	
+	
+	
 	private void productContractInsert(Product product, List<Contract> contractList) {
 		int contractIndex = productRepository.getNextMaxContractId();
 		for(Contract contract : contractList) {
@@ -114,6 +138,8 @@ public class ProductService implements IProductService {
 			contractIndex++;
 		}
 	}
+	
+	
 	
 	private void productFuntionInsert(Product product) {
 		Function function = new Function();

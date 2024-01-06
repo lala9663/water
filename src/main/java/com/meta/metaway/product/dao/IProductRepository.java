@@ -32,6 +32,17 @@ public interface IProductRepository {
 	Product getTargetProductInfo(long productId);
 //	상품 약정 조회
 	List<Contract> getProductContractList(long productId);
+	
+//  기능 제거
+	void DeleteProductFunction(long productId);
+//	파일 제거
+	void DeleteProductFile(long productId);
+//  약정 제거
+	void DeleteProductContract(long productId); 
+	
+
+//	상품 변경
+	void UpdateProductInfo(Product product); 
 
 //	시퀀스대용
 	int getNextMaxProductId();

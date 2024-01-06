@@ -74,7 +74,17 @@
     	order by contractYear asc
     </select>
     
-    
+    <!-- 상품 변경  -->
+    <update id="UpdateProductInfo" parameterType="com.meta.metaway.product.model.Product">
+   		UPDATE product 
+		SET 
+		form_id = #{formId}, 
+    	product_model = #{productModel}, 
+    	product_name = #{productName}, 
+   		product_date = #{productDate}
+		WHERE product_id = #{productId}
+    </update>
+   
     
     
     <!-- 최대 번호 가져오기  -->
@@ -91,5 +101,23 @@
     <!-- 상품 제거  -->
     <delete id="productDelete" parameterType="Long">
     	DELETE FROM product WHERE product_id = #{productId}
+    </delete>
+    
+     <!-- 기능 제거  -->
+    <delete id="DeleteProductFunction" parameterType="Long">
+		delete from product_function
+		where product_id = #{productId}
+    </delete>
+    
+    <!-- 파일 제거 -->
+    <delete id="DeleteProductFile" parameterType="Long">
+		delete from product_file
+		where product_id = #{productId}
+    </delete>
+    
+    <!-- 약정 제거  -->
+    <delete id="DeleteProductContract" parameterType="Long">
+		delete from contract
+		where product_id = #{productId}
     </delete>
 </mapper>
