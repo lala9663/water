@@ -13,6 +13,8 @@ public interface IProductService {
 	String productFileInsert(Product product, List<MultipartFile> fileList);
 //	상품 삭제
 	void productDelete(long productId);
+//  상품 정보 변경
+	String UpdateproductFile(Product product, List<MultipartFile> fileList);
 //	상품 기능 조회
 	List<String> getProductKey(long productId);
 //	상품 전체 조회
@@ -21,5 +23,4 @@ public interface IProductService {
 	Product getTargetProductInfo(long productId);
 //	상품 약정 조회
 	List<Contract> getProductContractList(long productId);
-
 }

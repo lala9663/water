@@ -1,0 +1,46 @@
+#bodyrap{
+	margin-top: 150px;
+    width: 100%;
+    height: 1000px;
+}
+
+#insertForm{
+	margin: 0 auto;
+	width: 30%;
+	height: 100%;
+}
+.functionInline{display: inline-block;}
+#formBox{
+	margin: 20px 0 20px 0;
+}
+
+.functionBox{
+	margin: 10px 0 10px 0;
+}
+.functionBox > input {
+	margin-left: 10px;
+}
+
+.functionBox > input:first-of-type {
+	margin-left: 0;
+}
+#dateBox{
+	margin: 20px 0 20px 0;
+}
+#formBox > label{
+	margin-left: 20px;
+}
+#formBox > label:first-of-type{
+	margin-left: 0;
+}
+
+#imageBox{
+	margin: 15px 0 15px 0;
+}
+.form-control{
+	padding-right: 300px;
+}
+#contractForm{
+	margin: 15px 0 15px 0;
+}
+

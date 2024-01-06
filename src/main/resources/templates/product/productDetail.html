@@ -32,31 +32,58 @@
 				</div>
 			</div>
 			<div id="productBuyBox">
-				<div id="buyType">
-					<div class="buyType btn btn-light btn-lg">렌탈</div>
-					<div class="buyType btn btn-light btn-lg">구매</div>
+				<div class="btn-group btn-group-lg" role="group" aria-label="Basic radio toggle button group">
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+					<label class="btn btn-outline-secondary " for="btnradio1">렌탈</label>
+
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+					<label class="btn btn-outline-secondary" for="btnradio2">구매</label>
 				</div>
 				<hr>
 				<div id="contractBox">
-					<div>약정</div>
-					<div id="contractAll">
-						<div th:if="${cont.contractYear != 0}" th:each="cont, contstat : ${product.contract}"
-							th:data-price="${cont.contractPrice}" th:text="${cont.contractYear} + '년 약정'"
-							class="rental btn btn-secondary btn-sm"></div>
+					<div class="contract rentalDiv">
+						<div>약정</div>
+						<div id="contractAll">
+							<div th:if="${cont.contractYear != 0}" th:each="cont, contstat : ${product.contract}"
+								th:data-price="${cont.contractPrice}" th:text="${cont.contractYear} + '년 약정'"
+								class="rental btn btn-secondary btn-sm"></div>
+						</div>
 					</div>
-					<div id="rentalBox">
+					<div class="contract buyDiv">
+						<div>상품 구매</div>
+						<div id="contractAll">
+							<div th:if="${cont.contractYear == 0}" th:each="cont, contstat : ${product.contract}"
+								th:data-price="${cont.contractPrice}" th:text="'즉시 구매'"
+								class="rental btn btn-secondary btn-sm"></div>
+						</div>
+					</div>
+					<div id="rentalBox" class="rentalDiv">
 						<div>월 렌탈료 : <span id="rentalPrice"></span></div>
+					</div>
+					<div id="rentalBox" class="buyDiv">
+						<div>구매가 : <span id="buyPrice"></span></div>
 					</div>
 				</div>
 				<div id="buttonBox">
-					<button class="btn btn-primary btn-lg">장바구니</button>
-					<button class="btn btn-primary btn-lg">구매하기</button>
+					<div class="rentalDiv">
+						<button class="btn btn-primary btn-lg">장바구니</button>
+						<button class="btn btn-primary btn-lg">렌탈하기</button>
+					</div>
+					<div class="buyDiv">
+						<button class="btn btn-primary btn-lg">장바구니</button>
+						<button class="btn btn-primary btn-lg">구매하기</buttona>
+					</div>
 				</div>
 			</div>
 			<!-- Button trigger modal -->
-			<button type="button" class="redButton btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-				삭제하기
-			</button>
+			<div id="admin">
+				<button type="button" class="redButton btn btn-danger" data-bs-toggle="modal"
+					data-bs-target="#staticBackdrop">
+					삭제하기
+				</button>
+				<a type="button" class="btn btn-danger" th:href="'update/' + ${product.productId}">수정하기</a>
+			</div>
+
 
 			<!-- Modal -->
 			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -85,8 +112,15 @@
 	window.addEventListener('DOMContentLoaded', (event) => {
 		document.querySelectorAll('.rental').forEach(item => {
 			item.addEventListener('click', function () {
+				if(buttonValue == 0) {
 				var contractPrice = this.getAttribute('data-price');
 				document.getElementById('rentalPrice').textContent = contractPrice + '원';
+				}
+				else {
+					var contractPrice = this.getAttribute('data-price');
+					document.getElementById('buyPrice').textContent = contractPrice + '원';
+				}
+				
 			});
 		});
 	});
@@ -98,6 +132,41 @@
 	$('#myModal').modal({
 		keyboard: false
 	})
+</script>
+<script>
+	var buttonValue = 0;
+	var button1 = document.getElementById('btnradio1');
+	var button2 = document.getElementById('btnradio2');
+	var rentalDiv = document.getElementsByClassName('rentalDiv');
+	var buyDiv = document.getElementsByClassName('buyDiv');
+	button1.onclick = function () {
+		buttonValue = 0;
+		console.log(buttonValue);
+		updateDiv();
+	};
+	button2.onclick = function () {
+		buttonValue = 1;
+		console.log(buttonValue);
+		updateDiv();
+	};
+	function updateDiv() {
+		if (buttonValue == 1) {
+			for (var i = 0; i < rentalDiv.length; i++) {
+				rentalDiv[i].style.display = "none";
+			}
+			for (var j = 0; j < buyDiv.length; j++) {
+				buyDiv[j].style.display = "block";
+			}
+		}
+		if (buttonValue == 0) {
+			for (var j = 0; j < buyDiv.length; j++) {
+				buyDiv[j].style.display = "none";
+			}
+			for (var i = 0; i < rentalDiv.length; i++) {
+				rentalDiv[i].style.display = "block";
+			}
+		}
+	}
 </script>
 
 </html>

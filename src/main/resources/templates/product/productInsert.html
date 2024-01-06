@@ -9,7 +9,7 @@
 	<title>Document</title>
 	<link rel="stylesheet" th:href="@{/css/header.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
-	<link rel="stylesheet" th:href="@{/css/upload.css}">
+	<link rel="stylesheet" th:href="@{/css/productInsert.css}">
 </head>
 
 <body>
@@ -17,12 +17,12 @@
 	<div id="bodyrap">
 	<form id="insertForm" action="/product/insert" enctype="multipart/form-data" method="post">
 		<div id="modelBox">
-			<label for="productModel">상품 모델</label>
-			<input type="text" id="productModel" name="productModel">
+			<label for="productModel" class="form-label">상품 모델명</label>
+			<input type="text" id="productModel" name="productModel" class="form-control">
 		</div>
 		<div id="nameBox">
-			<label for="productName">상품 이름</label>
-			<input type="text" id="productName" name="productName">
+			<label for="productName" class="form-label">상품 이름</label>
+			<input type="text" id="productName" name="productName" class="form-control">
 		</div>
 		<div id="formBox">
 			<label for="formId1">데스크탑</label>
@@ -32,34 +32,25 @@
 			<label for="formId3">스탠드</label>
 			<input class="form-check-input" type="radio" id="formId3" name="formId" value="3">
 		</div>
-		<div id="functionBox">
-		<div class="functionInline">
-			<label for="checkbox1">냉정수기</label>
-			<input type="checkbox" id="checkbox1" name="function" value="1">
-		</div>
-		<div class="functionInline">
-			<label for="checkbox2">온정수기</label>
-			<input type="checkbox" id="checkbox2" name="function" value="2">
-		</div>
-		<div class="functionInline">
-			<label for="checkbox3">냉온정수기</label>
-			<input type="checkbox" id="checkbox3" name="function" value="3">
-		</div>
-		<div class="functionInline">
-			<label for="checkbox4">얼음</label>
-			<input type="checkbox" id="checkbox4" name="function" value="4">
-		</div>
-		<div class="functionInline">
-			<label for="checkbox5">탄산</label>
-			<input type="checkbox" id="checkbox5" name="function" value="5">
-		</div>
+		<div id="functionBox"  class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+			<input type="checkbox" id="btncheck1" name="function" value="1" class="btn-check"  autocomplete="off">
+			<label for="btncheck1" class="btn btn-outline-primary">냉정수기</label>
+			<input type="checkbox" id="checkbox2" name="function" value="2" class="btn-check"  autocomplete="off">
+			<label for="checkbox2" class="btn btn-outline-primary">온정수기</label>
+			<input type="checkbox" id="checkbox3" name="function" value="3" class="btn-check"  autocomplete="off">
+			<label for="checkbox3" class="btn btn-outline-primary">냉온정수기</label>
+			<input type="checkbox" id="checkbox4" name="function" value="4" class="btn-check"  autocomplete="off">
+			<label for="checkbox4" class="btn btn-outline-primary">얼음</label>
+			<input type="checkbox" id="btncheck3" name="function" value="5" class="btn-check"  autocomplete="off">
+			<label for="btncheck3" class="btn btn-outline-primary">탄산</label>
 		</div>
 		<div id="dateBox">
-			<label for="productDate">제품출시일</label>
+			<div>제품출시일</div>
 			<input type="date" id="productDate" name="productDate">
 		</div>
-		<div id="imageBox">
-			<input type="file" id="productFile" name="productFile">
+		<div id="imageBox"
+			<label for="productFile" class="form-label">이미지 파일 선택</label>
+			<input type="file" id="productFile" class="form-control" name="productFile">
 		</div>
 			<div id="contractForm">
 				
@@ -75,6 +66,7 @@
     var button = document.getElementById('addButton');
 	button.addEventListener("click", function (event) {
 		event.preventDefault();
+		if(itemIndex < 3)
         addItem();
 	})
 
