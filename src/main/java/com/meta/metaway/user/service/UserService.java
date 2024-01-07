@@ -1,20 +1,27 @@
 package com.meta.metaway.user.service;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meta.metaway.user.dao.IBasketRepository;
 import com.meta.metaway.user.dao.IUserRepository;
 import com.meta.metaway.user.dto.JoinDTO;
+import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
 
 @Service
 public class UserService implements IUserService {
 
     private final IUserRepository userRepository;
+    private final IBasketRepository basketRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(IUserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(IUserRepository userRepository, IBasketRepository basketRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.basketRepository = basketRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -76,25 +83,6 @@ public class UserService implements IUserService {
         return userRepository.findByInfo(username);
     }
 
-//    @Override
-//    @Transactional
-//    public User updateUser(User user) {
-//        User existingUser = userRepository.findByInfo(user.getAccount());
-//        
-//        if (existingUser != null && existingUser.getAccount().equals(user.getAccount())) {
-//            existingUser.setName(user.getName());
-//            existingUser.setEmail(user.getEmail());
-//            existingUser.setPhone(user.getPhone());
-//            existingUser.setAge(user.getAge());
-//            existingUser.setAddress(user.getAddress());
-//
-//            userRepository.updateUser(existingUser);
-//            return existingUser;
-//        } else {
-//            return null;
-//        }
-//    }
-
     @Override
     public User updateUser(String account, User user) {
         Long id = userRepository.getUserIdByAccount(account);
@@ -125,6 +113,25 @@ public class UserService implements IUserService {
         }
     }
 
+    @Override
+    public List<Basket> getBasketItemsByUserId(Long userId) {
+        return basketRepository.getBasketItemsByUserId(userId);
+    }
+
+    @Override
+    public void addProductToBasket(String account, Long contractId, Basket basket) {
+    	Long userId = userRepository.getUserIdByAccount(account);
+    	Long productId = basketRepository.getProductIdByContractId(contractId);
+    	
+        basket.setProductId(productId);
+
+        basketRepository.addProductToBasket(basket);
+    }
+
+    @Override
+    public void removeProductFromBasket(String account, Basket basket) {
+        basketRepository.removeProductFromBasket(basket);
+    }
 
 
 
