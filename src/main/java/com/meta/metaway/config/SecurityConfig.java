@@ -55,13 +55,18 @@ public class SecurityConfig {
 
         http
                 .httpBasic((auth) -> auth.disable());
-
         http
                 .authorizeHttpRequests((auth) -> auth
                 		.requestMatchers("/**").permitAll()
-                        .requestMatchers("/login", "/join").permitAll()
+                        .requestMatchers("/login", "/join","/index").permitAll()
                         .requestMatchers("/mypage").hasRole("USER")
                         .anyRequest().authenticated());
+//        http	
+//				.formLogin(login ->login
+//		        .loginPage("/login.html")
+//		        .loginProcessingUrl("/login.html")
+//		        .failureUrl("/login.html?error=true")
+//		        .permitAll());
 
         //JWTFilter 등록
         http

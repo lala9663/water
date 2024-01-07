@@ -30,7 +30,6 @@ public class CustomUserDetails implements UserDetails {
 
 			@Override
             public String getAuthority() {
-
                 return user.getAuthorities();
             }
         });
@@ -46,6 +45,11 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
+
+        return user.getAccount();
+    }
+    
+    public String getAccount() {
 
         return user.getAccount();
     }
