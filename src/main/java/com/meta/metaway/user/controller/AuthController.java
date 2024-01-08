@@ -12,6 +12,7 @@ import com.meta.metaway.user.dto.JoinDTO;
 import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -49,32 +50,54 @@ public class AuthController {
 	 return "/member/login";
 	}
 	
-	@GetMapping("/user/profile")
-	public String goProfilePage() {
-	   
-	 return "member/profile";
-	}
+//	@GetMapping("/user/profile")
+//	public String getProfilePage(HttpServletRequest request, Model model) {
+//	    String tokenHeader = request.getHeader("Authorization");
+//	    String token = null;
+//
+//	    if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
+//	        token = tokenHeader.substring(7); 
+//	    }
+//	    System.out.println(token);
+//	    if (token != null) {
+//	        String username = jwtUtil.getUsername(token);
+//	        User user = userService.getUserByUsername(username);
+//
+//	        if (user != null) {
+//	            model.addAttribute("userProfile", user);
+//	            return "member/profile";
+//	        }
+//	    }
+//
+//	    return "redirect:/login";
+//	}
 
-	@PostMapping("/user/profile")
+	@GetMapping("/user/profile")
 	public String getProfilePage(HttpServletRequest request, Model model) {
-	    String tokenHeader = request.getHeader("Authorization");
+	    Cookie[] cookies = request.getCookies();
 	    String token = null;
 
-	    if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
-	        token = tokenHeader.substring(7); 
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if (cookie.getName().equals("token")) {
+	                token = cookie.getValue();
+	                break;
+	            }
+	        }
 	    }
-	    System.out.println(token);
+
 	    if (token != null) {
 	        String username = jwtUtil.getUsername(token);
 	        User user = userService.getUserByUsername(username);
 
 	        if (user != null) {
+	        	System.out.println("투스트링: " + user.toString());
+	        	
 	            model.addAttribute("userProfile", user);
 	            return "member/profile";
 	        }
 	    }
 
-	    // 사용자 정보가 없는 경우 로그인 페이지로 리다이렉트 또는 에러 페이지 등을 처리할 수 있습니다.
 	    return "redirect:/login";
 	}
 
