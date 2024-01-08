@@ -9,11 +9,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meta.metaway.user.dto.CustomUserDetails;
 
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -63,7 +63,14 @@ public class LoginFilter extends CustomUsernamePasswordAuthenticationFilter {
 
         String token = jwtUtil.createJwt(username, role, 60 * 60 * 2 * 1000L);
 
-        response.addHeader("Authorization", "Bearer " + token);
+        // 쿠키 생성 및 HTTPOnly로 설정하여 클라이언트에 전송
+        Cookie cookie = new Cookie("token", token);
+        cookie.setHttpOnly(true); // HTTPOnly 설정
+        cookie.setMaxAge(60 * 60 * 2); // 쿠키 만료 시간 설정 (초 단위)
+        cookie.setPath("/"); // 쿠키의 유효 경로 설정 (루트 경로)
+        
+        response.addCookie(cookie);
+//        response.addHeader("Authorization", "Bearer " + token);
         
         System.out.println("토큰발급 " + token);
                   	
