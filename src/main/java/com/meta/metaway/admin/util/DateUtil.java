@@ -8,7 +8,11 @@ public class DateUtil {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public static String formatLocalDateTime(LocalDateTime localDateTime) {
-        return localDateTime.format(FORMATTER);
+    	if (localDateTime != null) {
+    		return localDateTime.format(FORMATTER);
+    	}else {
+    		return "N/A";
+    	}
     }
 
     public static LocalDateTime parseLocalDateTime(String dateTimeString) {

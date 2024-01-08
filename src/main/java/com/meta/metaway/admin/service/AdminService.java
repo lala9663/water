@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.meta.metaway.admin.dao.IAdminRepository;
 import com.meta.metaway.admin.dto.OrderDTO;
+import com.meta.metaway.admin.dto.OrderDetailDTO;
+import com.meta.metaway.admin.dto.StaffDTO;
 
 @Service
 public class AdminService implements IAdminService {
@@ -16,7 +17,7 @@ public class AdminService implements IAdminService {
 	IAdminRepository adminRepository;
 	
 	@Override
-	public List<OrderDTO> getArticleListByPaging(int page) {
+	public List<OrderDTO> findAllOrderList(int page) {
 		int start =(page-1)*10 +1;
 		return adminRepository.findAllOrderList(start, start+9);
 	}
@@ -44,8 +45,34 @@ public class AdminService implements IAdminService {
 
 	@Override
 	public int selectCompleteOrdersCount() {
-		// TODO Auto-generated method stub
 		return adminRepository.selectCompleteOrdersCount();
+	}
+
+	@Override
+	public int getOrderId(long orderId) {
+		return adminRepository.getOrderId(orderId);
+	}
+
+	@Override
+	public OrderDetailDTO selectOneOrderList(long orderId) {
+		return adminRepository.selectOneOrderList(orderId);
+	}
+
+	@Override
+	public void updateCompleteOrder(long orderId) {
+		adminRepository.updateCompleteOrder(orderId);
+	}
+
+	@Override
+	public List<StaffDTO> selectAllCodiList() {
+		// TODO Auto-generated method stub
+		return adminRepository.selectAllCodiList();
+	}
+
+	@Override
+	public List<StaffDTO> selectAllDriverList() {
+		// TODO Auto-generated method stub
+		return adminRepository.selectAllDriverList();
 	}
 	
 }

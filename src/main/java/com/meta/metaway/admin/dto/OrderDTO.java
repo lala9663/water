@@ -1,9 +1,6 @@
 package com.meta.metaway.admin.dto;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import org.springframework.format.Formatter;
 
 import com.meta.metaway.admin.util.DateUtil;
 
@@ -31,10 +28,6 @@ public class OrderDTO {
 	//날짜 포맷
     public String getOrderDate() {
         return DateUtil.formatLocalDateTime(orderDate);
-    }
-
-    public void setFormattedOrderDate(String orderDate) {
-        this.orderDate = DateUtil.parseLocalDateTime(orderDate);
     }
     
     public String getOrderState() {
