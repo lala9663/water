@@ -1,0 +1,99 @@
+.dri_main{
+    margin-top: 110px;
+}
+
+.fw-bold{
+    margin-left: 10px;
+}
+
+.table-hover{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.dri_title p{
+    margin: 20px;
+    font-size: 30px;
+}
+
+
+.dri-search-bar {
+    margin-left: 40px;
+    margin-bottom: 30px;
+    position: relative;
+    display:flex;
+  
+  }
+
+  .dri-search-bar p{
+    text-align:center;
+    margin-right: 20px;
+    margin-top: 30px;
+  }
+  
+  .dri-search-bar input {
+    width: 300px; 
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid rgb(0, 0, 0); 
+    outline: none;
+    background: transparent;
+    color: rgb(64, 64, 64);
+  
+  }
+  
+  
+  .dri-search-bar .search-btn {
+    border: none;
+    padding: 15px 10px;
+    background: none;
+    filter: invert(100%);
+  }
+  
+  .dri-search-bar .search-icon{
+    height: 25px;
+  }
+
+.dri_form{
+    display: flex;
+}
+.dri_form p{
+    margin: 5px;
+}
+
+select .form-select-sm{
+    width: 50px;
+}
+/* .btn-info{
+    background-color: rgb(50, 153, 243);
+} */
+
+/* 모달 안에 form 크기 수정 */
+.dri_form select {
+    width: 150px; 
+    padding: 3px;
+}
+
+.dri_form input[type="date"] {
+    width: 150px;
+    padding: 3px;
+}
+
+/* 주문 정보 모달 스타일 */
+.modal-body {
+    padding: 20px;
+}
+
+.dri_form {
+    margin-bottom: 15px;
+}
+
+.dri_form p {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.dri_form select {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+}

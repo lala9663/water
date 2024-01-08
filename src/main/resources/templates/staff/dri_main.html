@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Join Page</title>
+    <link rel="stylesheet" href="/src/main/resources/static/css/dr_main.css">
+    <script src="/src/main/resources/static/js/includeHTML.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<dri-body>
+    <header include-html="../include/header.html"></header>
+
+    <div class="dri_main">
+        <div class="dri_title">
+            <p><strong>기사 상품 조회</strong></p>
+        </div>
+
+        <form action="" class="dri-search-bar">
+            <p><strong>검색창</strong></p>
+            <input type="search" name="search" pattern=".*\S.*" required placeholder="Search.." />
+            <button class="search-btn" type="submit">
+                <img src="/src/main/resources/static/images/search2.png" class="search-icon" />
+            </button>
+        </form>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">고객번호</th>
+                    <th scope="col">회원명</th>
+                    <th scope="col">제품명</th>
+                    <th scope="col">방문일자</th>
+                    <th scope="col">현상태</th>
+                    <th scope="col">관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item, itemStat : ${items}" :id="'item-' + ${itemStat.index + 1}" class="table-form">
+                    <th th:text="${itemStat.index + 1}"></th>
+                    <td th:text="${item.주문번호}"></td>
+                    <td th:text="${item.회원명}"></td>
+                    <td th:text="${item.제품명}"></td>
+                    <td th:text="${item.방문날짜}"></td>
+                    <td th:text="${item.상태}"></td>
+                    <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            관리
+                        </button></td>
+                </tr>
+                <!-- 예시 -->
+                <tr>
+                    <th scope="row">ex</th>
+                    <td>10000001</td>
+                    <td>메타넷</td>
+                    <td>핫~온정수기</td>
+                    <td>2024.01.01</td>
+                    <td>방문완료</td>
+                    <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            관리
+                        </button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">주문정보확인</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>주문 정보</h5>
+                    <hr>
+                    <div class="dri_form">
+                        <p>주문번호 : </p>
+                        <p th:text="${item.주문번호}"></p>
+                    </div>
+                    <div class="dri_form">
+                        <p>배송주소 : </p>
+                        <p th:text="${item.배송주소}"></p>
+                    </div>
+                    <div class="dri_form">
+                        <p>주문일자 : </p>
+                        <p th:text="${item.주문일자}"></p>
+                    </div>
+                    <div class="dri_form">
+                        <p>주문자 : </p>
+                        <p th:text="${item.주문자}"></p>
+                    </div>
+                    <div class="dri_form">
+                        <p>연락처 : </p>
+                        <p th:text="${item.연락처}"></p>
+                    </div>
+                    <div class="dri_form">
+                        <p>방문상태 : </p>
+                        <p th:text="${item.방문상태}"></p>
+                        <select class="form-select form-select-sm" aria-label="Default select example">
+                            <option selected>방문상태</option>
+                            <option value="1">주문완료</option>
+                            <option value="2">방문준비</option>
+                            <option value="3">설치완료</option>
+                        </select>
+                    </div>
+                    <div class="dri_form">
+                        <p>방문일자 : </p>
+                        <input type="date" class="form-control form-control-sm" th:field="*{item.방문일자}" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-info" @click="saveChanges(itemStat.index + 1)">
+                        저장
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script>
+        var app = new Vue({
+            el: '.table-form', // 수정된 부분: .table-form 클래스를 가진 요소 내부를 Vue가 관리
+            data: {
+                selectedItemIndex: null
+            },
+            methods: {
+                saveChanges(index) {
+                    this.selectedItemIndex = index;
+                }
+            }
+        });
+
+        $('#exampleModal').on('hidden.bs.modal', function () {
+            app.selectedItemIndex = null;
+        });
+
+        includeHTML();
+    </script>
+</dri-body>
+<footer include-html="../include/footer.html"></footer>
+</html>
