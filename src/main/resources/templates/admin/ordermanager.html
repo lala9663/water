@@ -56,7 +56,6 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th><input type="checkbox" name="" value=""></th>
 						<th>주문번호</th>
 						<th>주문자명</th>
 						<th>제품모델명</th>
@@ -72,7 +71,6 @@
 				</thead>
 				<tbody>
 					<tr th:each="order: ${orderList}">
-						<td><input type="checkbox" name="" value=""></td>
 						<td th:text="${order.orderId}">1</td>
 						<td th:text="${order.orderName}">홍길동</td>
 						<td th:text="${order.productModel}">cp-7211N</td>
@@ -82,13 +80,15 @@
 						<th th:text="${order.orderAddress}"></th>
 						<td th:text="${order.orderState}">대기</td>
 						<td th:text="${order.orderDate}">2023.12.29</td>
-						<td>
-							<button type="button" class="btn btn-outline-primary">배정</button>
-						</td>
-						<form id="deleteForm" th:action="@{/admin/delete/order}" method="post">
+						<form id="" th:action="@{/admin/assign/{orderId}(orderId=${order.orderId})}" method="get">
+							<td>
+								<button type="submit" class="btn btn-outline-primary">배정</button>
+							</td>
+						</form>
+						<form th:id="'deleteForm_' + ${order.orderId}" th:action="@{/admin/deleteorder/{orderId}(orderId=${order.orderId})}" method="post">
 							<td>
 								<input type="hidden" name="orderId" th:value="${order.orderId}">
-								<button type="button" onclick="confirmDelete();" class="btn btn-outline-dark">주문 취소</button>
+								<button type="button" th:onclick="confirmDelete([[${order.orderId}]]);" class="btn btn-outline-dark">주문 취소</button>
 							</td>
 						</form>
 					</tr>
@@ -113,10 +113,13 @@
         });
     });
     
-     function confirmDelete() {
+    /* Thymeleaf로 주문 ID 전달 */
+    
+     function confirmDelete(orderId) {
+		 console.log("Order ID:", orderId);
         Swal.fire({
-            title: '주문 취소',
-            text: '주문을 취소하시겠습니까?',
+            title: orderId+ '번 주문 취소',
+            text: orderId +'번 주문을 취소하시겠습니까?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -126,10 +129,11 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // 삭제할 주문의 form을 submit
-                $('#deleteForm').submit();
+           	   $('#deleteForm_' + orderId).submit();
             }
         });
     }
+    
 </script>
 
 </html>

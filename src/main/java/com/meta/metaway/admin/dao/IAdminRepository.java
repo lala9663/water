@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.meta.metaway.admin.dto.OrderDTO;
+import com.meta.metaway.admin.dto.OrderDetailDTO;
+import com.meta.metaway.admin.dto.StaffDTO;
 
 @Repository
 @Mapper
@@ -15,10 +17,15 @@ public interface IAdminRepository {
 	int selectTotalOrdersCount();
 	int selectWaitingOrdersCount();
 	int selectCompleteOrdersCount();
-	
+	int getOrderId(long orderId);
 	List<OrderDTO> searchOrderListByKeyword(@Param("keyword")  String keyword, 
 											@Param("orderState") Integer orderState, 
 											@Param("orderDate") String orderDate,
 											@Param("start") int start, @Param("end") int end);
 	void updateCancleOrder(long orderId);
+	void updateCompleteOrder(long orderId);
+	OrderDetailDTO selectOneOrderList(long orderId);
+	List<StaffDTO> selectAllCodiList();
+	List<StaffDTO> selectAllDriverList();
+	
 	}
