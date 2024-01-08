@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.meta.metaway.admin.dao.IAdminRepository;
-import com.meta.metaway.admin.dto.OrderDTO;
-import com.meta.metaway.admin.dto.OrderDetailDTO;
-import com.meta.metaway.admin.dto.StaffDTO;
+import com.meta.metaway.admin.dto.AdminOrderDTO;
+import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
+import com.meta.metaway.admin.dto.AdminStaffDTO;
 
 @Service
 public class AdminService implements IAdminService {
@@ -17,7 +17,7 @@ public class AdminService implements IAdminService {
 	IAdminRepository adminRepository;
 	
 	@Override
-	public List<OrderDTO> findAllOrderList(int page) {
+	public List<AdminOrderDTO> findAllOrderList(int page) {
 		int start =(page-1)*10 +1;
 		return adminRepository.findAllOrderList(start, start+9);
 	}
@@ -33,7 +33,7 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public List<OrderDTO> searchOrderListByKeyword(String keyword, Integer orderState, String orderDate, int page) {
+	public List<AdminOrderDTO> searchOrderListByKeyword(String keyword, Integer orderState, String orderDate, int page) {
 		int start = (page-1)*10 + 1;
 		return adminRepository.searchOrderListByKeyword("%"+keyword+"%", orderState, orderDate, start, start+9);
 	}
@@ -54,7 +54,7 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public OrderDetailDTO selectOneOrderList(long orderId) {
+	public AdminOrderDetailDTO selectOneOrderList(long orderId) {
 		return adminRepository.selectOneOrderList(orderId);
 	}
 
@@ -64,13 +64,13 @@ public class AdminService implements IAdminService {
 	}
 
 	@Override
-	public List<StaffDTO> selectAllCodiList() {
+	public List<AdminStaffDTO> selectAllCodiList() {
 		// TODO Auto-generated method stub
 		return adminRepository.selectAllCodiList();
 	}
 
 	@Override
-	public List<StaffDTO> selectAllDriverList() {
+	public List<AdminStaffDTO> selectAllDriverList() {
 		// TODO Auto-generated method stub
 		return adminRepository.selectAllDriverList();
 	}

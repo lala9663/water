@@ -1,4 +1,4 @@
-package com.meta.metaway.user.model;
+package com.meta.metaway.staff.model;
 
 import lombok.Data;
 
