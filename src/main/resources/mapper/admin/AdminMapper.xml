@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.meta.metaway.admin.dao.IAdminRepository">
+	<!--전체 주문 내역 조회 -->
+	<select id="findAllOrderList" resultType="com.meta.metaway.admin.dto.OrderDTO">
+		<![CDATA[
+		    SELECT
+		        "orderId","orderName","orderAddress",
+		        "productModel","productName","orderCount",
+		        "orderPrice","orderDate","orderState"
+		    FROM (
+		        SELECT
+		           	"orderId","orderName","orderAddress",
+			        "productModel","productName","orderCount",
+			        "orderPrice","orderDate","orderState",
+		            ROWNUM AS rnum
+		        FROM (
+		            SELECT
+		                o.order_id AS "orderId",
+		                o.order_name AS "orderName",
+		                o.order_address AS "orderAddress", 
+		                p.product_model AS "productModel",
+		                p.product_name AS "productName",
+		                od.order_count AS "orderCount",
+		                o.order_price AS "orderPrice",
+		                o.order_date AS "orderDate",
+		                o.order_state AS "orderState"
+		            FROM
+		                orders o
+		            LEFT JOIN
+		                order_detail od ON o.order_id = od.order_id
+		            LEFT JOIN 
+		                product p ON p.product_id = od.product_id  
+		            ORDER BY o.order_id DESC
+		        )
+		    )
+		    WHERE rnum BETWEEN #{start} AND #{end}
+		]]>
+
+	</select>
+	<select id="selectTotalOrdersCount" resultType="int">
+		<![CDATA[
+			select count(order_id) from orders
+		]]>
+	</select>
+	<select id="selectWaitingOrdersCount" resultType="int">
+		<![CDATA[
+			select count(order_id) from orders where order_state = 0
+		]]>
+	</select>
+	
+	<select id="selectCompleteOrdersCount" resultType="int">
+		<![CDATA[
+			select count(order_id) from orders where order_state = 1
+		]]>
+	</select>
+		
+	<select id="searchOrderListByKeyword" parameterType="hashmap" resultType="com.meta.metaway.admin.dto.OrderDTO" >
+		<![CDATA[
+		    SELECT
+		        "orderId","orderName","orderAddress",
+		        "productModel","productName","orderCount",
+		        "orderPrice","orderDate","orderState"
+		    FROM (
+		        SELECT
+		           	"orderId","orderName","orderAddress",
+			        "productModel","productName","orderCount",
+			        "orderPrice","orderDate","orderState",
+		            ROWNUM AS rnum
+		        FROM (
+		            SELECT
+		                o.order_id AS "orderId",
+		                o.order_name AS "orderName",
+		                o.order_address AS "orderAddress", 
+		                p.product_model AS "productModel",
+		                p.product_name AS "productName",
+		                od.order_count AS "orderCount",
+		                o.order_price AS "orderPrice",
+		                o.order_date AS "orderDate",
+		                o.order_state AS "orderState"
+		            FROM
+		                orders o
+		            LEFT JOIN
+		                order_detail od ON o.order_id = od.order_id
+		            LEFT JOIN 
+		                product p ON p.product_id = od.product_id  
+	                WHERE
+                    (UPPER(o.order_name) LIKE UPPER('%' || #{keyword} || '%') OR
+                     UPPER(p.product_model) LIKE UPPER('%' || #{keyword} || '%'))
+                     AND (#{orderState} IS NULL OR o.order_state = #{orderState})
+                     AND (#{orderDate} IS NULL OR o.order_date = TO_DATE(#{orderDate}, 'YYYY-MM-DD'))
+		        )
+		    )
+		    WHERE rnum BETWEEN #{start} AND #{end}
+		]]>
+	</select>
+	
+	<!--  주문 취소 -->
+	<update id="updateCancleOrder" parameterType="long">
+	    update orders
+	    SET order_state = 2
+	    WHERE order_id = #{orderId}
+	</update>
+	
+	<!--  배정 완료 -->
+	<update id="updateCompleteOrder" parameterType="long">
+	    update orders
+	    SET order_state = 1
+	    WHERE order_id = #{orderId}
+	</update>
+	
+    <select id="getOrderId" resultType="int">
+        SELECT order_id FROM orders WHERE order_id = #{orderId}
+    </select>
+	
+	<select id="selectOneOrderList" resultType="com.meta.metaway.admin.dto.OrderDetailDTO">
+		SELECT
+            o.order_id as "orderId",
+            o.order_name as "orderName",
+            o.order_address as "orderAddress",
+            o.order_content as "orderContent",
+            o.order_price as "orderPrice",
+            o.rental_price as "rentalPrice",
+            o.order_date as "orderDate",
+            o.request_date as "requestDate",
+            od.start_date as "startDate",
+            od.end_date as "endDate",
+            od.order_count as "orderCount",
+            p.product_model as "productModel",
+            p.product_name as "productName",
+            c.contract_year as "contractYear",
+            c.contract_price as "contractPrice",
+            u.user_phone as "userPhone"
+        FROM orders o
+        INNER JOIN order_detail od ON o.order_id = od.order_id
+        INNER JOIN product p ON od.product_id = p.product_id
+        INNER JOIN contract c ON od.contract_id = c.contract_id
+        INNER JOIN users u ON u.user_id = o.user_id
+        WHERE o.order_id = #{orderId}
+	
+	
+	</select>
+	
+		<!-- 코디 전체 조회  -->
+	<select id="selectAllCodiList" resultType="com.meta.metaway.admin.dto.StaffDTO">
+		SELECT u.user_email AS "userEmail",
+		       u.user_phone AS "userPhone",
+		       u.user_name AS "userName",
+		       u.user_address AS "userAddress",
+		       s.staff_id AS "staffId",
+		       s.work_place AS "workPlace",
+		       a.authority_name AS "authorityName"
+		FROM users u
+		JOIN staff s ON u.user_id = s.user_id
+		JOIN user_authority a ON u.user_id = a.user_id
+		WHERE a.authority_name IN ('ROLE_CODI')
+	</select>
+	<!-- 담당기사  전체조회  -->
+	<select id="selectAllDriverList" resultType="com.meta.metaway.admin.dto.StaffDTO">
+		SELECT u.user_email AS "userEmail",
+		       u.user_phone AS "userPhone",
+		       u.user_name AS "userName",
+		       u.user_address AS "userAddress",
+		       s.staff_id AS "staffId",
+		       s.work_place AS "workPlace",
+		       a.authority_name AS "authorityName"
+		FROM users u
+		JOIN staff s ON u.user_id = s.user_id
+		JOIN user_authority a ON u.user_id = a.user_id
+		WHERE a.authority_name IN ('ROLE_DRIVER')
+	</select>
+</mapper>

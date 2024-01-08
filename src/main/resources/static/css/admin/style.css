@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+* {list-style: none;}
+em {font-style: normal;}
+body {font-family: 'NanumSquareNeo-Variable';}
+.wrap {width: 1280px; margin: 0 auto;}
+
+/* 회원리스트 페이지 */
+.member_list .table {
+    text-align: center;
+}
+
+.member_list .table td, .table th {
+    vertical-align: middle;
+}
+
+.member_list .ti_con {
+    margin-bottom: 30px;
+}
+.member_list .ti_p {
+    margin: 0 10px 0 0;
+    padding: 0;
+}
+.member_list .input-group {
+    align-items: center;
+}
+
+.input-group>.form-control {
+    position: relative;
+    /* flex: 1 1 auto; */
+    flex: none;;
+    width: 1%;
+    min-width: 201px;
+    margin-bottom: 0;
+}
+
+.member_list  .m_flex_box {
+    display: flex;
+} 
+
+.input-group {
+    justify-content: flex-end;
+  }
+  .total-member {
+    width: 10%;
+  }
+
+
+/* assignment */
+
+.assignment {display: flex;}
+.assignment .flex_1 {width: 60%;}
+.assignment em {margin-bottom: 10px; display: inline-block;}
+.assignment .flex_1 .bo,
+.assignment .flex_2 .bo {border: 1px solid #ddd; border-radius: 5px; margin-bottom: 25px;}
+.assignment .flex_1 .bo li {margin-bottom: 10px;}
+.assignment .flex_1_3 .bo {box-sizing: border-box; padding: 20px;}
+
+.assignment .flex_2 {width: 40%; box-sizing: border-box; margin-left: 20px;}
+.assignment .flex_2 h3 {font-size: 18px;}
+.assignment .flex_2 .bo {height: 380px; padding: 20px;}
+.assignment .engineer_box div.en { font-size: 20px; background-color: #ededed; text-align: center; padding: 20px; box-sizing: border-box;}
+.assignment .engineer_box div p {margin: 0 !important;}
+.assignment .engineer_box button {width: 50%;}
+.assignment .flex_button {display: flex; justify-content: space-between; margin-bottom: 20px;}
+.pagination-container {
+      display: flex;
+        margin-top: 20px;
+        justify-content: center;
+    }

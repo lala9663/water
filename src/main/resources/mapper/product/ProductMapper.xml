@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
 
 <mapper namespace="com.meta.metaway.product.dao.IProductRepository">
+
 	<!-- 상품 등록  -->	
     <insert id="productInsert" parameterType="com.meta.metaway.product.model.Product">
         INSERT INTO product(product_id, form_id, product_model, product_name, product_date)
@@ -10,8 +13,8 @@
     </insert>
     <!-- 파일 등록  -->
     <insert id="productFileInsert" parameterType="com.meta.metaway.product.model.UploadFile">
-    	INSERT INTO product_file(file_id, product_id, uuid_name, file_pass, file_name, file_size)
-    	values (#{fileId},#{productId},#{uuidFileName},#{filePath}, #{fileOriginalName},#{fileSize})
+    	INSERT INTO product_file(file_id, product_id, uuid_name, file_path, file_name, file_size, file_type)
+    	values (#{fileId},#{productId},#{uuidFileName},#{filePath}, #{fileOriginalName},#{fileSize}, #{fileType})
     </insert>
     <!-- 약정 등록  -->
     <insert id="productContractInsert" parameterType="com.meta.metaway.product.model.Contract">
@@ -32,33 +35,33 @@
     </select>
     <!-- 상품 조회  -->
     <select id="getTargetProductInfo" parameterType="Long" resultType="com.meta.metaway.product.model.Product">
-    	select product_id as productId,
-    	 	   form_id as formId,
-    	 	   product_model as productModel,
-    	 	   product_name as productName,
-    	 	   product_date as productDate
-    	from product
-    	where product_id = #{productId}
+    	SELECT a.product_id AS productId,
+       	c.form_name as formName,
+       	a.form_id as formId,
+       	a.product_model AS productModel,
+       	a.product_name AS productName,
+       	a.product_date AS productDate,
+      	b.file_path as imageFile,
+      	b.file_type as imageType
+		from product a LEFT JOIN product_file b ON a.product_id = b.product_id
+		LEFT JOIN form c on a.form_id = c.form_id
+		where a.product_id = #{product_id}
     </select>
     
-    <!-- 형태 조회  -->
-     <select id="getTargetProductForm" parameterType="Integer" resultType="String">
-    	select form_name as formName
-    	from form
-    	where form_id = #{productId}
+    <!-- 상품, 기능, 파일 전체 조회  -->
+    <select id="getAllProductInfo" parameterType="Long" resultType="com.meta.metaway.product.model.Product">
+		SELECT a.product_id AS productId,
+       	c.form_name as formName,
+       	a.product_model AS productModel,
+       	a.product_name AS productName,
+       	a.product_date AS productDate,
+      	b.file_path as imageFile,
+      	b.file_type as imageType
+		from product a LEFT JOIN product_file b ON a.product_id = b.product_id
+		LEFT JOIN form c on a.form_id = c.form_id
+		order by a.product_id asc
     </select>
     
-    <!-- 상품 파일 조회  -->
-    <select id="getTargetProductFile" parameterType="Long" resultType="com.meta.metaway.product.model.UploadFile">
-    	select file_id as fileId,
-    	product_id as productId, 
-    	uuid_name as uuidFileName,
-    	file_pass as filePath,
-    	file_name as fileOriginalName,
-    	file_size as fileSize
-    	from product_file
-    	where product_id = #{productId}
-    </select>
     <!-- 상품 약정 조회  -->
     <select id="getProductContractList" parameterType="Long" resultType="com.meta.metaway.product.model.Contract">
     	select 
@@ -68,9 +71,20 @@
     	contract_price as contractPrice
     	from contract
     	where product_id = #{productId}
+    	order by contractYear asc
     </select>
     
-    
+    <!-- 상품 변경  -->
+    <update id="UpdateProductInfo" parameterType="com.meta.metaway.product.model.Product">
+   		UPDATE product 
+		SET 
+		form_id = #{formId}, 
+    	product_model = #{productModel}, 
+    	product_name = #{productName}, 
+   		product_date = #{productDate}
+		WHERE product_id = #{productId}
+    </update>
+   
     
     
     <!-- 최대 번호 가져오기  -->
@@ -85,7 +99,25 @@
     </select>
     
     <!-- 상품 제거  -->
-    <delete id="productDelete" parameterType="String">
-    	DELETE FROM product WHERE id = #{productId}
+    <delete id="productDelete" parameterType="Long">
+    	DELETE FROM product WHERE product_id = #{productId}
+    </delete>
+    
+     <!-- 기능 제거  -->
+    <delete id="DeleteProductFunction" parameterType="Long">
+		delete from product_function
+		where product_id = #{productId}
+    </delete>
+    
+    <!-- 파일 제거 -->
+    <delete id="DeleteProductFile" parameterType="Long">
+		delete from product_file
+		where product_id = #{productId}
+    </delete>
+    
+    <!-- 약정 제거  -->
+    <delete id="DeleteProductContract" parameterType="Long">
+		delete from contract
+		where product_id = #{productId}
     </delete>
 </mapper>

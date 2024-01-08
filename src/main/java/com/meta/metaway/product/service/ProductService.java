@@ -13,13 +13,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,6 +47,27 @@ public class ProductService implements IProductService {
 		}
 		return "상품 등록 성공";
 	}
+	
+	@Transactional
+	@Override
+	public String UpdateproductFile(Product product, List<MultipartFile> fileList) {
+		List<Contract> contractList = product.getContract();
+		productRepository.UpdateProductInfo(product);
+		
+		if(!product.getFunction().isEmpty()) {
+			productRepository.DeleteProductFunction(product.getProductId());
+			productFuntionInsert(product);
+		}
+		if(!contractList.isEmpty()) {
+			productRepository.DeleteProductContract(product.getProductId());
+			productContractInsert(product, contractList);
+		}
+		if (!fileList.get(0).getOriginalFilename().equals("") || !fileList.get(0).getOriginalFilename().equals(null)) {
+			productRepository.DeleteProductFile(product.getProductId());
+			productFileUpload(product, fileList);
+		}
+		return "상품 업데이트 성공";
+	}
 
 	@Override
 	public void productDelete(long productId) {
@@ -67,32 +81,26 @@ public class ProductService implements IProductService {
 
 	@Override
 	public Product getTargetProductInfo(long productId) {
-		return productRepository.getTargetProductInfo(productId);
+		Product product = productRepository.getTargetProductInfo(productId);
+		product.setImageFile(productImageString(product.getImageFile()));
+		product.setFunctionList(productRepository.getProductKey(product.getProductId()));
+		return product;
 	}
-
+	
 	@Override
-	public String getTargetProductFile(long productId) throws FileNotFoundException {
-		UploadFile uploadfile = productRepository.getTargetProductFile(productId);
-		try {
-			InputStream input = new FileInputStream(uploadfile.getFilePath());
-		
-		byte[] byteFile = input.readAllBytes();
-		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
-		return encodedByte;
-		} catch (Exception e) {
-			System.out.println(e);
-			return null;
+	public List<Product> getAllProductInfo() {
+		List<Product> AllProduct = productRepository.getAllProductInfo();
+		for(Product product : AllProduct) {
+			product.setImageFile(productImageString(product.getImageFile()));
+			product.setFunctionList(productRepository.getProductKey(product.getProductId()));
+			product.setContract(productRepository.getProductContractList(product.getProductId()));
 		}
+		return AllProduct;
 	}
 
 	@Override
 	public List<Contract> getProductContractList(long productId) {
 		return productRepository.getProductContractList(productId);
-	}
-
-	@Override
-	public String getTargetProductForm(int formId) {
-		return productRepository.getTargetProductForm(formId);
 	}
 	
 	
@@ -108,6 +116,7 @@ public class ProductService implements IProductService {
 			uploadFile.setUuidFileName(UUID.randomUUID().toString() + "_" + file.getOriginalFilename());
 			uploadFile.setFilePath("C://upload/" + uploadFile.getUuidFileName());
 			uploadFile.setFileSize(file.getSize());
+			uploadFile.setFileType(file.getContentType());
 			try {
 				file.transferTo(new File(uploadFile.getFilePath()));
 				productRepository.productFileInsert(uploadFile);
@@ -117,6 +126,9 @@ public class ProductService implements IProductService {
 			fileIndex++;
 		}
 	}
+	
+	
+	
 	private void productContractInsert(Product product, List<Contract> contractList) {
 		int contractIndex = productRepository.getNextMaxContractId();
 		for(Contract contract : contractList) {
@@ -127,6 +139,8 @@ public class ProductService implements IProductService {
 		}
 	}
 	
+	
+	
 	private void productFuntionInsert(Product product) {
 		Function function = new Function();
 		function.setProductId(product.getProductId());
@@ -135,4 +149,17 @@ public class ProductService implements IProductService {
 			productRepository.productFunctionInsert(function);
 		}
 	}
+	private String productImageString(String filePath) {
+		try {
+			InputStream input = new FileInputStream(filePath);
+		
+		byte[] byteFile = input.readAllBytes();
+		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
+		return encodedByte;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/css/header.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" th:href="@{/css/productUpdate.css}">
+</head>
+
+<body>
+	<header th:replace="/include/header.html"></header>
+	<div id="bodyrap">
+		<form id="insertForm" th:action="'/product/update/' + ${product.productId}" enctype="multipart/form-data" method="post">
+			<div id="numBox">
+				<label for="productId" class="form-label" >제품 번호</label>
+				<input type="text" id="productId" name="productId" class="form-control-plaintext" aria-label="readonly input example" readonly
+					th:value="${product.productId}">
+			</div>
+			<div id="modelBox">
+				<label for="productModel" class="form-label">상품 모델명</label>
+				<input type="text" id="productModel" name="productModel" class="form-control"
+					th:value="${product.productModel}">
+			</div>
+			<div id="nameBox">
+				<label for="productName" class="form-label">상품 이름</label>
+				<input type="text" id="productName" name="productName" class="form-control"
+					th:value="${product.productName}">
+			</div>
+			<div id="formBox">
+				<label for="formId1">데스크탑</label>
+				<input class="form-check-input" type="radio" id="formId1" name="formId" value="1">
+				<label for="formId2">빌트인</label>
+				<input class="form-check-input" type="radio" id="formId2" name="formId" value="2">
+				<label for="formId3">스탠드</label>
+				<input class="form-check-input" type="radio" id="formId3" name="formId" value="3">
+			</div>
+			<div id="functionBox" class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+				<input type="checkbox" id="btncheck1" name="function" value="1" class="btn-check" autocomplete="off">
+				<label for="btncheck1" class="btn btn-outline-primary">냉정수기</label>
+				<input type="checkbox" id="checkbox2" name="function" value="2" class="btn-check" autocomplete="off">
+				<label for="checkbox2" class="btn btn-outline-primary">온정수기</label>
+				<input type="checkbox" id="checkbox3" name="function" value="3" class="btn-check" autocomplete="off">
+				<label for="checkbox3" class="btn btn-outline-primary">냉온정수기</label>
+				<input type="checkbox" id="checkbox4" name="function" value="4" class="btn-check" autocomplete="off">
+				<label for="checkbox4" class="btn btn-outline-primary">얼음</label>
+				<input type="checkbox" id="btncheck3" name="function" value="5" class="btn-check" autocomplete="off">
+				<label for="btncheck3" class="btn btn-outline-primary">탄산</label>
+			</div>
+			<div id="dateBox">
+				<div>제품출시일</div>
+				<input type="date" id="productDate" name="productDate" th:value="${product.productDate}">
+			</div>
+			<div id="imageBox" <label for="productFile" class="form-label">이미지 파일 선택</label>
+				<input type="file" id="productFile" class="form-control" name="productFile">
+			</div>
+			<div id="contractForm">
+				<div>가격 변경</div>
+				<div th:if="${product.contract != null}" th:each="cont, contindex : ${product.contract}"
+					class="input-group mb-3">
+					<div th:if="${cont.contractYear} == 0">
+						<span class="input-group-text" id="basic-addon1"
+							th:text="'즉시 구매가'">약정</span>
+						<input type="hidden" th:name="'contract[' + ${contindex.index} + '].contractYear'" th:value="${cont.contractYear}">
+						<input type="text" class="form-control" placeholder="구매가" aria-label="Username"
+							aria-describedby="basic-addon1" th:name="'contract[' + ${contindex.index} + '].contractPrice'" th:value="${cont.contractPrice}">
+					</div>
+					<div th:if="${cont.contractYear} != 0">
+						<span class="input-group-text" id="basic-addon1"
+							th:text="${cont.contractYear} + '년 약정'">약정</span>
+						<input type="hidden" th:name="'contract[' + ${contindex.index} + '].contractYear'" th:value="${cont.contractYear}">
+						<input type="text" class="form-control" placeholder="약정가" aria-label="Username"
+							aria-describedby="basic-addon1" th:name="'contract[' + ${contindex.index} + '].contractPrice'" th:value="${cont.contractPrice}">
+					</div>
+				</div>
+			</div>
+			<button class="btn btn-primary">확인</button>
+		</form>
+	</div>
+	<footer th:replace="/include/footer.html"></footer>
+</body>
+<script>
+</script>
+
+</html>

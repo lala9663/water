@@ -1,9 +1,11 @@
-/* Title Wrap */
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
 .title_wrap {
   text-align: left;
   margin-top: 25px;
   margin-left: 25px;
-  display: inline-block;
+  display: grid;
 }
 
 .title_wrap h2 {
@@ -18,81 +20,205 @@
   text-decoration: none;
 }
 
-/* Category Styles */
-#cate_1 {
-  margin-top: 15px;
+.tab_wrap {
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+/* 사진슬라이드 사진 */
+.carousel-item img { 
+  height: 500px;
 }
 
-#cate_1 ul {
-  list-style: none;
-  padding: 0;
-  text-align: center;
-}
-
-#cate_1 li {
-  display: inline-block;
-  margin-right: 15px;
-}
-
-#cate_1 a {
-  text-decoration: none;
-  color: #333;
-  font-size: 16px;
-}
-
-/* Card Styles */
-.card {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.3s;
+.tab_wrap {
   display: flex;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card-img-top {
-  max-height: 200px;
-  object-fit: cover;
-}
-
-.card-body {
+  justify-content: space-between;
   padding: 20px;
 }
 
-.card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
+.tabType_tabType {
+  width: 30%; /* Adjust the width as needed */
+}
+
+.tabType_tabType ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tabType_tabType li {
   margin-bottom: 10px;
 }
 
-.card-text {
+.tab_btn {
+  text-decoration: none;
+  padding: 10px;
+  color: #000000;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.product_info {
+  width: 350px;
+  position: absolute;
+  margin-left: 300px;
+}
+
+.product {
+  margin: 0 20px 20px 0;
+  flex: 0 0 calc(50% - 20px); 
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.product p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* 그외 */
+.table02 {
+  font-size: 3rem;
+  line-height: 4rem;
+  text-transform: uppercase;
+}
+
+.onetop {
+  font-family: 'Viga', sans-serif;
+  width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 8rem 0;
+  margin-top: -60px;
+  margin-bottom: 50px;
+}
+
+.onetop div section {
+  margin-top: 3rem;
+  width: 235px;
+  height: 354px;
+  position: relative;
+  float: left;
+  text-align: center; 
+}
+
+.onetop button {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  padding: 5px 15px;
+  background: rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  color: white;
+  border-radius: 20px;
+}
+.onetop button:hover {
+  cursor: pointer;
+}
+
+.onetop > div > :nth-child(1) {
+  background: url('/src/main/resources/static/images/coway9.jpeg') no-repeat;
+  margin-right: 20px;
+  background-size: 100% 100%;
+}
+
+.onetop > div > :nth-child(2) {
+  background: url('/src/main/resources/static/images/coway4.jpg') no-repeat;
+  margin-right: 20px;
+  background-size: 100% 100%;
+}
+
+.onetop > div > :nth-child(3) {
+  background: url('/src/main/resources/static/images/coway11.jpeg') no-repeat;
+  margin-right: 20px;
+  background-size: 100% 100%;
+}
+
+.onetop > div > :nth-child(4) {
+  background: url('/src/main/resources/static/images/coway12.jpeg') no-repeat;
+  background-size: 100% 100%;
+}
+
+.onetop section div {
+  position: absolute;
+  top: 70%;
+  width: 100%;
+  text-align: center; 
+}
+
+.onetop section div a{
+  text-decoration: none;
+  color: #fff;
+}
+
+.blank{
+  clear: both;
+  width: 100%;
+  height:50px;
+  background: white;
+}
+
+/* mind */
+
+.mind {
+  font-family: 'Nanum Gothic', sans-serif;
+  background: url('/src/main/resources/static/images/bgwater.jpg') no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 700px;
+  position: relative;
+  min-width: 1000px;
+}
+
+
+.mind > div {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 7rem 0;
+}
+
+.mind .table02 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.mind > div > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mind section {
+  width: 316px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 70px 35px;
+}
+
+.mind section:hover{
+  cursor: pointer;
+}
+
+.mind section img {
+  width: 100px;
+  margin-bottom: 1rem;
+}
+
+.mind section h4 {
+  line-height: 4rem;
+  font-size: 1.5rem;
+}
+
+.mind section p {
   font-size: 1rem;
-  color: #555;
-  margin-bottom: 15px;
+  line-height: 2rem;
 }
-
-.card-title{
-  display: flex;
-  overflow: hidden;
-  min-height: 393px;
-}
-
-/* .tabType_tabType li{
-  list-style: none;
-  display:flex;
-  flex-direction: column;
-  border-bottom: none;
-} */
-
-/* Updated styles to move the tab menu to the left */
-.tab_wrap {
-  display: flex;
-  justify-content: flex-start; /* Align items to the left */
-  margin-left: 25px; /* Adjust the left margin as needed */
-}
-
-
-/* Add any additional styles for tab_btn, span, etc. */

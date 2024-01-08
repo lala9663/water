@@ -33,7 +33,6 @@ public class JWTFilter extends OncePerRequestFilter {
         //Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
 
-            System.out.println("token null");
             filterChain.doFilter(request, response);
 
             //조건이 해당되면 메소드 종료 (필수)
@@ -43,7 +42,7 @@ public class JWTFilter extends OncePerRequestFilter {
         System.out.println("authorization now");
         //Bearer 부분 제거 후 순수 토큰만 획득
         String token = authorization.split(" ")[1];
-        System.out.println("bearar 제거한 토큰:" + token);
+        System.out.println("bearar 제거한 토큰: " + token);
         
         //토큰 소멸 시간 검증
         if (jwtUtil.isExpired(token)) {

@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue Login Page</title>
-    <link rel="stylesheet" href="/src/main/resources/static/css/login.css">
-    <script src="/src/main/resources/static/js/includeHTML.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- 필요한 메타태그, 스타일시트 등을 여기에 포함시킵니다 -->
 </head>
-<login-body>
-    <header include-html="../include/header.html"></header>
+<body>
     <div id="app" class="login-page">
         <section>
             <div class="sec-form">
                 <img src="/src/main/resources/static/images/mainlogo.png" alt="Logo">
-                <form v-if="isLoginFormVisible" class="login-form">
-                    <input type="text" placeholder="username" v-model="loginUsername"/>
-                    <input type="password" placeholder="password" v-model="loginPassword"/>
-                    <button @click.prevent="login">login</button>
+                <form v-if="isLoginFormVisible" class="login-form" @submit.prevent="login">
+                    <input type="text" placeholder="username" v-model="account"/>
+                    <input type="password" placeholder="password" v-model="password"/>
+                    <button type="submit">login</button>
                 </form>
             </div>
         </section>
@@ -25,24 +19,48 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                isLoginFormVisible: true,
-                loginUsername: '',
-                loginPassword: ''
-            },
-            methods: {
-                login() {
-                    console.log('Logging in:', this.loginUsername, this.loginPassword);
-                }
-            }
-        });
+	new Vue({
+	    el: '#app',
+	    data: {
+	        isLoginFormVisible: true,
+	        account: '',
+	        password: ''
+	    },
+	    methods: {
+	        login() {
+	            console.log('Logging in:', this.account, this.password);
+	
+	            const url = '/login'; 
+				const formData = new FormData();
+				formData.append('account', this.account);
+				formData.append('password', this.password);
+				
+				fetch(url, {
+				    method: 'POST',
+				    body: formData
+				})
+				.then(response => {
+				    if (response.ok) {
+				        const authorizationHeader = response.headers.get('Authorization');
+				        const token = authorizationHeader ? authorizationHeader.replace('Bearer ', '') : null;
 
-        includeHTML();
+				        sessionStorage.setItem('token', token);
+				        console.log('Token login:', token); 
+
+				        window.location.href = '/'; 
+				        console.log('로오오오그의ㅣ니이인ㄴ');
+				    } else {
+				        console.error('시리ㅣ잉이ㅣㅣㄹ패');
+				    }
+				})
+				.catch(error => {
+				    console.error('Error logging in:', error);
+				});
+
+	        }
+	    }
+	});
+
     </script>
-    <footer include-html="../include/footer.html"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</login-body>
+</body>
 </html>
