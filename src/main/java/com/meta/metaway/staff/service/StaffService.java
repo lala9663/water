@@ -1,34 +1,66 @@
 package com.meta.metaway.staff.service;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.staff.dao.IStaffRepository;
-import com.meta.metaway.staff.dto.StaffDTO;
-import com.meta.metaway.staff.model.staff;
-import com.meta.metaway.user.model.User;
+import com.meta.metaway.staff.model.Staff;
 
 @Service
 public class StaffService implements IStaffService{
-	
-	private final IStaffRepository iStaffRepository;
+
+	@Autowired
+    IStaffRepository staffRepository;
 	
 	@Autowired
-	public StaffService(IStaffRepository iStaffRepository) {
-		this.iStaffRepository = iStaffRepository;
-	}
+    private JWTUtil jwtUtil;
+
+    @Override
+    public boolean isCodiOrDriver(String account) {
+        Long id = staffRepository.getIdByAccount(account); // 사용자 이름으로부터 ID를 가져옵니다.
+        
+        String authority = staffRepository.getUserAuthority(id);
+        return authority.equals("ROLE_CODI") || authority.equals("ROLE_DRIVER");
+    }
+
+    @Override
+    public void createWorkPlace(String account, String workplace) {
+    	
+    	Staff staff = new Staff();
+    	
+    	Long staffId = staffRepository.selectStaffMaxNo()+1;
+
+        if (isCodiOrDriver(account)) {
+            Long userId = staffRepository.getIdByAccount(account);
+        	staff.setStaffId(staffId);
+            staff.setUserId(userId);
+            staff.setWorkPlace(workplace);
+            
+            staffRepository.createWorkPlace(staff);
+        }    	    	
+    }
+
+    @Override
+    public void updateWorkPlace(String account, Staff staff) {
+        Long id = staffRepository.getUserIdByAccount(account);
+        if (id != null) {
+            Map<String, Object> updateParams = new HashMap<>();
+            updateParams.put("id", id);
+            updateParams.put("workPlace", staff.getWorkPlace());
+            
+            staffRepository.updateWorkPlace(updateParams);
+        } else {
+            throw new IllegalArgumentException("유효하지 않은 사용자 계정입니다.");
+        }
+    }
 
 	@Override
-	public User getUserDetails(Long Userid) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long getUserIdByAccount(String account) {
+	    return staffRepository.getUserIdByAccount(account);
 	}
-
-
-
-	
-	
 
 }

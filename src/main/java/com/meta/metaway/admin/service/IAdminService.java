@@ -2,21 +2,21 @@ package com.meta.metaway.admin.service;
 
 import java.util.List;
 
-import com.meta.metaway.admin.dto.OrderDTO;
-import com.meta.metaway.admin.dto.OrderDetailDTO;
-import com.meta.metaway.admin.dto.StaffDTO;
+import com.meta.metaway.admin.dto.AdminOrderDTO;
+import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
+import com.meta.metaway.admin.dto.AdminStaffDTO;
 
 public interface IAdminService {
-	List<OrderDTO> findAllOrderList(int page);
+	List<AdminOrderDTO> findAllOrderList(int page);
 	int selectTotalOrdersCount();
 	int selectWaitingOrdersCount();
 	int selectCompleteOrdersCount();
-	List<OrderDTO> searchOrderListByKeyword(String keyword, Integer orderState, String orderDate, int page);
+	List<AdminOrderDTO> searchOrderListByKeyword(String keyword, Integer orderState, String orderDate, int page);
 	void updateCancleOrder(long orderId);
 	void updateCompleteOrder(long orderId);
 	int getOrderId(long orderId);
-	OrderDetailDTO selectOneOrderList(long orderId);
-	List<StaffDTO> selectAllCodiList();
-	List<StaffDTO> selectAllDriverList();
+	AdminOrderDetailDTO selectOneOrderList(long orderId);
+	List<AdminStaffDTO> selectAllCodiList();
+	List<AdminStaffDTO> selectAllDriverList();
 	
 }

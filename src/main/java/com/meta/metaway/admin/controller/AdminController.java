@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.meta.metaway.admin.dto.OrderDTO;
-import com.meta.metaway.admin.dto.OrderDetailDTO;
-import com.meta.metaway.admin.dto.StaffDTO;
+import com.meta.metaway.admin.dto.AdminOrderDTO;
+import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
+import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.service.IAdminService;
 
 import jakarta.servlet.http.HttpSession;
@@ -31,7 +31,7 @@ public class AdminController {
 		System.out.println("주문관리페이지");
 		session.setAttribute("page", page);
 		try {
-			List<OrderDTO> orderList = adminService.findAllOrderList(page);
+			List<AdminOrderDTO> orderList = adminService.findAllOrderList(page);
 			model.addAttribute("orderList", orderList);
 			int totOrders = adminService.selectTotalOrdersCount();
 			model.addAttribute("totOrders", totOrders);
@@ -75,7 +75,7 @@ public class AdminController {
 		System.out.println("검색결과 페이지");
 		session.setAttribute("page", page);
 		try {
-			List<OrderDTO> searchList = adminService.searchOrderListByKeyword(keyword, orderState, orderDate, page);
+			List<AdminOrderDTO> searchList = adminService.searchOrderListByKeyword(keyword, orderState, orderDate, page);
 			model.addAttribute("orderList", searchList);
 			int totOrders = adminService.selectTotalOrdersCount();
 			model.addAttribute("totOrders", totOrders);
@@ -131,13 +131,13 @@ public class AdminController {
 		orderId = adminService.getOrderId(orderId);
 		System.out.println("주문번호: " + orderId);
 		
-		OrderDetailDTO orderDetails = adminService.selectOneOrderList(orderId);
+		AdminOrderDetailDTO orderDetails = adminService.selectOneOrderList(orderId);
 		model.addAttribute("orderDetail", orderDetails);
 		
-		List<StaffDTO> driverList = adminService.selectAllDriverList();
+		List<AdminStaffDTO> driverList = adminService.selectAllDriverList();
 		model.addAttribute("driverList", driverList);
 		
-		List<StaffDTO> codiList = adminService.selectAllCodiList();
+		List<AdminStaffDTO> codiList = adminService.selectAllCodiList();
 		model.addAttribute("codiList", codiList);
 		
 		System.out.println(orderDetails.toString());

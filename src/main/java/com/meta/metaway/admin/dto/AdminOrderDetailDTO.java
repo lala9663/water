@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetailDTO {
+public class AdminOrderDetailDTO {
 	private long orderId;
 	private String orderName;
 	private String orderAddress;
