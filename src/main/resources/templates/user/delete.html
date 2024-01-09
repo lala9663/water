@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 필요한 메타태그, 스타일시트 등을 여기에 포함시킵니다 -->
+</head>
+<body>
+    <div class="delete-page">
+        <section>
+            <h2>Delete User</h2>
+            <p>자네 삭제하고싶나??</p>
+
+            <form th:action="@{/user/delete}" method="post">
+                <input type="password" name="password" placeholder="비밀번호 입력" required />
+                <button type="submit">삭제!!!!!</button>
+            </form>
+        </section>
+    </div>
+    
+	<script>
+	$(document).ready(function() {
+	    var success = '${success}';
+	    var failure = '${failure}';
+	
+	    if (success == 'true') {
+	        alert('사용자 삭제 성공');
+	    } else if (failure == 'true') {
+	        alert('비밀번호가 일치하지 않습니다');
+	    }
+	});
+	</script>
+
+</body>
+</html>
