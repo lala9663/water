@@ -31,5 +31,21 @@ public class MultiClass {
 
 		return jwtUtil.getId(token);
 	}
+	
+    public String getToken(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String token = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        return token;
+    }
 
 }
