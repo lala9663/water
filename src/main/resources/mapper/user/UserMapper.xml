@@ -27,6 +27,8 @@
 	<select id="getUserIdByAccount" parameterType="String" resultType="Long">
 	    SELECT user_id FROM users WHERE user_account = #{account}
 	</select>
+
+	
 	   
 	<select id="loginByAccount" resultType="com.meta.metaway.user.model.User">
 	    SELECT user_account as account, user_password as password FROM users
@@ -75,10 +77,11 @@
         DELETE FROM users WHERE user_id = #{id}
     </delete>
     
-    <!--암호화된 비밀번호 가져오기 -->
-    <select id="getPasswordByAccount" resultType="String" parameterType="String">
-        SELECT user_password FROM users WHERE user_account = #{account}
-    </select>   
+    <!--비밀번호 확인 -->
+	<select id="findPasswordById" resultType="String">
+	    SELECT user_password FROM users WHERE user_id = #{id}
+	</select>
+	 
     
     <select id="selectUserMaxNo" resultType="long">
 	<![CDATA[
