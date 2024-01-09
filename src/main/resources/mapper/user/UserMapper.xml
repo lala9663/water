@@ -61,8 +61,8 @@
 	<update id="updateUser" parameterType="com.meta.metaway.user.model.User">
 	    UPDATE users
 	    SET 
-	        user_password = #{password},
-	        user_email = #{email},
+<!-- 	        user_password = #{password},
+ -->	        user_email = #{email},
 	        user_name = #{name},
 	        user_phone = #{phone},
 	        user_age = #{age},
@@ -71,8 +71,8 @@
 	</update>
 	
 	<!-- 회원 삭제 -->
-    <delete id="deleteUserByAccount" parameterType="String">
-        DELETE FROM users WHERE user_account = #{account}
+    <delete id="deleteUserById" parameterType="Long">
+        DELETE FROM users WHERE user_id = #{id}
     </delete>
     
     <!--암호화된 비밀번호 가져오기 -->
