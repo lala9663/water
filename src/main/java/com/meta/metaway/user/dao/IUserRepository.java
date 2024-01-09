@@ -24,8 +24,8 @@ public interface IUserRepository {
 
     void deleteUserById(Long id);
     
-    String getPasswordByAccount(String account);
-
+    String findPasswordById(Long id);
+    
     long selectUserMaxNo();
 
 }

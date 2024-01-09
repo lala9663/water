@@ -1,8 +1,10 @@
 package com.meta.metaway.user.service;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +20,13 @@ public class UserService implements IUserService {
     private final IUserRepository userRepository;
     private final IBasketRepository basketRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(IUserRepository userRepository, IBasketRepository basketRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(IUserRepository userRepository, IBasketRepository basketRepository, BCryptPasswordEncoder bCryptPasswordEncoder, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.basketRepository = basketRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -51,7 +55,7 @@ public class UserService implements IUserService {
 
             data.setId(id);
             data.setAccount(account);
-            data.setPassword(bCryptPasswordEncoder.encode(password));
+            data.setPassword(passwordEncoder.encode(password));
             data.setEmail(email);
             data.setName(name);
             data.setPhone(phone);
@@ -92,7 +96,7 @@ public class UserService implements IUserService {
             if (existingUser != null) {
                 String newPassword = user.getPassword(); 
                 if (newPassword != null && !newPassword.isEmpty()) {
-                    String encryptedPassword = bCryptPasswordEncoder.encode(newPassword); 
+                    String encryptedPassword = passwordEncoder.encode(newPassword); 
                     existingUser.setPassword(encryptedPassword); 
                 }
 
@@ -133,18 +137,17 @@ public class UserService implements IUserService {
         basketRepository.removeProductFromBasket(basket);
     }
 
-
-
-    
     @Override
-    public boolean checkPasswordByAccount(String account, String password) {
-        String encryptedPassword = userRepository.getPasswordByAccount(account);
-        return encryptedPassword != null && bCryptPasswordEncoder.matches(password, encryptedPassword);
+    public boolean checkPassword(Long id, String enteredPassword) {
+        String storedPassword = userRepository.findPasswordById(id);
+
+        return passwordEncoder.matches(enteredPassword, storedPassword);
     }
-    
+
     @Override
     @Transactional
     public void deleteUserById(Long id) {
+    	
         userRepository.deleteUserById(id);
     }
 

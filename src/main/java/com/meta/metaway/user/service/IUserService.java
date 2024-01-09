@@ -18,7 +18,7 @@ public interface IUserService {
     
     void deleteUserById(Long id);
     
-    boolean checkPasswordByAccount(String account, String password);
+    boolean checkPassword(Long id, String enteredPassword);
     
     List<Basket> getBasketItemsByUserId(Long userId);
     
