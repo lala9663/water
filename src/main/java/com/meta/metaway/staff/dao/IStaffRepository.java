@@ -1,10 +1,12 @@
 package com.meta.metaway.staff.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.meta.metaway.product.model.Product;
 import com.meta.metaway.staff.model.Staff;
 
 @Repository
@@ -23,4 +25,7 @@ public interface IStaffRepository {
     void updateWorkPlace(Map<String, Object> updateParams);
     
 	long selectStaffMaxNo();
+	
+	//목록리스트
+	List<Product> getProductForStaff(Long userId);
 }
