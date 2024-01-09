@@ -27,13 +27,13 @@
 .main-img{
     width: 100%;
 }
-.header-nav .logo {
+.header-nav .header-logo {
    float: left;
    width: 40%;
    height: 100%;
    display: flex;
    align-items: center;
-   font-size: 24px;
+	margin-top: -10px;
 }
 .header-nav .links {
    float: right;

@@ -127,25 +127,25 @@
 }
 
 .onetop > div > :nth-child(1) {
-  background: url('/src/main/resources/static/images/coway9.jpeg') no-repeat;
+  background: url('/images/coway9.jpeg') no-repeat;
   margin-right: 20px;
   background-size: 100% 100%;
 }
 
 .onetop > div > :nth-child(2) {
-  background: url('/src/main/resources/static/images/coway4.jpg') no-repeat;
+  background: url('/images/coway4.jpg') no-repeat;
   margin-right: 20px;
   background-size: 100% 100%;
 }
 
 .onetop > div > :nth-child(3) {
-  background: url('/src/main/resources/static/images/coway11.jpeg') no-repeat;
+  background: url('/images/coway11.jpeg') no-repeat;
   margin-right: 20px;
   background-size: 100% 100%;
 }
 
 .onetop > div > :nth-child(4) {
-  background: url('/src/main/resources/static/images/coway12.jpeg') no-repeat;
+  background: url('/images/coway12.jpeg') no-repeat;
   background-size: 100% 100%;
 }
 
@@ -172,7 +172,7 @@
 
 .mind {
   font-family: 'Nanum Gothic', sans-serif;
-  background: url('/src/main/resources/static/images/bgwater.jpg') no-repeat;
+  background: url('/images/bgwater.jpg') no-repeat;
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
