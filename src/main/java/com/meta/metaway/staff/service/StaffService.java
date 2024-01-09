@@ -1,12 +1,14 @@
 package com.meta.metaway.staff.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.meta.metaway.jwt.JWTUtil;
+import com.meta.metaway.product.model.Product;
 import com.meta.metaway.staff.dao.IStaffRepository;
 import com.meta.metaway.staff.model.Staff;
 
@@ -61,6 +63,19 @@ public class StaffService implements IStaffService{
 	@Override
 	public Long getUserIdByAccount(String account) {
 	    return staffRepository.getUserIdByAccount(account);
+	}
+	
+	//staff 담당된 회원의 제품 목록 조회
+	@Override
+	public List<Product> getProductForStaff(String account) {
+		Long userId = staffRepository.getIdByAccount(account);
+		
+		if(userId != null) {
+			List<Product> productList = staffRepository.getProductForStaff(userId);
+			return productList;
+		}else {
+			throw new IllegalArgumentException("유효하지 않은 사용자 계정입니다.");
+		}
 	}
 
 }
