@@ -1,90 +1,131 @@
-//package com.meta.metaway.user.controller;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestHeader;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.meta.metaway.jwt.JWTUtil;
-//import com.meta.metaway.user.model.Basket;
-//import com.meta.metaway.user.model.User;
-//import com.meta.metaway.user.service.IUserService;
-//
-//@RestController
-//@RequestMapping("/user")
-//public class UserController {
-//
-//	@Autowired
-//	IUserService userService;
-//    
-//	@Autowired
-//    private JWTUtil jwtUtil;
-//	
+package com.meta.metaway.user.controller;
 
-//  
-//    
-//    @DeleteMapping("/delete")
-//    public ResponseEntity<String> deleteUser(@RequestHeader("Authorization") String token) {
-//        String username = jwtUtil.getUsername(token);
-//        
-//        User existingUser = userService.getUserByUsername(username);
-//        if (existingUser != null) {
-//            userService.deleteUserByAccount(username);
-//            return ResponseEntity.ok("사용자 삭제 성공");
-//        } else {
-//            return ResponseEntity.badRequest().body("삭제 실패");
-//        }
-//    }
-//    
-//    // 아직 미완성
-//    @PostMapping("/check-password")
-//    public ResponseEntity<String> checkPassword(@RequestHeader("Authorization") String token, @RequestBody String password) {
-//        String username = jwtUtil.getUsername(token);
-//
-//        try {
-//            boolean passwordMatches = userService.checkPasswordByAccount(username, password);
-//            if (passwordMatches) {
-//                return ResponseEntity.ok("비밀번호 일치");
-//            } else {
-//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호 불일치");
-//            }
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest().body("오류: " + e.getMessage());
-//        }
-//    }
-//
-//    @PostMapping("/logout")
-//    public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
-//
-//    	
-//        return ResponseEntity.ok("로그아웃 성공");
-//    }
-//    
-//    @PostMapping("/basket/{contractId}")
-//    public ResponseEntity<String> addProductToBasket(
-//            @RequestHeader("Authorization") String token,
-//            @PathVariable Long contractId,
-//            @RequestBody Basket basket) {
-//
-//        try {
-//            String account = jwtUtil.getUsername(token);
-//            userService.addProductToBasket(account, contractId, basket);
-//            return ResponseEntity.ok("제품이 장바구니에 추가되었습니다.");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body("장바구니에 제품을 추가하는데 실패했습니다: " + e.getMessage());
-//        }
-//    }
-//    
-//    
-//
-//
-//}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.meta.metaway.jwt.JWTUtil;
+import com.meta.metaway.multiClass.MultiClass;
+import com.meta.metaway.user.model.User;
+import com.meta.metaway.user.service.IUserService;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+
+	@Autowired
+    private IUserService userService;
+	
+	@Autowired
+	private JWTUtil jwtUtil;
+	
+	@Autowired
+	private MultiClass multiClass;
+	
+
+    @GetMapping("/profile")
+    public String getProfilePage(HttpServletRequest request, Model model) {
+        String token = multiClass.getToken(request);
+
+        if (token != null) {
+            String username = jwtUtil.getUsername(token);
+            User user = userService.getUserByUsername(username);
+
+            if (user != null) {
+                model.addAttribute("userProfile", user);
+                return "user/profile";
+            }
+        }
+
+        return "redirect:/login";
+    }
+
+    @GetMapping("/update")
+    public String getUpdateProfilePage(HttpServletRequest request, Model model) {
+        String token = multiClass.getToken(request);
+        String redirectUrl = "redirect:/login"; // 기본적으로 로그인 페이지로 리다이렉트
+
+        if (token != null) {
+            String username = jwtUtil.getUsername(token);
+            User userProfile = userService.getUserByUsername(username);
+
+            if (userProfile != null) {
+                model.addAttribute("userProfile", userProfile);
+                redirectUrl = "user/updateProfile";
+            }
+        }
+
+        return redirectUrl;
+    }
+	
+	    @PostMapping("/update")
+	    public String updateUser(HttpServletRequest request, @ModelAttribute("userProfile") User updatedUser) {
+	        String token = multiClass.getToken(request);
+	
+	        if (token != null) {
+	            String username = jwtUtil.getUsername(token);
+	            System.out.println("회원 수정에서 유저네임: " + username);
+	            userService.updateUser(username, updatedUser);
+	        }
+	
+	        return "redirect:/user/profile"; 
+	    }
+	    
+	    @GetMapping("/delete")
+	    public String getdeleteUser(HttpServletRequest request) {
+	        String token = multiClass.getToken(request);
+	        
+	        if (token != null) {
+		    	return "user/delete";
+
+	        }
+	    	return "user/delete";
+	    }
+	    
+	    @PostMapping("/delete")
+	    public String deleteUser(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("deleteUser") User deleteUser,
+	    		@RequestParam("password") String password, Model model) {
+	        String token = multiClass.getToken(request);
+	        String redirectUrl = "redirect:/user/profile";
+	        
+	        if (token != null) {
+	            Long id = jwtUtil.getId(token);
+	            
+	            boolean passwordMatches = userService.checkPassword(id, password);
+	            if (passwordMatches) {
+	                userService.deleteUserById(id);
+	          
+	                model.addAttribute("success", true);
+
+	                Cookie deleteCookie = new Cookie("token", null);
+	                deleteCookie.setMaxAge(0); 
+	                deleteCookie.setHttpOnly(true); 
+	                deleteCookie.setPath("/"); 
+	                response.addCookie(deleteCookie);
+	                
+	    	        HttpSession session = request.getSession(false);
+	    	        if (session != null) {
+	    	            session.invalidate();
+	    	        }
+	    	        
+	            } else {
+	                model.addAttribute("failure", true);
+
+	                redirectUrl = "redirect:/user/profile";
+	            }
+	        }
+			return redirectUrl;
+	    }
+	    
+
+}
