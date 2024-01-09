@@ -18,6 +18,7 @@ import com.meta.metaway.user.service.IUserService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class AuthController {
@@ -108,6 +109,7 @@ public class AuthController {
 	    @GetMapping("/user/delete")
 	    public String getdeleteUser(HttpServletRequest request) {
 	        String token = multiClass.getToken(request);
+	        
 	        if (token != null) {
 		    	return "user/delete";
 
@@ -116,12 +118,18 @@ public class AuthController {
 	    }
 	    
 	    @PostMapping("/user/delete")
-	    public String deleteUser(HttpServletRequest request, @ModelAttribute("deleteUser") User deleteUser) {
+	    public String deleteUser(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("deleteUser") User deleteUser) {
 	        String token = multiClass.getToken(request);
 	        
 	        if (token != null) {
 	            Long id = jwtUtil.getId(token);
-	            userService.deleteUserByAccount(id);
+	            userService.deleteUserById(id);
+	            
+	            Cookie deleteCookie = new Cookie("token", null);
+	            deleteCookie.setMaxAge(0); 
+	            deleteCookie.setHttpOnly(true); 
+	            deleteCookie.setPath("/"); 
+	            response.addCookie(deleteCookie);
 	        }
 	    	
 	    	return "redirect:/";

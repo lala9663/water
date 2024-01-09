@@ -16,7 +16,7 @@ public interface IUserService {
     
     User updateUser(String account, User user);
     
-    void deleteUserByAccount(String account);
+    void deleteUserById(Long id);
     
     boolean checkPasswordByAccount(String account, String password);
     

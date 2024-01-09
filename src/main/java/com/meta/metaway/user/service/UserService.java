@@ -144,8 +144,8 @@ public class UserService implements IUserService {
     
     @Override
     @Transactional
-    public void deleteUserByAccount(String userAccount) {
-        userRepository.deleteUserByAccount(userAccount);
+    public void deleteUserById(Long id) {
+        userRepository.deleteUserById(id);
     }
 
 

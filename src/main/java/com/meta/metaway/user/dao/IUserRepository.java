@@ -22,7 +22,7 @@ public interface IUserRepository {
     
     void updateUser(User user);
 
-    void deleteUserByAccount(String username);
+    void deleteUserById(Long id);
     
     String getPasswordByAccount(String account);
 
