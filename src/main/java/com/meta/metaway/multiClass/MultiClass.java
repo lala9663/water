@@ -8,6 +8,7 @@ import com.meta.metaway.jwt.JWTUtil;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class MultiClass {
@@ -47,5 +48,15 @@ public class MultiClass {
 
         return token;
     }
+    
+    
+    public void deleteCookie(HttpServletResponse response, String cookieName) {
+        Cookie deleteCookie = new Cookie(cookieName, null);
+        deleteCookie.setMaxAge(0); 
+        deleteCookie.setHttpOnly(true); 
+        deleteCookie.setPath("/");
+        response.addCookie(deleteCookie);
+    }
+
 
 }
