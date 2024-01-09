@@ -28,38 +28,7 @@
 //	@Autowired
 //    private JWTUtil jwtUtil;
 //	
-//	// 내 정보 조회
-//    @GetMapping("/profile")
-//    public ResponseEntity<User> getUserByToken(@RequestHeader("Authorization") String token) {
-//        String username = jwtUtil.getUsername(token);
-//        System.out.println(username);
-//        User user = userService.getUserByUsername(username);
-//        if (user != null) {
-//            return ResponseEntity.ok(user);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-//    
-//    @PutMapping("/update")
-//    public ResponseEntity<String> updateUser(@RequestHeader("Authorization") String token, @RequestBody User user) {
-//        String username = jwtUtil.getUsername(token);
-//
-//        if (!username.isEmpty()) {
-//            try {
-//                User updated = userService.updateUser(username, user);
-//                if (updated != null) {
-//                    return ResponseEntity.ok("사용자 정보가 업데이트되었습니다.");
-//                } else {
-//                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 사용자를 찾을 수 없습니다.");
-//                }
-//            } catch (Exception e) {
-//                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
-//            }
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증되지 않은 사용자입니다.");
-//        }
-//    }
+
 //  
 //    
 //    @DeleteMapping("/delete")

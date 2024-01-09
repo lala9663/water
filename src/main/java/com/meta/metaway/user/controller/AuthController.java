@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.meta.metaway.jwt.JWTUtil;
+import com.meta.metaway.multiClass.MultiClass;
 import com.meta.metaway.user.dto.JoinDTO;
 import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
@@ -23,6 +27,9 @@ public class AuthController {
 	
 	@Autowired
 	private JWTUtil jwtUtil;
+	
+	@Autowired
+	private MultiClass multiClass;
 
     @GetMapping("/")
     public String index() {
@@ -50,35 +57,74 @@ public class AuthController {
 	 return "/user/login";
 	}
 
-	@GetMapping("/user/profile")
-	public String getProfilePage(HttpServletRequest request, Model model) {
-	    Cookie[] cookies = request.getCookies();
-	    String token = null;
 
-	    if (cookies != null) {
-	        for (Cookie cookie : cookies) {
-	            if (cookie.getName().equals("token")) {
-	                token = cookie.getValue();
-	                break;
+    @GetMapping("/user/profile")
+    public String getProfilePage(HttpServletRequest request, Model model) {
+        String token = multiClass.getToken(request);
+
+        if (token != null) {
+            String username = jwtUtil.getUsername(token);
+            User user = userService.getUserByUsername(username);
+
+            if (user != null) {
+                model.addAttribute("userProfile", user);
+                return "user/profile";
+            }
+        }
+
+        return "redirect:/login";
+    }
+
+	    @GetMapping("/user/update")
+	    public String getUpdateProfilePage(HttpServletRequest request, Model model) {
+	        String token = multiClass.getToken(request);
+	
+	        if (token != null) {
+	            String username = jwtUtil.getUsername(token);
+	            User userProfile = userService.getUserByUsername(username);
+	
+	            if (userProfile != null) {
+	                model.addAttribute("userProfile", userProfile);
+	                return "user/updateProfile";
 	            }
 	        }
+	
+	        return "redirect:/login"; 
 	    }
-
-	    if (token != null) {
-	        String username = jwtUtil.getUsername(token);
-	        User user = userService.getUserByUsername(username);
-	        
-	        System.out.println("유저 아이디 토큰: " + jwtUtil.getId(token));
-	        
-	        if (user != null) {
-	        	System.out.println("투스트링: " + user.toString());
-	        	
-	            model.addAttribute("userProfile", user);
-	            return "user/profile";
+	
+	    @PostMapping("/user/update")
+	    public String updateUser(HttpServletRequest request, @ModelAttribute("userProfile") User updatedUser) {
+	        String token = multiClass.getToken(request);
+	
+	        if (token != null) {
+	            String username = jwtUtil.getUsername(token);
+	            System.out.println("회원 수정에서 유저네임: " + username);
+	            userService.updateUser(username, updatedUser);
 	        }
+	
+	        return "redirect:/user/profile"; 
 	    }
+	    
+	    @GetMapping("/user/delete")
+	    public String getdeleteUser(HttpServletRequest request) {
+	        String token = multiClass.getToken(request);
+	        if (token != null) {
+		    	return "user/delete";
 
-	    return "redirect:/login";
-	}
-
+	        }
+	    	return "user/delete";
+	    }
+	    
+	    @PostMapping("/user/delete")
+	    public String deleteUser(HttpServletRequest request, @ModelAttribute("deleteUser") User deleteUser) {
+	        String token = multiClass.getToken(request);
+	        
+	        if (token != null) {
+	            Long id = jwtUtil.getId(token);
+	            userService.deleteUserByAccount(id);
+	        }
+	    	
+	    	return "redirect:/";
+	    }
+   
 }
