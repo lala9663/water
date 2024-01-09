@@ -34,7 +34,7 @@ public class AuthController {
     public String getJoinPage(Model model) {
         model.addAttribute("joinDTO", new JoinDTO());
 
-        return "join"; 
+        return "user/join"; 
     }
 
     @PostMapping("/join")
@@ -47,30 +47,8 @@ public class AuthController {
 	@GetMapping("/login")
 	public String login() {
 		  
-	 return "/member/login";
+	 return "/user/login";
 	}
-	
-//	@GetMapping("/user/profile")
-//	public String getProfilePage(HttpServletRequest request, Model model) {
-//	    String tokenHeader = request.getHeader("Authorization");
-//	    String token = null;
-//
-//	    if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
-//	        token = tokenHeader.substring(7); 
-//	    }
-//	    System.out.println(token);
-//	    if (token != null) {
-//	        String username = jwtUtil.getUsername(token);
-//	        User user = userService.getUserByUsername(username);
-//
-//	        if (user != null) {
-//	            model.addAttribute("userProfile", user);
-//	            return "member/profile";
-//	        }
-//	    }
-//
-//	    return "redirect:/login";
-//	}
 
 	@GetMapping("/user/profile")
 	public String getProfilePage(HttpServletRequest request, Model model) {
@@ -94,7 +72,7 @@ public class AuthController {
 	        	System.out.println("투스트링: " + user.toString());
 	        	
 	            model.addAttribute("userProfile", user);
-	            return "member/profile";
+	            return "user/profile";
 	        }
 	    }
 

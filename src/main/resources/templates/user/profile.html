@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 필요한 메타태그, 스타일시트 등을 여기에 포함시킵니다 -->
+</head>
+<body>
+    <div class="profile-page">
+        <section>
+            <div class="user-info" th:if="${userProfile != null}">
+                <h2>User Profile</h2>
+                <p>Account: <span th:text="${userProfile.account}"></span></p>
+			    <p>Email: <span th:text="${userProfile.email}"></span></p>
+			    <p>Name: <span th:text="${userProfile.name}"></span></p>
+			    <p>Phone: <span th:text="${userProfile.phone}"></span></p>
+			    <p>Age: <span th:text="${userProfile.age}"></span></p>
+			    <p>Address: <span th:text="${userProfile.address}"></span></p>      
+
+            </div>
+            <div th:unless="${userProfile != null}">
+                <p>User profile not available.</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
