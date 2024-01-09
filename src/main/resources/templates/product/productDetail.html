@@ -46,6 +46,7 @@
 						<div id="contractAll">
 							<div th:if="${cont.contractYear != 0}" th:each="cont, contstat : ${product.contract}"
 								th:data-price="${cont.contractPrice}" th:text="${cont.contractYear} + '년 약정'"
+								th:data-contract-id="${cont.contractId}"
 								class="rental btn btn-secondary btn-sm"></div>
 						</div>
 					</div>
@@ -54,6 +55,7 @@
 						<div id="contractAll">
 							<div th:if="${cont.contractYear == 0}" th:each="cont, contstat : ${product.contract}"
 								th:data-price="${cont.contractPrice}" th:text="'즉시 구매'"
+								th:data-contract-id="${cont.contractId}"
 								class="rental btn btn-secondary btn-sm"></div>
 						</div>
 					</div>
@@ -66,12 +68,30 @@
 				</div>
 				<div id="buttonBox">
 					<div class="rentalDiv">
-						<button class="btn btn-primary btn-lg">장바구니</button>
-						<button class="btn btn-primary btn-lg">렌탈하기</button>
+						<form method="post" class="basketButton">
+							<input type="hidden" value="1" name="contractList[0].orderCount">
+							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
+							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
+							<button class="btn btn-primary btn-lg">장바구니</button>
+						</form>
+						<form method="post" class="buyButton" action="/order">
+							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
+							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
+							<button class="btn btn-primary btn-lg">렌탈하기</button>
+						</form>
 					</div>
 					<div class="buyDiv">
-						<button class="btn btn-primary btn-lg">장바구니</button>
-						<button class="btn btn-primary btn-lg">구매하기</buttona>
+						<form method="post" class="basketButton" accept="order/basket">
+							<input type="hidden" value="1" name="contractList[0].orderCount">
+							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
+							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
+							<button class="btn btn-primary btn-lg">장바구니</button>
+						</form>
+						<form method="post" class="buyButton" action="/order">
+							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
+							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
+							<button class="btn btn-primary btn-lg">구매하기</buttona>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -111,16 +131,24 @@
 <script>
 	window.addEventListener('DOMContentLoaded', (event) => {
 		document.querySelectorAll('.rental').forEach(item => {
+			item.addEventListener('click', function() {
+				var contractId = this.getAttribute('data-contract-id');
+				document.querySelectorAll('.contractId').forEach(input => {
+					input.value = contractId;
+				})
+			})
+		})
+		document.querySelectorAll('.rental').forEach(item => {
 			item.addEventListener('click', function () {
-				if(buttonValue == 0) {
-				var contractPrice = this.getAttribute('data-price');
-				document.getElementById('rentalPrice').textContent = contractPrice + '원';
+				if (buttonValue == 0) {
+					var contractPrice = this.getAttribute('data-price');
+					document.getElementById('rentalPrice').textContent = contractPrice + '원';
 				}
 				else {
 					var contractPrice = this.getAttribute('data-price');
 					document.getElementById('buyPrice').textContent = contractPrice + '원';
 				}
-				
+
 			});
 		});
 	});
@@ -168,5 +196,27 @@
 		}
 	}
 </script>
+<!--<script>
+	document.getElementById('basketForm').addEventListener('submit', function(event) 
+{
+	event.preventDefault();
+	
+	var formData = new FormData(this);
+	var xhr = new XMLHttpRequest(this);
+	
+	xhr.open('POST','order/basket',ture);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState === XMLHttpRequest.DONE) {
+			if(xhr.status === 200) {
+				console.log(xhr.requestText);
+			}
+			else {
+				console.error('error :', xhr.statusText);
+			}
+		}
+	};
+	xhr.send(formData);
+	});
+</script>-->
 
 </html>

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.meta.metaway.product.dao.IProductRepository;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.product.service.IProductService;
 

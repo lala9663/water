@@ -68,7 +68,6 @@
 }
 
 #buttonBox{
-	margin: 0 auto;
 	width: 100%;
 	height: 100%;
 }
@@ -99,4 +98,8 @@
 }
 .buyDiv{
 	display: none;
+}
+.buyButton{display: inline-block;}
+.basketButton{
+	display: inline-block;
 }
