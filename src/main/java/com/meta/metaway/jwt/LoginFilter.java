@@ -53,6 +53,8 @@ public class LoginFilter extends CustomUsernamePasswordAuthenticationFilter {
         //UserDetailsS
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
 
+        Long userId = customUserDetails.getId();
+        
         String username = customUserDetails.getUsername();
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -61,7 +63,7 @@ public class LoginFilter extends CustomUsernamePasswordAuthenticationFilter {
 
         String role = auth.getAuthority();
 
-        String token = jwtUtil.createJwt(username, role, 60 * 60 * 2 * 1000L);
+        String token = jwtUtil.createJwt(userId ,username, role, 60 * 60 * 2 * 1000L);
 
         // 쿠키 생성 및 HTTPOnly로 설정하여 클라이언트에 전송
         Cookie cookie = new Cookie("token", token);

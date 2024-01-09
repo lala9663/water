@@ -67,7 +67,9 @@ public class AuthController {
 	    if (token != null) {
 	        String username = jwtUtil.getUsername(token);
 	        User user = userService.getUserByUsername(username);
-
+	        
+	        System.out.println("유저 아이디 토큰: " + jwtUtil.getId(token));
+	        
 	        if (user != null) {
 	        	System.out.println("투스트링: " + user.toString());
 	        	
