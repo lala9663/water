@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 필요한 메타태그, 스타일시트 등을 여기에 포함시킵니다 -->
+</head>
+<body>
+    <div class="profile-page">
+        <section>
+            <div class="user-info" th:if="${userProfile != null}">
+                <h2>User Profile</h2>
+                <p>Email: <span th:text="${userProfile.email}"></span></p>
+                <p>Name: <span th:text="${userProfile.name}"></span></p>
+                <p>Phone: <span th:text="${userProfile.phone}"></span></p>
+                <p>Age: <span th:text="${userProfile.age}"></span></p>
+                <p>Address: <span th:text="${userProfile.address}"></span></p>      
+            </div>
+            <div th:unless="${userProfile != null}">
+                <p>User profile not available.</p>
+            </div>
+
+            <form th:object="${userProfile}" th:action="@{/user/update}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <input type="email" th:field="*{email}" placeholder="Email" />
+                <input type="text" th:field="*{name}" placeholder="Name" />
+                <input type="text" th:field="*{phone}" placeholder="Phone" />
+                <input type="number" th:field="*{age}" placeholder="Age" />
+                <input type="text" th:field="*{address}" placeholder="Address" />
+
+                <button type="submit">수정</button>
+            </form>
+        </section>
+    </div>
+</body>
+</html>
