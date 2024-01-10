@@ -3,11 +3,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meta.metaway.product.dao.IProductRepository;
+import com.meta.metaway.product.model.Product;
 import com.meta.metaway.user.dao.IBasketRepository;
 import com.meta.metaway.user.dao.IUserRepository;
 import com.meta.metaway.user.dto.JoinDTO;
@@ -21,6 +24,9 @@ public class UserService implements IUserService {
     private final IBasketRepository basketRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    IProductRepository productRepository;
 
     public UserService(IUserRepository userRepository, IBasketRepository basketRepository, BCryptPasswordEncoder bCryptPasswordEncoder, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -118,8 +124,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<Basket> getBasketItemsByUserId(Long userId) {
-        return basketRepository.getBasketItemsByUserId(userId);
+    public List<Product> getBasketItemsByUserId(Long userId) {
+    	List<Product> productList = basketRepository.getBasketItemsByUserId(userId);
+    	for(Product product : productList) {
+    		product.setFunctionList(productRepository.getProductKey(product.getProductId()));
+    	}
+        return productList;
     }
 
     @Override
@@ -128,7 +138,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void removeProductFromBasket(String account, Basket basket) {
+    public void removeProductFromBasket(Basket basket) {
         basketRepository.removeProductFromBasket(basket);
     }
 
@@ -145,5 +155,4 @@ public class UserService implements IUserService {
     	
         userRepository.deleteUserById(id);
     }
-   
 }
