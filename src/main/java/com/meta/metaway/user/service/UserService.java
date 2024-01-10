@@ -1,4 +1,7 @@
 package com.meta.metaway.user.service;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,6 +131,7 @@ public class UserService implements IUserService {
     	List<Product> productList = basketRepository.getBasketItemsByUserId(userId);
     	for(Product product : productList) {
     		product.setFunctionList(productRepository.getProductKey(product.getProductId()));
+    		product.setImageFile(productImageString(product.getImageFile()));
     	}
         return productList;
     }
@@ -155,4 +159,18 @@ public class UserService implements IUserService {
     	
         userRepository.deleteUserById(id);
     }
+    
+    
+	private String productImageString(String filePath) {
+		try {
+			InputStream input = new FileInputStream(filePath);
+		
+		byte[] byteFile = input.readAllBytes();
+		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
+		return encodedByte;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
 }
