@@ -2,6 +2,7 @@ package com.meta.metaway.user.service;
 
 import java.util.List;
 
+import com.meta.metaway.product.model.Product;
 import com.meta.metaway.user.dto.JoinDTO;
 import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
@@ -20,9 +21,10 @@ public interface IUserService {
     
     boolean checkPassword(Long id, String enteredPassword);
     
-    List<Basket> getBasketItemsByUserId(Long userId);
+    List<Product> getBasketItemsByUserId(Long userId);
     
     void addProductToBasket(Basket basket) throws Exception;
     
-    void removeProductFromBasket(String account, Basket basket);
+    void removeProductFromBasket(Basket basket);
+    
 }

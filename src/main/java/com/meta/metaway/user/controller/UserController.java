@@ -142,4 +142,17 @@ public class UserController {
 				 return ResponseEntity.ok().body("이미 장바구니에 담겨있습니다!");
 			}
 	    }
+	    
+	    @ResponseBody
+	    @PostMapping("/basket/remove")
+	    public void removeProductToBasket(Basket basket, HttpServletRequest request) {
+	    	basket.setUserId(multiClass.getTokenUserId(request));
+		    userService.removeProductFromBasket(basket);
+	    }
+	    
+	    @GetMapping("/basket")
+	    public String getBasketInfo(HttpServletRequest request, Model model) {
+	    	model.addAttribute("product", userService.getBasketItemsByUserId((multiClass.getTokenUserId(request))));
+	    	return "user/basket";
+	    }
 }
