@@ -2,36 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.meta.metaway.user.dao.IUserRepository">
+<mapper namespace="com.meta.metaway.user.dao.IBasketRepository">
 
 	<!-- 회원의 장바구니 조회 -->
-	<select id="getBasketItemsByUserId" resultType="com.meta.metaway.user.model.Basket">
-	    SELECT p.product_name, p.product_model, c.contract_price
-	    FROM basket b
-	    JOIN contract c ON b.contract_id = c.contract_id AND b.product_id = c.product_id
-	    JOIN product p ON c.product_id = p.product_id
-	    WHERE b.user_id = #{userId}
+	<select id="getBasketItemsByUserId" parameterType="Long" resultType="com.meta.metaway.product.model.Product">
+		select 
+		d.user_id as userId,
+		a.product_id as productId,
+		e.form_name as formName,
+		a.product_model as productModel,
+		a.product_name as productName,
+		a.product_date as productDate,
+		b.contract_year as contractYear,
+		b.contract_price as contractPrice,
+		c.file_path as imageFile,
+		c.file_type as imageType
+		from product a join contract b on a.product_id = b.product_id
+		left join form e on a.form_id = e.form_id
+		left join product_file c on b.product_id = c.product_id
+		left join basket d on d.contract_id = b.contract_id
+		where user_id = #{userId}
 	</select>
 
 	<!-- 장바구니 담기 -->
-	<insert id="addProductToBasket" parameterType="com.meta.metaway.user.model.Basket">
-	    INSERT INTO basket (user_id, contract_id, product_id, product_pcs)
-	    VALUES (#{userId}, #{contractId}, #{productId}, #{productPcs})
+	<insert id="addProductToBasket"
+		parameterType="com.meta.metaway.user.model.Basket">
+		INSERT INTO basket (user_id, contract_id, product_id, product_pcs)
+		VALUES (#{userId}, #{contractId}, #{productId}, 1)
 	</insert>
 
 	<!-- contractId에 대한 productId 조회 -->
-	<select id="getProductIdByContractId" parameterType="Long" resultType="Long">
-	    SELECT product_id
-	    FROM contract
-	    WHERE contract_id = #{contractId}
-	</select>	
-	
+	<select id="getProductIdByContractId" parameterType="Long"
+		resultType="Long">
+		SELECT product_id
+		FROM contract
+		WHERE contract_id = #{contractId}
+	</select>
+
 	<!-- 장바구니 삭제 -->
-	<delete id="removeProductFromBasket" parameterType="com.meta.metaway.user.model.Basket">
-	    DELETE FROM basket
-	    WHERE user_id = #{userId} AND contract_id = #{contractId} AND product_id = #{productId}
+	<delete id="removeProductFromBasket"
+		parameterType="com.meta.metaway.user.model.Basket">
+		DELETE FROM basket
+		WHERE user_id = #{userId} AND contract_id = #{contractId} AND product_id =
+		#{productId}
 	</delete>
-	
-	
+
 
 </mapper>

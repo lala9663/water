@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.meta.metaway.product.dao.IProductRepository;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.product.service.IProductService;
 
@@ -21,6 +20,9 @@ public class ProductController {
 	
 	@Autowired
 	IProductService productService; 
+	
+	
+	
 //	상품 등록창 가기
 	@GetMapping("/product/insert")
 	String productInsertForm() {

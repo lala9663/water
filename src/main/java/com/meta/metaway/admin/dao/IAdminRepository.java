@@ -28,4 +28,6 @@ public interface IAdminRepository {
 	List<AdminStaffDTO> selectAllCodiList();
 	List<AdminStaffDTO> selectAllDriverList();
 	
+	AdminStaffDTO selectOneStaffList(long staffId);
+	int getStaffId(long staffId);
 	}

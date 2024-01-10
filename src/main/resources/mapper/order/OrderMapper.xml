@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.meta.metaway.order.dao.IOrderRepository">
+<!-- 해당 약정 정보 가져오기  -->
+	<select id="GetContractInfo" resultType="com.meta.metaway.product.model.Contract">
+    	select 
+    	contract_id as contractId,
+    	product_id as productId,
+    	contract_year as contractYear,
+    	contract_price as contractPrice
+    	from contract
+    	where product_id = #{productId} and contract_id = #{contractId}
+    </select>
+    
+    <!-- 주문 넣기 -->
+    <insert id="InsertOrder" parameterType="com.meta.metaway.order.model.Order">
+    	INSERT INTO orders(order_id, user_id, order_content, order_date, request_date, order_name, order_state, order_address, order_price, rental_price)
+    	values (#{orderId},#{userId},#{orderContent},SYSDATE, #{requestDate}, #{orderName}, #{orderState}, #{orderAddress}, #{orderPrice}, #{rentalPrice})
+    </insert>
+    
+    <!-- 주문 상세 넣기 -->
+    <insert id="InsertOrderDetail" parameterType="com.meta.metaway.product.model.Contract">
+    	INSERT INTO order_detail(order_detail_id, order_id, contract_id, product_id, order_count)
+    	values (#{orderDetailId},#{orderId},#{contractId},#{productId}, #{orderCount})
+    </insert>
+    
+    <!-- 주문 취소  -->
+    <update id="cancelOrder" parameterType="com.meta.metaway.order.model.Order" >
+    	update orders set 
+		order_state = 4
+		where user_id = #{userId} and order_id = #{orderId};
+    </update>
+    
+    
+    <!-- 시퀀스대용  -->
+     <select id="getNextMaxOrderId" resultType="Long">
+    	SELECT max(order_id) +1 from orders
+    </select>
+    <select id="getNextMaxOrderDetailId" resultType="Long">
+    	SELECT max(order_detail_id) +1 from order_detail
+    </select>
+    
+ 
+</mapper>

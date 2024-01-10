@@ -100,3 +100,7 @@
 .buyDiv{
 	display: none;
 }
+.buyButton{display: inline-block;}
+.basketButton{
+	display: inline-block;
+}

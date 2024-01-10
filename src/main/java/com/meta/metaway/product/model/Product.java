@@ -18,6 +18,8 @@ public class Product {
 	private String imageType;
 	private String imageFile;
 	private String formName;
+	private int contractYear;
+	private int contractPrice;
 	private List<String> functionList;
 	private List<Contract> contract;
 }

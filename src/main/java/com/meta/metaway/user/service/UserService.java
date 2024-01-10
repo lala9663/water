@@ -1,11 +1,20 @@
 package com.meta.metaway.user.service;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meta.metaway.order.model.Order;
+import com.meta.metaway.product.dao.IProductRepository;
+import com.meta.metaway.product.model.Product;
 import com.meta.metaway.user.dao.IBasketRepository;
 import com.meta.metaway.user.dao.IUserRepository;
 import com.meta.metaway.user.dto.JoinDTO;
@@ -18,11 +27,16 @@ public class UserService implements IUserService {
     private final IUserRepository userRepository;
     private final IBasketRepository basketRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    IProductRepository productRepository;
 
-    public UserService(IUserRepository userRepository, IBasketRepository basketRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(IUserRepository userRepository, IBasketRepository basketRepository, BCryptPasswordEncoder bCryptPasswordEncoder, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.basketRepository = basketRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -51,7 +65,7 @@ public class UserService implements IUserService {
 
             data.setId(id);
             data.setAccount(account);
-            data.setPassword(bCryptPasswordEncoder.encode(password));
+            data.setPassword(passwordEncoder.encode(password));
             data.setEmail(email);
             data.setName(name);
             data.setPhone(phone);
@@ -92,7 +106,7 @@ public class UserService implements IUserService {
             if (existingUser != null) {
                 String newPassword = user.getPassword(); 
                 if (newPassword != null && !newPassword.isEmpty()) {
-                    String encryptedPassword = bCryptPasswordEncoder.encode(newPassword); 
+                    String encryptedPassword = passwordEncoder.encode(newPassword); 
                     existingUser.setPassword(encryptedPassword); 
                 }
 
@@ -114,40 +128,58 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<Basket> getBasketItemsByUserId(Long userId) {
-        return basketRepository.getBasketItemsByUserId(userId);
+    public List<Product> getBasketItemsByUserId(Long userId) {
+    	List<Product> productList = basketRepository.getBasketItemsByUserId(userId);
+    	for(Product product : productList) {
+    		product.setFunctionList(productRepository.getProductKey(product.getProductId()));
+    		product.setImageFile(productImageString(product.getImageFile()));
+    	}
+        return productList;
     }
 
     @Override
-    public void addProductToBasket(String account, Long contractId, Basket basket) {
-    	Long userId = userRepository.getUserIdByAccount(account);
-    	Long productId = basketRepository.getProductIdByContractId(contractId);
-    	
-        basket.setProductId(productId);
-
-        basketRepository.addProductToBasket(basket);
+    public void addProductToBasket(Basket basket) throws Exception{
+    	basketRepository.addProductToBasket(basket);
     }
 
     @Override
-    public void removeProductFromBasket(String account, Basket basket) {
+    public void removeProductFromBasket(Basket basket) {
         basketRepository.removeProductFromBasket(basket);
     }
 
-
-
-    
     @Override
-    public boolean checkPasswordByAccount(String account, String password) {
-        String encryptedPassword = userRepository.getPasswordByAccount(account);
-        return encryptedPassword != null && bCryptPasswordEncoder.matches(password, encryptedPassword);
+    public boolean checkPassword(Long id, String enteredPassword) {
+        String storedPassword = userRepository.findPasswordById(id);
+
+        return passwordEncoder.matches(enteredPassword, storedPassword);
     }
-    
+
     @Override
     @Transactional
-    public void deleteUserByAccount(String userAccount) {
-        userRepository.deleteUserByAccount(userAccount);
+    public void deleteUserById(Long id) {
+    	
+        userRepository.deleteUserById(id);
     }
-
+  
+    @Override
+    public List<Order> getOrdersByUserId(Long userId) {
+        return userRepository.getOrderByUserId(userId);
+    }
+    
+    
+	private String productImageString(String filePath) {
+		try {
+			InputStream input = new FileInputStream(filePath);
+		
+		byte[] byteFile = input.readAllBytes();
+		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
+		return encodedByte;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+  
 
 
 }

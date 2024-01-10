@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/header.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" th:href="@{/css/order.css}">
+	<title>Document</title>
+</head>
+
+<header th:replace="/include/header.html"></header>
+
+<body>
+	<div id="wrap">
+		<form method="post" id="orderForm" action="order/apply">
+			<div id="orderDiv1">
+				<div class="headerText">상품 결제</div>
+				<input type="hidden" value="1">
+				<div>
+					<labe for="orderName" class="form-label">수취인 이름</labe>
+					<input type="text" name="orderName" id="orderName" placeholder="수취인 이름을 입력해주세요."
+						class="form-control">
+				</div>
+				<div>
+					<labe for="orderAddress" class="form-label">수취인 주소</labe>
+					<input type="text" name="orderAddress" id="orderAddress" placeholder="주소를 입력해주세요"
+						class="form-control">
+				</div>
+				<div>
+					<label for="orderDate" class="form-label">방문요청일</label>
+					<input type="date" name="requestDate" id="orderDate" class="form-control">
+				</div>
+				<div>
+					<label for="orderContent" class="form-label">요청 사항</label>
+					<textarea name="orderContent" id="orderContent" class="form-control" rows="5" cols="30"></textarea>
+				</div>
+			</div>
+			<div id="orderDiv2">
+				<div id="iamgeBox">
+					<img th:src="'data:' + ${product[0].imageType} + ';base64,' + ${product[0].imageFile}"
+						alt="productImage" id="productImage">
+				</div>
+				<div id="productText">
+					<th:block th:if="${size == 0}">
+						<div th:text="${product[0].productModel}"></div>
+						<div th:text="${product[0].productName}"></div>
+					</th:block>
+					<th:block th:if="${size != 0}">
+						<div th:text="${product[0].productModel}"></div>
+						<div th:text="${product[0].productName} + ' 외 ' + ${size}"></div>
+					</th:block>
+				</div>
+				<input type="hidden" name="orderState" value="0">
+				<th:block th:each="cont, contIndex : ${contract}">
+					<input type="hidden" th:value="${cont.contractId}" th:name="'contractList[' + ${contIndex.index} + '].contractId'">
+					<input type="hidden" th:value="${cont.productId}" th:name="'contractList[' + ${contIndex.index} + '].productId'">
+					<input type="hidden" th:value="${cont.orderCount}" th:name="'contractList[' + ${contIndex.index} + '].orderCount'">
+				</th:block>
+				<div>
+					<th:block th:if="${order.orderPrice != 0}">
+						<input type="hidden" th:value="${order.orderPrice}" name="orderPrice">
+						<div th:text="${order.orderPrice} + '원'"></div>
+					</th:block>
+					<th:block th:if="${order.rentalPrice != 0}">
+						<input type="hidden" th:value="${order.rentalPrice}" name="rentalPrice">
+						<div th:text="'월 ' + ${order.rentalPrice} + '원'"></div>
+					</th:block>
+				</div>
+				<div id="buttonDiv">
+					<button class="btn btn-primary btn-lg">결제하기</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+<footer th:replace="/include/footer.html"></footer>
+<script>
+
+</script>
+<script>
+
+</script>
+
+</html>

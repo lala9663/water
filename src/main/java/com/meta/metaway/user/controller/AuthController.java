@@ -5,24 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 
-import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.user.dto.JoinDTO;
-import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AuthController {
 
 	@Autowired
     private IUserService userService;
-	
-	@Autowired
-	private JWTUtil jwtUtil;
 
     @GetMapping("/")
     public String index() {
@@ -34,7 +30,7 @@ public class AuthController {
     public String getJoinPage(Model model) {
         model.addAttribute("joinDTO", new JoinDTO());
 
-        return "join"; 
+        return "user/join"; 
     }
 
     @PostMapping("/join")
@@ -47,58 +43,32 @@ public class AuthController {
 	@GetMapping("/login")
 	public String login() {
 		  
-	 return "/member/login";
-	}
-	
-//	@GetMapping("/user/profile")
-//	public String getProfilePage(HttpServletRequest request, Model model) {
-//	    String tokenHeader = request.getHeader("Authorization");
-//	    String token = null;
-//
-//	    if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
-//	        token = tokenHeader.substring(7); 
-//	    }
-//	    System.out.println(token);
-//	    if (token != null) {
-//	        String username = jwtUtil.getUsername(token);
-//	        User user = userService.getUserByUsername(username);
-//
-//	        if (user != null) {
-//	            model.addAttribute("userProfile", user);
-//	            return "member/profile";
-//	        }
-//	    }
-//
-//	    return "redirect:/login";
-//	}
-
-	@GetMapping("/user/profile")
-	public String getProfilePage(HttpServletRequest request, Model model) {
-	    Cookie[] cookies = request.getCookies();
-	    String token = null;
-
-	    if (cookies != null) {
-	        for (Cookie cookie : cookies) {
-	            if (cookie.getName().equals("token")) {
-	                token = cookie.getValue();
-	                break;
-	            }
-	        }
-	    }
-
-	    if (token != null) {
-	        String username = jwtUtil.getUsername(token);
-	        User user = userService.getUserByUsername(username);
-
-	        if (user != null) {
-	        	System.out.println("투스트링: " + user.toString());
-	        	
-	            model.addAttribute("userProfile", user);
-	            return "member/profile";
-	        }
-	    }
-
-	    return "redirect:/login";
+	 return "/user/login";
 	}
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    cookie.setValue("");
+                    cookie.setPath("/");
+                    cookie.setMaxAge(0);
+                    cookie.setHttpOnly(true);
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+        }
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/login";
+    }
+
+   
 }

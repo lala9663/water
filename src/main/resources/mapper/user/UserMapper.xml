@@ -27,6 +27,8 @@
 	<select id="getUserIdByAccount" parameterType="String" resultType="Long">
 	    SELECT user_id FROM users WHERE user_account = #{account}
 	</select>
+
+	
 	   
 	<select id="loginByAccount" resultType="com.meta.metaway.user.model.User">
 	    SELECT user_account as account, user_password as password FROM users
@@ -34,15 +36,16 @@
 	</select>
 
     <select id="findByAccount" resultType="com.meta.metaway.user.model.User">
-		SELECT u.user_account as account, u.user_password as password, a.authority_name as authorities 
+		SELECT u.user_id as id, u.user_account as account, u.user_password as password, a.authority_name as authorities 
 		FROM users u 
 		LEFT JOIN user_authority ua ON u.user_id = ua.user_id 
 		LEFT JOIN authority a ON ua.authority_name = a.authority_name 
 		WHERE u.user_account = #{account}
     </select>
     
+    <!--  회원 조회  -->
     <select id="findByInfo" resultType="com.meta.metaway.user.model.User">
-		SELECT u.user_account as account, u.user_email as email, u.user_name as name, u.user_phone as phone, u.user_age as age, u.user_address as address,
+		SELECT u.user_id as id, u.user_account as account, u.user_email as email, u.user_name as name, u.user_phone as phone, u.user_age as age, u.user_address as address,
 		a.authority_name as authorities 
 		FROM users u 
 		LEFT JOIN user_authority ua ON u.user_id = ua.user_id 
@@ -60,8 +63,8 @@
 	<update id="updateUser" parameterType="com.meta.metaway.user.model.User">
 	    UPDATE users
 	    SET 
-	        user_password = #{password},
-	        user_email = #{email},
+<!-- 	        user_password = #{password},
+ -->	        user_email = #{email},
 	        user_name = #{name},
 	        user_phone = #{phone},
 	        user_age = #{age},
@@ -70,14 +73,34 @@
 	</update>
 	
 	<!-- 회원 삭제 -->
-    <delete id="deleteUserByAccount" parameterType="String">
-        DELETE FROM users WHERE user_account = #{account}
+    <delete id="deleteUserById" parameterType="Long">
+        DELETE FROM users WHERE user_id = #{id}
     </delete>
     
-    <!--암호화된 비밀번호 가져오기 -->
-    <select id="getPasswordByAccount" resultType="String" parameterType="String">
-        SELECT user_password FROM users WHERE user_account = #{account}
-    </select>   
+    <!--비밀번호 확인 -->
+	<select id="findPasswordById" resultType="String">
+	    SELECT user_password FROM users WHERE user_id = #{id}
+	</select>
+	 
+    <select id="getOrderByUserId" parameterType="Long" resultType="com.meta.metaway.order.model.Order">
+    SELECT 
+    order_id as orderId,
+    user_id as userId,
+    order_content as orderContent,
+    order_date as orderDate,
+    request_date as requestDate,
+    order_name as orderName,
+    order_state as orderState,
+    order_address as orderAddress,
+    order_price as orderPrice,
+    rental_price as rentalPrice	    
+    FROM orders
+    WHERE user_id = #{userId}
+	</select>
+    
+    
+    
+    
     
     <select id="selectUserMaxNo" resultType="long">
 	<![CDATA[
