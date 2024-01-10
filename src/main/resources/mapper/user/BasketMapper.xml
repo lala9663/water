@@ -13,6 +13,7 @@
 		a.product_model as productModel,
 		a.product_name as productName,
 		a.product_date as productDate,
+		b.contract_id as contractId,
 		b.contract_year as contractYear,
 		b.contract_price as contractPrice,
 		c.file_path as imageFile,
