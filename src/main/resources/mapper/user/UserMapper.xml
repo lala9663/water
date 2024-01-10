@@ -81,7 +81,8 @@
 	<select id="findPasswordById" resultType="String">
 	    SELECT user_password FROM users WHERE user_id = #{id}
 	</select>
-	 
+	
+	<!-- 주문 조회  -->
     <select id="getOrderByUserId" parameterType="Long" resultType="com.meta.metaway.order.model.Order">
     SELECT 
     order_id as orderId,
@@ -98,6 +99,25 @@
     WHERE user_id = #{userId}
 	</select>
     
+    
+	<!-- 회원의 주문 상세 정보 조회 -->
+	<select id="getOrderDetailByUserId" parameterType="Long" resultType="com.meta.metaway.order.model.OrderDetail">
+	    SELECT od.order_detail_id AS orderDetailId,
+	           od.order_id AS orderId,
+	           od.product_id AS productId,
+	           od.contract_id AS contractId,
+	           od.order_count AS orderCount,
+	           od.start_date AS startDate,
+	           od.end_date AS endDate,
+	           p.product_model AS productModel,
+	           c.contract_price AS orderPrice
+	    FROM order_detail od
+	    JOIN product p ON od.product_id = p.product_id
+	    JOIN contract c ON od.contract_id = c.contract_id AND od.product_id = c.product_id
+	    JOIN orders o ON od.order_id = o.order_id
+	    WHERE o.user_id = #{userId}
+	</select>
+
     
     
     

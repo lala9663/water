@@ -6,23 +6,20 @@
 <body>
     <div class="order-list">
         <section>
-            <h2>User Orders</h2>
+            <h2>주문 정보</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Order ID</th>
-                        <th>Order Content</th>
-                        <th>Order Date</th>
-                        <!-- 여기에 필요한 다른 열들을 추가할 수 있습니다 -->
+                        <th>주문자</th>
+                        <th>내용</th>
+                        <th>날짜</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 주문 목록을 순회하며 각 주문을 테이블에 표시 -->
                     <tr th:each="order : ${orderList}">
                         <td th:text="${order.orderId}"></td>
                         <td th:text="${order.orderContent}"></td>
                         <td th:text="${order.orderDate}"></td>
-                        <!-- 필요한 열에 대한 추가 -->
                     </tr>
                 </tbody>
             </table>

@@ -1,0 +1,42 @@
+<!-- orderDetailList.html -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Order Details</title>
+
+</head>
+<body>
+    <h1>주문 아주 상세 정보</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>주문 아주 상세 ID</th>
+                <th>주문자 ID</th>
+                <th>상품 ID</th>
+                <th>계약 ID</th>
+                <th>주문수량</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>상품모델</th>
+                <th>주문가격</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 주문 상세 정보를 반복문으로 표시 -->
+            <tr th:each="orderDetail : ${orderList}">
+                <td th:text="${orderDetail.orderDetailId}"></td>
+                <td th:text="${orderDetail.orderId}"></td>
+                <td th:text="${orderDetail.productId}"></td>
+                <td th:text="${orderDetail.contractId}"></td>
+                <td th:text="${orderDetail.orderCount}"></td>
+                <td th:text="${orderDetail.startDate}"></td>
+                <td th:text="${orderDetail.endDate}"></td>
+                <td th:text="${orderDetail.productModel}"></td>
+                <td th:text="${orderDetail.orderPrice}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
