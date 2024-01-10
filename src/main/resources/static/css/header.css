@@ -150,10 +150,9 @@
     filter: invert(100%);
   }
   
-  .search-icon{
+  .header-search-icon{
     height: 25px;
   }
-
 
   .header-cart-img img{
    height: 30px;

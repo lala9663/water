@@ -45,6 +45,16 @@
 		FROM staff
 	]]>
 	</select>	
-
-	   
+	
+	<select id="selectOrderProductList" >
+	SELECT 
+	    O.order_id, P.product_name, O.order_name, O.order_date, O.order_address,  U.user_phone,S.visit_date,O.order_state
+	FROM orders O
+	LEFT JOIN users U ON O.user_id = U.user_id
+	LEFT JOIN order_detail OD ON O.order_id = OD.order_id
+	LEFT JOIN product P ON OD.product_id = P.product_id
+	LEFT JOIN schedule S ON O.order_id = S.order_id
+	</select>
+	
+	
 </mapper>

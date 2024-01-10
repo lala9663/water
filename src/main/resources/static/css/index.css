@@ -1,6 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
+
+.carousel-item h1{
+	font-family: 'Nanum Gothic', sans-serif;
+	position:absolute;
+	margin-top:230px;
+	margin-left: 300px;
+	font-size: 40px;
+	font-weight:bolder;
+
+	}
+.carousel-item p{
+	font-family: 'Nanum Gothic', sans-serif;
+	position: absolute;
+	margin-top:210px;
+	margin-left: 300px;
+	font-size: 12px;
+	font-weight:bold;
+	
+
+}
+.carousel-item h3{
+	font-family: 'Nanum Gothic', sans-serif;
+	position: absolute;
+	margin-top:280px;
+	margin-left: 300px;
+	font-size: 28px;
+	font-weight:bold;
+
+}
+
 .title_wrap {
   text-align: left;
   margin-top: 25px;
@@ -37,7 +67,7 @@
 }
 
 .tabType_tabType {
-  width: 30%; /* Adjust the width as needed */
+  width: 30%;
 }
 
 .tabType_tabType ul {
