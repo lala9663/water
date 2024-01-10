@@ -165,22 +165,6 @@ public class UserService implements IUserService {
     public List<Order> getOrdersByUserId(Long userId) {
         return userRepository.getOrderByUserId(userId);
     }
-    
-    
-	private String productImageString(String filePath) {
-		try {
-			InputStream input = new FileInputStream(filePath);
-		
-		byte[] byteFile = input.readAllBytes();
-		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
-		return encodedByte;
-		} catch (Exception e) {
-			System.out.println(e);
-			return null;
-		}
-	}
-  
-
 
     @Override
     public List<OrderDetail> getOrderDetailByUserId(Long userId) {
