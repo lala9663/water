@@ -3,6 +3,7 @@ package com.meta.metaway.user.service;
 import java.util.List;
 
 import com.meta.metaway.order.model.Order;
+import com.meta.metaway.order.model.OrderDetail;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.user.dto.JoinDTO;
 import com.meta.metaway.user.model.Basket;
@@ -29,5 +30,8 @@ public interface IUserService {
     void removeProductFromBasket(Basket basket);
     
     List<Order> getOrdersByUserId(Long userId);
+    
+    List<OrderDetail> getOrderDetailByUserId(Long userId);
+
     
 }

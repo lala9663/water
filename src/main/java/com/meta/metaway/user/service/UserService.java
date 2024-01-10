@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.meta.metaway.order.model.Order;
+import com.meta.metaway.order.model.OrderDetail;
 import com.meta.metaway.product.dao.IProductRepository;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.user.dao.IBasketRepository;
@@ -162,4 +163,8 @@ public class UserService implements IUserService {
         return userRepository.getOrderByUserId(userId);
     }
 
+    @Override
+    public List<OrderDetail> getOrderDetailByUserId(Long userId) {
+        return userRepository.getOrderDetailByUserId(userId);
+    }
 }
