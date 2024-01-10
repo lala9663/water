@@ -62,7 +62,6 @@ public class OrderController {
 	
 	@PostMapping("order/apply")
 	String orderInsert(Model model, @ModelAttribute Order order, HttpServletRequest request) {
-		
 		order.setUserId(multiClass.getTokenUserId(request));
 		orderService.InsertOrder(order);
 		return "redirect:/product";
