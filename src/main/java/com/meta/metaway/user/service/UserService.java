@@ -2,6 +2,7 @@ package com.meta.metaway.user.service;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,11 +160,27 @@ public class UserService implements IUserService {
     	
         userRepository.deleteUserById(id);
     }
-    
+  
     @Override
     public List<Order> getOrdersByUserId(Long userId) {
         return userRepository.getOrderByUserId(userId);
     }
+    
+    
+	private String productImageString(String filePath) {
+		try {
+			InputStream input = new FileInputStream(filePath);
+		
+		byte[] byteFile = input.readAllBytes();
+		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
+		return encodedByte;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+  
+
 
     @Override
     public List<OrderDetail> getOrderDetailByUserId(Long userId) {
