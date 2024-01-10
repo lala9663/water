@@ -1,6 +1,8 @@
 package com.meta.metaway.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.multiClass.MultiClass;
+import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
 
@@ -127,5 +131,15 @@ public class UserController {
 			return redirectUrl;
 	    }
 	    
-
+	    @ResponseBody
+	    @PostMapping("/basket")
+	    public ResponseEntity<?> addProductToBasket(Basket basket, HttpServletRequest request) {
+	    	basket.setUserId(multiClass.getTokenUserId(request));
+	    	try {
+		    	userService.addProductToBasket(basket);
+		    	return ResponseEntity.ok().body("장바구니에 담았습니다!");
+			} catch (Exception e) {
+				 return ResponseEntity.ok().body("이미 장바구니에 담겨있습니다!");
+			}
+	    }
 }

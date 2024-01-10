@@ -22,9 +22,7 @@ public interface IUserService {
     
     List<Basket> getBasketItemsByUserId(Long userId);
     
-    void addProductToBasket(String account, Long contractId, Basket basket);
+    void addProductToBasket(Basket basket) throws Exception;
     
     void removeProductFromBasket(String account, Basket basket);
-
-
 }
