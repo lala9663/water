@@ -3,6 +3,8 @@ package com.meta.metaway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,6 +46,21 @@ public class SecurityConfig {
     }
 
     @Bean
+    public RoleHierarchy roleHierarchy() {
+
+        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
+
+        hierarchy.setHierarchy(
+                "ROLE_ADMIN > ROLE_CODI " +
+                "ROLE_ADMIN > ROLE_DRIVER " +
+                "ROLE_CODI = ROLE_DRIVER " +
+                "ROLE_DRIVER > ROLE_USER"
+            );
+
+        return hierarchy;
+    }
+    
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 
@@ -61,12 +78,6 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/join","/index").permitAll()
                         .requestMatchers("/mypage").hasRole("USER")
                         .anyRequest().authenticated());
-//        http	
-//				.formLogin(login ->login
-//		        .loginPage("/login.html")
-//		        .loginProcessingUrl("/login.html")
-//		        .failureUrl("/login.html?error=true")
-//		        .permitAll());
 
         //JWTFilter 등록
         http
