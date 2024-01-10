@@ -8,5 +8,4 @@ public class Basket {
 	    private Long productId;
 	    private Long contractId;
 	    private int productPcs;
-
 }

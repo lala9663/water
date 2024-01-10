@@ -74,11 +74,4 @@ public class OrderController {
 		
 		return "redirect:/order/order";
 	}
-	
-	@PostMapping("order/basket")
-	String orderInsert(HttpServletRequest request, Order order) {
-		order.setUserId(multiClass.getTokenUserId(request));
-		
-		return null;
-	}
 }

@@ -123,13 +123,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void addProductToBasket(String account, Long contractId, Basket basket) {
-    	Long userId = userRepository.getUserIdByAccount(account);
-    	Long productId = basketRepository.getProductIdByContractId(contractId);
-    	
-        basket.setProductId(productId);
-
-        basketRepository.addProductToBasket(basket);
+    public void addProductToBasket(Basket basket) throws Exception{
+    	basketRepository.addProductToBasket(basket);
     }
 
     @Override
@@ -150,7 +145,5 @@ public class UserService implements IUserService {
     	
         userRepository.deleteUserById(id);
     }
-
-
-
+   
 }

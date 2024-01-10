@@ -20,6 +20,9 @@ public class ProductController {
 	
 	@Autowired
 	IProductService productService; 
+	
+	
+	
 //	상품 등록창 가기
 	@GetMapping("/product/insert")
 	String productInsertForm() {

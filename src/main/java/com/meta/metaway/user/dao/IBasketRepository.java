@@ -13,8 +13,8 @@ import com.meta.metaway.user.model.Basket;
 public interface IBasketRepository {
 
 	List<Basket> getBasketItemsByUserId(Long userId);
-	void addProductToBasket(Basket basket);
+	void addProductToBasket(Basket basket) throws Exception;
 	Long getProductIdByContractId(Long contractId);
 	void removeProductFromBasket(Basket basket);
-
+	
 }

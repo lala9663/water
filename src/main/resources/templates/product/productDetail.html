@@ -46,8 +46,7 @@
 						<div id="contractAll">
 							<div th:if="${cont.contractYear != 0}" th:each="cont, contstat : ${product.contract}"
 								th:data-price="${cont.contractPrice}" th:text="${cont.contractYear} + '년 약정'"
-								th:data-contract-id="${cont.contractId}"
-								class="rental btn btn-secondary btn-sm"></div>
+								th:data-contract-id="${cont.contractId}" class="rental btn btn-secondary btn-sm"></div>
 						</div>
 					</div>
 					<div class="contract buyDiv">
@@ -55,8 +54,7 @@
 						<div id="contractAll">
 							<div th:if="${cont.contractYear == 0}" th:each="cont, contstat : ${product.contract}"
 								th:data-price="${cont.contractPrice}" th:text="'즉시 구매'"
-								th:data-contract-id="${cont.contractId}"
-								class="rental btn btn-secondary btn-sm"></div>
+								th:data-contract-id="${cont.contractId}" class="rental btn btn-secondary btn-sm"></div>
 						</div>
 					</div>
 					<div id="rentalBox" class="rentalDiv">
@@ -69,10 +67,13 @@
 				<div id="buttonBox">
 					<div class="rentalDiv">
 						<form method="post" class="basketButton">
-							<input type="hidden" value="1" name="contractList[0].orderCount">
-							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
-							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
-							<button class="btn btn-primary btn-lg">장바구니</button>
+
+							<input type="hidden" th:value="${product.productId}" name="productId">
+							<input type="hidden" name="contractId" value="" class="contractId">
+							<button type="button" class="btn btn-primary btn-lg" onclick="sendBasketRequest(event)"
+								data-bs-toggle="modal" data-bs-target="#exampleModal">
+								장바구니
+							</button>
 						</form>
 						<form method="post" class="buyButton" action="/order">
 							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
@@ -82,10 +83,12 @@
 					</div>
 					<div class="buyDiv">
 						<form method="post" class="basketButton" accept="order/basket">
-							<input type="hidden" value="1" name="contractList[0].orderCount">
-							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
-							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
-							<button class="btn btn-primary btn-lg">장바구니</button>
+							<input type="hidden" th:value="${product.productId}" name="productId">
+							<input type="hidden" name="contractId" value="" class="contractId">
+							<button type="button" class="btn btn-primary btn-lg" onclick="sendBasketRequest(event)"
+								data-bs-toggle="modal" data-bs-target="#exampleModal">
+								장바구니
+							</button>
 						</form>
 						<form method="post" class="buyButton" action="/order">
 							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
@@ -104,6 +107,23 @@
 				<a type="button" class="btn btn-danger" th:href="'update/' + ${product.productId}">수정하기</a>
 			</div>
 
+
+
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">장바구니에 잘 담겼습니다!</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<!-- Modal -->
 			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -131,7 +151,7 @@
 <script>
 	window.addEventListener('DOMContentLoaded', (event) => {
 		document.querySelectorAll('.rental').forEach(item => {
-			item.addEventListener('click', function() {
+			item.addEventListener('click', function () {
 				var contractId = this.getAttribute('data-contract-id');
 				document.querySelectorAll('.contractId').forEach(input => {
 					input.value = contractId;
@@ -169,12 +189,10 @@
 	var buyDiv = document.getElementsByClassName('buyDiv');
 	button1.onclick = function () {
 		buttonValue = 0;
-		console.log(buttonValue);
 		updateDiv();
 	};
 	button2.onclick = function () {
 		buttonValue = 1;
-		console.log(buttonValue);
 		updateDiv();
 	};
 	function updateDiv() {
@@ -196,27 +214,32 @@
 		}
 	}
 </script>
-<!--<script>
-	document.getElementById('basketForm').addEventListener('submit', function(event) 
-{
-	event.preventDefault();
-	
-	var formData = new FormData(this);
-	var xhr = new XMLHttpRequest(this);
-	
-	xhr.open('POST','order/basket',ture);
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState === XMLHttpRequest.DONE) {
-			if(xhr.status === 200) {
-				console.log(xhr.requestText);
-			}
-			else {
-				console.error('error :', xhr.statusText);
+<script>
+	function sendBasketRequest(event) {
+		event.preventDefault();
+
+		var xhr = new XMLHttpRequest();
+		var url = "/user/basket";
+		xhr.open("post", url, true);
+		var form = event.target.form;
+		var formData = new FormData(form);
+
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+				var status = xhr.status;
+				var basketText = document.getElementById('exampleModalLabel');
+				if (status === 0 || (status >= 200 && status < 400)) {
+					 basketText.textContent = xhr.responseText
+				}
+				else {
+					 basketText.textContent = xhr.responseText
+				}
 			}
 		}
-	};
-	xhr.send(formData);
-	});
-</script>-->
+		xhr.send(formData);
+	}
+
+
+</script>
 
 </html>
