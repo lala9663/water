@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meta.metaway.order.model.Order;
 import com.meta.metaway.product.dao.IProductRepository;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.user.dao.IBasketRepository;
@@ -159,6 +160,11 @@ public class UserService implements IUserService {
     	
         userRepository.deleteUserById(id);
     }
+  
+    @Override
+    public List<Order> getOrdersByUserId(Long userId) {
+        return userRepository.getOrderByUserId(userId);
+    }
     
     
 	private String productImageString(String filePath) {
@@ -173,4 +179,7 @@ public class UserService implements IUserService {
 			return null;
 		}
 	}
+  
+
+
 }
