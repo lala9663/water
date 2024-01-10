@@ -132,7 +132,7 @@ footer-body {
   
     
     .nav__item--extra {
-      flex-grow: 2;
+      flex-grow: 1;
     }
     
     .footer__addr {

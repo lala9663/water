@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ul-container{
+	display: flex;
+}
+
+.profile-page {
+    width: 700px;
+    height: auto;
+    margin: auto;
+    padding: 30px;
+    box-shadow: rgba(136, 165, 191, 0.48) 0px 8px 24px, rgba(136, 165, 191, 0.48) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    margin-top: 52vh;
+    transform: translateY(-50%);
+    text-align: center;
+    
+}
+
+.profile-nav{
+	    width: 200px;
+	    height: 150px;
+	    margin-top: 25vh;
+	    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    	border-radius: 5px;
+}
+
+
+.pwd-btn {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember",sans-serif;
+  font-size: 13px;
+  line-height: 29px;
+  padding: 0 10px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 450px;
+}
+
+.pwd-btn:hover {
+  background-color: #f7fafa;
+}
+
+.pwd-btn:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
+}
+
+.text-highlight{
+	font-size: 35px;
+	box-shadow: inset 0 -20px 0 rgb(167, 233, 255);
+}
