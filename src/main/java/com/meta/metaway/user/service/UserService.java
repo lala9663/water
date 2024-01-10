@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.meta.metaway.order.model.Order;
+import com.meta.metaway.order.model.OrderDetail;
 import com.meta.metaway.product.dao.IProductRepository;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.user.dao.IBasketRepository;
@@ -182,4 +182,23 @@ public class UserService implements IUserService {
   
 
 
+    @Override
+    public List<OrderDetail> getOrderDetailByUserId(Long userId) {
+        return userRepository.getOrderDetailByUserId(userId);
+    }
+    
+    
+	private String productImageString(String filePath) {
+		try {
+			InputStream input = new FileInputStream(filePath);
+
+		byte[] byteFile = input.readAllBytes();
+		String encodedByte = Base64.getEncoder().encodeToString(byteFile);
+		return encodedByte;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+    
 }

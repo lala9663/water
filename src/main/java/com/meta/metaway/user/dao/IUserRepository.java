@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.meta.metaway.order.model.Order;
+import com.meta.metaway.order.model.OrderDetail;
 import com.meta.metaway.user.model.User;
 
 @Repository
@@ -30,6 +31,8 @@ public interface IUserRepository {
     String findPasswordById(Long id);
     
     List<Order> getOrderByUserId(Long id);
+    
+    List<OrderDetail> getOrderDetailByUserId(Long id);
     
     long selectUserMaxNo();
 

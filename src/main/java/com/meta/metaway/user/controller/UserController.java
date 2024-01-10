@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.multiClass.MultiClass;
 import com.meta.metaway.order.model.Order;
+import com.meta.metaway.order.model.OrderDetail;
 import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
@@ -159,17 +160,31 @@ public class UserController {
 	    	return "user/basket";
 	    }
 	    
-	    @GetMapping("/orders")
+	    @GetMapping("/order")
 	    public String getUserOrders(HttpServletRequest request, Model model) {
 	    	String token = multiClass.getToken(request);
 	    	
 	        if (token != null) {
 	            Long userId = jwtUtil.getId(token);
-	            System.out.println("회원 수정에서 유저id : " + userId);
+	            System.out.println("주문조회에서 유저id : " + userId);
 	            
 		    	List<Order> orderList = userService.getOrdersByUserId(userId);
 		        model.addAttribute("orderList", orderList);
 	        }
 	        return "user/orderlist"; 
+	    }
+	    
+	    @GetMapping("/orderdetail")
+	    public String getUserOrderDetails(HttpServletRequest request, Model model) {
+	    	String token = multiClass.getToken(request);
+	    	
+	        if (token != null) {
+	            Long userId = jwtUtil.getId(token);
+	            System.out.println("주문상세조회에서 유저id : " + userId);
+	            
+		    	List<OrderDetail> orderDetailList = userService.getOrderDetailByUserId(userId);
+		        model.addAttribute("orderList", orderDetailList);
+	        }
+	        return "user/orderDetailList"; 
 	    }
 }
