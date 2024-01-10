@@ -14,6 +14,7 @@
 </head>
 
 <header th:replace="/include/header.html"></header>
+
 <body>
 	<div id="wrap">
 		<div id="imageBox">
@@ -21,26 +22,33 @@
 			<img src="/images/pcattimg_org.jpg" alt="" id="mainImage">
 		</div>
 
-    <div id="buyBox">
-		<a th:each="product, index : ${productList}" class="buyProduct" th:href="'/product/' + ${product.productId}">
-			<img th:src="'data:' + ${product.imageType} + ';base64,' + ${product.imageFile}" alt="productImage" class="productImage">
-			<div id="functionBox">
-				<div th:each="function : ${product.functionList}" th:text="${function}" class="function btn btn-secondary"></div>
+		<div id="buyBox">
+			<a th:each="product, index : ${productList}" class="buyProduct"
+				th:href="'/product/' + ${product.productId}">
+				<img th:src="'data:' + ${product.imageType} + ';base64,' + ${product.imageFile}" alt="productImage"
+					class="productImage">
+				<div id="functionBox">
+					<div th:each="function : ${product.functionList}" th:text="${function}"
+						class="function btn btn-secondary"></div>
+				</div>
+				<div class="Productdetail">
+					<div th:text="${product.productModel}" class="productModel"></div>
+					<div th:text="${product.productName}" class="productName"></div>
+					<div class="priceBox">
+						<div th:each="cont, contindex : ${product.contract}">
+							<div th:if="${cont.contractYear == 3}">렌탈 <span th:text="'월 ' + ${cont.contractPrice}" class="spanText"></span>
+							</div>
+							<div th:if="${cont.contractYear == 0}">구매 <span th:text="${cont.contractPrice}" class="spanText"></span></div>
+						</div>
+					</div>
+				</div>
+			</a>
+			<div id="admin">
+				<a class="btn btn-primary btn-lg" href="/product/insert">상품 등록</a>
 			</div>
-			<div class="Productdetail">
-			<div th:text="${product.productModel}" class="productModel"></div>
-			<div th:text="${product.productName}" class="productName"></div>
-			<div class="priceBox">
-			<div>렌탈  <span th:text="'월 ' + ${product.contract[2].contractPrice}" class="spanText"></span></div>
-			<div>구매  <span th:text="${product.contract[0].contractPrice}" class="spanText"></span></div>
-			</div>
-		</div>
-		</a>
-		<div id="admin">
-			<a class="btn btn-primary btn-lg" href="/product/insert">상품 등록</a>
 		</div>
 	</div>
-</div>
 </body>
 <footer th:replace="/include/footer.html"></footer>
+
 </html>
