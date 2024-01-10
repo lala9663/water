@@ -75,4 +75,11 @@ public class AdminService implements IAdminService {
 		return adminRepository.selectAllDriverList();
 	}
 	
+	@Override
+	public int getStaffId(long staffId) {
+		return adminRepository.getStaffId(staffId);
+	}
+	
+	
+	
 }
