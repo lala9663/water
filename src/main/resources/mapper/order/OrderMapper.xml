@@ -22,8 +22,8 @@
     
     <!-- 주문 상세 넣기 -->
     <insert id="InsertOrderDetail" parameterType="com.meta.metaway.product.model.Contract">
-    	INSERT INTO order_detail(order_detail_id, order_id, contract_id, product_id, order_count)
-    	values (#{orderDetailId},#{orderId},#{contractId},#{productId}, 1)
+    	INSERT INTO order_detail(order_detail_id, order_id, contract_id, product_id, order_count, state_type)
+    	values (#{orderDetailId},#{orderId},#{contractId},#{productId}, 1, #{stateType})
     </insert>
     
     <!-- 주문 취소  -->

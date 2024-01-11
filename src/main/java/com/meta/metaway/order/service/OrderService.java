@@ -32,8 +32,14 @@ public class OrderService implements IOrderService{
 		for(Contract contract : order.getContractList()) {
 			contract.setOrderId(orderId);
 			contract.setOrderDetailId(orderDetailNum);
+			if(contract.getContractYear() == 0) {
+				System.out.println(contract.getContractYear());
+				contract.setStateType(0);
+			}
+			else {
+				contract.setStateType(1);
+			}
 			orderRepository.InsertOrderDetail(contract);
-			System.out.println(contract.toString());
 			orderDetailNum++;
 		}
 		basketRepository.removeAllProductFromBasket(order.getUserId());

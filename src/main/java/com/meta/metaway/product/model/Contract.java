@@ -13,6 +13,7 @@ public class Contract {
 	private int contractYear;
 	private int contractPrice;
 	private int orderCount;
+	private int stateType;
 	private Timestamp startDate;
 	private Timestamp endDate;
 }
