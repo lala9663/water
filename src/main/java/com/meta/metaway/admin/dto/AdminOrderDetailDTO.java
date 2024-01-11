@@ -29,6 +29,9 @@ public class AdminOrderDetailDTO {
 	private int contractYear;
 	private int contractPrice;
 	private String userPhone;
+	private long staffId;
+	private String workPlace;
+	private long scheduleId;
 	
 	//날짜 포맷
     public String getOrderDate() {

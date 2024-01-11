@@ -60,41 +60,55 @@
                 </div>
             </div>
         </div>
-        <div class="flex_2">
-            <div class="flex_2_1">
-                <em>배정</em>
-                <div class="bo">
-                    <div class="engineer_box">
-                        <h3>설치 기사</h3>
-                        <div>
-                            <div class="driver">
-                        <!--여기에 모달에서 배정한 기사의 이름-->
-                                <p>기사를 배정해주세요.</p>
-                            </div>
-                            <div class="flex_button">
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">기사 선택</button>
-                                <button type="button" class="btn btn-outline-secondary" onclick="resetStaff('driver')">배정취소</button>
-                            </div>
+		<div class="flex_2">
+		    <div class="flex_2_1">
+		        <em>배정</em>
+		        <div class="bo">
+		            <div class="engineer_box">
+		                <h3>설치 기사</h3>
+		                <div th:if="${#lists.size(staff)} > 0">
+		                    <div th:each="driver : ${staff}" th:if="${driver.authorityName == 'ROLE_DRIVER'}">
+		                        <div class="driver" th:if="${driver != null}">
+		                            <p th:text="${driver.userName + ' (' + driver.staffId + '/' + driver.workPlace + ')'}">기사를 배정해주세요.</p>
+		                            <form class="flex_button" th:action="@{/admin/cancel/{orderId}/{staffId}(orderId=${driver.orderId}, staffId=${driver.staffId})}" method="post">
+		                                <input type="hidden" name="orderId" th:value="${driver.orderId}">
+		                                <input type="hidden" name="staffId" th:value="${driver.staffId}">
+		                                <button type="submit" class="btn btn-outline-secondary" id="cancelAssign" >배정취소</button>
+		                            </form>
+		                        </div>
+		                    </div>
+		                </div>
+		                <p th:unless="${#lists.size(staff)} > 0">기사를 배정해주세요.</p>
+		                <div class="flex_button">
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal" x`>기사 선택</button>
                         </div>
-                    </div>
-                    <div class="engineer_box">
-                        <h3>코디</h3>
-                        <div>
-                            <div class="codi">
-                        <!--여기에 모달에서 배정한 코디의 이름-->
-                                <p>코디를 배정해주세요.</p>
-                            </div>
-                            <div class="flex_button">
-                                <button type="button" class="btn btn-outline-primary"  data-toggle="modal" data-target="#myCodiModal">코디 선택</button>
-                                <button type="button" class="btn btn-outline-secondary" onclick="resetStaff('codi')">배정취소</button>
-                            </div>
-                        </div>
-                    </div>
-                      <button type="button" class="btn btn-primary btn-block">배정 완료</button>
-                </div>
-            </div>
-        </div>
-    </div>
+		            </div>
+		            <div class="engineer_box">
+		                <h3>코디</h3>
+		                <div th:if="${#lists.size(staff)} > 0">
+		                    <div th:each="codi : ${staff}" th:if="${codi.authorityName == 'ROLE_CODI'}">
+		                        <div class="codi" th:if="${codi != null}">
+		                            <p th:text="${codi.userName + ' (' + codi.staffId + '/' + codi.workPlace + ')'}">코디를 배정해주세요.</p>
+		                            <form class="flex_button" th:action="@{/admin/cancel/{orderId}/{staffId}(orderId=${codi.orderId}, staffId=${codi.staffId})}" method="post">
+		                                <input type="hidden" name="orderId" th:value="${codi.orderId}">
+		                                <input type="hidden" name="staffId" th:value="${codi.staffId}">
+		                                <button type="submit" class="btn btn-outline-secondary" id="cancelAssign">배정취소</button>
+		                            </form>
+		                        </div>
+		                    </div>
+		                </div>
+		                <p th:unless="${#lists.size(staff)} > 0">코디를 배정해주세요.</p>
+			            <div class="flex_button">
+	                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myCodiModal">코디 선택</button>
+	                    </div>
+		            </div>
+		            <form class="flex_button" th:action="@{/admin/assign/complate/{orderId}(orderId=${orderDetail.orderId})}" method="post">
+						<input type="hidden" name="orderId" th:value="${orderDetail.orderId}">
+		            	<button type="submit" class="btn btn-primary btn-block">배정 완료</button>
+		            </form>
+		        </div>
+		    </div>
+		</div>
     
        <!-- The Modal -->
    <div class="modal" id="myModal">
@@ -129,8 +143,8 @@
                  <td th:text="${driver.workPlace}">서울</td>
                <td>
                    <input type="hidden" name="orderId" th:value="${orderDetail.orderId}">
-                       <input type="hidden" name="staffId" th:value="${driver.staffId}">
-                       <input type="hidden" name="userId" th:value="${driver.userId}">
+                   <input type="hidden" name="staffId" th:value="${driver.staffId}">
+                   <input type="hidden" name="userId" th:value="${driver.userId}">
                   <button type="button" class="btn btn-outline-primary" th:onclick="assignStaff('driver', '[[${driver.userName}]]','[[${driver.staffId}]]','[[${driver.userId}]]')">배정</button>
                </td>
                </tr>
@@ -178,8 +192,8 @@
                  <td th:text="${codi.workPlace}"></td>
                <td>
                    <input type="hidden" name="orderId" th:value="${orderDetail.orderId}">
-                       <input type="hidden" name="staffId" th:value="${codi.staffId}">
-                       <input type="hidden" name="userId" th:value="${codi.userId}">
+                   <input type="hidden" name="staffId" th:value="${codi.staffId}">
+                   <input type="hidden" name="userId" th:value="${codi.userId}">
                   <button type="submit" class="btn btn-outline-primary" th:onclick="assignStaff('codi', '[[${codi.userName}]]', '[[${codi.staffId}]]','[[${codi.userId}]]')">배정</button>
                </td>
                </tr>
@@ -198,62 +212,19 @@
 <style>
 
 </style>
-<!--<script>
-    function assignStaff(staffType, staffName) {
-        if (staffType === 'driver') {
-            // 기사 출력란에 기사 이름을 표시
-            document.querySelector('.driver p').innerText = staffName;
-        } else if (staffType === 'codi') {
-            // 코디 출력란에 코디 이름을 표시
-            document.querySelector('.codi p').innerText = staffName;
-        }
 
-        // 모달을 닫음
-        $('#myModal').modal('hide');
-        $('#myCodiModal').modal('hide');
-    }
-     function resetStaff(staffType) {
-        if (staffType === 'driver') {
-            // 기사 출력란 초기화
-            document.querySelector('.driver p').innerText = "기사를 배정해주세요.";
-        } else if (staffType === 'codi') {
-            // 코디 출력란 초기화
-            document.querySelector('.codi p').innerText = "코디를 배정해주세요.";
-        }
-    }
-</script>-->
 <script>
-// 직원 정보 저장
-function saveStaffInfo(staffType, staffName, staffId) {
-    const staffInfo = { staffName, staffId };
-    localStorage.setItem(`${staffType}_info`, JSON.stringify(staffInfo));
-}
-
-// 페이지 로딩 시 직원 정보 불러오기
-function loadStaffInfo(staffType) {
-    const staffInfoString = localStorage.getItem(`${staffType}_info`);
-    return staffInfoString ? JSON.parse(staffInfoString) : null;
-}
-
-// 직원 이름 저장
-function saveAssignedStaffName(staffType, staffName, staffId) {
-    localStorage.setItem(`${staffType}_name`, `${staffName}/${staffId}`);
-}
-
-// 페이지 로딩 시 직원 이름 불러오기
-function loadAssignedStaffName(staffType) {
-    const staffNameString = localStorage.getItem(`${staffType}_name`);
-    return staffNameString ? staffNameString.split('/') : null;
-}
-
+	
 function assignStaff(staffType, staffName, staffId, userId) {
     assignStaffAsync(staffType, staffName, staffId, userId);
 }
 
+//직원 배정
 function assignStaffAsync(staffType, staffName, staffId, userId) {
     const orderId = $('input[name="orderId"]').val();
     console.log(orderId, staffType, staffId);
     console.log(userId);
+    
     Swal.fire({
         title: '직원 배정 확인',
         text: `${staffName}을(를) 선택하시겠습니까?`,
@@ -273,13 +244,11 @@ function assignStaffAsync(staffType, staffName, staffId, userId) {
                 success: function (data) {
                     if (staffType === 'driver') {
                         $('.driver p').text(`${staffName}(${staffId})`);
-                        saveAssignedStaffName(staffType, staffName, staffId);
+                        location.reload();
                     } else if (staffType === 'codi') {
                         $('.codi p').text(`${staffName}(${staffId})`);
-                        saveAssignedStaffName(staffType, staffName, staffId);
+                        location.reload();
                     }
-                    $('#myModal').modal('hide');
-                    $('#myCodiModal').modal('hide');
                 },
                 error: function (xhr, status, error) {
                     console.error('Failed to assign staff:', error);
@@ -294,28 +263,7 @@ function assignStaffAsync(staffType, staffName, staffId, userId) {
     });
 }
 
-// 페이지 로딩 시 저장된 직원 정보와 이름 불러오기
-$(document).ready(function () {
-    const savedDriverInfo = loadStaffInfo('driver');
-    const savedCodiInfo = loadStaffInfo('codi');
-    const savedDriverName = loadAssignedStaffName('driver');
-    const savedCodiName = loadAssignedStaffName('codi');
+    
 
-    if (savedDriverInfo) {
-        $('.driver p').text(`${savedDriverInfo.staffName}(${savedDriverInfo.staffId})`);
-    }
- 
-    if (savedCodiInfo) {
-        $('.codi p').text(`${savedCodiInfo.staffName}(${savedCodiInfo.staffId})`);
-    }
-
-    if (savedDriverName) {
-        $('.driver p').text(`${savedDriverName[0]}(${savedDriverName[1]})`);
-    }
-
-    if (savedCodiName) {
-        $('.codi p').text(`${savedCodiName[0]}(${savedCodiName[1]})`);
-    }
-});
 </script>
 </html>

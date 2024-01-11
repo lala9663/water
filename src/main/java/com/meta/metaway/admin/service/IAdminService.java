@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.meta.metaway.admin.dto.AdminOrderDTO;
 import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
+import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 
 public interface IAdminService {
@@ -18,5 +19,8 @@ public interface IAdminService {
 	AdminOrderDetailDTO selectOneOrderList(long orderId);
 	List<AdminStaffDTO> selectAllCodiList();
 	List<AdminStaffDTO> selectAllDriverList();
+	//주문에 해당하는 일정조회
+	List<AdminScheduleStaffDTO> selectListScheduleStaff(long orderId);
+	void deleteSchedule(long orderId, long staffId);
 	int getStaffId(long staffId);
 }

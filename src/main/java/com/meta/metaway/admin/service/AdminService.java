@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.meta.metaway.admin.dao.IAdminRepository;
 import com.meta.metaway.admin.dto.AdminOrderDTO;
 import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
+import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 
 @Service
@@ -79,7 +80,18 @@ public class AdminService implements IAdminService {
 	public int getStaffId(long staffId) {
 		return adminRepository.getStaffId(staffId);
 	}
+
+	@Override
+	public List<AdminScheduleStaffDTO> selectListScheduleStaff(long orderId) {
+		// TODO Auto-generated method stub
+		return adminRepository.selectListScheduleStaff(orderId);
+	}
 	
+	@Override
+	public void deleteSchedule(long orderId, long staffId) {
+		adminRepository.deleteSchedule(orderId, staffId);
+		adminRepository.updateStaffStatus(staffId);
+	}
 	
 	
 }

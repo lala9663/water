@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.meta.metaway.admin.dto.AdminOrderDTO;
 import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
+import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.service.IAdminService;
 
@@ -119,6 +120,7 @@ public class AdminController {
 	@PostMapping("/deleteorder/{orderId}")
 	public String deleteOrders(@PathVariable long orderId, RedirectAttributes redirectAttr, Model model) {
 		System.out.println("주문 취소 컨트롤러");
+		adminService.getOrderId(orderId);
 		adminService.updateCancleOrder(orderId);
 		model.addAttribute(orderId);
 	    redirectAttr.addFlashAttribute("message", orderId+" 번 주문이 취소되었습니다.");
@@ -140,21 +142,31 @@ public class AdminController {
 		List<AdminStaffDTO> codiList = adminService.selectAllCodiList();
 		model.addAttribute("codiList", codiList);
 		
+		System.out.println("staff 조회");
+		List<AdminScheduleStaffDTO> staffList = adminService.selectListScheduleStaff(orderId);
+		System.out.println(staffList.toString());
+		model.addAttribute("staff",staffList);
+		
 		System.out.println(orderDetails.toString());
 		return "admin/orderdetail";
 	}
 	
-	@PostMapping("/assigncodi")
-	public String codiList(Model model) {
-		
-		return "admin/orderdetail";
+	@PostMapping("/assign/complate/{orderId}")
+	public String assignComplate(@PathVariable long orderId, RedirectAttributes redirectAttr, Model model) {
+		System.out.println("배정완료컨트롤러");
+//		orderId = adminService.getOrderId(orderId);
+		adminService.updateCompleteOrder(orderId);
+//		model.addAttribute("orderId", orderId);
+		redirectAttr.addFlashAttribute("message", orderId+" 번 주문 배정이 완료 되었습니다.");
+		return "redirect:/admin/orderlist/1";
 	}
 	
-	@PostMapping("/assigndriver")
-	public String driverList(Model model) {
-		
-		
-		return "admin/orderdetail";
+	@PostMapping("/cancel/{orderId}/{staffId}")
+	public String cancleScheduleDriver(@PathVariable long orderId ,@PathVariable long staffId, RedirectAttributes redirectattr) {
+		System.out.println("배정 삭제 컨트롤러");
+		adminService.deleteSchedule(orderId, staffId);
+		redirectattr.addFlashAttribute("message", orderId+" 번 주문이 취소되었습니다.");
+		return "redirect:/admin/assign/{orderId}";
 	}
 	
 	

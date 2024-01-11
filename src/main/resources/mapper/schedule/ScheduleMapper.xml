@@ -12,8 +12,4 @@
 	    	 SELECT COALESCE(max(schedule_id), 0) + 1 FROM schedule
 	    </select>
 
-	    <delete id ="deleteSchedule" parameterType="Long">
-	    	delete from schedule_id
-			where order_id = #{orderId} and staff_id =#{staffId}
-	    </delete>
     </mapper>
