@@ -46,6 +46,7 @@
 	]]>
 	</select>	
 	
+	<!--drive product list-->
 	<select id="selectOrderProductList" >
 	SELECT 
 	    O.order_id, P.product_name, O.order_name, O.order_date, O.order_address,  U.user_phone,S.visit_date,O.order_state
