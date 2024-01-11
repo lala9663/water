@@ -154,13 +154,23 @@
 		       u.user_address AS "userAddress",
 		       s.staff_id AS "staffId",
 		       s.work_place AS "workPlace",
+		       s.work_status AS "workStatus",
 		       a.authority_name AS "authorityName"
 		FROM users u
 		JOIN staff s ON u.user_id = s.user_id
 		JOIN user_authority a ON u.user_id = a.user_id
-		WHERE a.authority_name IN ('ROLE_CODI')
+		WHERE a.authority_name IN ('ROLE_CODI') AND s.work_status = 0
 	</select>
-		
+	
+	<update id="updateStaffStatus" parameterType="long">
+	    UPDATE staff
+	    SET work_status = CASE
+	        WHEN work_status = 0 THEN 1
+	        WHEN work_status = 1 THEN 0
+	    END
+	    WHERE staff_id = #{staffId}
+	</update>
+	
 	<!-- 담당기사  전체조회  -->
 	<select id="selectAllDriverList" resultType="com.meta.metaway.admin.dto.AdminStaffDTO">
 		SELECT u.user_email AS "userEmail",
@@ -170,10 +180,42 @@
 		       u.user_address AS "userAddress",
 		       s.staff_id AS "staffId",
 		       s.work_place AS "workPlace",
+		       s.work_status AS "workStatus",
 		       a.authority_name AS "authorityName"
 		FROM users u
 		JOIN staff s ON u.user_id = s.user_id
 		JOIN user_authority a ON u.user_id = a.user_id
-		WHERE a.authority_name IN ('ROLE_DRIVER')
+		WHERE a.authority_name IN ('ROLE_DRIVER') AND s.work_status = 0
 	</select>
+	
+	<!-- 주문에 대한 일정조회  -->
+	  <select id="selectListScheduleStaff" parameterType="long" resultType="com.meta.metaway.admin.dto.AdminScheduleStaffDTO">
+	    	SELECT
+			    s.schedule_id AS "scheduleId",
+			    s.visit_date AS "visitDate",
+			    s.visit_cycle AS "visitCycle",
+			    s.visit_type AS "visitType",
+			    s.visit_state AS "visitState",
+			    s.staff_id AS "staffId",
+			    s.user_id AS "userId",
+			    s.order_id AS "orderId",
+			    f.work_place AS "workPlace",
+			    f.work_status AS "workStatus",
+			    u.user_name AS "userName",
+			    ua.authority_name AS "authorityName"
+			FROM
+			    schedule s
+			    INNER JOIN staff f ON f.staff_id = s.staff_id
+			    INNER JOIN users u ON u.user_id = f.user_id
+			    LEFT JOIN user_authority ua ON ua.user_id = u.user_id AND (ua.authority_name = 'ROLE_CODI' OR ua.authority_name = 'ROLE_DRIVER')
+			WHERE
+			    s.order_id = #{orderId}
+ 	    </select>
+ 	    
+ 	    
+ 	    <!-- 배정 삭제 -->
+ 	    <delete id ="deleteSchedule" parameterType="long">
+	    	delete from schedule
+			where order_id = #{orderId} and staff_id =#{staffId}
+	    </delete>
 </mapper>
