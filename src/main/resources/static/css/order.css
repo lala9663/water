@@ -21,7 +21,7 @@
 	padding-bottom: 40px;
 }
 #buttonDiv{
-	padding-top: 30px;
+	padding-top: 51px;
 	text-align: center;
 }
 #orderDiv1{
@@ -31,7 +31,7 @@
 #orderDiv2{
 	margin-top: 50px;
 	width: 300px;
-	height: 400px;
+	height: 450px;
 	border: 1px solid darkgray;
 	border-radius: 3px;	
 	margin-left: 120px;
@@ -50,4 +50,19 @@
 #productText{
 	margin-top: 20px;
 	font-size: 20px;
+}
+.modelText {
+	color: darkgray;
+	font-size: 16px;
+}
+
+.priceTextDiv{
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px 0 20px;    
+}
+
+.priceTextSpan{
+	color: deepskyblue;
+	font-weight: bold;
 }

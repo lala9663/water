@@ -20,6 +20,7 @@
 <body>
 	<div id="wrap">
 		<div id="mainBox">
+			<div class="headerText">장바구니</div>
 			<form method="post" action="/order">
 				<div id="productBox">
 					<div id="AllProduct">
@@ -38,10 +39,17 @@
 								<div th:if="${pro.contractYear != 0}" th:text="${pro.contractYear} + '년 약정'"
 									class="YearText1">약정</div>
 								<div th:if="${pro.contractYear == 0}" class="YearText2">즉시 구매</div>
-								<div th:if="${pro.contractYear != 0}" th:text="'월 ' + ${pro.contractPrice} + '원'"
-									th:data-price="${pro.contractPrice}" class="priceText1"></div>
-								<div th:if="${pro.contractYear == 0}" th:text="${pro.contractPrice} + '원'"
-									th:data-price="${pro.contractPrice}" class="priceText2"></div>
+								<hr>
+								<div th:if="${pro.contractYear != 0}" class="priceText">렌탈료
+								<span 
+								th:text="'월 ' + ${#numbers.formatInteger(pro.contractPrice, 0, 'COMMA')} + '원'"
+									th:data-price="${pro.contractPrice}" class="priceText1"></span>
+								</div>
+								<div th:if="${pro.contractYear == 0}" class="priceText"> 가격
+								<span
+								th:text="${#numbers.formatInteger(pro.contractPrice, 0, 'COMMA')} + '원'"
+									th:data-price="${pro.contractPrice}" class="priceText2"></span>
+								</div>
 							</div>
 							<div class="deleteBox">
 								<button class="deleteButton" th:data-id="${pro.contractId}" onclick="deleteBasketRequest(event)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -54,9 +62,9 @@
 					</div>
 					<div id="buttonBox">
 						<div id="buttonText">
-							<div class="AllpriceText">렌탈료 합계 <sapn class="priceValue1">11</sapn>
+							<div class="AllpriceText1">렌탈료 합계 <sapn class="priceValue1">11</sapn>
 							</div>
-							<div class="AllpriceText">결제금액 합계 <span class="priceValue2">11</span></div>
+							<div class="AllpriceText2">결제금액 합계 <span class="priceValue2">11</span></div>
 						</div>
 						<div class="d-grid gap-2" id="buttonBottom">
 							<button class="btn btn-primary">구입하기</button>
@@ -79,18 +87,28 @@
 		rental.forEach(item => {
 			rentalPrice += parseFloat(item.getAttribute('data-price')); // 문자열을 숫자로 변환
 		});
-
+		var formatRental = new Intl.NumberFormat('ko-KR').format(rentalPrice);
 		buy.forEach(item => {
 			buyPrice += parseFloat(item.getAttribute('data-price'));
 		});
-
+		var formatBuy = new Intl.NumberFormat('ko-KR').format(buyPrice);
 		var rentalValue = document.querySelector('.priceValue1'); // 수정된 부분
 		var buyValue = document.querySelector('.priceValue2'); // 수정된 부분
 
-		if (rentalValue) {
-			rentalValue.textContent = '월 ' + rentalPrice + '원';// 요소가 존재하는 경우에만 textContent 설정
+		if (rentalPrice != 0) {
+			rentalValue.textContent = '월 ' + formatRental + '원';// 요소가 존재하는 경우에만 textContent 설정
 		}
-		if (buyValue) buyValue.textContent = buyPrice + '원';
+		else {
+			document.querySelector('.AllpriceText1').style.display = "none";
+		}
+		
+		if (buyPrice != 0) {
+			buyValue.textContent = formatBuy + '원';
+			}
+		else {
+			document.querySelector('.AllpriceText2').style.display = "none";
+		}
+			
 	});
 </script>
 <script>

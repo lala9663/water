@@ -14,7 +14,6 @@
 </head>
 
 <header th:replace="/include/header.html"></header>
-
 <body>
 	<div id="wrap">
 		<div id="imageBox">
@@ -36,9 +35,12 @@
 					<div th:text="${product.productName}" class="productName"></div>
 					<div class="priceBox">
 						<div th:each="cont, contindex : ${product.contract}">
-							<div th:if="${cont.contractYear == 3}">렌탈 <span th:text="'월 ' + ${cont.contractPrice}" class="spanText"></span>
+							<div th:if="${cont.contractYear == 3}">렌탈 
+								<span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'" class="spanText1"></span>
 							</div>
-							<div th:if="${cont.contractYear == 0}">구매 <span th:text="${cont.contractPrice}" class="spanText"></span></div>
+							<div th:if="${cont.contractYear == 0}">구매 
+								<span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'" class="spanText2"></span>
+								</div>
 						</div>
 					</div>
 				</div>

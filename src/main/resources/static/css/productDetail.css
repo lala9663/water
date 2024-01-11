@@ -104,3 +104,11 @@
 .basketButton{
 	display: inline-block;
 }
+
+
+.rentalDiv{
+	font-weight: bold;
+}
+.buyDiv{
+	font-weight: bold;
+}

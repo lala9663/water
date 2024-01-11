@@ -145,11 +145,14 @@
 			item.addEventListener('click', function () {
 				if (buttonValue == 0) {
 					var contractPrice = this.getAttribute('data-price');
-					document.getElementById('rentalPrice').textContent = contractPrice + '원';
+					var formatPrice = new Intl.NumberFormat('ko-KR').format(contractPrice);
+					
+					document.getElementById('rentalPrice').textContent = formatPrice + '원';
 				}
 				else {
 					var contractPrice = this.getAttribute('data-price');
-					document.getElementById('buyPrice').textContent = contractPrice + '원';
+					var formatPrice = new Intl.NumberFormat('ko-KR').format(contractPrice);
+					document.getElementById('buyPrice').textContent = formatPrice + '원';
 				}
 
 			});
