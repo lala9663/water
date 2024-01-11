@@ -1,6 +1,7 @@
 package com.meta.metaway.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,8 @@ public interface IUserRepository {
     Boolean existsByAccount(String account);
 
     User findByAccount(String account);
+    
+    Long findById(Long id);
 
     Long getUserIdByAccount(String account);
     
@@ -33,6 +36,8 @@ public interface IUserRepository {
     List<Order> getOrderByUserId(Long id);
     
     List<OrderDetail> getOrderDetailByUserId(Long id);
+    
+    void updatePassword(User user);
     
     long selectUserMaxNo();
 
