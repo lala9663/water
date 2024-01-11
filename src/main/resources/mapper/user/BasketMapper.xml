@@ -32,20 +32,17 @@
 		VALUES (#{userId}, #{contractId}, #{productId}, 1)
 	</insert>
 
-	<!-- contractId에 대한 productId 조회 -->
-	<select id="getProductIdByContractId" parameterType="Long"
-		resultType="Long">
-		SELECT product_id
-		FROM contract
-		WHERE contract_id = #{contractId}
-	</select>
-
-	<!-- 장바구니 삭제 -->
-	<delete id="removeProductFromBasket"
-		parameterType="com.meta.metaway.user.model.Basket">
+	<!-- 장바구니 단건 삭제 -->
+	<delete id="removeProductFromBasket" parameterType="com.meta.metaway.user.model.Basket">
 		DELETE FROM basket
 		WHERE user_id = #{userId} AND contract_id = #{contractId} AND product_id =
 		#{productId}
+	</delete>
+	
+	<!-- 장바구니 전체 삭제  -->
+	<delete id="removeAllProductFromBasket" parameterType="Long">
+		DELETE FROM basket
+		WHERE user_id = #{userId}
 	</delete>
 
 
