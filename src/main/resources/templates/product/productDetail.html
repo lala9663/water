@@ -93,7 +93,7 @@
 						<form method="post" class="buyButton" action="/order">
 							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
 							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
-							<button class="btn btn-primary btn-lg">구매하기</buttona>
+							<button class="btn btn-primary btn-lg">구매하기</button>
 						</form>
 					</div>
 				</div>
@@ -141,7 +141,7 @@
 			})
 		})
 		
-		document.querySelectorAll('.rental').forEach(item => {
+		var click = document.querySelectorAll('.rental').forEach(item => {
 			item.addEventListener('click', function () {
 				if (buttonValue == 0) {
 					var contractPrice = this.getAttribute('data-price');
