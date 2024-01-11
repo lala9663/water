@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,7 +63,7 @@ public class UserController {
     @GetMapping("/update")
     public String getUpdateProfilePage(HttpServletRequest request, Model model) {
         String token = multiClass.getToken(request);
-        String redirectUrl = "redirect:/login"; // 기본적으로 로그인 페이지로 리다이렉트
+        String redirectUrl = "redirect:/login"; 
 
         if (token != null) {
             String username = jwtUtil.getUsername(token);
@@ -75,7 +77,7 @@ public class UserController {
 
         return redirectUrl;
     }
-	
+
 	    @PostMapping("/update")
 	    public String updateUser(HttpServletRequest request, @ModelAttribute("userProfile") User updatedUser) {
 	        String token = multiClass.getToken(request);
@@ -87,6 +89,37 @@ public class UserController {
 	        }
 	
 	        return "redirect:/user/profile"; 
+	    }
+	    
+	    @PostMapping("/changepassword")
+	    public String updateUserPassword(HttpServletRequest request,@ModelAttribute("updatePassowrd") User user) {
+	        String token = multiClass.getToken(request);
+	        
+	        String account = jwtUtil.getUsername(token);
+	        System.out.println("패스워드변경 계정: " + account);
+	        
+	        userService.updateUserPassword(account, user);
+	        
+	        return "redirect:/user/profile";
+	           
+	    }
+	    
+	    @GetMapping("/changepassword")
+	    public String userProfile(HttpServletRequest request, Model model) {
+	        String token = multiClass.getToken(request);
+	        String redirectUrl = "redirect:/login";        
+
+	        if (token != null) {
+	            String username = jwtUtil.getUsername(token);
+	            User userProfile = userService.getUserByUsername(username);
+	            
+	            if (userProfile != null) {
+	                model.addAttribute("userProfile", userProfile);
+	                redirectUrl = "user/updateProfile";
+	            }
+	        }
+
+	        	return redirectUrl;
 	    }
 	    
 	    @GetMapping("/delete")

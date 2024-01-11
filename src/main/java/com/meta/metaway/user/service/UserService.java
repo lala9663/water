@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +18,7 @@ import com.meta.metaway.product.dao.IProductRepository;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.user.dao.IBasketRepository;
 import com.meta.metaway.user.dao.IUserRepository;
+import com.meta.metaway.user.dto.ChangePasswordDTO;
 import com.meta.metaway.user.dto.JoinDTO;
 import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
@@ -125,6 +127,27 @@ public class UserService implements IUserService {
         } else {
             throw new IllegalArgumentException("해당 사용자를 찾을 수 없습니다.");
         }
+    }
+    
+    @Override
+    public User updateUserPassword(String account, User user) {
+    	Long id = userRepository.getUserIdByAccount(account);
+    		System.out.println("업데이트 유저 아이디: " + id);
+        	System.out.println("업데이트 유저 패스워드: " + user.getPassword());
+        	
+            User existingUser = userRepository.findByInfo(account);
+                String newPassword = user.getPassword(); 
+                System.out.println("새로운 비밀번호: "+ newPassword);
+                if (newPassword != null && !newPassword.isEmpty()) {
+                    String encryptedPassword = passwordEncoder.encode(newPassword); 
+                    existingUser.setPassword(encryptedPassword);
+                    System.out.println("암호화 비밀번호: " + encryptedPassword);
+                    userRepository.updateUser(existingUser); 
+                    
+                    return existingUser;
+                }else {
+                    throw new IllegalArgumentException("해당 사용자를 찾을 수 없습니다.");
+                }
     }
 
     @Override
