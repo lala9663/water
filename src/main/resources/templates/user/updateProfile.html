@@ -6,25 +6,13 @@
 <body>
     <div class="profile-page">
         <section>
-            <div class="user-info" th:if="${userProfile != null}">
-                <h2>User Profile</h2>
-                <p>Email: <span th:text="${userProfile.email}"></span></p>
-                <p>Name: <span th:text="${userProfile.name}"></span></p>
-                <p>Phone: <span th:text="${userProfile.phone}"></span></p>
-                <p>Age: <span th:text="${userProfile.age}"></span></p>
-                <p>Address: <span th:text="${userProfile.address}"></span></p>      
-            </div>
-            <div th:unless="${userProfile != null}">
-                <p>User profile not available.</p>
-            </div>
-
             <form th:object="${userProfile}" th:action="@{/user/update}" method="post">
                 <input type="hidden" th:field="*{id}" />
-                <input type="email" th:field="*{email}" placeholder="Email" />
-                <input type="text" th:field="*{name}" placeholder="Name" />
-                <input type="text" th:field="*{phone}" placeholder="Phone" />
-                <input type="number" th:field="*{age}" placeholder="Age" />
-                <input type="text" th:field="*{address}" placeholder="Address" />
+                이메일: <input type="email" th:field="*{email}" placeholder="Email" />
+                이름: <input type="text" th:field="*{name}" placeholder="Name" />
+                휴대폰: <input type="text" th:field="*{phone}" placeholder="Phone" />
+                나이: <input type="number" th:field="*{age}" placeholder="Age" />
+                주소: <input type="text" th:field="*{address}" placeholder="Address" />
 
                 <button type="submit">수정</button>
             </form>
