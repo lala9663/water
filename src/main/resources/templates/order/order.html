@@ -46,33 +46,41 @@
 						alt="productImage" id="productImage">
 				</div>
 				<div id="productText">
-					<th:block th:if="${size == 0}">
-						<div th:text="${product[0].productModel}"></div>
+					<div th:if="${size == 0}" class="productBlock">
+						<div th:text="${product[0].productModel}" class="modelText"></div>
 						<div th:text="${product[0].productName}"></div>
-					</th:block>
-					<th:block th:if="${size != 0}">
-						<div th:text="${product[0].productModel}"></div>
+					</div>
+					<div th:if="${size != 0}" class="productBlock">
+						<div th:text="${product[0].productModel}" class="modelText"></div>
 						<div th:text="${product[0].productName} + ' 외 ' + ${size}"></div>
-					</th:block>
+					</div>
 				</div>
 				<input type="hidden" name="orderState" value="0">
 				<th:block th:each="cont, contIndex : ${contract}">
-					<input type="hidden" th:value="${cont.contractId}" th:name="'contractList[' + ${contIndex.index} + '].contractId'">
-					<input type="hidden" th:value="${cont.productId}" th:name="'contractList[' + ${contIndex.index} + '].productId'">
-					<input type="hidden" th:value="${cont.orderCount}" th:name="'contractList[' + ${contIndex.index} + '].orderCount'">
+					<input type="hidden" th:value="${cont.contractId}"
+						th:name="'contractList[' + ${contIndex.index} + '].contractId'">
+					<input type="hidden" th:value="${cont.productId}"
+						th:name="'contractList[' + ${contIndex.index} + '].productId'">
+					<input type="hidden" th:value="${cont.orderCount}"
+						th:name="'contractList[' + ${contIndex.index} + '].orderCount'">
 				</th:block>
+				<hr>
 				<div>
-					<th:block th:if="${order.orderPrice != 0}">
+					<div th:if="${order.orderPrice != 0}">
 						<input type="hidden" th:value="${order.orderPrice}" name="orderPrice">
-						<div th:text="${order.orderPrice} + '원'"></div>
-					</th:block>
-					<th:block th:if="${order.rentalPrice != 0}">
-						<input type="hidden" th:value="${order.rentalPrice}" name="rentalPrice">
-						<div th:text="'월 ' + ${order.rentalPrice} + '원'"></div>
-					</th:block>
+						<div class="priceTextDiv">즉시 구매 <span
+								th:text="${#numbers.formatInteger(order.orderPrice, 0, 'COMMA')} + '원'"
+								class="priceTextSpan"></span></div>
+					</div>
+					<div th:if="${order.rentalPrice != 0}">
+						<input type="hidden" th:value="${order.rentalPrice}" name="rentalPrice" class="priceTextDiv">
+						<div class="priceTextDiv">렌탈료 <span
+								th:text="'월 ' +  ${#numbers.formatInteger(order.rentalPrice, 0, 'COMMA')} + '원'"
+								class="priceTextSpan"></span></div>
+					</div>
 				</div>
-				<div id="buttonDiv">
-					<button class="btn btn-primary btn-lg">결제하기</button>
+				<div class="d-grid gap-2" id="buttonDiv">
+					<button class="btn btn-lg btn-primary" type="button">결제하기</button>
 				</div>
 			</div>
 		</form>
