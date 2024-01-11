@@ -44,7 +44,7 @@
 									th:data-price="${pro.contractPrice}" class="priceText2"></div>
 							</div>
 							<div class="deleteBox">
-								<button class="deleteButton" onclick="deleteBasketRequest(event)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								<button class="deleteButton" th:data-id="${pro.contractId}" onclick="deleteBasketRequest(event)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 										fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
 										<path class="deleteIcon"
 											d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708" />
@@ -87,7 +87,9 @@
 		var rentalValue = document.querySelector('.priceValue1'); // 수정된 부분
 		var buyValue = document.querySelector('.priceValue2'); // 수정된 부분
 
-		if (rentalValue) rentalValue.textContent = '월 ' + rentalPrice + '원';// 요소가 존재하는 경우에만 textContent 설정
+		if (rentalValue) {
+			rentalValue.textContent = '월 ' + rentalPrice + '원';// 요소가 존재하는 경우에만 textContent 설정
+		}
 		if (buyValue) buyValue.textContent = buyPrice + '원';
 	});
 </script>
@@ -95,11 +97,17 @@
 	function deleteBasketRequest(event) {
 		event.preventDefault();
 		
+				
+		var value = event.target.closest('.deleteButton');
+		var contractId = value.getAttribute('data-id');
+		var formData = new FormData();
+		formData.append('contractId',contractId);
+		
 		var xhr = new XMLHttpRequest();
-		var url = "/user/basket/delete";
+		var url = "/user/basket/remove";
 		xhr.open("post",url,true);
-		var form = event.target.form;
-		var formData = new FormData(form);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		
 		
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -107,13 +115,14 @@
 				var basketText = document.getElementById('exampleModalLabel');
 				if (status === 0 || (status >= 200 && status < 400)) {
 					console.log("삭제되었습니다");
+					window.location.reload();
 				}
 				else {
 					console.log("삭제에 실패했습니다");
 				}
 			}
 		}
-		xhr.send(formData);
+		xhr.send(new URLSearchParams(formData).toString());
 	};
 </script>
 
