@@ -27,7 +27,7 @@ public interface IUserService {
     
     void addProductToBasket(Basket basket) throws Exception;
     
-    void removeProductFromBasket(Basket basket);
+    void removeProductFromBasket(Basket basket) throws Exception;
     
     List<Order> getOrdersByUserId(Long userId);
     

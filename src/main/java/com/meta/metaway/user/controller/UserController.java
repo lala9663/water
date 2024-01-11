@@ -149,14 +149,19 @@ public class UserController {
 	    
 	    @ResponseBody
 	    @PostMapping("/basket/remove")
-	    public void removeProductToBasket(Basket basket, HttpServletRequest request) {
+	    public ResponseEntity<?> removeProductToBasket(Basket basket, HttpServletRequest request) {
 	    	basket.setUserId(multiClass.getTokenUserId(request));
-		    userService.removeProductFromBasket(basket);
+	    	try {
+	    		userService.removeProductFromBasket(basket);	
+				return ResponseEntity.ok().body("삭제가 완료되었습니다");
+			} catch (Exception e) {
+				return ResponseEntity.ok().body("삭제에 실패했습니다");
+			}
 	    }
 	    
 	    @GetMapping("/basket")
 	    public String getBasketInfo(HttpServletRequest request, Model model) {
-	    	model.addAttribute("product", userService.getBasketItemsByUserId((multiClass.getTokenUserId(request))));
+	    	model.addAttribute("product", userService.getBasketItemsByUserId(multiClass.getTokenUserId(request)));
 	    	return "user/basket";
 	    }
 	    
