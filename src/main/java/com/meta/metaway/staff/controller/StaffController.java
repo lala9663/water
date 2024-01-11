@@ -66,16 +66,25 @@ public class StaffController {
         }
     }	
     
-  //staff 회원 주문 목록 리스트
-    @GetMapping("/visit/list")
+  //staff 기사 회원 주문 목록 리스트
+    @GetMapping("/drive/list")
     public String getOrderProductList( HttpSession session, Model model) {
         // 주문 상품 목록 조회
         List<StaffListDTO> orderProductList = staffService.getOrderProductList();
 
         model.addAttribute("staffList", orderProductList);
-        return "staff/staffdriveList";
+        return "staff/drivemain";
     }
 
+    //staff 코디 회원 주문 목록 리스트
+    @GetMapping("/cody/list")
+    public String getCodyProductList( HttpSession session, Model model) {
+        // 주문 상품 목록 조회
+        List<StaffListDTO> orderProductList = staffService.getOrderProductList();
+
+        model.addAttribute("staffList", orderProductList);
+        return "staff/codymain";
+    }
 
 
 }

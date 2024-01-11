@@ -14,10 +14,10 @@
         <nav class="header-nav">
             <input id="nav-toggle" type="checkbox">
 
-            <a class="header-logo" href="#"><img src="/images/mainlogo.png" ></a>
+            <a class="header-logo" href="/"><img src="/images/mainlogo.png" ></a>
 
             <ul class="links">
-                <li><a href="#">상품</a></li>
+                <li><a href="/product">상품</a></li>
                 <li><a href="#">정수기</a></li>
                 <li><a href="#">메타넷</a></li>
 
@@ -36,10 +36,13 @@
                       <img src="images/user.png" class="header-user-icon"> 
                   </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/src/main/resources/templates/member/login.html">로그인</a></li>
-                      <li><a class="dropdown-item" href="/src/main/resources/templates/member/join.html">회원가입</a></li>
+                      <li><a class="dropdown-item" th:href="@{'/login'}">로그인</a></li>
+                      <li><a class="dropdown-item" th:href="@{'/join'}">회원가입</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">마이페이지</a></li>
+                      <li><a class="dropdown-item" th:href="@{'#'}">마이페이지</a></li>
+                      <li><a class="dropdown-item"  th:href="@{''}">관리자</a></li>
+                      <li><a class="dropdown-item"  th:href="@{'/staff/drive/list'}">기사</a></li>
+                      <li><a class="dropdown-item"  th:href="@{'/staff/cody/list'}">코디</a></li>
                     </ul>
                   </li>
             </ul>
