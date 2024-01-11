@@ -15,5 +15,6 @@ public class AdminStaffDTO {
 	private String userName;
 	private String userAddress;
 	private String workPlace;
+	private int workStatus;
 	private String authorityName;
 }

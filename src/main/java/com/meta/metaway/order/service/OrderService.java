@@ -6,12 +6,16 @@ import org.springframework.stereotype.Service;
 import com.meta.metaway.order.dao.IOrderRepository;
 import com.meta.metaway.order.model.Order;
 import com.meta.metaway.product.model.Contract;
+import com.meta.metaway.user.dao.IBasketRepository;
 
 @Service
 public class OrderService implements IOrderService{
 	
 	@Autowired
 	IOrderRepository orderRepository;
+	
+	@Autowired 
+	IBasketRepository basketRepository;
 
 	@Override
 	public Contract GetContractInfo(long contractId, long productId) {
@@ -32,6 +36,7 @@ public class OrderService implements IOrderService{
 			System.out.println(contract.toString());
 			orderDetailNum++;
 		}
+		basketRepository.removeAllProductFromBasket(order.getUserId());
 	}
 	public void cancelOrder(Order order) {
 		orderRepository.cancelOrder(order);
