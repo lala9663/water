@@ -13,7 +13,7 @@
 	<title>Document</title>
 </head>
 
-<header th:replace="/include/header.html"></header>
+<header th:replace="~{/include/header.html}"></header>
 
 <index-body>
     <!-- header include -->
@@ -23,14 +23,29 @@
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="images/bing4.png" class="d-block w-100" style="max-height: 550px;" alt="First slide">
-            </div>
-            <div class="carousel-item">
+				<div class="text_item-1">
+	
+               		<p><strong>icon 정수기2</strong><br>
+                   편의 기능 업그레이드 ! </p>
 
-                <img src="images/coway10.png" class="d-block w-100" style="max-height: 550px;" alt="Second slide">
+				</div>
+                <img src="images/metaway4.png" class="d-block w-100" style="max-height: 550px;" alt="First slide">
+            </div>
+               
+            <div class="carousel-item">
+				<div class="text_item-2">
+					<p style="color:#fff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">이제까지 없던 맑고 깨끗한 물의<br> 풍미를 즐겨보세요.</p>
+					</div>
+                <img src="images/metaway3.jpg" class="d-block w-100" style="max-height: 550px;" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img src="images/coway9.png" class="d-block w-100" style="max-height: 550px;" alt="Second slide">
+				<div class="text_item-3">
+					<p style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">취항에 맞춰 추출하는 스파클링 워터<br>
+						AIS(아이스)정수기
+					</p>
+
+					</div>
+              <img src="images/metaway5.png" class="d-block w-100" style="max-height: 550px;" alt="Second slide">
           </div>
 
         </div>
@@ -78,36 +93,69 @@
       <div>
           <section>
               <div>
-                  <h5>냉온 정수기</h5>
-                  냉온 정수기 
-                  <button><a href="#">바로가기</a></button>
+                  <h5><strong>냉온 정수기</strong></h5>
+                  싱큼한 여름, 포근한 겨울!
+                  <button class="btn-btn"><a href="@{http://localhost:8082/product}">바로가기 -></a></button>
               </div>
           </section>
           <section>
               <div>
-                  <h5>온 정수기</h5>
-                  온 정수기 
-                  <button><a href="#">바로가기</a></button>
+                  <h5><strong>온 정수기</strong></h5>
+                   다양한 온도 설정이 가능!
+                  <button class="btn-btn"><a href="#">바로가기 -></a></button>
               </div>
           </section>
           <section>
               <div>
-                  <h5>탄산 정수기</h5>
-                  보글보글 탄산 정수기
-                  <button><a href="#">바로가기</a></button>
+                   <h5><strong>탄산 정수기</strong></h5>
+             		간편하게 탄산음료를!
+                  <button class="btn-btn"><a href="#">바로가기 -></a></button>
               </div>
           </section>
           <section>
               <div>
-                  <h5>얼음 정수기</h5>
-                  앗 차가워 얼음 정수기
-                  <button><a href="#">바로가기</a></button>
+                   <h5><strong>얼음 정수기</strong></h5>
+                   신선한 얼음이 자동으로!
+                  <button class="btn-btn"><a href="#">바로가기 -></a></button>
               </div>
           </section>
       </div>
-  </article>
+ 	 </article>
+  
+   <article class="blank"></article>
+  
+      <article class="wireless">
+        <div>
+            <div>
+                <p class="tableh02">QUENCH <br>YOUR THIRTH WITH <br>METAWAY</p>
+                <p>Metaway로 갈증을 해소하세요! <br>
+                   전에 없던 맑고 깨끗한 물의 맛을 경험해보세요.</p>
+                <div class="bt1">
+					<a href="#">shop now</a>            
+                </div>
+            </div>
+            <div>
+                <div>
+                    <section>
+						 <p class="tableh05">HEALTHY</p>
+                        <p class="tableh01"><img src="images/water3.png"></p>
+                        신선하고 탁월하게
+                    </section>
+                    <section>
+                        <p class="tableh05">CONVENIENCE</p>
+                        <p class="tableh01"><img src="images/hand.png"></p>
+                        터치 스크린 인터페이스로 손쉽게
+                    </section>
+                    <section>
+                        <p class="tableh05">APPLICATION</p>
+                        <p class="tableh01"><img src="images/home.png"></p>
+                        오피스에서 언제든 편하게
+                    </section>
+                </div>
+            </div>
+        </div>
+    </article>
 
-  <article class="blank"></article>
 
 
     </div>
@@ -115,7 +163,7 @@
     </div>
 
     <!-- footer include -->
-    <footer th:replace=="/include/footer.html"></footer>
+	<footer th:replace="~{/include/footer.html}"></footer>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -124,10 +172,6 @@
         includeHTML();
 
     </script>
-<<<<<<< HEAD
-=======
 
-
->>>>>>> branch 'dev' of https://github.com/Metanet-Team3/final-repo.git
 </index-body>
 </html>

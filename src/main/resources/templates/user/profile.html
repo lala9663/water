@@ -1,25 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <!-- 필요한 메타태그, 스타일시트 등을 여기에 포함시킵니다 -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/header.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" th:href="@{/css/profile.css}">
+	<title>My Page</title>
 </head>
-<body>
+
+<header th:replace="~{/include/header.html}"></header>
+<div class="container">
+	<div class="profile-nav">
+		<nav class="profile-nav-ul">
+			<ul>
+				<li>회원정보 수정</li>
+				<!--비밀번호 변경 내역 / 회원 탈퇴 내역-->
+				<li>구매 내역</li>
+				<!--구매 취소 내역 / 환불 내역-->
+				<li>반납 내역</li>
+				<!--반납 신청 내역 / 반납 환불 내역-->
+				<li>약정 내역</li>
+				<!--약정 연장 내역 / 약정 해지 내역-->
+			</ul>
+		</nav>
+	</div>
     <div class="profile-page">
         <section>
             <div class="user-info" th:if="${userProfile != null}">
-                <h2>User Profile</h2>
-                <p>Account: <span th:text="${userProfile.account}"></span></p>
+                <span th:text="${userProfile.name + '님의 프로필'}" class="text-highlight"></span>
+                
+
+                <p>Account:<span th:text="${userProfile.account}"></span></p>
 			    <p>Email: <span th:text="${userProfile.email}"></span></p>
 			    <p>Name: <span th:text="${userProfile.name}"></span></p>
 			    <p>Phone: <span th:text="${userProfile.phone}"></span></p>
 			    <p>Age: <span th:text="${userProfile.age}"></span></p>
 			    <p>Address: <span th:text="${userProfile.address}"></span></p>      
-
+				
+				<button class="pwd-btn">비밀번호 변경</button>
+				<button class="pwd-btn">회원 탈퇴</button>
             </div>
             <div th:unless="${userProfile != null}">
                 <p>User profile not available.</p>
             </div>
         </section>
     </div>
-</body>
+</div>
+</profilebody>
+<footer th:replace="~{/include/footer.html}"></footer>
 </html>

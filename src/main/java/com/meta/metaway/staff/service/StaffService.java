@@ -1,8 +1,10 @@
 package com.meta.metaway.staff.service;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,9 @@ import org.springframework.stereotype.Service;
 import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.staff.dao.IStaffRepository;
+import com.meta.metaway.staff.dto.StaffListDTO;
 import com.meta.metaway.staff.model.Staff;
+import com.meta.metaway.user.model.User;
 
 @Service
 public class StaffService implements IStaffService{
@@ -31,7 +35,7 @@ public class StaffService implements IStaffService{
 
     @Override
     public void createWorkPlace(String account, String workplace) {
-    	
+
     	Staff staff = new Staff();
     	
     	Long staffId = staffRepository.selectStaffMaxNo()+1;
@@ -77,5 +81,10 @@ public class StaffService implements IStaffService{
 			throw new IllegalArgumentException("유효하지 않은 사용자 계정입니다.");
 		}
 	}
-
+	 public List<StaffListDTO> getOrderProductList() {
+	        return staffRepository.selectOrderProductList();
+	    }
+	 
+	 
+	
 }

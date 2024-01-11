@@ -3,22 +3,30 @@ package com.meta.metaway.staff.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.product.model.Product;
+import com.meta.metaway.staff.dto.StaffListDTO;
 import com.meta.metaway.staff.model.Staff;
 import com.meta.metaway.staff.service.IStaffService;
 
-@RestController
+import jakarta.servlet.http.HttpSession;
+
+@Controller
 @RequestMapping("/staff")
 public class StaffController {
 	
@@ -42,7 +50,6 @@ public class StaffController {
 	    }
 	}
 
-
     @PutMapping("/update-workplace")
     public ResponseEntity<String> updateWorkPlace(@RequestHeader("Authorization") String token, @RequestBody Staff staff) {
         String username = jwtUtil.getUsername(token);
@@ -59,25 +66,19 @@ public class StaffController {
         }
     }	
     
-  //리스트
+  //staff 회원 주문 목록 리스트
     @GetMapping("/visit/list")
-    public String getProductForStaff(@RequestHeader(name = "Authorization", required = false) String token, Model model) {
-        if (token != null && !token.isEmpty()) {
-        	try {
-        		String account = jwtUtil.getUsername(token);
-        		List<Product> productList = staffService.getProductForStaff(account);
-        		model.addAttribute("items", productList);
-        		return "staff/staffdriveList"; 
-        	}catch(Exception e){
-        		e.printStackTrace();
-        		return "error";
-        	}
-        } else {
-            return "error";
-        }
+    public String getOrderProductList( HttpSession session, Model model) {
+        // 주문 상품 목록 조회
+        List<StaffListDTO> orderProductList = staffService.getOrderProductList();
+
+        model.addAttribute("staffList", orderProductList);
+        return "staff/staffdriveList";
     }
 
 
-  
-    
+
 }
+
+	    
+    
