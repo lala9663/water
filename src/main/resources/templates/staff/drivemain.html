@@ -42,7 +42,7 @@
                  <th scope="col">방문날짜</th>
                 <th scope="col">현상태</th>
                 
-                 <th scope="col">일정선택</th>
+                 <th scope="col">방문선택</th>
                 <th scope="col">관리</th>
             </tr>
         </thead>
@@ -61,7 +61,7 @@
 			    <td th:text="${item.order_state}"></td>
 			    <td>
 			        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#dateModal">
-			            일정선택
+			            방문선택
 			        </button>
 			    </td>
 			    <td>
@@ -75,7 +75,7 @@
         </tbody>
     </table>
 </div>
-<!-- dateModal 일정관리 모달 -->
+<!-- dateModal 일정관리 모달 --> 
 <div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true" @show.bs.modal="initializeDate">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -88,7 +88,7 @@
                 <hr>
                 <div class="dri_form">
                     <p>방문일자 : </p>
-                    <input type="date" class="form-control form-control-sm" v-model="selectedDate" />
+                    <input type="date" class="form-control form-control-sm" v-model="updatedDate" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -100,6 +100,39 @@
         </div>
     </div>
 </div>
+
+<!-- Modal 관리 모달 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" @show.bs.modal="initializeDate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">관리</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="dri_form">
+					   <p>주문자 : <span id="order-id">{{ orderInfo.order_id }}</span></p>
+                    <p>상품명 : <span id="product-name">{{ orderInfo.product_name }}</span></p>
+                    <p>주문명 : <span id="order-name">{{ orderInfo.order_name }}</span></p>
+                    <p>주문일자 : <span id="order-date">{{ orderInfo.order_date }}</span></p>
+                    <p>주문 주소 : <span id="order-address">{{ orderInfo.order_address }}</span></p>
+                    <p>전화번호 : <span id="user-phone">{{ orderInfo.user_phone }}</span></p>
+                    <p>방문일자 : <span id="visit-date"></span></p>
+                    <p>주문 상태 : <span id="order-state">{{ orderInfo.order_state }}</span></p>   
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-info" @click="saveChanges(itemStat.index + 1); updateVisitDate(itemStat.index, item.visit_date)">
+                    저장
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <!-- Modal
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -165,6 +198,7 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
 <script>
+	//테이블 list
     var app = new Vue({
         el: '.table-form',
         data: {
@@ -173,7 +207,7 @@
         },
         methods: {
             saveChanges(index) {
-                this.selectedItemIndex = index;
+                this.updatedItemIndex = index;
             },
             updateVisitDate(index, newDate) {
                 this.$set(this.items, index, { ...this.items[index], visit_date: newDate });

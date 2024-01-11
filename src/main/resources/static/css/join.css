@@ -1,109 +1,80 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
 
-.join-page {
-  width: 1000px;
-  padding: 8% 0 0;
-  margin: auto;
+.join-form {
+	
+	 width: 1000px;
+  	padding: 8% 0 0;
+  	margin: auto;
+	margin-top: 150px;
+	margin-bottom: 50px;
+	width: 700px;
+  border:1.3px solid rgb(153, 153, 153);
+  border-radius: 20px;
+  text-align: center;  
+  padding: 20px;
+  
 }
-.join-page section{
-    margin-top: 90px;
-  }
-.join-page-form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 600px;
-  height: 1000px;;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+.join-form h1{
+	 font-family: 'Viga', sans-serif;
 }
-.join-form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
+
+.join-form span{
+	background: linear-gradient(to top, rgb(152, 221, 255) 50%, transparent 40%);
+	
 }
-.join-form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #2fa1ff;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
+
+.join-box img{
+	width: 30px;
+	 filter: invert(25%);
+}
+
+.join-box input{
+	border: none;
+	border-bottom: 2px solid rgb(153, 153, 153);
+	margin-bottom: 18px;
+}
+
+.join-box input:focus{
+	 outline: none;
+  border-bottom: 2px solid rgb(152, 221, 255);
+}
+
+
+#password {
+	padding: 5px;
+  	font-size: 16px;
+}
+
+input[type="password"] {
+  font:small-caption;font-size:16px
+}
+
+.submit-btn{
+	width: 300px;
+  background-color: rgba(51, 51, 51, 0.05);
+  border-radius: 8px;
+  border-width: 0;
+  color: #333333;
   cursor: pointer;
-}
-.join-form button:hover,.join-form button:active,.join-form button:focus {
-  background: #2fa1ff;
-}
-.join-form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-.join-form .message a {
-  color: #2fa1ff;
-  text-decoration: none;
-}
-.join-form .register-form {
-  display: none;
-}
-join-body {
-  background: #2fa1ff; /* fallback for old browsers */
-  background: rgb(255, 255, 255);
-  background: #FFFFFF;
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
+  text-align: center;
+  transition: all 200ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
-.join-page {
-    width: 100%;
-    padding: 8% 0 0;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  .join-page-form {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 600px;
-    height: auto;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  }
-  
-  .join-form label {
-    display: inline-block;
-    text-align: left;
-    margin-right: 15px;
-    width: 100px;
-  }
-  
-  .join-form input {
-    width: 350px; 
-    margin-bottom: 20px;
-  }
-  
-  .join-page-form img {
-    width: 250px;
-    margin-bottom: 50px;
-    
-  }
+.submit-btn:focus{
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
