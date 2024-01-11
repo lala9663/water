@@ -143,7 +143,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void removeProductFromBasket(Basket basket) {
+    public void removeProductFromBasket(Basket basket) throws Exception {
         basketRepository.removeProductFromBasket(basket);
     }
 

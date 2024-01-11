@@ -35,8 +35,7 @@
 	<!-- 장바구니 단건 삭제 -->
 	<delete id="removeProductFromBasket" parameterType="com.meta.metaway.user.model.Basket">
 		DELETE FROM basket
-		WHERE user_id = #{userId} AND contract_id = #{contractId} AND product_id =
-		#{productId}
+		WHERE user_id = #{userId} AND contract_id = #{contractId}
 	</delete>
 	
 	<!-- 장바구니 전체 삭제  -->

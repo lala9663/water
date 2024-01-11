@@ -28,7 +28,7 @@
 #AllProduct{
 	display: inline-block;
 	border: 2px solid gray;
-	width: 20%;
+	width: 25%;
 	height: auto;
 }
 
@@ -50,6 +50,7 @@
 }
 
 #ProductTextBox{
+	width: 100%;
 	display: inline-block;
 }
 
