@@ -70,7 +70,13 @@ public class OrderController {
 	@PostMapping("order/cancel")
 	String cancelOrder(Order order, HttpServletRequest request) { 
 		order.setUserId(multiClass.getTokenUserId(request));
-		
-		return "redirect:/order/order";
+		orderService.cancelOrder(order);
+		return "redirect:/user/orderdetail";
+	}
+	
+	@PostMapping("order/updateDate")
+	String orderUpdateDate(Order order) {
+		orderService.orderUpdateDate(order);
+		return "redirect:/user/orderdetail";
 	}
 }

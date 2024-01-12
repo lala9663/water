@@ -48,4 +48,10 @@ public class OrderService implements IOrderService{
 		orderRepository.cancelOrder(order);
 	}
 
+	@Override
+	public void orderUpdateDate(Order order) {
+		orderRepository.orderUpdateDate(order);
+	}
+
+	
 }

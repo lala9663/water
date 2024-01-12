@@ -47,7 +47,8 @@
 						<div id="contractAll">
 							<div th:if="${cont.contractYear != 0}" th:each="cont, contstat : ${product.contract}"
 								th:data-price="${cont.contractPrice}" th:text="${cont.contractYear} + '년 약정'"
-								th:data-contract-id="${cont.contractId}" class="rental btn btn-secondary btn-sm"></div>
+								th:data-contract-id="${cont.contractId}" class="rental btn btn-secondary btn-sm"
+								id="rental"></div>
 						</div>
 					</div>
 					<div class="contract buyDiv">
@@ -55,7 +56,8 @@
 						<div id="contractAll">
 							<div th:if="${cont.contractYear == 0}" th:each="cont, contstat : ${product.contract}"
 								th:data-price="${cont.contractPrice}" th:text="'즉시 구매'"
-								th:data-contract-id="${cont.contractId}" class="rental btn btn-secondary btn-sm"></div>
+								th:data-contract-id="${cont.contractId}" class="rental btn btn-secondary btn-sm"
+								id="buy"></div>
 						</div>
 					</div>
 					<div id="rentalBox" class="rentalDiv">
@@ -131,7 +133,37 @@
 </body>
 <footer th:replace="/include/footer.html"></footer>
 <script>
+
+	function setInitialPrices() {
+		var rentalElements = document.querySelectorAll('#rental');
+		var buyElements = document.querySelectorAll('#buy');
+		var rentalPrice = 0;
+		var buyPrice = 0;
+
+		if (rentalElements.length > 0) {
+			rentalPrice = parseFloat(rentalElements[0].getAttribute('data-price'));
+		}
+		buyElements.forEach(item => {
+			buyPrice = parseFloat(item.getAttribute('data-price'));
+		});
+
+		var formattedRentalPrice = new Intl.NumberFormat('ko-KR').format(rentalPrice);
+		var formattedBuyPrice = new Intl.NumberFormat('ko-KR').format(buyPrice);
+
+		var rentalPriceElement = document.getElementById('rentalPrice');
+		var buyPriceElement = document.getElementById('buyPrice');
+
+		if (rentalPriceElement) {
+			rentalPriceElement.textContent = formattedRentalPrice + '원';
+		}
+		if (buyPriceElement) {
+			buyPriceElement.textContent = formattedBuyPrice + '원';
+		}
+	}
+
+
 	window.addEventListener('DOMContentLoaded', (event) => {
+		setInitialPrices();
 		document.querySelectorAll('.rental').forEach(item => {
 			item.addEventListener('click', function () {
 				var contractId = this.getAttribute('data-contract-id');
@@ -140,98 +172,97 @@
 				})
 			})
 		})
-		
-		var click = document.querySelectorAll('.rental').forEach(item => {
-			item.addEventListener('click', function () {
-				if (buttonValue == 0) {
-					var contractPrice = this.getAttribute('data-price');
-					var formatPrice = new Intl.NumberFormat('ko-KR').format(contractPrice);
-					
-					document.getElementById('rentalPrice').textContent = formatPrice + '원';
-				}
-				else {
-					var contractPrice = this.getAttribute('data-price');
-					var formatPrice = new Intl.NumberFormat('ko-KR').format(contractPrice);
-					document.getElementById('buyPrice').textContent = formatPrice + '원';
-				}
 
+		var click = document.querySelectorAll('.rental').forEach(item => {
+				item.addEventListener('click', function () {
+					if (buttonValue == 0) {
+						var contractPrice = this.getAttribute('data-price');
+						var formatPrice = new Intl.NumberFormat('ko-KR').format(contractPrice);
+
+						document.getElementById('rentalPrice').textContent = formatPrice + '원';
+					}
+					else {
+						var contractPrice = this.getAttribute('data-price');
+						var formatPrice = new Intl.NumberFormat('ko-KR').format(contractPrice);
+						document.getElementById('buyPrice').textContent = formatPrice + '원';
+					}
+				});
 			});
 		});
-	});
-	$('#myModal').on('shown.bs.modal', function () {
-		$('#myInput').trigger('focus')
-	})
+		$('#myModal').on('shown.bs.modal', function () {
+			$('#myInput').trigger('focus')
+		})
 
-	$('#myModal').modal({
-		keyboard: false
-	})
+		$('#myModal').modal({
+			keyboard: false
+		})
 </script>
 <script>
-	var buttonValue = 0;
-	var button1 = document.getElementById('btnradio1');
-	var button2 = document.getElementById('btnradio2');
-	var rentalDiv = document.getElementsByClassName('rentalDiv');
-	var buyDiv = document.getElementsByClassName('buyDiv');
-	button1.onclick = function () {
-		buttonValue = 0;
-		updateDiv();
-	};
-	button2.onclick = function () {
-		buttonValue = 1;
-		updateDiv();
-	};
-	function updateDiv() {
-		if (buttonValue == 1) {
-			for (var i = 0; i < rentalDiv.length; i++) {
-				rentalDiv[i].style.display = "none";
-			}
-			for (var j = 0; j < buyDiv.length; j++) {
-				buyDiv[j].style.display = "block";
-			}
-		}
-		if (buttonValue == 0) {
-			for (var j = 0; j < buyDiv.length; j++) {
-				buyDiv[j].style.display = "none";
-			}
-			for (var i = 0; i < rentalDiv.length; i++) {
-				rentalDiv[i].style.display = "block";
-			}
-		}
-	}
-</script>
-<script>
-	function sendBasketRequest(event) {
-		event.preventDefault();
-
-		var xhr = new XMLHttpRequest();
-		var url = "/user/basket";
-		xhr.open("post", url, true);
-		var form = event.target.form;
-		var formData = new FormData(form);
-
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState === XMLHttpRequest.DONE) {
-				var status = xhr.status;
-				var basketText = document.getElementById('exampleModalLabel');
-				if (status === 0 || (status >= 200 && status < 400)) {
-					Swal.fire({
-						icon: "success",
-						title: "장바구니에 담았습니다!",
-						showConfirmButton: false,
-						timer: 1500
-					});
+		var buttonValue = 0;
+		var button1 = document.getElementById('btnradio1');
+		var button2 = document.getElementById('btnradio2');
+		var rentalDiv = document.getElementsByClassName('rentalDiv');
+		var buyDiv = document.getElementsByClassName('buyDiv');
+		button1.onclick = function () {
+			buttonValue = 0;
+			updateDiv();
+		};
+		button2.onclick = function () {
+			buttonValue = 1;
+			updateDiv();
+		};
+		function updateDiv() {
+			if (buttonValue == 1) {
+				for (var i = 0; i < rentalDiv.length; i++) {
+					rentalDiv[i].style.display = "none";
 				}
-				else {
-					Swal.fire({
-						icon: "error",
-						title: "Oops...",
-						text: "이미 장바구니에 담았습니다",
-					});
+				for (var j = 0; j < buyDiv.length; j++) {
+					buyDiv[j].style.display = "block";
+				}
+			}
+			if (buttonValue == 0) {
+				for (var j = 0; j < buyDiv.length; j++) {
+					buyDiv[j].style.display = "none";
+				}
+				for (var i = 0; i < rentalDiv.length; i++) {
+					rentalDiv[i].style.display = "block";
 				}
 			}
 		}
-		xhr.send(formData);
-	}
+</script>
+<script>
+		function sendBasketRequest(event) {
+			event.preventDefault();
+
+			var xhr = new XMLHttpRequest();
+			var url = "/user/basket";
+			xhr.open("post", url, true);
+			var form = event.target.form;
+			var formData = new FormData(form);
+
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					var status = xhr.status;
+					var basketText = document.getElementById('exampleModalLabel');
+					if (status === 0 || (status >= 200 && status < 400)) {
+						Swal.fire({
+							icon: "success",
+							title: "장바구니에 담았습니다!",
+							showConfirmButton: false,
+							timer: 1500
+						});
+					}
+					else {
+						Swal.fire({
+							icon: "error",
+							title: "Oops...",
+							text: "이미 장바구니에 담았습니다",
+						});
+					}
+				}
+			}
+			xhr.send(formData);
+		}
 
 
 </script>

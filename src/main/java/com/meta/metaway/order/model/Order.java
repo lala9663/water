@@ -20,6 +20,7 @@ public class Order {
 	private String orderAddress;
 	private int orderPrice;
 	private int rentalPrice;
+	private int continuDate;
 	
 	private List<Contract> contractList;
 	private List<Product> productList;
