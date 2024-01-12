@@ -14,7 +14,10 @@ public class AdminStaffDTO {
 	private String userPhone;
 	private String userName;
 	private String userAddress;
+	private String userAge;
 	private String workPlace;
 	private int workStatus;
 	private String authorityName;
+	
+	private int page;
 }

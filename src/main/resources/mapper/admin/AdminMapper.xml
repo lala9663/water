@@ -6,39 +6,38 @@
 	<!--전체 주문 내역 조회 -->
 	<select id="findAllOrderList" resultType="com.meta.metaway.admin.dto.AdminOrderDTO">
 		<![CDATA[
-		    SELECT
-		        "orderId","orderName","orderAddress",
-		        "productModel","productName","orderCount",
-		        "orderPrice","orderDate","orderState"
-		    FROM (
-		        SELECT
-		           	"orderId","orderName","orderAddress",
-			        "productModel","productName","orderCount",
-			        "orderPrice","orderDate","orderState",
-		            ROWNUM AS rnum
-		        FROM (
-		            SELECT
-		                o.order_id AS "orderId",
-		                o.order_name AS "orderName",
-		                o.order_address AS "orderAddress", 
-		                p.product_model AS "productModel",
-		                p.product_name AS "productName",
-		                od.order_count AS "orderCount",
-		                o.order_price AS "orderPrice",
-		                o.order_date AS "orderDate",
-		                o.order_state AS "orderState"
-		            FROM
-		                orders o
-		            LEFT JOIN
-		                order_detail od ON o.order_id = od.order_id
-		            LEFT JOIN 
-		                product p ON p.product_id = od.product_id  
-		            ORDER BY o.order_id DESC
-		        )
-		    )
-		    WHERE rnum BETWEEN #{start} AND #{end}
+		          SELECT
+				    "orderId",
+				    "userId",
+				    "orderContent",
+				    "orderDate",
+				    "requestDate",
+				    "orderName",
+				    "orderState",
+				    "orderAddress", 
+				    "orderPrice",
+				    "rentalPrice",
+				    rnum
+				FROM (
+				    SELECT
+				        order_id AS "orderId",
+				        user_id AS "userId",
+				        order_content AS "orderContent",
+				        order_date AS "orderDate",
+				        request_date AS "requestDate",
+				        order_name AS "orderName",
+				        order_state AS "orderState",
+				        order_address AS "orderAddress", 
+				        order_price AS "orderPrice",
+				        rental_price AS "rentalPrice",
+				        rownum AS rnum
+				    FROM (
+				        SELECT * FROM orders
+				        ORDER BY order_id DESC
+				    )
+				)
+				WHERE rnum BETWEEN #{start} AND #{end}
 		]]>
-
 	</select>
 	<select id="selectTotalOrdersCount" resultType="int">
 		<![CDATA[
@@ -59,41 +58,37 @@
 		
 	<select id="searchOrderListByKeyword" parameterType="hashmap" resultType="com.meta.metaway.admin.dto.AdminOrderDTO" >
 		<![CDATA[
-		    SELECT
-		        "orderId","orderName","orderAddress",
-		        "productModel","productName","orderCount",
-		        "orderPrice","orderDate","orderState"
-		    FROM (
-		        SELECT
-		           	"orderId","orderName","orderAddress",
-			        "productModel","productName","orderCount",
-			        "orderPrice","orderDate","orderState",
-		            ROWNUM AS rnum
-		        FROM (
-		            SELECT
-		                o.order_id AS "orderId",
-		                o.order_name AS "orderName",
-		                o.order_address AS "orderAddress", 
-		                p.product_model AS "productModel",
-		                p.product_name AS "productName",
-		                od.order_count AS "orderCount",
-		                o.order_price AS "orderPrice",
-		                o.order_date AS "orderDate",
-		                o.order_state AS "orderState"
-		            FROM
-		                orders o
-		            LEFT JOIN
-		                order_detail od ON o.order_id = od.order_id
-		            LEFT JOIN 
-		                product p ON p.product_id = od.product_id  
-	                WHERE
-                    (UPPER(o.order_name) LIKE UPPER('%' || #{keyword} || '%') OR
-                     UPPER(p.product_model) LIKE UPPER('%' || #{keyword} || '%'))
-                     AND (#{orderState} IS NULL OR o.order_state = #{orderState})
-                     AND (#{orderDate} IS NULL OR o.order_date = TO_DATE(#{orderDate}, 'YYYY-MM-DD'))
-		        )
-		    )
-		    WHERE rnum BETWEEN #{start} AND #{end}
+		      SELECT
+				    "orderId",
+				    "userId",
+				    "orderContent",
+				    "orderDate",
+				    "requestDate",
+				    "orderName",
+				    "orderState",
+				    "orderAddress", 
+				    "orderPrice",
+				    "rentalPrice",
+				    rnum
+				FROM (
+				    SELECT
+				        order_id AS "orderId",
+				        user_id AS "userId",
+				        order_content AS "orderContent",
+				        order_date AS "orderDate",
+				        request_date AS "requestDate",
+				        order_name AS "orderName",
+				        order_state AS "orderState",
+				        order_address AS "orderAddress", 
+				        order_price AS "orderPrice",
+				        rental_price AS "rentalPrice",
+				        rownum AS rnum
+				    FROM (
+				        SELECT * FROM orders
+				        ORDER BY order_id DESC
+				    )
+				)
+				WHERE rnum BETWEEN #{start} AND #{end}
 		]]>
 	</select>
 	
@@ -118,10 +113,59 @@
     <select id="getOrderId" resultType="int">
         SELECT order_id FROM orders WHERE order_id = #{orderId}
     </select>
-	
+    
+     <select id="getOrderDetailId" resultType="int">
+        SELECT order_detail_id FROM orders WHERE order_id = #{order_id}
+    </select>
+    
+	<!-- 단일구매 주문 상세   -->
 	<select id="selectOneOrderList" resultType="com.meta.metaway.admin.dto.AdminOrderDetailDTO">
+		<![CDATA[
+		      SELECT
+				    "orderId",
+				    "userId",
+				    "orderContent",
+				    "orderDate",
+				    "requestDate",
+				    "orderName",
+				    "orderState",
+				    "orderAddress", 
+				    "orderPrice",
+				    "rentalPrice",
+				    rnum
+				FROM (
+				    SELECT
+				        order_id AS "orderId",
+				        user_id AS "userId",
+				        order_content AS "orderContent",
+				        order_date AS "orderDate",
+				        request_date AS "requestDate",
+				        order_name AS "orderName",
+				        order_state AS "orderState",
+				        order_address AS "orderAddress", 
+				        order_price AS "orderPrice",
+				        rental_price AS "rentalPrice",
+				        rownum AS rnum
+				    FROM (
+				        SELECT * FROM orders
+				        ORDER BY order_id DESC
+				    )
+				)
+				WHERE rnum BETWEEN #{start} AND #{end}
+		]]>
+	</select>
+	
+	
+	<!-- 장바구니구입 주문번호 상세  -->
+	<select id="selectAllOrderList" resultType="com.meta.metaway.admin.dto.AdminOrderDetailDTO">
 		SELECT
-            o.order_id as "orderId",
+            od.order_id as "orderDetailId",
+            od.order_id as "orderId",
+            od.contract_id as "contractId",
+            od.order_count as "orderCount",
+            od.start_date as "startDate",
+            od.end_date as "endDate",
+            od.state_type as "stateType",
             o.order_name as "orderName",
             o.order_address as "orderAddress",
             o.order_content as "orderContent",
@@ -129,18 +173,15 @@
             o.rental_price as "rentalPrice",
             o.order_date as "orderDate",
             o.request_date as "requestDate",
-            od.start_date as "startDate",
-            od.end_date as "endDate",
-            od.order_count as "orderCount",
             p.product_model as "productModel",
             p.product_name as "productName",
             c.contract_year as "contractYear",
             c.contract_price as "contractPrice",
             u.user_phone as "userPhone"
-        FROM orders o
-        INNER JOIN order_detail od ON o.order_id = od.order_id
-        INNER JOIN product p ON od.product_id = p.product_id
-        INNER JOIN contract c ON od.contract_id = c.contract_id
+        FROM order_detail od
+        INNER JOIN orders o ON o.order_id = od.order_id
+        INNER JOIN product p ON p.product_id = od.product_id
+        INNER JOIN contract c ON c.contract_id = od.contract_id
         INNER JOIN users u ON u.user_id = o.user_id
         WHERE o.order_id = #{orderId}
 	</select>
@@ -188,6 +229,12 @@
 		WHERE a.authority_name IN ('ROLE_DRIVER') AND s.work_status = 0
 	</select>
 	
+	<!-- 시퀀스대용  -->
+	<select id="getNextMaxOrderDetailId" resultType="int">
+    	 SELECT COALESCE(max(order_detail_id), 0) + 1 FROM order_detail
+    </select>
+	 
+	 
 	<!-- 주문에 대한 일정조회  -->
 	  <select id="selectListScheduleStaff" parameterType="long" resultType="com.meta.metaway.admin.dto.AdminScheduleStaffDTO">
 	    	SELECT

@@ -23,21 +23,21 @@
 <body>
     <div class="assignment wrap">
         <div class="flex_1">
-            <div class="flex_1_1" th:object="${orderDetail}" >
-                <em>주문고객: <span th:text="${orderDetail.orderName}"></span> 님</em>
+            <div class="flex_1_1" th:each="orders :${orderList}" >
+                <em>주문고객: <span th:text="${orders.orderName}"></span> 님</em>
                 <div class="bo">
                     <div>
                         <ul>
-                            <li>제품 모델 :<span th:text="${orderDetail.productModel}"></span></li>
-                            <li>제품 이름 :<span th:text="${orderDetail.productName}"></span></li>
-                            <li>약정년 :<span th:text="${orderDetail.contractYear}"></span>년</li>
-                            <li>총 가격 :<span th:text="${orderDetail.orderPrice}"></span>원</li>
+                            <li>제품 모델 :<span th:text="${orders.productModel}"></span></li>
+                            <li>제품 이름 :<span th:text="${orders.productName}"></span></li>
+                            <li>약정년 :<span th:text="${orders.contractYear}"></span>년</li>
+                            <li>총 가격 :<span th:text="${orders.orderPrice}"></span>원</li>
                             <li>
-                        월 가격 :
-                         <span th:if="${orderDetail.contractYear != 0}" th:text="${(orderDetail.orderPrice / orderDetail.contractYear) / 12 + '원'}"></span>
-                         <span th:if="${orderDetail.contractYear == 0}" th:text="${(orderDetail.orderPrice / 12) + '원'}"></span>
-                     </li>
-                            <li>약정기간 :<span th:text="${orderDetail.startDate}"></span>  ~ <span th:text="${orderDetail.endDate}"></span></li>
+                        		월 가격 :
+		                         <span th:if="${orders.contractYear != 0}" th:text="${(orders.orderPrice / orders.contractYear) / 12 + '원'}"></span>
+		                         <span th:if="${orders.contractYear == 0}" th:text="${(orders.orderPrice / 12) + '원'}"></span>
+		                     </li>
+                            <li>약정기간 :<span th:text="${orders.startDate}"></span>  ~ <span th:text="${orders.endDate}"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -46,16 +46,16 @@
                 <em>고객 주소</em>
                 <div class="bo">
                     <ul>
-                        <li>고객명 : <span th:text="${orderDetail.orderName}"></span> 님</li>
-                        <li>고객 주소 : <span th:text="${orderDetail.orderAddress}"></span></li>
-                        <li>고객 연락처 :<span th:text="${orderDetail.userPhone}"></span></li>
-                        <li>요청 사항 :<span th:text="${orderDetail.orderContent}"></span></li>
+                        <li>고객명 : <span th:text="${orderList[0].orderName}"></span> 님</li>
+                        <li>고객 주소 : <span th:text="${orderList[0].orderAddress}"></span></li>
+                        <li>고객 연락처 :<span th:text="${orderList[0].userPhone}"></span></li>
+                        <li>요청 사항 :<span th:text="${orderList[0].orderContent}"></span></li>
                     </ul>
                 </div>
             </div>
             <div class="flex_1_3">
                 <em>설치 희망일</em>
-                <div class="bo" th:text="${orderDetail.requestDate}">
+                <div class="bo" th:text="${orderList[0].requestDate}">
                     2020/12/23 14:00
                 </div>
             </div>
@@ -102,8 +102,8 @@
 	                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myCodiModal">코디 선택</button>
 	                    </div>
 		            </div>
-		            <form class="flex_button" th:action="@{/admin/assign/complate/{orderId}(orderId=${orderDetail.orderId})}" method="post">
-						<input type="hidden" name="orderId" th:value="${orderDetail.orderId}">
+		            <form class="flex_button" th:action="@{/admin/assign/complate/{orderId}(orderId=${orderList[0].orderId})}" method="post">
+						<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
 		            	<button type="submit" class="btn btn-primary btn-block">배정 완료</button>
 		            </form>
 		        </div>
@@ -142,7 +142,7 @@
                  <td th:text="${driver.userPhone}">010-1111-1111</td>
                  <td th:text="${driver.workPlace}">서울</td>
                <td>
-                   <input type="hidden" name="orderId" th:value="${orderDetail.orderId}">
+                   <input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
                    <input type="hidden" name="staffId" th:value="${driver.staffId}">
                    <input type="hidden" name="userId" th:value="${driver.userId}">
                   <button type="button" class="btn btn-outline-primary" th:onclick="assignStaff('driver', '[[${driver.userName}]]','[[${driver.staffId}]]','[[${driver.userId}]]')">배정</button>
@@ -191,7 +191,7 @@
                  <td th:text="${codi.userPhone}"></td>
                  <td th:text="${codi.workPlace}"></td>
                <td>
-                   <input type="hidden" name="orderId" th:value="${orderDetail.orderId}">
+                   <input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
                    <input type="hidden" name="staffId" th:value="${codi.staffId}">
                    <input type="hidden" name="userId" th:value="${codi.userId}">
                   <button type="submit" class="btn btn-outline-primary" th:onclick="assignStaff('codi', '[[${codi.userName}]]', '[[${codi.staffId}]]','[[${codi.userId}]]')">배정</button>

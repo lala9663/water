@@ -17,6 +17,8 @@ public interface IAdminService {
 	void updateCompleteOrder(long orderId);
 	int getOrderId(long orderId);
 	AdminOrderDetailDTO selectOneOrderList(long orderId);
+	//여러개 주문 목록조회
+	List<AdminOrderDetailDTO> selectAllOrderList(long orderId);
 	List<AdminStaffDTO> selectAllCodiList();
 	List<AdminStaffDTO> selectAllDriverList();
 	//주문에 해당하는 일정조회
