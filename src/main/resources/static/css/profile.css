@@ -242,11 +242,11 @@
             -webkit-backdrop-filter: blur( 13.5px );
             border-radius: 10px;
             border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 450px;
+            width: 500px;
             height: 250px;
             position: relative;
             top: -90px;
-            padding: 10px;
+            padding: 8px;
            
         }
        

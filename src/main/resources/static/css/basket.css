@@ -3,7 +3,6 @@
 	width: 150px;
     height: auto;
     display: inline-block;
-/* 오른쪽 마진 추가 */
 }
 
 #imageBox {
@@ -12,32 +11,49 @@
 	display: inline-block;
 }
 
-#wrap{
-	margin-top: 200px;
-	height: 800px;
-	width: 100%;
-	flex: 1;
-}
-
-#productBox{
+.mainBox{
 	display: flex;
-	width: 100%;
-	height: auto;
-	justify-content: space-evenly;
-	margin-bottom: 150px;
+    justify-content: space-between;
 }
 
+#wrap {
+    display: grid;
+    margin-top: 140px;
+    height: 800px;
+    width: 100%;
+    flex: 1;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.headerSpan span{
+	box-shadow: inset 0 -20px 0 rgb(167, 233, 255);
+}
+
+.headerSpan img{
+	height: 50px;
+}
+
+#productBox {
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-bottom: 100px;
+}
 
 #AllProduct{
 	display: inline-block;
-	border: 2px solid gray;
-	width: 25%;
+	border: 1px solid gray;
+	border-radius: 10px;
+	width: 700px;
 	height: auto;
+	padding: 40px;
+	
 }
 
 .productInfoBox{
     display: flex; /* flex 레이아웃으로 변경 */
-    margin-right: 50px;
+    margin-right: 20px;
     align-items: center; /* 자식 요소들을 세로 중앙에 정렬 */
     justify-content: space-between; 
     width: 100%;
@@ -45,11 +61,31 @@
 
 
 #buttonBox{
-	display: inline-block;
+	width: 370px;
 	height: 200px;
-	width: 25%;
-	border: 2px solid gray;
-	border-radius: 5px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	margin-left: 20px;
+}
+
+.get-submit-btn {
+	margin-top: 30px;
+	margin-left: 13px;
+	width: 280px;
+  padding: 12px 26px;
+  border: 0;
+  font-size: 16px;
+  transition: all 150ms ease-in-out;
+  border-radius: 14px;
+  font-weight: 600;
+  color: #000;
+	background:rgb(123, 214, 244);
+}
+
+
+
+.get-submit-btn:active {
+  transform: scale(.95);
 }
 
 #ProductTextBox{
@@ -65,7 +101,7 @@
 
 #buttonText {
 	margin-left: 30px;
-	margin-top: 20px;
+	margin-top: 50px;
 	height: 120px;
 }
 
@@ -77,10 +113,6 @@
 	display: flex;
 	justify-content: space-between;
 }
-.priceText{
-	
-}
-
 .priceValue1, .priceValue2 {
 	margin-right: 30px;
 	color: deepskyblue;
@@ -90,6 +122,11 @@
 	height: 20px;
 	bottom: 0;
 	margin: 0 20px 0 20px;
+	
+}
+
+.deleteButton img{
+	width: 20px;
 }
 .deleteBox{
 	align-self: flex-start;
@@ -112,7 +149,7 @@
 	display: flex;
 	justify-content: space-between;
 }
-.headerText{
+.headerSpan{
 	font-size: 40px;
 	text-align: center;
 	margin-bottom: 70px;
