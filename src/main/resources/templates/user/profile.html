@@ -2,287 +2,160 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<link rel="stylesheet" th:href="@{/css/header.css}">
-	<link rel="stylesheet" th:href="@{/css/footer.css}">
-	<link rel="stylesheet" th:href="@{/css/profile.css}">
-    <style>
-        #modal1.modal-overlay {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(1.5px);
-            -webkit-backdrop-filter: blur(1.5px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        #modal1 .modal-window {
-            background: rgba( 69, 139, 197, 0.70 );
-            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-            backdrop-filter: blur( 13.5px );
-            -webkit-backdrop-filter: blur( 13.5px );
-            border-radius: 10px;
-            border: 1px solid rgba( 255, 255, 255, 0.18 );
-            /* width: 400px; */
-            height: 500px;
-            /* position: relative; */
-            top: -100px;
-            padding: 10px;
-        }
-        #modal1 .title {
-            padding-left: 10px;
-            display: inline;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-            
-        }
-        #modal1 .title h2 {
-            display: inline;
-        }
-        #modal1 .close-area {
-            display: inline;
-            float: right;
-            padding-right: 10px;
-            cursor: pointer;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-        }
-        
-        #modal1 .content {
-            margin-top: 20px;
-            padding: 0px 10px;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-        }
-        
-	    #delete-form {
-	        position: absolute;
-	        bottom: 20px; 
-	        left: 50%; 
-	        transform: translateX(-50%);
-	        padding: 10px; 
-	        border-radius: 5px; 
-	    }
-
-        #modal2.modal-overlay {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(1.5px);
-            -webkit-backdrop-filter: blur(1.5px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        #modal2 .modal-window {
-            background: rgba( 69, 139, 197, 0.70 );
-            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-            backdrop-filter: blur( 13.5px );
-            -webkit-backdrop-filter: blur( 13.5px );
-            border-radius: 10px;
-            border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 400px;
-            height: 500px;
-            position: relative;
-            top: -100px;
-            padding: 10px;
-        }
-        #modal2 .title {
-            padding-left: 10px;
-            display: inline;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-            
-        }
-        #modal2 .title h2 {
-            display: inline;
-        }
-        #modal2 .close-area {
-            display: inline;
-            float: right;
-            padding-right: 10px;
-            cursor: pointer;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-        }
-        
-        #modal2 .content {
-            margin-top: 20px;
-            padding: 0px 10px;
-            text-shadow: 1px 1px 2px gray;
-            color: white;
-        }        
-        
-    #modal1 .warning {
-        color: red;
-        font-weight: bold;
-        margin-bottom: 10px;
-        border: 2px solid red;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    
-    </style>	
-	<title>My Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <title>Metaway MyPage</title>
 </head>
 
 <body>
-<header th:replace="~{/include/header.html}"></header>
-<div class="container">
-	<div class="profile-nav">
-		<nav class="profile-nav-ul">
-			<ul>
-                <li onclick="goToUpdatePage()">회원정보 수정</li>
-                <!--비밀번호 변경 내역 / 회원 탈퇴 내역-->
-                <li><a th:href="@{/purchase}">구매 내역</a></li>
-                <!--구매 취소 내역 / 환불 내역-->
-                <li><a th:href="@{/return}">반납 내역</a></li>
-                <!--반납 신청 내역 / 반납 환불 내역-->
-                <li><a th:href="@{/contract}">약정 내역</a></li>
-                <!--약정 연장 내역 / 약정 해지 내역-->
-			</ul>
-		</nav>
-	</div>
-    <div class="profile-page">
+    <header th:replace="~{/include/header.html}"></header>
+    <div class="container">
+        <div class="profile-nav">
+            <nav class="profile-nav-ul">
+                <ul>
+                    <li class="profile-nav-p">마이페이지</li>
+
+                    <li><a th:href="@{/purchase}">구매 내역</a></li>
+                    <!--구매 취소 내역 / 환불 내역-->
+                    <li><a th:href="@{/return}">반납 내역</a></li>
+                    <!--반납 신청 내역 / 반납 환불 내역-->
+                    <li><a th:href="@{/contract}">약정 내역</a></li>
+                    <!--약정 연장 내역 / 약정 해지 내역-->
+                </ul>
+            </nav>
+        </div>
+        <div class="profile-page">
             <div class="user-info" th:if="${userProfile != null}">
                 <span th:text="${userProfile.name + '님의 프로필'}" class="text-highlight"></span>
-                
 
                 <p>Account:<span th:text="${userProfile.account}"></span></p>
-			    <p>Email: <span th:text="${userProfile.email}"></span></p>
-			    <p>Name: <span th:text="${userProfile.name}"></span></p>
-			    <p>Phone: <span th:text="${userProfile.phone}"></span></p>
-			    <p>Age: <span th:text="${userProfile.age}"></span></p>
-			    <p>Address: <span th:text="${userProfile.address}"></span></p>      
-				
-				<button class="pwd-btn" id="btn-modal1">비밀번호 변경</button>
-				<button class="pwd-btn" id="btn-modal2">회원 탈퇴</button>
+                <p>Email: <span th:text="${userProfile.email}"></span></p>
+                <p>Name: <span th:text="${userProfile.name}"></span></p>
+                <p>Phone: <span th:text="${userProfile.phone}"></span></p>
+                <p>Age: <span th:text="${userProfile.age}"></span></p>
+                <p>Address: <span th:text="${userProfile.address}"></span></p>
+
+                <button class="pwd-btn" id="btn-modal1">비밀번호 변경</button>
+                <button class="pwd-btn" id="btn-modal2">회원 탈퇴</button>
             </div>
             <div id="modal1" class="modal-overlay">
-		        <div class="modal-window">
-		            <div class="close-area">X</div>
-		            <div class="content">
-		                <p>비밀번호 바꾸고 싶냐?</p>
-		            </div>   
-					<form th:action="@{/user/changepassword}" method="post">
-					    <input type="password" name="password" placeholder="비밀번호 입력" required />
-					    <button type="submit">변경</button>
-					</form>
-	                
-		            
-		        </div>
-		    </div>            
+                <div class="modal-window">
+                    <div class="close-area">X</div>
+                    <div class="content">
+                        <p>비밀번호 변경</p>
+                        <p class="warning-message">새로운 비밀번호를 입력해 주세요. <br>타인에게 비밀번호가 노출되지 않도록 주의해
+                            주세요.</p>
+                    </div>
+                    <form th:action="@{/user/changepassword}" method="post">
+                        <input type="password" name="password" placeholder="new password" required autocomplete="new-password" />
+                        <button type="submit"><span>변경</span></button>
+                    </form>
+                </div>
+            </div>
             <div id="modal2" class="modal-overlay">
-		        <div class="modal-window">
-		            <div class="close-area">X</div>
-		            <div class="content">
-		                <p>자네 삭제하고싶나??</p>
-			            <p class="warning-message">회원 삭제는 복구되지 않습니다. 계속 진행하시겠습니까?</p>	                            
-			            <form th:action="@{/user/delete}" method="post">
-			                <input type="password" name="password" placeholder="비밀번호 입력" required />
-			                <button type="submit">삭제</button>
-			            </form>		                
-		            </div>
-		        </div>
-		    </div>		    
+                <div class="modal-window">
+                    <div class="close-area">X</div>
+                    <div class="content">
+                        <p>회원 탈퇴</p>
+                        <p class="warning-message">그 동안 메타웨이 서비스를 이용해 주셔서 감사합니다. <br>고객님께 더 나은
+                            서비스를 제공해 드리기 위해 노력하겠습니다.</p>
+                        <form th:action="@{/user/delete}" method="post">
+                            <input type="password" name="password" placeholder="your password" required />
+                            <button type="submit">탈퇴</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div th:unless="${userProfile != null}">
                 <p>User profile not available.</p>
             </div>
+        </div>
     </div>
-</div>
-<footer th:replace="~{/include/footer.html}"></footer>
+    <footer th:replace="~{/include/footer.html}"></footer>
     <script>
 
         const modal = document.getElementById("modal1");
-        
-		function modalOn() {
-		    modal.style.display = "flex"
-		}
-		function isModalOn() {
-		    return modal.style.display === "flex"
-		}
-		function modalOff() {
-		    modal.style.display = "none"
-		}
-		const btnModal = document.getElementById("btn-modal1")
-		btnModal.addEventListener("click", e => {
-		    modalOn()
-		})
-		const closeBtn = modal.querySelector(".close-area")
-		closeBtn.addEventListener("click", e => {
-		    modalOff()
-		})
-				
-		modal.addEventListener("click", e => {
-		    const evTarget = e.target
-		    if(evTarget.classList.contains("modal-overlay")) {
-		        modalOff()
-		    }
-		})
-		window.addEventListener("keyup", e => {
-		    if(isModalOn() && e.key === "Escape") {
-		        modalOff()
-		    }
-		})
-		
-		const modal2 = document.getElementById("modal2");
-		
-		function modalOn2() {
-		    modal2.style.display = "flex";
-		}
-		
-		function isModalOn2() {
-		    return modal2.style.display === "flex";
-		}
-		
-		function modalOff2() {
-		    modal2.style.display = "none";
-		}
-		
-		const btnModal2 = document.getElementById("btn-modal2");
-		btnModal2.addEventListener("click", e => {
-		    modalOn2();
-		});
-		
-		const closeBtn2 = modal2.querySelector(".close-area");
-		closeBtn2.addEventListener("click", e => {
-		    modalOff2();
-		});
-		
-		modal2.addEventListener("click", e => {
-		    const evTarget = e.target;
-		    if (evTarget.classList.contains("modal-overlay")) {
-		        modalOff2();
-		    }
-		});
-		
-		window.addEventListener("keyup", e => {
-		    if (isModalOn2() && e.key === "Escape") {
-		        modalOff2();
-		    }
-		});
-		
+
+        function modalOn() {
+            modal.style.display = "flex"
+        }
+
+        function isModalOn() {
+            return modal.style.display === "flex"
+        }
+
+        function modalOff() {
+            modal.style.display = "none"
+        }
+
+        const btnModal = document.getElementById("btn-modal1")
+        btnModal.addEventListener("click", e => {
+            modalOn()
+        })
+
+        const closeBtn = modal.querySelector(".close-area")
+        closeBtn.addEventListener("click", e => {
+            modalOff()
+        })
+
+        modal.addEventListener("click", e => {
+            const evTarget = e.target
+            if (evTarget.classList.contains("modal-overlay")) {
+                modalOff()
+            }
+        })
+
+        window.addEventListener("keyup", e => {
+            if (isModalOn() && e.key === "Escape") {
+                modalOff()
+            }
+        })
+
+        const modal2 = document.getElementById("modal2");
+
+        function modalOn2() {
+            modal2.style.display = "flex";
+        }
+
+        function isModalOn2() {
+            return modal2.style.display === "flex";
+        }
+
+        function modalOff2() {
+            modal2.style.display = "none";
+        }
+
+        const btnModal2 = document.getElementById("btn-modal2");
+        btnModal2.addEventListener("click", e => {
+            modalOn2();
+        });
+
+        const closeBtn2 = modal2.querySelector(".close-area");
+        closeBtn2.addEventListener("click", e => {
+            modalOff2();
+        });
+
+        modal2.addEventListener("click", e => {
+            const evTarget = e.target;
+            if (evTarget.classList.contains("modal-overlay")) {
+                modalOff2();
+            }
+        });
+
+        window.addEventListener("keyup", e => {
+            if (isModalOn2() && e.key === "Escape") {
+                modalOff2();
+            }
+        });
+
     </script>
-    
+
 </body>
+
 </html>

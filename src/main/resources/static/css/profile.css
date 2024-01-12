@@ -1,4 +1,14 @@
 .container {
+    display: grid;
+    margin:10px;
+  
+}
+
+.profile-nav {
+    width: 30%;
+}
+
+.container {
     display: flex;
     justify-content: space-between;
 }
@@ -8,23 +18,29 @@
 }
 
 .profile-page {
+	    flex-grow: 1;
     width: 700px;
     height: auto;
     margin: auto;
     padding: 30px;
-    box-shadow: rgba(136, 165, 191, 0.48) 0px 8px 24px, rgba(136, 165, 191, 0.48) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
-    margin-top: 52vh;
-    transform: translateY(-50%);
+   	border:1.3px solid rgb(153, 153, 153);
+	  border-radius: 20px;
+	  text-align: center;  
+	  padding: 20px;
+    margin-top: 16vh;
     text-align: center;
     
 }
 
 .profile-nav{
 	    width: 200px;
-	    height: 150px;
-	    margin-top: 25vh;
-	    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
-    	border-radius: 5px;
+	    height: auto;
+	    margin-top: 16vh;
+	   border:1.3px solid rgb(153, 153, 153);
+	  border-radius: 20px;
+	  text-align: center;  
+	  padding: 20px;
+	  margin-right: 5px;
 }
 
 
@@ -41,6 +57,7 @@
   font-size: 13px;
   line-height: 29px;
   padding: 0 10px 0 11px;
+  margin-left: 5px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -65,3 +82,205 @@
 	font-size: 35px;
 	box-shadow: inset 0 -20px 0 rgb(167, 233, 255);
 }
+
+.profile-nav-ul a {
+    color: black; /* 링크 색상 변경 (원하는 색상으로 조절) */
+    text-decoration: none; /* 밑줄 없애기 */
+}
+
+.profile-nav-ul ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-nav-ul li {
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+.profile-nav-ul li:hover,
+.profile-nav-ul li.active {
+    background-color: rgb(218, 238, 255);
+}
+
+.profile-nav-ul li:first-child:hover {
+    background-color: transparent; /* 또는 다른 적절한 색상으로 설정하세요 */
+    border-bottom: 1px solid #ddd; /* 다른 메뉴 항목과 동일한 효과를 주세요 */
+}
+
+.profile-nav-p{
+	font-size: 18px;
+	font-weight: bolder;
+	}
+	
+	input[type="password"] {
+  font:small-caption;
+  background: none;
+  font-size: 14px;
+  color: white;
+}
+
+.modal-window input{
+	border: none;
+	border-bottom: 2px solid rgb(153, 153, 153);
+	margin-top: 10px;
+	 margin-bottom: 150px;
+}
+
+.modal-window input:focus{
+	 outline: none;
+  border-bottom: 2px solid rgb(152, 221, 255);
+}
+
+
+	
+	/*비밀번호 변경 모달 1*/
+  #modal1.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal1 .modal-window {
+            background: rgba( 69, 139, 197, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 450px;
+            height: 220px;
+            top: 50px;
+            margin-top: 10px;
+            transform: translate( 0%, -50%);
+        }
+
+        #modal1 .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal1 .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        .modal-window form button{
+			padding: 5px;
+			  border: 0;
+			  font-size: 14px;
+			  transition: all 150ms ease-in-out;
+			
+			  border-radius: 5px;
+			  font-weight: 600;
+			
+			  color: #000;
+			  background: #fff;
+			  box-shadow: rgba(50, 50, 93, 0.25) 0 50px 100px -20px, rgba(0, 0, 0, 0.3) 0 30px 60px -30px, rgba(10, 37, 64, 0.35) 0 -2px 6px 0 inset, rgba(0, 0, 0, 0.02) 0 1px 3px 0, rgba(27, 31, 35, 0.15) 0 0 0 1px;
+			}
+
+        .modal-window form button:hover {
+			  background: #f9f9f9;
+			}
+			
+			.modal-window form button:active {
+			  transform: scale(.95);
+			}
+
+	    #delete-form {
+	        position: absolute;
+	        bottom: 20px; 
+	        left: 50%; 
+	        transform: translateX(-50%);
+	        padding: 10px; 
+	        border-radius: 5px; 
+	    }
+
+        #modal2.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        #modal2 .modal-window {
+            background: rgba( 69, 139, 197, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 450px;
+            height: 250px;
+            position: relative;
+            top: -90px;
+            padding: 10px;
+           
+        }
+       
+        #modal2 .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal2 .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }        
+        
+    #modal1 .warning-message {
+        color: white;
+        font-weight: bold;
+        margin-bottom: 20px;
+        border: 1.5px solid white;
+        padding: 10px;
+        border-radius: 5px;
+        
+    }
+        #modal2 .warning-message {
+        color: white;
+        font-weight: bold;
+        margin-bottom: 20px;
+        border: 1.5px solid white;
+        padding: 10px;
+        border-radius: 5px;
+        
+    }
