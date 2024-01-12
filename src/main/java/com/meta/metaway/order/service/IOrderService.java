@@ -10,4 +10,6 @@ public interface IOrderService {
    void InsertOrder(Order order);
 //   주문 취소
    void cancelOrder(Order order);
+//  렌탈 기간 연장
+   void orderUpdateDate(Order order);
 }

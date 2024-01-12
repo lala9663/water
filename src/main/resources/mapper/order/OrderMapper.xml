@@ -32,14 +32,26 @@
 		order_state = 4
 		where user_id = #{userId} and order_id = #{orderId};
     </update>
+    <!-- 상태 변경  -->
+    <update id="updateOrderDetailState" parameterType="com.meta.metaway.returned.model.Returned" >
+    	update order_detail set 
+		order_state = #{stateType}
+		where order_detail_id = #{orderDetailId}
+    </update>
+    <!-- 기간 변경  -->
+     <update id="orderUpdateDate" parameterType="com.meta.metaway.returned.model.Returned" >
+    	UPDATE order_detail
+		SET your_timestamp_column = DATE_ADD(your_timestamp_column, INTERVAL #{continuDate} YEAR)
+		where order_detail_id = #{orderDetailId}
+    </update>
     
     
     <!-- 시퀀스대용  -->
      <select id="getNextMaxOrderId" resultType="Long">
-    	SELECT max(order_id) +1 from orders
+    	SELECT COALESCE(MAX(order_id) + 1, 1) FROM order;
     </select>
     <select id="getNextMaxOrderDetailId" resultType="Long">
-    	SELECT max(order_detail_id) +1 from order_detail
+    	SELECT COALESCE(MAX(order_detail_id) + 1, 1) FROM order_detail;
     </select>
     
  

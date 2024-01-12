@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.meta.metaway.returned.dao.IReturnedRepository">
+	<!-- 반납 신청 -->
+	<insert id="InsertReturnTable"
+		parameterType="com.meta.metaway.returned.model.Returned">
+		INSERT INTO return (return_id, order_detail_id, return_price return_text)
+		VALUES (#{returnId}, #{orderDetailId}, #{return_price}, #{returnText})
+	</insert>
+	<!-- 반납 완료시 시간설정 -->
+	<update id="updateReturnTable"
+		parameterType="com.meta.metaway.returned.model.Returned">
+		UPDATE return set
+		return_date = #{returnDate}
+		where return_id = #{returnId}
+	</update>
+
+	<!-- 기사 배정 완료 전 반납 취소 기능 -->
+	<delete id="CancelproductReturn"
+		parameterType="com.meta.metaway.returned.model.Returned">
+		DELETE from return
+		where order_detail_id = #{orderDetailId}
+	</delete>
+
+
+	<select id="getNextMaxreturnId" resultType="Long">
+		SELECT COALESCE(MAX(return_id) + 1, 1) FROM return;
+	</select>
+
+
+</mapper>
