@@ -1,12 +1,14 @@
 package com.meta.metaway.user.controller;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,19 +17,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.multiClass.MultiClass;
 import com.meta.metaway.order.model.Order;
 import com.meta.metaway.order.model.OrderDetail;
+import com.meta.metaway.user.dto.EmailRequestDTO;
 import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
+import com.meta.metaway.user.service.MailSendService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/user")
@@ -41,6 +47,10 @@ public class UserController {
 	
 	@Autowired
 	private MultiClass multiClass;
+
+	@Autowired
+	MailSendService mailService;
+
 	
 
     @GetMapping("/profile")
@@ -225,4 +235,28 @@ public class UserController {
 	        }
 	        return "user/orderDetailList"; 
 	    }
+	    
+	    @GetMapping(value = "/phoneCheck")
+	    @ResponseBody
+	    public String sendSMS(@RequestParam("phone") String userPhoneNumber) { // 휴대폰 문자보내기
+	    	int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성
+
+	    	userService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
+	    	
+	    	return Integer.toString(randomNumber);
+	    }
+	    
+	    
+		/*
+		 * @GetMapping("/emailVerification") public String showEmailVerificationPage() {
+		 * return "user/emailVerification"; }
+		 */
+
+        @PostMapping ("/mailSend")
+        @ResponseBody
+        @CrossOrigin
+        public String mailSend(@RequestBody EmailRequestDTO emailDto){
+            System.out.println("이메일 인증 이메일 :"+emailDto.getEmail());
+            return mailService.joinEmail(emailDto.getEmail());
+        }
 }

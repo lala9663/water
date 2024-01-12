@@ -104,6 +104,34 @@
 	        <version>0.12.3</version>
 	    </dependency>
 	    
+	    <!--  휴대폰 인증  -->
+	    <dependency>
+			<groupId>net.nurigo</groupId>
+		    <artifactId>javaSDK</artifactId>
+		    <version>2.2</version>
+		</dependency>
+		
+		<!-- javax.mail:mail:1.4.7 -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		
+		<!-- org.springframework:spring-context-support:5.3.9 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.3.9</version>
+		</dependency>
+
+		<!-- org.springframework.boot:spring-boot-starter-mail:2.6.3 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		    <version>2.6.3</version>
+		</dependency>
+			    
 	    
 	</dependencies>
 
