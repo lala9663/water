@@ -19,25 +19,28 @@
 	<div id="wrap">
 		<form method="post" id="orderForm" action="order/apply">
 			<div id="orderDiv1">
-				<div class="headerText">상품 결제</div>
+				<div class="headerText"><span>상품 결제
+					<img src="/images/card.png">
+				</span>
+				</div>
 				<input type="hidden" value="1">
-				<div>
-					<labe for="orderName" class="form-label">수취인 이름</labe>
-					<input type="text" name="orderName" id="orderName" placeholder="수취인 이름을 입력해주세요."
+				<div class="order-text">
+					<labe for="orderName" class="form-label">이름</labe>
+					<input type="text" name="orderName" id="orderName" placeholder="받으실 이름을 입력해주세요."
 						class="form-control">
 				</div>
-				<div>
-					<labe for="orderAddress" class="form-label">수취인 주소</labe>
-					<input type="text" name="orderAddress" id="orderAddress" placeholder="주소를 입력해주세요"
+				<div class="order-text">
+					<labe for="orderAddress" class="form-label">주소</labe>
+					<input type="text" name="orderAddress" id="orderAddress" placeholder="받으실 주소를 입력해주세요."
 						class="form-control">
 				</div>
-				<div>
+				<div class="order-text">
 					<label for="orderDate" class="form-label">방문요청일</label>
 					<input type="date" name="requestDate" id="orderDate" class="form-control">
 				</div>
-				<div>
+				<div class="order-text">
 					<label for="orderContent" class="form-label">요청 사항</label>
-					<textarea name="orderContent" id="orderContent" class="form-control" rows="5" cols="30"></textarea>
+					<textarea name="orderContent" id="orderContent" class="form-control" rows="5" cols="30" placeholder="요청사항을 입력해주세요."></textarea>
 				</div>
 			</div>
 			<div id="orderDiv2">
@@ -81,9 +84,9 @@
 								class="priceTextSpan"></span></div>
 					</div>
 				</div>
-				<div class="d-grid gap-2" id="buttonDiv">
-					<button class="btn btn-lg btn-primary" type="submit">결제하기</button>
-				</div>
+				
+					<button class="submit-btn" type="submit">결제하기</button>
+			
 			</div>
 		</form>
 	</div>

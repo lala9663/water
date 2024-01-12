@@ -36,7 +36,7 @@
 					</button>
 				</form>
 
-				<li class="header-cart-img"><img src="/images/cart.png"></li>
+				<li class="header-cart-img"><a th:href="@{'/user/basket'}"><img src="/images/cart.png"></a></li>
 
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -50,7 +50,7 @@
 						<li>
 							<hr class="dropdown-divider">
 						</li>
-						<li><a class="dropdown-item" th:href="@{'#'}">마이페이지</a></li>
+						<li><a class="dropdown-item" th:href="@{'/user/profile'}">마이페이지</a></li>
 						<li id="admin"><a class="dropdown-item" th:href="@{''}">관리자</a></li>
 						<li id="driver"><a class="dropdown-item" th:href="@{'/staff/drive/list'}">기사</a></li>
 						<li id="codi"><a class="dropdown-item" th:href="@{'/staff/cody/list'}">코디</a></li>

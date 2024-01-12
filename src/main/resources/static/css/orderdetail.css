@@ -1,14 +1,17 @@
-.detail_main{
-    margin-top: 110px;
+.order_detail_form{
+    margin-top: 130px;
+    margin-bottom: 60px;
 }
 
 
-.detail_title p{
+.order_detail_title p{
     margin: 20px;
     font-size: 30px;
+    margin-bottom: 20px;
 }
 
 .table-hover{
     margin-left: 20px;
     margin-right: 20px;
 }
+

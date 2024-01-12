@@ -12,7 +12,7 @@
 	<link rel="stylesheet" th:href="@{/css/header.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
 	<link rel="stylesheet" th:href="@{/css/basket.css}">
-	<title>Document</title>
+	<title>Metanet cart</title>
 </head>
 
 <header th:replace="/include/header.html"></header>
@@ -20,7 +20,9 @@
 <body>
 	<div id="wrap">
 		<div id="mainBox">
-			<div class="headerText">장바구니</div>
+			<div class="headerSpan"><span>장바구니
+					<img src="/images/cart.png">
+				</span></div>
 			<form method="post" action="/order">
 				<div id="productBox">
 					<div id="AllProduct">
@@ -52,12 +54,11 @@
 								</div>
 							</div>
 							<div class="deleteBox">
-								<button class="deleteButton" th:data-id="${pro.contractId}" onclick="deleteBasketRequest(event)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
-										<path class="deleteIcon"
-											d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708" />
-									</svg></button>
+							    <button class="deleteButton" th:data-id="${pro.contractId}" onclick="deleteBasketRequest(event)">
+							        <img src="/images/x.jpg" alt="Delete Icon" class="deleteIcon">
+							    </button>
 							</div>
+
 						</div>
 					</div>
 					<div id="buttonBox">
@@ -65,10 +66,11 @@
 							<div class="AllpriceText1">렌탈료 합계 <sapn class="priceValue1">11</sapn>
 							</div>
 							<div class="AllpriceText2">결제금액 합계 <span class="priceValue2">11</span></div>
+
+							<button class="get-submit-btn" type="submit">구입하기</button>
 						</div>
-						<div class="d-grid gap-2" id="buttonBottom">
-							<button class="btn btn-primary" type="submit">구입하기</button>
-						</div>
+						
+						
 					</div>
 				</div>
 			</form>
