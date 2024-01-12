@@ -30,11 +30,11 @@ public class AdminStaffController {
 		try {
 			List<AdminStaffDTO> staffList = adminStaffService.findAllStaffList(page);
 			model.addAttribute("staffList", staffList);
-			int totStaffs = adminStaffService.selectTotalStaffCount();
-			model.addAttribute("totStaffs", totStaffs);
+			int totStaff = adminStaffService.selectTotalStaffCount();
+			model.addAttribute("totStaff", totStaff);
 			int totalPage = 0;
-			if (totStaffs > 0) {
-				totalPage = (int) Math.ceil(totStaffs / 10.0);
+			if (totStaff > 0) {
+				totalPage = (int) Math.ceil(totStaff / 10.0);
 			}
 			int totalPageBlock = (int) (Math.ceil(totalPage / 10.0));
 			int nowPageBlock = (int) Math.ceil(page / 10.0);

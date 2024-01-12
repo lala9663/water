@@ -3,25 +3,41 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="com.meta.metaway.admin.dao.IAdminStaffRepository">
     	<select id="selectAllStaff" resultType="com.meta.metaway.admin.dto.AdminStaffDTO">
-		    SELECT
-		        s.staff_id AS "staffId",
-		        s.user_id AS "userId",
-		        u.user_email AS "userEmail",
-		        u.user_phone AS "userPhone",
-		        u.user_name AS "userName",
-		        u.user_address AS "userAddress",
-		        s.work_place AS "workPlace",
-		        s.work_status AS "workStatus",
-		        ua.authority_name AS "authorityName"
-		    FROM
-		        staff s
-		    LEFT JOIN users u ON s.user_id = u.user_id
-		    LEFT JOIN user_authority ua ON u.user_id = ua.user_id;
+		   <![CDATA[
+		      SELECT
+				    "staffId","userId","userEmail","userPhone","userName",
+				    "userAddress","userAge","workPlace", "workStatus","authorityName"
+			    FROM (
+				    SELECT
+					    "staffId","userId","userEmail","userPhone","userName",
+				    	"userAddress","userAge","workPlace", "workStatus","authorityName",
+					    ROWNUM AS rnum
+				    FROM (
+			    		SELECT
+					        s.staff_id AS "staffId",
+					        s.user_id AS "userId",
+					        u.user_email AS "userEmail",
+					        u.user_phone AS "userPhone",
+					        u.user_name AS "userName",
+					        u.user_address AS "userAddress",
+					        u.user_age AS "userAge",
+					        s.work_place AS "workPlace",
+					        s.work_status AS "workStatus",
+					        ua.authority_name AS "authorityName"
+			    		FROM
+					        staff s
+					     JOIN users u ON s.user_id = u.user_id
+					     JOIN user_authority ua ON u.user_id = ua.user_id
+					     where authority_name = 'ROLE_DRIVER' OR authority_name = 'ROLE_CODI'
+				     )
+			     )
+			     WHERE rnum BETWEEN #{start} AND #{end}
+		     ]]>
 		</select>
 		
     	<select id="selectTotalStaffCount" resultType="int">
 			<![CDATA[
-				select count(staffId) from staff
+				select count(staff_id) from staff
 			]]>
 		</select>
     
