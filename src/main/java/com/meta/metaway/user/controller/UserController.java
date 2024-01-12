@@ -49,7 +49,7 @@ public class UserController {
 	private MultiClass multiClass;
 
 	@Autowired
-	MailSendService mailService;
+	private MailSendService mailService;
 
 	
 
@@ -245,18 +245,37 @@ public class UserController {
 	    	
 	    	return Integer.toString(randomNumber);
 	    }
-	    
-	    
-		/*
-		 * @GetMapping("/emailVerification") public String showEmailVerificationPage() {
-		 * return "user/emailVerification"; }
-		 */
 
-        @PostMapping ("/mailSend")
-        @ResponseBody
-        @CrossOrigin
-        public String mailSend(@RequestBody EmailRequestDTO emailDto){
-            System.out.println("이메일 인증 이메일 :"+emailDto.getEmail());
-            return mailService.joinEmail(emailDto.getEmail());
-        }
+//        @PostMapping ("/mailSend")
+//        @ResponseBody
+//        @CrossOrigin
+//        public String mailSend(@RequestBody EmailRequestDTO emailDto){
+//            System.out.println("이메일 인증 이메일 :"+emailDto.getEmail());
+//
+//            return mailService.joinEmail(emailDto.getEmail());
+//        }
+	    
+	    
+	    @PostMapping("/mailSend")
+	    @ResponseBody
+	    @CrossOrigin
+	    public String mailSend(@RequestBody EmailRequestDTO emailDto, HttpSession session) {
+	        System.out.println("이메일 인증 이메일 :" + emailDto.getEmail());
+
+	        return mailService.joinEmail(emailDto.getEmail(), session);
+	    }
+	    
+	    @PostMapping("/verifyCode")
+	    @ResponseBody
+	    public ResponseEntity<String> verifyCode(@RequestParam String usercode, HttpSession session) {
+
+	    	if (mailService.verifyCode(usercode, session)) {
+	            return ResponseEntity.ok("Verification successful!");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Verification failed. Please try again.");
+	        }
+	    }
+
+
+	    
 }
