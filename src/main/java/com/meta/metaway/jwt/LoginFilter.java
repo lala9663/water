@@ -64,7 +64,24 @@ public class LoginFilter extends CustomUsernamePasswordAuthenticationFilter {
         String role = auth.getAuthority();
 
         String token = jwtUtil.createJwt(userId ,username, role, 60 * 60 * 2 * 1000L);
-
+        
+        String numberToken;
+        if(jwtUtil.getRole(token).equals("ROLE_ADMIN")) {
+        	numberToken = "4";
+        }
+        else if(jwtUtil.getRole(token).equals("ROEL_DRIVER")) {
+        	numberToken = "3";
+        }
+        else if(jwtUtil.getRole(token).equals("ROLE_CODI")) {
+        	numberToken = "2";
+        }
+        else {
+        	numberToken = "1";
+        }
+        
+        Cookie userNumber = new Cookie("userNumber", numberToken);
+        userNumber.setMaxAge(60 * 60 * 2);
+        userNumber.setPath("/");
         // 쿠키 생성 및 HTTPOnly로 설정하여 클라이언트에 전송
         Cookie cookie = new Cookie("token", token);
         cookie.setHttpOnly(true); // HTTPOnly 설정
@@ -72,6 +89,7 @@ public class LoginFilter extends CustomUsernamePasswordAuthenticationFilter {
         cookie.setPath("/"); // 쿠키의 유효 경로 설정 (루트 경로)
         
         response.addCookie(cookie);
+        response.addCookie(userNumber);
 //        response.addHeader("Authorization", "Bearer " + token);
         
         System.out.println("토큰발급 " + token);
