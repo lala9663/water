@@ -20,6 +20,8 @@ public class Schedule {
 	private long staffId;
 	private long userId;
 	private long orderId;
+	private long returnId;
+	private long orderDetailId;
 
 	public String getVisitDate() {
 		return  DateUtil.formatLocalDateTime(visitDate);

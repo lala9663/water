@@ -26,13 +26,9 @@ public class ScheduleService implements IScheduleService{
 			System.out.println("insert start");
 			Schedule schedule = new Schedule();
 			schedule.setScheduleId(scheduleRepository.getNextMaxScheduleId());
-			schedule.setVisitDate(LocalDateTime.now()
-					.withYear(LocalDateTime.now().getYear())
-				    .withMonth(1)
-				    .withDayOfMonth(1));
 			schedule.setVisitCycle(0);
-			schedule.setVisitState(0);
 			schedule.setVisitType(0);
+			schedule.setVisitState(0);
 			schedule.setUserId(userId);
 			schedule.setOrderId(orderId);
 	        schedule.setStaffId(staffId);

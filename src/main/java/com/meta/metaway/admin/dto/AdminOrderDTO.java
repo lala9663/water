@@ -13,15 +13,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AdminOrderDTO {
 	private long orderId;
-	private String orderName;
-	private String orderAddress;
+	private long userId;
 	private String orderContent;
+	private LocalDateTime orderDate;
+	private LocalDateTime requestDate;
+	private String orderName;
+	private int orderState;
+	private String orderAddress;
+	private int orderPrice;
+	private int rentalPrice;
+	
+	private long orderDetailId;
 	private String productModel;
 	private String productName;
 	private int orderCount;
-	private int orderPrice;
-	private LocalDateTime orderDate;
-	private int orderState;
 	
 	private int page;
 	

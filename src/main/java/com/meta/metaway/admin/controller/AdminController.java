@@ -34,6 +34,7 @@ public class AdminController {
 		try {
 			List<AdminOrderDTO> orderList = adminService.findAllOrderList(page);
 			model.addAttribute("orderList", orderList);
+			System.out.println(orderList.toString());
 			int totOrders = adminService.selectTotalOrdersCount();
 			model.addAttribute("totOrders", totOrders);
 			int waitOrders = adminService.selectWaitingOrdersCount();
@@ -55,6 +56,7 @@ public class AdminController {
 			} else {
 				endPage = totalPage;
 			}
+			
 			model.addAttribute("totalPageCount", totalPage);
 			model.addAttribute("nowPage", page);
 			model.addAttribute("totalPageBlock", totalPageBlock);
@@ -87,6 +89,7 @@ public class AdminController {
 			int cancelledOrders = totOrders - (waitOrders + completeOrders);
 			model.addAttribute("cancelledOrders", cancelledOrders);
 			System.out.println("총 주문수 " + totOrders);
+			
 			int totalPage = 0;
 			if (totOrders > 0) {
 				totalPage = (int) Math.ceil(totOrders / 10.0);
@@ -100,9 +103,11 @@ public class AdminController {
 			} else {
 				endPage = totalPage;
 			}
-			model.addAttribute("keyword", keyword);
+			
 			model.addAttribute("orderState", orderState);
 			model.addAttribute("orderDate", orderDate);
+			
+			model.addAttribute("keyword", keyword);
 			model.addAttribute("totalPageCount", totalPage);
 			model.addAttribute("nowPage", page);
 			model.addAttribute("totalPageBlock", totalPageBlock);
@@ -114,7 +119,7 @@ public class AdminController {
 //			model.addAttribute("error", "An error occurred.");
 //            return "error";
 		}
-		return "admin/ordermanager";
+		return "admin/searchorder";
 	}
 
 	@PostMapping("/deleteorder/{orderId}")
@@ -122,7 +127,7 @@ public class AdminController {
 		System.out.println("주문 취소 컨트롤러");
 		adminService.getOrderId(orderId);
 		adminService.updateCancleOrder(orderId);
-		model.addAttribute(orderId);
+		model.addAttribute("orderId",orderId);
 	    redirectAttr.addFlashAttribute("message", orderId+" 번 주문이 취소되었습니다.");
 	    return "redirect:/admin/orderlist/1";
 	}
@@ -133,9 +138,14 @@ public class AdminController {
 		orderId = adminService.getOrderId(orderId);
 		System.out.println("주문번호: " + orderId);
 		
-		AdminOrderDetailDTO orderDetails = adminService.selectOneOrderList(orderId);
-		model.addAttribute("orderDetail", orderDetails);
+//		AdminOrderDetailDTO orderDetails = adminService.selectOneOrderList(orderId);
+//		model.addAttribute("orderDetail", orderDetails);
+		List<AdminOrderDetailDTO> orderList = adminService.selectAllOrderList(orderId);
+		model.addAttribute("orderList", orderList);
 		
+//		adminService.getOrderId(orderId);
+//		model.addAttribute("orderId",orderId);
+		System.out.println(orderId + ": orderId");
 		List<AdminStaffDTO> driverList = adminService.selectAllDriverList();
 		model.addAttribute("driverList", driverList);
 		
@@ -147,7 +157,6 @@ public class AdminController {
 		System.out.println(staffList.toString());
 		model.addAttribute("staff",staffList);
 		
-		System.out.println(orderDetails.toString());
 		return "admin/orderdetail";
 	}
 	

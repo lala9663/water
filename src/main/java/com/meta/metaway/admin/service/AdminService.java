@@ -92,6 +92,11 @@ public class AdminService implements IAdminService {
 		adminRepository.deleteSchedule(orderId, staffId);
 		adminRepository.updateStaffStatus(staffId);
 	}
+
+	@Override
+	public List<AdminOrderDetailDTO> selectAllOrderList(long orderId) {
+		return adminRepository.selectAllOrderList(orderId);
+	}
 	
 	
 }
