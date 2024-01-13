@@ -10,6 +10,7 @@ import com.meta.metaway.admin.dto.AdminOrderDTO;
 import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
+import com.meta.metaway.admin.dto.SoldRankDTO;
 
 @Repository
 @Mapper
@@ -58,4 +59,8 @@ public interface IAdminRepository {
 	
 	int getNextMaxOrderDetailId();
 	
+	// 판매랭킹
+    List<SoldRankDTO> getSoldRankProductWithoutImage(int orderState);
+
+    List<SoldRankDTO> getSoldRankProductWithImage(int orderState);
 }

@@ -6,6 +6,7 @@ import com.meta.metaway.admin.dto.AdminOrderDTO;
 import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
+import com.meta.metaway.admin.dto.SoldRankDTO;
 
 public interface IAdminService {
 	List<AdminOrderDTO> findAllOrderList(int page);
@@ -25,4 +26,9 @@ public interface IAdminService {
 	List<AdminScheduleStaffDTO> selectListScheduleStaff(long orderId);
 	void deleteSchedule(long orderId, long staffId);
 	int getStaffId(long staffId);
+	
+    List<SoldRankDTO> getSoldRankProductWithImage(int orderState);
+    List<SoldRankDTO> getSoldRankProductWithoutImage(int orderState);
+
+
 }
