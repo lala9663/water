@@ -318,7 +318,52 @@
 		</select>
 
 
+		<!-- 판매 통계 조회 -->
+		<select id="getSalesStatistics" resultType="java.math.BigDecimal">
+		    SELECT SUM(pf.file_size) AS totalSalesPrice
+		    FROM product p
+		    JOIN order_detail od ON p.product_id = od.product_id
+		    JOIN orders o ON od.order_id = o.order_id
+		    LEFT JOIN product_file pf ON p.product_id = pf.product_id
+		    WHERE o.order_state = #{orderState}
+		</select>
+		
+		<!-- 총 판매 갯수 조회 -->
+		<select id="getTotalSalesCount" resultType="int">
+		    SELECT COUNT(od.order_detail_id) AS totalSalesCount
+		    FROM product p
+		    JOIN order_detail od ON p.product_id = od.product_id
+		    JOIN orders o ON od.order_id = o.order_id
+		    WHERE o.order_state = #{orderState}
+		</select>
+		
+		<!-- 총 회원 수 조회 -->
+<!-- 		<select id="getTotalUserCount" resultType="int">
+		    SELECT COUNT(user_id) AS totalUserCount
+		    FROM users
+		</select> -->
+		
+		<select id="getTotalUser" resultMap="TotalUser">
+		    <![CDATA[
+		    SELECT
+		        COUNT(u.user_id) AS totalAllCount,
+		        COUNT(CASE WHEN ua.authority_name = 'ROLE_USER' THEN u.user_id END) AS totalUserCount,
+		        COUNT(CASE WHEN ua.authority_name = 'ROLE_CODI' THEN u.user_id END) AS totalCodiCount,
+		        COUNT(CASE WHEN ua.authority_name = 'ROLE_DRIVER' THEN u.user_id END) AS totalDriverCount
+		    FROM
+		        users u
+		    LEFT JOIN
+		        user_authority ua ON u.user_id = ua.user_id
+		    ]]>
+		</select>
 
+		
+		<resultMap id="TotalUser" type="com.meta.metaway.admin.dto.UserCountDTO">
+		    <result property="totalAllCount" column="totalAllCount"/>
+		    <result property="totalUserCount" column="totalUserCount"/>
+		    <result property="totalCodiCount" column="totalCodiCount"/>
+		    <result property="totalDriverCount" column="totalDriverCount"/>
+		</resultMap>
 		
 		 
 </mapper>
