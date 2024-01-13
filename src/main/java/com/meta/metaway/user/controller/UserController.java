@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,9 +21,11 @@ import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.multiClass.MultiClass;
 import com.meta.metaway.order.model.Order;
 import com.meta.metaway.order.model.OrderDetail;
+import com.meta.metaway.user.dto.EmailRequestDTO;
 import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
+import com.meta.metaway.user.service.MailSendService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +44,9 @@ public class UserController {
 	
 	@Autowired
 	private MultiClass multiClass;
+	
+	@Autowired
+	private MailSendService mailService;
 	
 
     @GetMapping("/profile")
@@ -225,4 +231,38 @@ public class UserController {
 	        }
 	        return "user/orderDetailList"; 
 	    }
+
+
+//        @PostMapping ("/mailSend")
+//        @ResponseBody
+//        @CrossOrigin
+//        public String mailSend(@RequestBody EmailRequestDTO emailDto){
+//            System.out.println("이메일 인증 이메일 :"+emailDto.getEmail());
+//
+//            return mailService.joinEmail(emailDto.getEmail());
+//        }
+
+
+	    @PostMapping("/mailSend")
+	    @ResponseBody
+	    @CrossOrigin
+	    public String mailSend(@RequestBody EmailRequestDTO emailDto, HttpSession session) {
+	        System.out.println("이메일 인증 이메일 :" + emailDto.getEmail());
+
+	        return mailService.joinEmail(emailDto.getEmail(), session);
+	    }
+
+	    @PostMapping("/verifyCode")
+	    @ResponseBody
+	    public ResponseEntity<String> verifyCode(@RequestParam String usercode, HttpSession session) {
+
+	    	if (mailService.verifyCode(usercode, session)) {
+	            return ResponseEntity.ok("Verification successful!");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Verification failed. Please try again.");
+	        }
+	    }
+
+
+
 }

@@ -63,7 +63,10 @@ public class UserService implements IUserService {
             String name = joinDTO.getName();
             String phone = joinDTO.getPhone();
             int age = joinDTO.getAge();
-            String address = joinDTO.getAddress();
+            String zipcode = joinDTO.getZipcode();
+            String streetadr = joinDTO.getStreetadr();
+            String detailadr = joinDTO.getDetailadr();
+            
 
             data.setId(id);
             data.setAccount(account);
@@ -72,8 +75,11 @@ public class UserService implements IUserService {
             data.setName(name);
             data.setPhone(phone);
             data.setAge(age);
-            data.setAddress(address);
-
+            data.setAddress(zipcode + streetadr + detailadr);
+            data.setZipcode(zipcode);
+            data.setStreetadr(streetadr);
+            data.setDetailadr(detailadr);
+            
             role.setId(id);
             if (account.contains("co")) {
                 role.setAuthorities("ROLE_CODI");
@@ -207,5 +213,4 @@ public class UserService implements IUserService {
 			return null;
 		}
 	}
-    
 }

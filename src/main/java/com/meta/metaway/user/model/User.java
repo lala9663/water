@@ -16,6 +16,8 @@ public class User {
     private String phone;
     private int age;
     private String address;
+    private String zipcode;
+    private String streetadr;
+    private String detailadr;
     private String authorities;
-//    private Set<Authority> authorities;
 }
