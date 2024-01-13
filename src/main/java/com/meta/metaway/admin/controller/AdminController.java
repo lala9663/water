@@ -18,6 +18,7 @@ import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
+import com.meta.metaway.admin.dto.UserCountDTO;
 import com.meta.metaway.admin.service.IAdminService;
 
 import jakarta.servlet.http.HttpSession;
@@ -195,5 +196,11 @@ public class AdminController {
         return "admin/productRankWithImage";
     }
 	
+    @GetMapping("/getTotalUser")
+    public String getTotalUser(Model model) {
+        UserCountDTO getTotalUser = adminService.getTotalUser();
+        model.addAttribute("userStatistics", getTotalUser);
+        return "admin/getTotalUser";
+    }
 
 }

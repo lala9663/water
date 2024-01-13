@@ -11,6 +11,7 @@ import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
+import com.meta.metaway.admin.dto.UserCountDTO;
 
 @Service
 public class AdminService implements IAdminService {
@@ -109,5 +110,9 @@ public class AdminService implements IAdminService {
         return adminRepository.getSoldRankProductWithImage(orderState);
     }
 	
+    @Override
+    public UserCountDTO getTotalUser() {
+        return adminRepository.getTotalUser();
+    }
 	
 }

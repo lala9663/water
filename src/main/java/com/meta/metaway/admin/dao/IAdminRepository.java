@@ -11,6 +11,7 @@ import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
+import com.meta.metaway.admin.dto.UserCountDTO;
 
 @Repository
 @Mapper
@@ -63,4 +64,8 @@ public interface IAdminRepository {
     List<SoldRankDTO> getSoldRankProductWithoutImage(int orderState);
 
     List<SoldRankDTO> getSoldRankProductWithImage(int orderState);
+    
+    // 회원수조회
+    UserCountDTO getTotalUser();
+
 }
