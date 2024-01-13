@@ -337,12 +337,6 @@
 		    WHERE o.order_state = #{orderState}
 		</select>
 		
-		<!-- 총 회원 수 조회 -->
-<!-- 		<select id="getTotalUserCount" resultType="int">
-		    SELECT COUNT(user_id) AS totalUserCount
-		    FROM users
-		</select> -->
-		
 		<select id="getTotalUser" resultMap="TotalUser">
 		    <![CDATA[
 		    SELECT

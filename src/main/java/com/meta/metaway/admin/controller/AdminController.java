@@ -18,6 +18,7 @@ import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
+import com.meta.metaway.admin.dto.TotalSaleDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
 import com.meta.metaway.admin.service.IAdminService;
 
@@ -203,4 +204,11 @@ public class AdminController {
         return "admin/getTotalUser";
     }
 
+    @GetMapping("/getTotalSold")
+    public String getTotlaSold(Model model) {
+    	int totalSold = adminService.getTotalSalesCount(0);
+        model.addAttribute("totalSold", totalSold);
+        
+        return "admin/getTotalSold";
+    }
 }

@@ -114,5 +114,10 @@ public class AdminService implements IAdminService {
     public UserCountDTO getTotalUser() {
         return adminRepository.getTotalUser();
     }
+    
+    @Override
+    public int getTotalSalesCount(int orderState) {
+        return adminRepository.getTotalSalesCount(orderState);
+    }
 	
 }

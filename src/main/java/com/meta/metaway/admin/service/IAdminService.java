@@ -31,6 +31,7 @@ public interface IAdminService {
     List<SoldRankDTO> getSoldRankProductWithImage(int orderState);
     List<SoldRankDTO> getSoldRankProductWithoutImage(int orderState);
     UserCountDTO getTotalUser();
+    int getTotalSalesCount(int orderState);
 
 
 }

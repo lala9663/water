@@ -68,4 +68,8 @@ public interface IAdminRepository {
     // 회원수조회
     UserCountDTO getTotalUser();
 
+    // 총 판매 수
+    int getTotalSalesCount(int orderState);
+
+
 }
