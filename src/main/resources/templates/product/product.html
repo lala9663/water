@@ -14,11 +14,12 @@
 </head>
 
 <header th:replace="~{/include/header.html}"></header>
+
 <body>
 	<div id="wrap">
 		<div id="imageBox">
 			<div id="mainText">더 편리해진 정수기, <br>메타 정수기</div>
-			<img src="/images/pcattimg_org.jpg" alt="" id="mainImage">
+			<img src="/images/productMain.jpg" alt="" id="mainImage">
 		</div>
 
 		<div id="buyBox">
@@ -35,12 +36,14 @@
 					<div th:text="${product.productName}" class="productName"></div>
 					<div class="priceBox">
 						<div th:each="cont, contindex : ${product.contract}">
-							<div th:if="${cont.contractYear == 3}">렌탈 
-								<span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'" class="spanText1"></span>
+							<div th:if="${cont.contractYear == 3}">렌탈
+								<span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
+									class="spanText1"></span>
 							</div>
-							<div th:if="${cont.contractYear == 0}">구매 
-								<span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'" class="spanText2"></span>
-								</div>
+							<div th:if="${cont.contractYear == 0}">구매
+								<span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
+									class="spanText2"></span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -52,5 +55,7 @@
 	</div>
 </body>
 <footer th:replace="~{/include/footer.html}"></footer>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+</script>
 </html>
