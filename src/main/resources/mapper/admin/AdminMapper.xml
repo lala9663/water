@@ -359,5 +359,31 @@
 		    <result property="totalDriverCount" column="totalDriverCount"/>
 		</resultMap>
 		
+		<!-- 날짜별 방문자 수 -->
+		<select id="getVisitorCountByDate" resultType="Long">
+		    SELECT VISITOR_COUNT
+		    FROM VISITOR
+		    WHERE VISIT_DATE = #{visitDate}
+		</select>
+		 
+		 <!-- 평균 방문자 수 -->
+		<select id="getOverallAverageVisitorCount" resultType="Double">
+		    SELECT AVG(VISITOR_COUNT)
+		    FROM VISITOR
+		</select>
+		
+		<!-- 방문자 수 11시 59분에 디비에 저장 -->
+		<insert id="insertViewCount" parameterType="com.meta.metaway.admin.model.Visitor">
+	        INSERT INTO VISITOR (VISITOR_ID, VISIT_DATE, VISITOR_COUNT)
+	        VALUES (#{visitorId}, #{visitDate}, #{visitorCount})
+	    </insert>
+	    
+	    
+        <select id="selectViewMaxNo" resultType="long">
+		<![CDATA[
+			SELECT COALESCE(MAX(VISITOR_ID), 0) + 1 AS "visitorId" FROM VISITOR;
+		]]>
+		</select>	
+		
 		 
 </mapper>
