@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <div>
+        <h2>Daily Visitor Count</h2>
+        <p th:text="${dailyVisitorCount}"></p>
+    </div>
+
+    <div>
+        <h2>Visitor Count by Date</h2>
+        <form action="/admin/count-by-date" method="get">
+            <label for="visitDate">Visit Date:</label>
+            <input type="date" id="visitDate" name="visitDate" required>
+            <button type="submit">Get Visitor Count</button>
+        </form>
+        <p th:text="${visitorCount} ? ${visitorCount} : 'No data available'"></p>
+    </div>
+
+    <div>
+        <h2>Overall Average Visitor Count</h2>
+        <p th:text="${averageVisitorCount} ? ${averageVisitorCount} : 'No data available'"></p>
+    </div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+
+    fetchDailyVisitorCount();
+
+    document.getElementById("visitorCountForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        fetchVisitorCountByDate();
+    });
+
+    fetchOverallAverageVisitorCount();
+});
+
+function fetchDailyVisitorCount() {
+
+    const apiUrl = "/admin/viewCount";
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("dailyVisitorCount").innerText = data.dailyVisitorCount;
+        })
+        .catch(error => console.error("Error fetching daily visitor count:", error));
+}
+
+function fetchVisitorCountByDate() {
+
+    const apiUrl = `/api/get-visitor-count-by-date?visitDate=${document.getElementById("visitDate").value}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("visitorCountResult").innerText = data.visitorCount || 'No data available';
+        })
+        .catch(error => console.error("Error fetching visitor count by date:", error));
+}
+
+function fetchOverallAverageVisitorCount() {
+
+    const apiUrl = "/api/get-overall-average-visitor-count";
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("averageVisitorCountResult").innerText = data.averageVisitorCount || 'No data available';
+        })
+        .catch(error => console.error("Error fetching overall average visitor count:", error));
+}
+</script>
+</body>
+</html>
