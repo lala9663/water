@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <!-- head 부분 생략 (CSS, JavaScript 파일 링크 등 추가) -->
+</head>
+
+<body>
+    <!-- 상단 내비게이션 바 등 추가 -->
+
+    <div class="container mt-5">
+        <!-- Total Sold -->
+        <div class="row">
+            <div class="col">
+                <h2>Total Sold: <span th:text="${totalSold}"></span></h2>
+            </div>
+        </div>
+
+        <!-- Product Rank Without Image -->
+        <div class="row mt-4">
+            <div class="col">
+                <h2>Product Rank Without Image</h2>
+                <ul>
+                    <li th:each="productRankItem : ${productRankListWithoutImage}">
+                        <!-- 각 상품 정보 표시 -->
+                        <span th:text="${productRankItem.productName}"></span>
+                        <!-- 추가 필요한 정보 표시 -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Product Rank With Image -->
+        <div class="row mt-4">
+            <div class="col">
+                <h2>Product Rank With Image</h2>
+                <ul>
+                    <li th:each="productRankItem : ${productRankListWithImage}">
+                        <!-- 각 상품 정보 표시 -->
+                        <span th:text="${productRankItem.productName}"></span>
+                        <!-- 이미지 표시 등 추가 필요한 정보 표시 -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- User Statistics -->
+        <div class="row mt-4">
+            <div class="col">
+                <h2>User Statistics</h2>
+                <!-- 추가 필요한 정보 표시 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단 푸터 등 추가 -->
+
+    <!-- 필요한 JavaScript 파일 링크 등 추가 -->
+
+</body>
+
+</html>
