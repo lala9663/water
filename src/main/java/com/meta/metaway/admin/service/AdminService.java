@@ -10,6 +10,7 @@ import com.meta.metaway.admin.dto.AdminOrderDTO;
 import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
+import com.meta.metaway.admin.dto.SoldRankDTO;
 
 @Service
 public class AdminService implements IAdminService {
@@ -97,6 +98,16 @@ public class AdminService implements IAdminService {
 	public List<AdminOrderDetailDTO> selectAllOrderList(long orderId) {
 		return adminRepository.selectAllOrderList(orderId);
 	}
+	
+	@Override
+    public List<SoldRankDTO> getSoldRankProductWithoutImage(int orderState) {
+        return adminRepository.getSoldRankProductWithoutImage(orderState);
+    }
+	
+    @Override
+    public List<SoldRankDTO> getSoldRankProductWithImage(int orderState) {
+        return adminRepository.getSoldRankProductWithImage(orderState);
+    }
 	
 	
 }

@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.meta.metaway.admin.dto.AdminOrderDTO;
 import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
+import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.service.IAdminService;
 
 import jakarta.servlet.http.HttpSession;
@@ -178,6 +180,20 @@ public class AdminController {
 		return "redirect:/admin/assign/{orderId}";
 	}
 	
+	
+    @GetMapping("/productRank")
+    public String productRank(Model model) {
+        List<SoldRankDTO> productRankList = adminService.getSoldRankProductWithoutImage(0);
+        model.addAttribute("productRankList", productRankList);
+        return "admin/productRank";
+    }
+	
+    @GetMapping("/productRankWithImage")
+    public String productRankWithImage(Model model) {
+        List<SoldRankDTO> productRankList = adminService.getSoldRankProductWithImage(0);
+        model.addAttribute("productRankList", productRankList);
+        return "admin/productRankWithImage";
+    }
 	
 
 }

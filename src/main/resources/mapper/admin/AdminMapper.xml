@@ -265,4 +265,60 @@
 	    	delete from schedule
 			where order_id = #{orderId} and staff_id =#{staffId}
 	    </delete>
+	    
+		<select id="getSoldRankProductWithoutImage" resultType="com.meta.metaway.admin.dto.SoldRankDTO" parameterType="int">
+		    <![CDATA[
+		    SELECT
+		        p.product_id AS productId,
+		        p.product_name AS productName,
+		        COUNT(od.order_detail_id) AS totalSales,
+		        RANK() OVER (PARTITION BY p.product_id ORDER BY COUNT(od.order_detail_id) DESC) AS salesRank
+		    FROM
+		        product p
+		    JOIN
+		        order_detail od ON p.product_id = od.product_id
+		    JOIN
+		        orders o ON od.order_id = o.order_id
+		    WHERE
+		        o.order_state = #{orderState}
+		    GROUP BY
+		        p.product_id, p.product_name
+		    ORDER BY
+		        COUNT(od.order_detail_id) DESC
+		    ]]>
+		</select>
+	    
+	    
+
+		<select id="getSoldRankProductWithImage" resultType="com.meta.metaway.admin.dto.SoldRankDTO" parameterType="int">
+		    <![CDATA[
+		    SELECT
+		        p.product_id AS productId,
+		        p.product_name AS productName,
+		        COUNT(od.order_detail_id) AS totalSales,
+		        RANK() OVER (PARTITION BY p.product_id ORDER BY COUNT(od.order_detail_id) DESC) AS salesRank,
+		        pf.uuid_name AS uuidName,
+		        pf.file_path AS filePath,
+		        pf.file_name AS fileName
+		    FROM
+		        product p
+		    JOIN
+		        order_detail od ON p.product_id = od.product_id
+		    JOIN
+		        orders o ON od.order_id = o.order_id
+		    LEFT JOIN
+		        product_file pf ON p.product_id = pf.product_id -- 이미지 정보 조인
+		    WHERE
+		        o.order_state = #{orderState}
+		    GROUP BY
+		        p.product_id, p.product_name, pf.uuid_name, pf.file_path, pf.file_name
+		    ORDER BY
+		        COUNT(od.order_detail_id) DESC
+		    ]]>
+		</select>
+
+
+
+		
+		 
 </mapper>
