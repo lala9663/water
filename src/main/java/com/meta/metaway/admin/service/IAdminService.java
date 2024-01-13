@@ -7,6 +7,7 @@ import com.meta.metaway.admin.dto.AdminOrderDetailDTO;
 import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
+import com.meta.metaway.admin.dto.UserCountDTO;
 
 public interface IAdminService {
 	List<AdminOrderDTO> findAllOrderList(int page);
@@ -29,6 +30,8 @@ public interface IAdminService {
 	
     List<SoldRankDTO> getSoldRankProductWithImage(int orderState);
     List<SoldRankDTO> getSoldRankProductWithoutImage(int orderState);
+    UserCountDTO getTotalUser();
+    int getTotalSalesCount(int orderState);
 
 
 }
