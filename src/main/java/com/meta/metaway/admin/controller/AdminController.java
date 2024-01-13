@@ -211,4 +211,26 @@ public class AdminController {
         
         return "admin/getTotalSold";
     }
+
+    @GetMapping("/dashboard")
+    public String adminDashboard(Model model) {
+
+    	// 총 판매량
+        int totalSold = adminService.getTotalSalesCount(0);
+        model.addAttribute("totalSold", totalSold);
+
+        // 이미지 없이 상품 랭킹
+        List<SoldRankDTO> productRankListWithoutImage = adminService.getSoldRankProductWithoutImage(0);
+        model.addAttribute("productRankListWithoutImage", productRankListWithoutImage);
+
+        // 이미지 없이 상품 조회	
+        List<SoldRankDTO> productRankListWithImage = adminService.getSoldRankProductWithImage(0);
+        model.addAttribute("productRankListWithImage", productRankListWithImage);
+
+        // Total User Statistics
+        UserCountDTO userStatistics = adminService.getTotalUser();
+        model.addAttribute("userStatistics", userStatistics);
+
+        return "admin/dashboard";
+    }    
 }
