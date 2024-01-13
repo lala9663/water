@@ -8,9 +8,9 @@
     <insert id="insertUser" parameterType="com.meta.metaway.user.model.User">
         INSERT INTO 
         users 
-        (user_id, user_account, user_password, user_email, user_name, user_phone, user_age, user_address)
+        (user_id, user_account, user_password, user_email, user_name, user_phone, user_age, zipcode, streetadr, detailadr)
         VALUES 
-        (#{id}, #{account}, #{password}, #{email}, #{name}, #{phone}, #{age}, #{address})
+        (#{id}, #{account}, #{password}, #{email}, #{name}, #{phone}, #{age}, #{zipcode}, #{streetadr}, #{detailadr})
     </insert>
 
     <select id="existsByAccount" resultType="boolean">

@@ -13,4 +13,8 @@ public class JoinDTO {
     private String phone;
     private int age;
     private String address;
+    private String zipcode;
+    private String streetadr;
+    private String detailadr;
+    
 }
