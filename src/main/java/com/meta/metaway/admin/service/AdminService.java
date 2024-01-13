@@ -1,8 +1,10 @@
 package com.meta.metaway.admin.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.meta.metaway.admin.dao.IAdminRepository;
@@ -18,6 +20,11 @@ public class AdminService implements IAdminService {
 	
 	@Autowired
 	IAdminRepository adminRepository;
+	
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
+    public static final String DAILY_VISITOR_COUNT_KEY = "daily_visitor_count:";
 	
 	@Override
 	public List<AdminOrderDTO> findAllOrderList(int page) {
@@ -119,5 +126,26 @@ public class AdminService implements IAdminService {
     public int getTotalSalesCount(int orderState) {
         return adminRepository.getTotalSalesCount(orderState);
     }
-	
-}
+
+    @Override
+	public void increaseDailyVisitorCount() {
+	        // Redis에서 일일 방문자 수를 증가시킴
+	        String key = DAILY_VISITOR_COUNT_KEY + LocalDate.now();
+	        redisTemplate.opsForValue().increment(key);
+	 }
+
+    @Override
+    public long getDailyVisitorCount() {
+        // Redis에서 일일 방문자 수 조회
+        String key = DAILY_VISITOR_COUNT_KEY + LocalDate.now();
+        String count = redisTemplate.opsForValue().get(key);
+
+        return count != null ? Long.parseLong(count) : 0;
+    }
+
+	    @Override
+	    public void resetDailyVisitorCount(String key) {
+	        // Redis에서 일일 방문자 수 초기화
+	        redisTemplate.delete(key);
+	    }
+	}

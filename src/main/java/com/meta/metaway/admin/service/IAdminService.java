@@ -33,5 +33,13 @@ public interface IAdminService {
     UserCountDTO getTotalUser();
     int getTotalSalesCount(int orderState);
 
+	void increaseDailyVisitorCount();
+    long getDailyVisitorCount();
+    void resetDailyVisitorCount(String key);
 
+    
+
+
+
+    
 }

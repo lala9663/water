@@ -233,4 +233,13 @@ public class AdminController {
 
         return "admin/dashboard";
     }    
+    
+    @GetMapping("/daily-count")
+    public String getDailyVisitorCount(Model model) {
+        long dailyVisitorCount = adminService.getDailyVisitorCount();
+        model.addAttribute("dailyVisitorCount", dailyVisitorCount);
+        return "admin/daily";
+    }
+    
+    
 }
