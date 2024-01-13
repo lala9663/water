@@ -57,7 +57,6 @@ public class AuthController {
                     cookie.setMaxAge(0);
                     cookie.setHttpOnly(true);
                     response.addCookie(cookie);
-                    break;
                 }
             }
         }
