@@ -14,6 +14,7 @@ import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
+import com.meta.metaway.admin.model.Visitor;
 
 @Service
 public class AdminService implements IAdminService {
@@ -143,9 +144,28 @@ public class AdminService implements IAdminService {
         return count != null ? Long.parseLong(count) : 0;
     }
 
-	    @Override
-	    public void resetDailyVisitorCount(String key) {
-	        // Redis에서 일일 방문자 수 초기화
-	        redisTemplate.delete(key);
-	    }
-	}
+    // 스케줄러 실행
+    @Override
+    public void resetDailyVisitorCount(String key) {
+        // Redis에서 일일 방문자 수 초기화
+        redisTemplate.delete(key);
+    }
+    
+    @Override
+    public Long getVisitorCountByDate(LocalDate visitDate) {
+        return adminRepository.getVisitorCountByDate(visitDate);
+    }
+    
+    @Override
+    public Double getOverallAverageVisitorCount() {
+        return adminRepository.getOverallAverageVisitorCount();
+    }
+    
+    // 스케줄러 실행
+    @Override
+    public void insertViewCount(Visitor data) {
+        adminRepository.insertViewCount(data);
+    }
+}
+
+

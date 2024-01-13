@@ -1,5 +1,6 @@
 package com.meta.metaway.admin.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.meta.metaway.admin.dto.AdminOrderDTO;
@@ -8,6 +9,7 @@ import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
+import com.meta.metaway.admin.model.Visitor;
 
 public interface IAdminService {
 	List<AdminOrderDTO> findAllOrderList(int page);
@@ -36,10 +38,10 @@ public interface IAdminService {
 	void increaseDailyVisitorCount();
     long getDailyVisitorCount();
     void resetDailyVisitorCount(String key);
-
     
-
-
-
+    Long getVisitorCountByDate(LocalDate visitDate);
+    Double getOverallAverageVisitorCount();
     
+    void insertViewCount(Visitor data);
+
 }
