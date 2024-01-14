@@ -72,27 +72,30 @@
 	color: deepskyblue;
 	font-weight: bold;
 }
+.order-text{
+	margin-top: 10px;
+}
+.order-text span{
+	color: rgb(0, 234, 255);
+}
 
 /*btn*/
 .submit-btn {
-	margin-top: 13px;
-	width: 200px;
-  padding: 12px 26px;
-  border: 0;
-  font-size: 16px;
-  transition: all 150ms ease-in-out;
-  border-radius: 14px;
-  font-weight: 600;
-  color: #000;
-  background:rgb(123, 214, 244);
+	 width: 280px;
+    background-color: #00B0E8;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-top: 24px;
+    margin-left: -30px;
 }
-
-.bsubmit-btn:hover {
-  background: #f9f9f9;
-}
-
-.submit-btn:active {
-  transform: scale(.95);
 }
 
 .order-text{

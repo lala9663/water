@@ -67,18 +67,20 @@
                class="productImage">
             <div id="functionBox">
                <div th:each="function : ${product.functionList}" th:text="${function}"
-                  class="function btn btn-secondary"></div>
+                  class="func-text"></div>
             </div>
             <div class="Productdetail">
                <div th:text="${product.productModel}" class="productModel"></div>
                <div th:text="${product.productName}" class="productName"></div>
                <div class="priceBox">
                   <div th:each="cont, contindex : ${product.contract}">
-                     <div th:if="${cont.contractYear == 3}">렌탈
-                        <span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
-                           class="spanText1"></span>
-                     </div>
-                     <div th:if="${cont.contractYear == 0}">구매
+                     <div th:if="${cont.contractYear == 3}" class="price-box" >
+						    <div class="price-text">렌탈</div>
+						    <span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'" class="spanText1"></span>
+						</div>
+
+                     <div th:if="${cont.contractYear == 0}"  class="price-box">
+						 <div class="price-text">구매</div>
                         <span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
                            class="spanText2"></span>
                      </div>
@@ -86,10 +88,10 @@
                </div>
             </div>
          </a>
-         <div id="admin">
-            <a class="btn btn-primary btn-lg" href="/product/insert">상품 등록</a>
-         </div>
       </div>
+         <div id="admin">
+            <a class="insert_btn" href="/product/insert">상품 등록</a>
+         </div>
    </div>
 </body>
 <footer th:replace="~{/include/footer.html}"></footer>

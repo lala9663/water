@@ -1,46 +1,133 @@
-#bodyrap{
-	margin-top: 150px;
-    width: 100%;
-    height: 800px;
+#bodyrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 110px;
+  width: 100%;
+  margin-bottom: 50px;
 }
 
-#insertForm{
-	margin: 0 auto;
-	width: 30%;
-	height: 100%;
-}
-.functionInline{display: inline-block;}
-#formBox{
-	margin: 20px 0 20px 0;
+#insertForm {
+  width: 80%;
+  margin: 0 auto;
+  border: 1.3px solid rgb(153, 153, 153);
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+   display: flex;
+  flex-direction: column;
+ 
 }
 
-.functionBox{
-	margin: 10px 0 10px 0;
+.insert_title p {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
+
+.insert_title span {
+  background: linear-gradient(to top, rgb(152, 221, 255) 50%, transparent 40%);
+}
+
+#formBox div{
+	margin-bottom: 5px;
+}
+
+#function_Box .btn-outline-primary {
+  border: 1.3px solid rgb(153, 153, 153);
+  border-radius: 60px;
+  margin-bottom: 10px;
+  margin-left: 4px;
+}
+
+
+.insert-btn{
+	margin-top: 20px;
+	margin-right: 10%;
+}
+
+
+
+
+#nameBox input,
+#modelBox input{
+	margin-bottom: 10px;
+}
+
+#imageBox label,
+#dateBox div,
+#function_Box div,
+#btn-group div,
+#formBox div,
+#funcBox label,
+#modelBox label,
+#nameBox label {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+#function_Box span,
+#btn-group span,
+#formBox span,
+#funcBox span,
+#modelBox span,
+#nameBox span,
+#dateBox span,
+#imageBox span {
+  color: rgb(0, 234, 255);
+}
+
+#formBox,
+#functionBox,
+#dateBox,
+#imageBox,
+#contractForm {
+  margin-bottom: 20px;
+}
+
+.functionBox,
+.priceBox {
+  display: flex;
+  align-items: center;
+}
+
 .functionBox > input {
-	margin-left: 10px;
+  margin-left: 10px;
 }
 
 .functionBox > input:first-of-type {
-	margin-left: 0;
-}
-#dateBox{
-	margin: 20px 0 20px 0;
-}
-#formBox > label{
-	margin-left: 20px;
-}
-#formBox > label:first-of-type{
-	margin-left: 0;
+  margin-left: 0;
 }
 
-#imageBox{
-	margin: 15px 0 15px 0;
+.form-control {
+  width: 100%;
 }
-.form-control{
-	padding-right: 300px;
+
+#contractForm .functionBox {
+  margin: 10px 0;
 }
-#contractForm{
-	margin: 15px 0 15px 0;
+
+.form_radio{
+	margin-left: 10px;
 }
+
+/* 확인 버튼 스타일 */
+.insert-btn {
+	width: 150px;
+  align-self: flex-end; /* 오른쪽에 배치되도록 설정 */
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: 1.3px solid rgb(153, 153, 153);
+  transition: background-color 0.3s ease;
+}
+
+.insert-btn:hover {
+  background-color: #1C84FF;
+  color: #fff;
+}
+
 

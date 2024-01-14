@@ -16,11 +16,11 @@
 <body>
 	<header th:replace="/include/header.html"></header>
 	<div id="bodyrap">
+				<div class="headerText"><span>상품 수정</span></div>
 		<form id="insertForm" th:action="'/product/update/' + ${product.productId}" enctype="multipart/form-data" method="post">
 			<div id="numBox">
-				<label for="productId" class="form-label" >제품 번호</label>
-				<input type="text" id="productId" name="productId" class="form-control-plaintext" aria-label="readonly input example" readonly
-					th:value="${product.productId}">
+				<label for="productId" class="form-label">제품 번호 :  <p th:text="${product.productId}"> </p></label> 
+
 			</div>
 			<div id="modelBox">
 				<label for="productModel" class="form-label">상품 모델명</label>
@@ -33,6 +33,7 @@
 					th:value="${product.productName}">
 			</div>
 			<div id="formBox">
+				<label class="product-label">상품 기능<span>*</span></label><br>
 				<label for="formId1">데스크탑</label>
 				<input class="form-check-input" type="radio" id="formId1" name="formId" value="1">
 				<label for="formId2">빌트인</label>
@@ -40,6 +41,7 @@
 				<label for="formId3">스탠드</label>
 				<input class="form-check-input" type="radio" id="formId3" name="formId" value="3">
 			</div>
+			
 			<div id="functionBox" class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
 				<input type="checkbox" id="btncheck1" name="function" value="1" class="btn-check" autocomplete="off">
 				<label for="btncheck1" class="btn btn-outline-primary">냉정수기</label>
@@ -53,14 +55,16 @@
 				<label for="btncheck3" class="btn btn-outline-primary">탄산</label>
 			</div>
 			<div id="dateBox">
-				<div>제품출시일</div>
+				<label>제품출시일</label>
 				<input type="date" id="productDate" name="productDate" th:value="${product.productDate}">
 			</div>
-			<div id="imageBox" <label for="productFile" class="form-label">이미지 파일 선택</label>
+			<div id="imageBox" <label for="productFile" class="form-label">이미지 파일 선택<span>*</span></label>
 				<input type="file" id="productFile" class="form-control" name="productFile">
 			</div>
+			
+			
+				<label class="price-label">가격 변경</label>
 			<div id="contractForm">
-				<div>가격 변경</div>
 				<div th:if="${product.contract != null}" th:each="cont, contindex : ${product.contract}"
 					class="input-group mb-3">
 					<div th:if="${cont.contractYear} == 0">
@@ -79,9 +83,9 @@
 					</div>
 				</div>
 			</div>
-			<button class="btn btn-primary">확인</button>
 		</form>
 	</div>
+			<button class="submit-btn">확인</button>
 	<footer th:replace="/include/footer.html"></footer>
 </body>
 <script>

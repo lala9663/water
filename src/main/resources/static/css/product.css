@@ -1,6 +1,6 @@
 #wrap {
    width: 100%;
-   height: 1500px;
+   height: auto;
    padding: 150px 0 50px 0;
    margin-top: -50px;
 }
@@ -29,31 +29,59 @@
 }
 
 
-#buyBox{
-   width: 100%;
+#buyBox {
+   width: 80%;
    height: auto;
    margin-top: 60px;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   align-items: center;
+   margin-left: 150px;
+   margin-right: 150px;
 }
 
-.buyProduct{
+.buyProduct {
    background-color: whitesmoke;
-   width: 250px;
+   width: 250px; /* 크기를 고정값으로 설정 */
    height: 500px;
-   display: inline-block;
-   margin-left: 50px;
+   margin-bottom: 20px;
    border-radius: 10px;
    text-decoration: none;
    color: inherit;
 }
 
+
+
+
+/*정수기 이미지 출력 */
 .productImage{
    width: 100%;
    height: auto;
+   margin-bottom: 10px;
 }
-#functionBox{
+
+/*정수기 기능 출력 */
+#functionBox {
+   display: flex;
+   justify-content: center;
+   align-items: center;
    width: 100%;
-   height: 50px;
+   height: 20px;
    text-align: center;
+    margin-bottom: 7px;
+}
+
+.func-text {
+   border: 1.3px solid rgb(153, 153, 153);
+   border-radius: 5px;
+   text-align: center;
+   background-color: rgb(58, 58, 58);
+   color: white;
+   padding: 3px;
+   font-size: 13px;
+   margin-left: 5px;
+   
 }
 
 .function{
@@ -61,9 +89,11 @@
 }
 
 .Productdetail{
+	margin-top: 15px;
    height: 30px;
    width: 100%;
    padding-left: 30px;
+   padding-right: 30px;
 }
 
 .productModel{
@@ -73,9 +103,23 @@
    font-size: 20px;
    font-weight: bold;
 }
+.Productdetail .price-box{
+	display: flex;
+	 align-items: center;
+}
+.price-text{
+	margin-right: auto;
+}
+
+.Productdetail span{
+	margin-left: auto;
+	
+}
+
 .priceBox {
    margin-top: 30px;
 }
+
 .spanText1, .spanText2{
    margin-left: 50px;
    font-weight: bold;
@@ -84,9 +128,30 @@
    margin-top: 30px;
 }
 
+/*상품 등록 버튼*/
 #admin{
    margin: 20px 30px 30px 30px;
+	
 }
+
+.insert_btn{
+	 width: 200px;
+    background-color: #00B0E8;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-top: 24px;
+    margin-left: 120px;
+    text-decoration: none;
+}
+
 
 
 .spanText1 {
