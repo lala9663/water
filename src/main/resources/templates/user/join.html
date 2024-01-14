@@ -32,7 +32,7 @@
 
 		
 		<div class="join-box">
-		    <img src="images/email.png">
+		    <img src="images/email.png" class="email-img">
 		    <input type="email" id="email" name="email" required placeholder="your email">
 		    <button type="button" id="sendVerificationEmail">인증요청</button>
 
@@ -63,7 +63,7 @@
         
 <div class="form-group">                   
 <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="zipcode" id="addr1" type="text" readonly="readonly" >
-    <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
+    <button type="button" class="btn-address" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
 </div>
 <div class="form-group">
     <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="streetadr" id="addr2" type="text" readonly="readonly" />
@@ -125,13 +125,13 @@
 		        },
 		        success: function (response) {
 		            $(".verificationResult").text(response);
-		            $(".verificationResult").css("color", "green");
+		            $(".verificationResult").css("color", "black");
 		
 		            // 성공 시의 추가 로직
 		            $("#emailVerificationBox").hide(); // 이메일 인증 칸 숨김
 		            $("#emailVerificationCode").val(""); // 인증 코드 입력창 초기화
 		            $(".successEmailChk").text("인증이 완료되었습니다."); // 성공 메시지 표시
-		            $(".successEmailChk").css("color", "green");
+		            $(".successEmailChk").css("color", "black");
 		        },
 		        error: function (error) {
 		            $(".verificationResult").text(error.responseText);

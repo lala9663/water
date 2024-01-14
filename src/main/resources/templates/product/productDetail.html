@@ -11,7 +11,7 @@
 	<link rel="stylesheet" th:href="@{/css/header.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
 	<link rel="stylesheet" th:href="@{/css/productDetail.css}">
-	<title>Document</title>
+	<title>Metaway product</title>
 </head>
 
 <body>
@@ -23,13 +23,13 @@
 		</div>
 		<div id="productDetailBox">
 			<div id="productNameBox">
-				<div th:text="${product.productName}" id="productName"></div>
+				<div th:text="${product.productName}" id="productName" ></div>
 				<div th:text="${product.productModel}" id="productModel"></div>
 				<hr>
 				<div id="productFunctionBox">
-					<h3>기능</h3>
+					<p>기능</p>
 					<span th:each="func : ${product.functionList}" th:text="${func}"
-						class="functions btn btn-dark"></span>
+						class="functions btn btn-light" ></span>
 				</div>
 			</div>
 			<div id="productBuyBox">
@@ -41,9 +41,10 @@
 					<label class="btn btn-outline-secondary" for="btnradio2">구매</label>
 				</div>
 				<hr>
+				
 				<div id="contractBox">
 					<div class="contract rentalDiv">
-						<div>약정</div>
+						<p>약정</p>
 						<div id="contractAll">
 							<div th:if="${cont.contractYear != 0}" th:each="cont, contstat : ${product.contract}"
 								th:data-price="${cont.contractPrice}" th:text="${cont.contractYear} + '년 약정'"
@@ -52,7 +53,7 @@
 						</div>
 					</div>
 					<div class="contract buyDiv">
-						<div>상품 구매</div>
+						<p>상품 구매</p>
 						<div id="contractAll">
 							<div th:if="${cont.contractYear == 0}" th:each="cont, contstat : ${product.contract}"
 								th:data-price="${cont.contractPrice}" th:text="'즉시 구매'"
@@ -61,10 +62,10 @@
 						</div>
 					</div>
 					<div id="rentalBox" class="rentalDiv">
-						<div>월 렌탈료 : <span id="rentalPrice"></span></div>
+						<p>월 렌탈료 : <span id="rentalPrice"></span></p>
 					</div>
 					<div id="rentalBox" class="buyDiv">
-						<div>구매가 : <span id="buyPrice"></span></div>
+						<p>구매가 : <span id="buyPrice"></span></p>
 					</div>
 				</div>
 				<div id="buttonBox">
@@ -73,7 +74,7 @@
 
 							<input type="hidden" th:value="${product.productId}" name="productId">
 							<input type="hidden" name="contractId" value="" class="contractId">
-							<button type="button" class="btn btn-primary btn-lg" onclick="sendBasketRequest(event)"
+							<button type="button" class="btn_cart" onclick="sendBasketRequest(event)"
 								data-bs-toggle="modal" data-bs-target="#exampleModal">
 								장바구니
 							</button>
@@ -81,32 +82,33 @@
 						<form method="post" class="buyButton" action="/order">
 							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
 							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
-							<button class="btn btn-primary btn-lg">렌탈하기</button>
+					
+							<button class="btn_rental">렌탈하기</button>
 						</form>
 					</div>
 					<div class="buyDiv">
 						<form method="post" class="basketButton" accept="order/basket">
 							<input type="hidden" th:value="${product.productId}" name="productId">
 							<input type="hidden" name="contractId" value="" class="contractId">
-							<button type="button" class="btn btn-primary btn-lg" onclick="sendBasketRequest(event)">
+							<button type="button" class="btn_cart" onclick="sendBasketRequest(event)">
 								장바구니
 							</button>
 						</form>
 						<form method="post" class="buyButton" action="/order">
 							<input type="hidden" th:value="${product.productId}" name="contractList[0].productId">
 							<input type="hidden" name="contractList[0].contractId" value="" class="contractId">
-							<button class="btn btn-primary btn-lg">구매하기</button>
+							<button class="btn_rental">구매하기</button>
 						</form>
 					</div>
 				</div>
 			</div>
 			<!-- Button trigger modal -->
 			<div id="admin">
-				<button type="button" class="redButton btn btn-danger" data-bs-toggle="modal"
+				<button type="button" class="btn_delete" data-bs-toggle="modal"
 					data-bs-target="#staticBackdrop">
 					삭제하기
 				</button>
-				<a type="button" class="btn btn-danger" th:href="'update/' + ${product.productId}">수정하기</a>
+				<a type="button" class="btn_update" th:href="'update/' + ${product.productId}">수정하기</a>
 			</div>
 
 			<!-- Modal -->

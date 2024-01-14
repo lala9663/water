@@ -9,14 +9,17 @@
 	margin-bottom: 50px;
 	width: 700px;
   border:1.3px solid rgb(153, 153, 153);
-  border-radius: 20px;
-  text-align: center;  
-  padding: 20px;
+  border-radius: 20px; 
+  padding: 30px;
+  text-align: center;
+  
   
 }
 
 .join-form h1{
+	text-align: center;
 	 font-family: 'Viga', sans-serif;
+	 margin-bottom: 20px;
 }
 
 .join-form span{
@@ -30,9 +33,17 @@
 }
 
 .join-box input{
+	width: 200px;
 	border: none;
 	border-bottom: 2px solid rgb(153, 153, 153);
 	margin-bottom: 18px;
+}
+
+.join-box #email{
+
+}
+.join-box .email-img{
+	margin-left: 75px;	
 }
 
 .join-box input:focus{
@@ -47,34 +58,78 @@
 }
 
 input[type="password"] {
-  font:small-caption;font-size:16px
+  font:small-caption;
+  font-size:16px;
 }
 
 .submit-btn{
 	width: 300px;
-  background-color: rgba(51, 51, 51, 0.05);
-  border-radius: 8px;
-  border-width: 0;
-  color: #333333;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 10px 12px;
-  text-align: center;
-  transition: all 200ms;
-  vertical-align: baseline;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+    background-color: #00B0E8;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-left: 27%;
 }
 
 .submit-btn:focus{
   box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   outline: 0;
+}
+
+
+#sendVerificationEmail{
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    
+}
+
+#emailVerificationBox input{
+	margin-left: 30px;
+}
+
+#emailVerificationBtn{
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-address{
+	background-color: white;
+    border-radius: 8px;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group .form-control{
+		width: 500px;
+		margin-left: 70px;
+		margin-bottom: 10px;
 }

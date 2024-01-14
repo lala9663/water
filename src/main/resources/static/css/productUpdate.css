@@ -1,12 +1,30 @@
-#bodyrap{
-	margin-top: 150px;
-    width: 100%;
-    height: 1000px;
+#bodyrap {
+    border: 1.3px solid rgb(153, 153, 153);
+    border-radius: 10px;
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 150px;
+    margin-bottom: 20px;
+    padding: 30px;
+}
+
+.headerText{
+	text-align: center;
+	font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
+}
+.headerText span{
+	box-shadow: inset 0 -20px 0 rgb(167, 233, 255);
+}
+
+#numBox label{
+	display:flex;
 }
 
 #insertForm{
 	margin: 0 auto;
-	width: 30%;
 	height: 100%;
 }
 .functionInline{display: inline-block;}
@@ -40,7 +58,51 @@
 .form-control{
 	padding-right: 300px;
 }
+
+.product-label,
+.form-label,
+.price-label{
+	font-size: 18px;
+	font-weight: bold;
+}
+#functionBox{
+	margin-top: -10px;
+	margin-left: 20px;
+}
+
+form > div{
+	margin-top: 10px;
+}
+form > div > label{
+	font-size:18px;
+	font-weight: bold;
+}
+
 #contractForm{
-	margin: 15px 0 15px 0;
+	display: flex;
+}
+
+.product-label span,
+.form-label span{
+	color: rgb(0, 234, 255);
+}
+
+.submit-btn {
+    width: 200px;
+    background-color: #00B0E8;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: auto; 
+    margin-right: 15%;
 }
 
