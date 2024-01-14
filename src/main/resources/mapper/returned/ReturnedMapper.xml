@@ -27,7 +27,7 @@
 
 
 	<select id="getNextMaxreturnId" resultType="Long">
-		SELECT COALESCE(MAX(return_id) + 1, 1) FROM return;
+		SELECT COALESCE(MAX(return_id) + 1, 1) FROM return
 	</select>
 
 
