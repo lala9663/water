@@ -48,10 +48,10 @@
     
     <!-- 시퀀스대용  -->
      <select id="getNextMaxOrderId" resultType="Long">
-    	SELECT COALESCE(MAX(order_id) + 1, 1) FROM order;
+    	SELECT COALESCE(MAX(order_id) + 1, 1) FROM order
     </select>
     <select id="getNextMaxOrderDetailId" resultType="Long">
-    	SELECT COALESCE(MAX(order_detail_id) + 1, 1) FROM order_detail;
+    	SELECT COALESCE(MAX(order_detail_id) + 1, 1) FROM order_detail
     </select>
     
  

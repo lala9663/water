@@ -89,13 +89,13 @@
     
     <!-- 최대 번호 가져오기  -->
     <select id="getNextMaxProductId" resultType="Integer">
-    	SELECT COALESCE(MAX(product_id) + 1, 1) FROM product;
+    	SELECT COALESCE(MAX(product_id) + 1, 1) FROM product
     </select>
     <select id="getNextMaxFileId" resultType="Integer">
-    	SELECT COALESCE(MAX(file_id) + 1, 1) FROM product_file;
+    	SELECT COALESCE(MAX(file_id) + 1, 1) FROM product_file
     </select>
     <select id="getNextMaxContractId" resultType="Integer">
-    	SELECT COALESCE(MAX(contract_id) + 1, 1) FROM contract;
+    	SELECT COALESCE(MAX(contract_id) + 1, 1) FROM contract
     </select>
     
     <!-- 상품 제거  -->
