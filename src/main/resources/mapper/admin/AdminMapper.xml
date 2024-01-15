@@ -389,5 +389,26 @@
 		]]>
 		</select>	
 		
+		<select id="dashBoardOrderList" resultType="com.meta.metaway.admin.dto.AdminOrderDTO">
+		    <![CDATA[
+		    SELECT
+		        order_id AS orderId,
+		        user_id AS userId,
+		        order_content AS orderContent,
+		        order_date AS orderDate,
+		        request_date AS requestDate,
+		        order_name AS orderName,
+		        order_state AS orderState,
+		        order_address AS orderAddress, 
+		        order_price AS orderPrice,
+		        rental_price AS rentalPrice
+		    FROM orders
+		    WHERE ROWNUM <= 7
+		    ORDER BY order_id DESC
+		    ]]>
+		</select>
+
+
+
 		 
 </mapper>
