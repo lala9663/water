@@ -1,5 +1,7 @@
 package com.meta.metaway.user.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,10 @@ public class AuthController {
 
     @GetMapping("/")
     public String index(Model model) {
+    	
+    	Logger logger = LoggerFactory.getLogger(this.getClass());
+		logger.info("메인페이지");
+		
         // 오늘의 방문자 수 조회
         long todayVisitorCount = adminService.getDailyVisitorCount();
 
