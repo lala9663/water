@@ -33,6 +33,7 @@
 		from product_function A join function B on A.function_id = B.function_id
 		where product_id = #{productId})
     </select>
+    
     <!-- 상품 조회  -->
     <select id="getTargetProductInfo" parameterType="Long" resultType="com.meta.metaway.product.model.Product">
     	SELECT a.product_id AS productId,

@@ -35,4 +35,5 @@ public interface IUserService {
     
     User updateUserPassword(String account, User user);
 
+    List<Order> getUserMyOrder(long userId);
 }

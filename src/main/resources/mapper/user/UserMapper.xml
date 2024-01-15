@@ -5,132 +5,203 @@
 <!-- UserMapper.xml -->
 <mapper namespace="com.meta.metaway.user.dao.IUserRepository">
 
-    <insert id="insertUser" parameterType="com.meta.metaway.user.model.User">
-        INSERT INTO 
-        users 
-        (user_id, user_account, user_password, user_email, user_name, user_phone, user_age, zipcode, streetadr, detailadr)
-        VALUES 
-        (#{id}, #{account}, #{password}, #{email}, #{name}, #{phone}, #{age}, #{zipcode}, #{streetadr}, #{detailadr})
-    </insert>
+	<insert id="insertUser"
+		parameterType="com.meta.metaway.user.model.User">
+		INSERT INTO
+		users
+		(user_id, user_account, user_password,
+		user_email, user_name, user_phone,
+		user_age, zipcode, streetadr,
+		detailadr)
+		VALUES
+		(#{id}, #{account}, #{password}, #{email}, #{name},
+		#{phone}, #{age},
+		#{zipcode}, #{streetadr}, #{detailadr})
+	</insert>
 
-    <select id="existsByAccount" resultType="boolean">
-        SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END
-        FROM users
-        WHERE user_account = #{account}
-    </select>
-    
-    <select id="findById" resultType="Long">
-    	SELECT user_id FROM users WHERE user_id = #{userId}
-	</select>
-    
- 	<!-- account로 user_id 얻기 -->
-	<select id="getUserIdByAccount" parameterType="String" resultType="Long">
-	    SELECT user_id FROM users WHERE user_account = #{account}
-	</select>
-	   
-	<select id="loginByAccount" resultType="com.meta.metaway.user.model.User">
-	    SELECT user_account as account, user_password as password FROM users
-	    WHERE account = #{account}
+	<select id="existsByAccount" resultType="boolean">
+		SELECT CASE WHEN
+		COUNT(*) > 0 THEN 1 ELSE 0 END
+		FROM users
+		WHERE user_account =
+		#{account}
 	</select>
 
-    <select id="findByAccount" resultType="com.meta.metaway.user.model.User">
-		SELECT u.user_id as id, u.user_account as account, u.user_password as password, a.authority_name as authorities 
-		FROM users u 
-		LEFT JOIN user_authority ua ON u.user_id = ua.user_id 
-		LEFT JOIN authority a ON ua.authority_name = a.authority_name 
+	<select id="findById" resultType="Long">
+		SELECT user_id FROM users WHERE
+		user_id = #{userId}
+	</select>
+
+	<!-- account로 user_id 얻기 -->
+	<select id="getUserIdByAccount" parameterType="String"
+		resultType="Long">
+		SELECT user_id FROM users WHERE user_account = #{account}
+	</select>
+
+	<select id="loginByAccount"
+		resultType="com.meta.metaway.user.model.User">
+		SELECT user_account as account, user_password as password
+		FROM users
+		WHERE account = #{account}
+	</select>
+
+	<select id="findByAccount"
+		resultType="com.meta.metaway.user.model.User">
+		SELECT u.user_id as id, u.user_account as account,
+		u.user_password as password, a.authority_name as authorities
+		FROM users
+		u
+		LEFT JOIN user_authority ua ON u.user_id = ua.user_id
+		LEFT JOIN
+		authority a ON ua.authority_name = a.authority_name
+		WHERE
+		u.user_account = #{account}
+	</select>
+
+	<!-- 회원 조회 -->
+	<select id="findByInfo"
+		resultType="com.meta.metaway.user.model.User">
+		SELECT u.user_id as id, u.user_account as account,
+		u.user_email as email, u.user_name as name, u.user_phone as phone,
+		u.user_age as age, u.user_address as address,
+		a.authority_name as
+		authorities
+		FROM users u
+		LEFT JOIN user_authority ua ON u.user_id =
+		ua.user_id
+		LEFT JOIN authority a ON ua.authority_name =
+		a.authority_name
 		WHERE u.user_account = #{account}
-    </select>
-    
-    <!--  회원 조회  -->
-    <select id="findByInfo" resultType="com.meta.metaway.user.model.User">
-		SELECT u.user_id as id, u.user_account as account, u.user_email as email, u.user_name as name, u.user_phone as phone, u.user_age as age, u.user_address as address,
-		a.authority_name as authorities 
-		FROM users u 
-		LEFT JOIN user_authority ua ON u.user_id = ua.user_id 
-		LEFT JOIN authority a ON ua.authority_name = a.authority_name 
-		WHERE u.user_account = #{account}
-    </select>
-    
-    <!-- user_authority 테이블에 role_user를 추가하는 쿼리 -->
+	</select>
+
+	<!-- user_authority 테이블에 role_user를 추가하는 쿼리 -->
 	<insert id="insertUserRole" parameterType="map">
-	    INSERT INTO user_authority (user_id, authority_name)
-	    VALUES (#{id}, #{authorities})
-	</insert>    
+		INSERT INTO
+		user_authority (user_id, authority_name)
+		VALUES (#{id}, #{authorities})
+	</insert>
 
 	<!-- 회원 수정 -->
-	<update id="updateUser" parameterType="com.meta.metaway.user.model.User">
-	    UPDATE users
-	    SET 
-	        user_email = #{email},
-	        user_name = #{name},
-	        user_phone = #{phone},
-	        user_age = #{age},
-	        user_address = #{address}
-	    WHERE user_account = #{account}
+	<update id="updateUser"
+		parameterType="com.meta.metaway.user.model.User">
+		UPDATE users
+		SET
+		user_email = #{email},
+		user_name =
+		#{name},
+		user_phone = #{phone},
+		user_age = #{age},
+		user_address =
+		#{address}
+		WHERE user_account = #{account}
 	</update>
-	
+
 	<!-- 회원 삭제 -->
-    <delete id="deleteUserById" parameterType="Long">
-        DELETE FROM users WHERE user_id = #{id}
-    </delete>
-    
-    <!--비밀번호 확인 -->
+	<delete id="deleteUserById" parameterType="Long">
+		DELETE FROM users
+		WHERE user_id = #{id}
+	</delete>
+
+	<!--비밀번호 확인 -->
 	<select id="findPasswordById" resultType="String">
-	    SELECT user_password FROM users WHERE user_id = #{id}
-	</select>
-	
-	<update id="updatePassword" parameterType="com.meta.metaway.user.model.User">
-	    UPDATE users
-	    	SET user_password = #{password}
-	    WHERE user_account = #{account}
-	</update>
-	
-	
-	<!-- 주문 조회  -->
-    <select id="getOrderByUserId" parameterType="Long" resultType="com.meta.metaway.order.model.Order">
-    SELECT 
-    order_id as orderId,
-    user_id as userId,
-    order_content as orderContent,
-    order_date as orderDate,
-    request_date as requestDate,
-    order_name as orderName,
-    order_state as orderState,
-    order_address as orderAddress,
-    order_price as orderPrice,
-    rental_price as rentalPrice	    
-    FROM orders
-    WHERE user_id = #{userId}
-	</select>
-    
-    
-	<!-- 회원의 주문 상세 정보 조회 -->
-	<select id="getOrderDetailByUserId" parameterType="Long" resultType="com.meta.metaway.order.model.OrderDetail">
-	    SELECT od.order_detail_id AS orderDetailId,
-	           od.order_id AS orderId,
-	           od.product_id AS productId,
-	           od.contract_id AS contractId,
-	           od.order_count AS orderCount,
-	           od.start_date AS startDate,
-	           od.end_date AS endDate,
-	           p.product_model AS productModel,
-	           c.contract_price AS orderPrice
-	    FROM order_detail od
-	    JOIN product p ON od.product_id = p.product_id
-	    JOIN contract c ON od.contract_id = c.contract_id AND od.product_id = c.product_id
-	    JOIN orders o ON od.order_id = o.order_id
-	    WHERE o.user_id = #{userId}
+		SELECT user_password
+		FROM users WHERE user_id = #{id}
 	</select>
 
-    
-    
-    
-    
-    <select id="selectUserMaxNo" resultType="long">
+	<update id="updatePassword"
+		parameterType="com.meta.metaway.user.model.User">
+		UPDATE users
+		SET user_password = #{password}
+		WHERE
+		user_account = #{account}
+	</update>
+
+
+	<!-- 주문 조회 -->
+	<select id="getOrderByUserId" parameterType="Long"
+		resultType="com.meta.metaway.order.model.Order">
+		SELECT
+		order_id as orderId,
+		user_id as userId,
+		order_content
+		as orderContent,
+		order_date as orderDate,
+		request_date as requestDate,
+		order_name as orderName,
+		order_state as orderState,
+		order_address as
+		orderAddress,
+		order_price as orderPrice,
+		rental_price as rentalPrice
+		FROM orders
+		WHERE user_id = #{userId}
+	</select>
+
+
+	<!-- 오더 id를 통해 약정 가지고오기 -->
+	<select id="getUserContractList" parameterType="Long"
+		resultType="com.meta.metaway.product.model.Contract">
+		SELECT
+		B.contract_id AS contractId,
+		B.product_id AS
+		productId,
+		B.contract_year AS contractYear,
+		B.contract_price AS
+		contractPrice
+		FROM
+		order_detail A
+		JOIN
+		contract B ON A.contract_id =
+		B.contract_id
+		WHERE
+		A.order_id = #{orderId}
+	</select>
+
+	<!-- 약정 id를 통해 파일 가지고오기 -->
+	<select id="getUserProduct" parameterType="Long" resultType="com.meta.metaway.product.model.Product">
+		select B.product_id as productId, B.product_model as
+		productModel, B.product_name as productName, C.file_path as imageFile,
+		C.file_type as imageType
+		from contract A
+		join product B on A.product_id = B.product_id
+		join product_file C on B.product_id = C.product_id
+		where A.contract_id = #{contractId}
+	</select>
+
+
+
+	<!-- 회원의 주문 상세 정보 조회 -->
+	<select id="getOrderDetailByUserId" parameterType="Long"
+		resultType="com.meta.metaway.order.model.OrderDetail">
+		SELECT od.order_detail_id AS orderDetailId,
+		od.order_id AS
+		orderId,
+		od.product_id AS productId,
+		od.contract_id AS contractId,
+		od.order_count AS orderCount,
+		od.start_date AS startDate,
+		od.end_date AS
+		endDate,
+		p.product_model AS productModel,
+		c.contract_price AS orderPrice
+		FROM order_detail od
+		JOIN product p ON od.product_id = p.product_id
+		JOIN contract c ON od.contract_id = c.contract_id AND od.product_id =
+		c.product_id
+		JOIN orders o ON od.order_id = o.order_id
+		WHERE o.user_id =
+		#{userId}
+	</select>
+
+
+
+
+
+	<select id="selectUserMaxNo" resultType="long">
 	<![CDATA[
 		SELECT NVL(MAX(user_id),0) AS "userId"
 		FROM users
 	]]>
-	</select>		
-	
+	</select>
+
 </mapper>
