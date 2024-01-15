@@ -42,7 +42,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="/admin/orderlist/1">
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>
@@ -60,7 +60,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="../product/insert">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
@@ -68,14 +68,14 @@
                     </a>
                 </li>
 
-<!--                <li>
+                <li>
                     <a href="#">
                         <span class="icon">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                         </span>
-                        <span class="title">Password</span>
+                        <span class="title">statistics</span>
                     </a>
-                </li>-->
+                </li>
 
                 <li>
                     <a href="/">
@@ -188,80 +188,21 @@
                     <div class="cardHeader">
                         <h2>Recent Customers</h2>
                     </div>
-
-                    <table>
-                        <tr>
-                            <td width="60px">
-								<div class="imgBx"><img th:src="@{/css/admin/assets/imgs/customer02.jpg}" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-								<div class="imgBx"><img th:src="@{/css/admin/assets/imgs/customer01.jpg}" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-								<div class="imgBx"><img th:src="@{/css/admin/assets/imgs/customer02.jpg}" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-								<div class="imgBx"><img th:src="@{/css/admin/assets/imgs/customer01.jpg}" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-								<div class="imgBx"><img th:src="@{/css/admin/assets/imgs/customer02.jpg}" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-								<div class="imgBx"><img th:src="@{/css/admin/assets/imgs/customer01.jpg}" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td width="60px">
-								<div class="imgBx"><img th:src="@{/css/admin/assets/imgs/customer02.jpg}" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>David <br> <span>Italy</span></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td width="60px">
-								<div class="imgBx"><img th:src="@{/css/admin/assets/imgs/customer01.jpg}" alt=""></div>
-                            </td>
-                            <td>
-                                <h4>Amit <br> <span>India</span></h4>
-                            </td>
-                        </tr>
-                    </table>
+                        <table>
+					        <!-- Iterate through the first 7 codi users -->
+					        <tr th:each="codi, iterStat : ${codi}" th:if="${iterStat.index < 7}">
+					            <td width="60px">
+					                <!-- Assuming codi has an image property, update it accordingly -->
+					                <div class="imgBx">
+					                    <img th:src="@{/css/admin/assets/imgs/profile.jpg}" alt="">
+					                </div>
+					            </td>
+					            <td>
+					                <h4 th:text="${codi.user_name}"></h4>
+					                <p th:text="${codi.work_place}"></p>
+					            </td>
+					        </tr>
+					    </table>
                 </div>
             </div>
         </div>
