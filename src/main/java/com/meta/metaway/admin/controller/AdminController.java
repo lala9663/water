@@ -19,6 +19,7 @@ import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
 import com.meta.metaway.admin.service.IAdminService;
+import com.meta.metaway.staff.dto.StaffDTO;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -234,12 +235,10 @@ public class AdminController {
     
     @GetMapping("/viewCount")
     public String showDashboard(Model model) {
-        // Retrieve data from all three endpoints
         long dailyVisitorCount = adminService.getDailyVisitorCount();
         Long visitorCount = adminService.getDailyVisitorCount();
         Double averageVisitorCount = adminService.getOverallAverageVisitorCount();
 
-        // Add data to the model
         model.addAttribute("dailyVisitorCount", dailyVisitorCount);
         model.addAttribute("visitorCount", visitorCount);
         model.addAttribute("averageVisitorCount", averageVisitorCount);
@@ -248,5 +247,35 @@ public class AdminController {
         return "admin/viewCount";
     }
     
+    @GetMapping("/adminview")
+    public String dashboard(Model model) {
+    	// 일일 조회수 
+        long dailyVisitorCount = adminService.getDailyVisitorCount();
+//        long visitorCount = adminService.getDailyVisitorCount();
+//        Double averageVisitorCount = adminService.getOverallAverageVisitorCount();
+        // 총 판매량
+        int totalSold = adminService.getTotalSalesCount(0);
+        model.addAttribute("totalSold", totalSold);
+        // 총 회원 수
+        UserCountDTO getTotalUser = adminService.getTotalUser();
+        // 최근 주문 수 총 7개
+        List<AdminOrderDTO> orders = adminService.getDashboardOrderList();
+        // 신규 codi 직원
+//        List<StaffDTO> codi = adminService.getUsersWithCodi();
+        List<StaffDTO> codi = adminService.getUsersWithCodi();
+
+        
+        model.addAttribute("userStatistics", getTotalUser);
+        model.addAttribute("dailyVisitorCount", dailyVisitorCount);
+        model.addAttribute("orders", orders);
+        model.addAttribute("codi", codi);
+
+        
+//        model.addAttribute("visitorCount", visitorCount);
+//        model.addAttribute("averageVisitorCount", averageVisitorCount);
+
+        return "admin/adminview";
+    }
+   
     
 }
