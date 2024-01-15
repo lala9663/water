@@ -67,7 +67,8 @@ body {font-family: 'NanumSquareNeo-Variable';}
 .assignment .engineer_box div.codi { font-size: 20px; background-color: #ededed; text-align: center; padding: 20px; box-sizing: border-box;}
 .assignment .engineer_box div p {margin: 0 !important;}
 .assignment .engineer_box button {width: 50%;}
-.assignment .flex_button {display: flex; justify-content: space-between; margin-bottom: 20px;}
+.assignment .flex_button {display: flex;     justify-content: center; margin-bottom: 20px;}
+.assignment .flex_button button {margin-top: 10px;}
 .pagination-container {
       display: flex;
         margin-top: 20px;

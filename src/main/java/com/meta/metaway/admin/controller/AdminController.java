@@ -81,7 +81,7 @@ public class AdminController {
 	public String searchOrder(@RequestParam(required = false, defaultValue = "") String keyword,
 			@RequestParam(required = false) Integer orderState, @RequestParam(required = false) String orderDate,
 			@PathVariable int page, HttpSession session, Model model) {
-		System.out.println("검색결과 페이지");
+		System.out.println("주문검색 페이지");
 		session.setAttribute("page", page);
 		try {
 			List<AdminOrderDTO> searchList = adminService.searchOrderListByKeyword(keyword, orderState, orderDate, page);

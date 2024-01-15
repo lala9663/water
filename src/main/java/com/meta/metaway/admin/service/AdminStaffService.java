@@ -25,5 +25,11 @@ public class AdminStaffService implements IAdminStaffService{
 	public int selectTotalStaffCount() {
 		return adminStaffRepository.selectTotalStaffCount();
 	}
+
+	@Override
+	public List<AdminStaffDTO> searchAllStaff(String keyword, String authorityName, int page) {
+		int start = (page-1)*10 + 1;
+		return adminStaffRepository.searchAllStaff("%"+keyword+"%", authorityName, start, start+9);
+	}
 	
 }

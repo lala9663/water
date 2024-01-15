@@ -36,18 +36,19 @@
             </div>
             <div class="input-group mb-3">
                <form th:action="@{/admin/searchorder/1}"  method="get">
-                  <div>
-                     <select th:name="orderState" class="custom-select">
-                        <option th:selecteth:action="@{/admin/searchorder/1}"d="${orderState == 0}" th:value="0">주문 대기</option>
-                        <option th:selected="${orderState == 1}" th:value="1">배정 완료</option>
-                        <option th:selected="${orderState == 2}" th:value="2">주문 취소</option>
-                     </select>
+	                  <div>
+	                     <select th:name="orderState" class="custom-select">
+	                        <option th:selecteth:action="@{/admin/searchorder/1}"d="${orderState == 0}" th:value="0">주문 대기</option>
+	                        <option th:selected="${orderState == 1}" th:value="1">배정 완료</option>
+	                        <option th:selected="${orderState == 2}" th:value="2">주문 취소</option>
+	                     </select>
+	                 </div>
                      <div>
-                         <input type="text" th:name="orderDate" class="form-control datepicker" th:value="${orderDate}" placeholder="날짜 선택">
+                         <input type="text" th:name="orderDate" class="form-control datepicker" th:value="${orderDate}" placeholder="날짜 선택"></input>
                      </div>
                      <div class="input-group-append">
                         <input type="text" th:name="keyword" class="form-control" th:value="${keyword}"
-                           placeholder="제품명 또는 주문자명 검색">
+                           placeholder="제품명 또는 주문자명 검색"></input>
                         <input type="submit" class="btn btn-primary active" value="검색"></input>
                      </div>
                </form>
@@ -85,7 +86,7 @@
                   </form>
                   <form th:id="'deleteForm_' + ${order.orderId}" th:action="@{/admin/deleteorder/{orderId}(orderId=${order.orderId})}" method="post">
                      <td>
-                        <input type="hidden" name="orderId" th:value="${order.orderId}">
+                        <input type="hidden" name="orderId" th:value="${order.orderId}"></input>
                         <button type="button" th:onclick="confirmDelete([[${order.orderId}]]);" class="btn btn-outline-dark">주문 취소</button>
                      </td>
                   </form>
