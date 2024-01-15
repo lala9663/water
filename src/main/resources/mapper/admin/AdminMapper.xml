@@ -407,6 +407,23 @@
 		    ORDER BY order_id DESC
 		    ]]>
 		</select>
+		
+		<select id="getUsersWithCodi" resultType="com.meta.metaway.staff.dto.StaffDTO">
+	        SELECT u.user_id as user_id, u.user_name as user_name
+	        FROM users u
+	        JOIN user_authority ua ON u.user_id = ua.user_id
+	        JOIN authority a ON ua.authority_name = a.authority_name
+	        WHERE a.authority_name = 'ROLE_CODI'
+	    </select>
+		
+<!-- 		  <select id="getUsersWithCodi" resultType="com.meta.metaway.staff.dto.StaffDTO">
+		    SELECT u.user_name as userName, s.work_place as workPlace
+		    FROM users u
+		    JOIN user_authority ua ON u.user_id = ua.user_id
+		    JOIN authority a ON ua.authority_name = a.authority_name
+		    JOIN staff s ON u.user_id = s.user_id
+		    WHERE a.authority_name = 'ROLE_CODI'
+		  </select> -->
 
 
 
