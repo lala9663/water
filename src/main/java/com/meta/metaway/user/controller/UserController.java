@@ -233,7 +233,7 @@ public class UserController {
 	        return "user/orderDetailList"; 
 	    }
 	    
-	    @GetMapping("/Order")
+	    @GetMapping("/order")
 	    public String getUserMyOrder(HttpServletRequest request, Model model) {
 	    	try {
 	    		long userId = multiClass.getTokenUserId(request);
@@ -242,7 +242,7 @@ public class UserController {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			} 
-	    	return "user/Order";
+	    	return "user/order";
 	    }
 
 	    @PostMapping("/mailSend")
