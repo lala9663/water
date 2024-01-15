@@ -46,11 +46,18 @@
 	</appender>
 	<!-- // ACCESSLOG -->
 	
-	<root level="info">
-		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="SYSLOG" />
-	</root>
-	<logger name="com.meta.metaway.log" level="debug" additivity="false">
+	<!-- 로그레벨 일단은 그냥 warn으로 설정 -->
+	<!--TRACE
+		DEBUG
+		INFO
+		WARN
+		ERROR
+		FATAL -->
+    <root level="warn">
+        <appender-ref ref="CONSOLE" />	
+        <appender-ref ref="SYSLOG" />
+    </root>
+	<logger name="com.meta.metaway.log" level="info" additivity="false">
 		<appender-ref ref="CONSOLE" />
 	</logger>
 	<logger name="access-log" level="info" additivity="false">
