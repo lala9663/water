@@ -101,6 +101,8 @@ body {
   white-space: nowrap;
 }
 
+
+
 /* --------- curve outside ---------- */
 .navigation ul li:hover a::before,
 .navigation ul li.hovered a::before {
@@ -467,3 +469,5 @@ body {
     left: initial;
   }
 }
+
+
