@@ -245,17 +245,6 @@ public class UserController {
 	    	return "user/Order";
 	    }
 
-
-//        @PostMapping ("/mailSend")
-//        @ResponseBody
-//        @CrossOrigin
-//        public String mailSend(@RequestBody EmailRequestDTO emailDto){
-//            System.out.println("이메일 인증 이메일 :"+emailDto.getEmail());
-//
-//            return mailService.joinEmail(emailDto.getEmail());
-//        }
-
-
 	    @PostMapping("/mailSend")
 	    @ResponseBody
 	    @CrossOrigin

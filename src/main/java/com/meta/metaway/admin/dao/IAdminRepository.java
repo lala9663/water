@@ -14,6 +14,7 @@ import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
 import com.meta.metaway.admin.model.Visitor;
+import com.meta.metaway.staff.dto.StaffDTO;
 
 @Repository
 @Mapper
@@ -80,6 +81,12 @@ public interface IAdminRepository {
     Double getOverallAverageVisitorCount();
     
     void insertViewCount(Visitor data);
+    
+    List<AdminOrderDTO> dashBoardOrderList();
+    
+//    List<StaffDTO> getUsersWithCodi();
+    List<StaffDTO> getUsersWithCodi();
+
     
     long selectNextVisitorId();
 
