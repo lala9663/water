@@ -15,6 +15,7 @@ import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
 import com.meta.metaway.admin.model.Visitor;
+import com.meta.metaway.staff.dto.StaffDTO;
 
 @Service
 public class AdminService implements IAdminService {
@@ -171,6 +172,17 @@ public class AdminService implements IAdminService {
     public List<AdminOrderDTO> getDashboardOrderList() {
         return adminRepository.dashBoardOrderList();
     }
+    
+	/*
+	 * @Override public List<StaffDTO> getUsersWithCodi() { return
+	 * adminRepository.getUsersWithCodi(); }
+	 */
+    
+    @Override
+    public List<StaffDTO> getUsersWithCodi() {
+        return adminRepository.getUsersWithCodi();
+    }
+
 }
 
 
