@@ -20,7 +20,7 @@
 		<a class="page-link" th:href="@{/admin/stafflist/__${i}__}">[[${i}]]</a>		
 	</li>
 	
-	<li class="page-item" th:if="${(nowPage == 1) || (nowPage <= totalPage)}">
+	<li class="page-item" th:if="${(nowPage == 1) || (nowPage < totalPage)}">
 		<a class="page-link" th:href="@{/admin/stafflist/__${nowPage+1}__}" aria-label="Next">▶</a>
 	</li>
 </ul>

@@ -18,4 +18,8 @@ public interface IAdminStaffRepository {
 			@Param("end") int end);
 	//전체 직원수 조회
 	int selectTotalStaffCount();
+	int getStaffId(long staffId);
+	//직원삭제
+	void deleteStaff(long staffId);
+	
 }

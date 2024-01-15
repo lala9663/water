@@ -110,7 +110,7 @@
 	    WHERE order_id = #{orderId}
 	</update>
 	
-	<select id="getStaffId" resultType="int">
+	<select id="getOrderIdByStaffId" resultType="int">
         SELECT order_id FROM staff WHERE staff_id = #{staffId}
     </select>
 	

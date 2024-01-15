@@ -80,5 +80,13 @@
 
 		     ]]>
 		</select>
-    
+		
+    	<select id="getStaffId" parameterType="long">
+			select staff_id from staff where staff_id = #{staffId}
+		</select>
+		
+    	<delete id="deleteStaff" parameterType="long">
+			delete from staff
+			where staff_id = #{staffId}
+		</delete>
     </mapper>

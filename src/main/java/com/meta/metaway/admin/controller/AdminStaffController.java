@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.service.IAdminService;
@@ -116,6 +118,14 @@ public class AdminStaffController {
 		}
 		return "admin/searchstaff";
 	}
-
+	
+	@PostMapping("/deletestaff/{staffId}")
+	public String deleteEmp(@PathVariable long staffId, RedirectAttributes redirectAttr, Model model) {
+		System.out.println("직원 삭제 컨트롤러");
+		adminStaffService.deleteStaff(staffId);
+		model.addAttribute("staffId",staffId);
+	    redirectAttr.addFlashAttribute("message", staffId+" 번 직원이 삭제되었습니다.");
+	    return "redirect:/admin/stafflist/1";
+	}
 	
 }
