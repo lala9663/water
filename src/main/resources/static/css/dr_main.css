@@ -6,7 +6,7 @@
     margin-left: 10px;
 }
 
-.table-hover{
+.table-hover{ 
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -39,6 +39,7 @@
     outline: none;
     background: transparent;
     color: rgb(64, 64, 64);
+ 
   
   }
   

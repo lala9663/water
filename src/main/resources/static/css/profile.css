@@ -1,7 +1,8 @@
 .container {
     display: grid;
     margin:10px;
-  
+    margin-top: 40px;
+    margin-bottom: 90px;
 }
 
 .profile-nav {
@@ -84,8 +85,8 @@
 }
 
 .profile-nav-ul a {
-    color: black; /* 링크 색상 변경 (원하는 색상으로 조절) */
-    text-decoration: none; /* 밑줄 없애기 */
+    color: black;
+    text-decoration: none;
 }
 
 .profile-nav-ul ul {
@@ -107,10 +108,7 @@
     background-color: rgb(218, 238, 255);
 }
 
-.profile-nav-ul li:first-child:hover {
-    background-color: transparent; /* 또는 다른 적절한 색상으로 설정하세요 */
-    border-bottom: 1px solid #ddd; /* 다른 메뉴 항목과 동일한 효과를 주세요 */
-}
+
 
 .profile-nav-p{
 	font-size: 18px;
@@ -169,7 +167,7 @@
             height: 220px;
             top: 50px;
             margin-top: 10px;
-            transform: translate( 0%, -50%);
+            transform: translate( 0%, -40%);
         }
 
         #modal1 .close-area {

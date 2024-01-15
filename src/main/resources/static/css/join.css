@@ -2,11 +2,11 @@
 
 .join-form {
 	
-	 width: 1000px;
+	 width: 1200px;
   	padding: 8% 0 0;
   	margin: auto;
 	margin-top: 150px;
-	margin-bottom: 50px;
+	margin-bottom: 80px;
 	width: 700px;
   border:1.3px solid rgb(153, 153, 153);
   border-radius: 20px; 
@@ -33,15 +33,12 @@
 }
 
 .join-box input{
-	width: 200px;
+	width: 250px;
 	border: none;
 	border-bottom: 2px solid rgb(153, 153, 153);
 	margin-bottom: 18px;
 }
 
-.join-box #email{
-
-}
 .join-box .email-img{
 	margin-left: 75px;	
 }
@@ -63,7 +60,7 @@ input[type="password"] {
 }
 
 .submit-btn{
-	width: 300px;
+	width: 400px;
     background-color: #00B0E8;
     border-radius: 8px;
     color: white;
@@ -75,7 +72,8 @@ input[type="password"] {
     padding: 10px;
     border: 1.3px solid rgb(225, 225, 225);
     border-radius: 5px;
-    margin-left: 27%;
+    margin-left: 18%;
+    margin-top: 20px;
 }
 
 .submit-btn:focus{

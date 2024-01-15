@@ -1,50 +1,84 @@
-@font-face {
-    font-family: 'NanumSquareNeo-Variable';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+.order_list{
+	margin-top: 110px;
 }
-* {list-style: none;}
-em {font-style: normal;}
-body {font-family: 'NanumSquareNeo-Variable';}
-.wrap {width: 1280px; margin: 0 auto;}
+.wrap {width: 1280px;  margin: 0 auto;}
 
 /* 회원리스트 페이지 */
-.member_list .table {
-    text-align: center;
+table{
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
-.member_list .table td, .table th {
-    vertical-align: middle;
+.ti_con a {
+        margin: 20px;
+    	font-size: 30px;
+    	color: black;
+    	text-decoration: none;
+    	font-weight: bold;
 }
 
-.member_list .ti_con {
-    margin-bottom: 30px;
+
+.total-orders p{
+	margin-left: 30px;
 }
-.member_list .ti_p {
-    margin: 0 10px 0 0;
-    padding: 0;
+.total-orders span{
+	color: #00B0E8;
 }
+
+.search-select{
+	margin-left: 5px;
+}
+
+
 .member_list .input-group {
     align-items: center;
 }
-
-.input-group>.form-control {
-    position: relative;
-    /* flex: 1 1 auto; */
-    flex: none;;
-    width: 1%;
-    min-width: 201px;
-    margin-bottom: 0;
+.total-orders{
+	display: flex;
+	margin-left: 5px;
 }
+
+.search-bar{
+	display: flex;
+}
+.search-bar p{
+	text-align:center;
+    margin-top: 10px;
+    margin-left: 25px;
+}
+.input-group {
+    justify-content:start;
+  }
+
+
+.search-bar .datepicker,
+.custom-select,
+.input-group-append .form-control {
+	width: 200px;
+	border: none;
+	border-bottom: 1px solid rgb(153, 153, 153);
+	margin-bottom: 18px;
+    margin-left: 15px;
+}
+.input-group-append{
+	display: flex;
+}
+  .input-group-append .search-btn {
+    border: none;
+    padding: 15px 10px;
+    background: none;
+    filter: invert(100%);
+    margin-top: -10px;
+  }
+  
+  .input-group-append .search-icon{
+    height: 25px;
+  }
 
 .member_list  .m_flex_box {
     display: flex;
 } 
 
-.input-group {
-    justify-content: flex-end;
-  }
   .total-member {
     width: 10%;
   }
