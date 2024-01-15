@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
@@ -21,9 +23,9 @@
                 <ul>
 					<!--<li class="profile-nav-p" ><a th:href="@{/user/profile}">마이페이지</a></li>-->
                     <li class="profile-nav-p" id="xhrButton0">마이페이지</li>
-                    <li id="xhrButton">구매 내역</li>
+                    <li id="xhrButton" onclick="updateOrderList()">구매 내역</li>
                     <!--구매 취소 내역 / 환불 내역-->
-                    <li><a th:href="@{/return}">반납 내역</a></li>
+                    <li  id="xhrButton1">반납 내역</li>
                     <!--반납 신청 내역 / 반납 환불 내역-->
                     <li><a th:href="@{/contract}">약정 내역</a></li>
                     <!--약정 연장 내역 / 약정 해지 내역-->
@@ -75,7 +77,8 @@
             <div th:unless="${userProfile != null}">
                 <p>User profile not available.</p>
             </div>
-            
+            <!--
+				
             <div id="orderDetailsTable" style="display: none;">
                 <table class="table table-hover">
                     <thead>
@@ -107,7 +110,57 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>   
+            </div>  
+            
+			-->
+            
+            	<div id="orderWrap">
+				<div class="orderDiv" th:each="order, orderIndex : ${orderList}" th:if="${orderIndex.index < 5}">
+					<div class="getOrderDetailBox">
+						<div th:text="${order.orderDate} + ' 주문'" class="orderDateBox"></div>
+					</div>
+					<div class="orderDetailDiv">
+						<div th:each="cont, contIndex : ${order.contractList}" th:if="${contIndex.index < 1}"
+							class="detailBox">
+							<div class="ProductImageBox">
+								<div th:if="${order.orderState == 0}" class="stateText">주문 완료</div>
+								<div th:if="${order.orderState == 1}" class="stateText">배송 예정</div>
+								<div th:if="${order.orderState == 2}" class="stateText">주문 취소</div>
+								<div th:if="${order.orderState == 3}" class="stateText">배송 완료</div>
+								<div class="orderDetailInfoDiv">
+									<img th:src="'data:' + ${cont.product.imageType} + ';base64,' + ${cont.product.imageFile}"
+										alt="productImage" class="productImage">
+									<div class="productText">
+										<div th:text="${cont.product.productModel}" class="ModelClass"></div>
+										<div th:if="${order.orderSize != 0}"
+											th:text="${cont.product.productName} + ' 외 ' + ${order.orderSize}"
+											class="modelName"></div>
+										<div th:if="${order.orderSize == 0}" th:text="${cont.product.productName}"
+											class="modelName"></div>
+										<hr>
+										<div th:if="${order.orderPrice} != 0">총 결제액 : <span
+												th:text="${order.orderPrice} + '원'" class="spanText"></span></div>
+										<div th:if="${order.rentalPrice} != 0">월 렌탈료 : <span
+												th:text="'월 ' + ${order.rentalPrice} + '원'" class="spanText"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="rightBox">
+								<div class="rightDetailButtonDiv">
+									<form method="get" th:action="@{/user/orderDetail}">
+										<input type="hidden" th:value="${order.orderId}" name="orderId">
+										<button class="orderDetailButton">주문 상세조회</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+             
+             
+             
         </div>
     </div>
     <footer th:replace="~{/include/footer.html}"></footer>
@@ -115,16 +168,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     // 모달 관련 요소
 	    const modal = document.getElementById("modal1");
-	    
-	
-	    // 사용자 정보 섹션 요소
-	    const userInfoSection = document.getElementById("userInfoSection");
-	    const profilePage = document.getElementById("profilePage");
-	
-	    // 주문 정보 테이블 및 버튼 관련 요소
-	    const orderDetailsTable = document.getElementById("orderDetailsTable");
-	    const xhrButton = document.getElementById("xhrButton");
-	    const xhrButton0 = document.getElementById("xhrButton0");
+            const userInfoSection = document.getElementById("userInfoSection");
+            const orderDetailsTable = document.getElementById("orderDetailsTable"); // 주석 처리된 부분 사용 시 필요
+            const xhrButton = document.getElementById("xhrButton");
+            const xhrButton0 = document.getElementById("xhrButton0");
 	
 	    // 모달을 열고 닫는 함수들
 	    function modalOn() {
@@ -233,96 +280,136 @@ document.addEventListener("DOMContentLoaded", function () {
 	        orderDetailsTable.style.display = "block";
 	        userInfoSection.style.display = "none";
 	    }
-	
-	    // 주문 정보 테이블을 생성하는 함수
-	    function createTable(orderList) {
-	        var table = '<table class="table table-hover">' +
-	            '<thead>' +
-	            '<tr>' +
-	            '<th scope="col">번호</th>' +
-	            '<th scope="col">주문번호</th>' +
-	            '<th scope="col">주문자</th>' +
-	            '<th scope="col">상품번호</th>' +
-	            '<th scope="col">계약 ID?</th>' +
-	            '<th scope="col">수량</th>' +
-	            '<th scope="col">설치시작</th>' +
-	            '<th scope="col">설치완료</th>' +
-	            '<th scope="col">모델명</th>' +
-	            '<th scope="col">주문가격</th>' +
-	            '</tr>' +
-	            '</thead>' +
-	            '<tbody>';
-	
-	        for (var i = 0; i < orderList.length; i++) {
-	            table += '<tr>' +
-	                '<td>' + (i + 1) + '</td>' +
-	                '<td>' + orderList[i].orderDetailId + '</td>' +
-	                '<td>' + orderList[i].orderId + '</td>' +
-	                '<td>' + orderList[i].productId + '</td>' +
-	                '<td>' + orderList[i].contractId + '</td>' +
-	                '<td>' + orderList[i].orderCount + '</td>' +
-	                '<td>' + orderList[i].startDate + '</td>' +
-	                '<td>' + orderList[i].endDate + '</td>' +
-	                '<td>' + orderList[i].productModel + '</td>' +
-	                '<td>' + orderList[i].orderPrice + '</td>' +
-	                '</tr>';
-	        }
-	
-	        table += '</tbody></table>';
-	
-	        orderDetailsTable.innerHTML = table;
-	    }
-	
-	    // xhrButton 클릭 이벤트 핸들러
-	    xhrButton.addEventListener("click", function () {
-	        $.ajax({
-	            url: "/user/orderdetail",
-	            type: "GET",
-	            dataType: "json",
-	            success: function (orderList) {
-	                showOrderDetailsTable(orderList);
-	            },
-	            error: function (xhr, status, error) {
-	                console.error("Error fetching order details:", error);
-	            }
-	        });
-	    });
 
 			// xhrButton0 클릭 이벤트 핸들러
 			xhrButton0.addEventListener("click", function () {
-			    console.log("xhrButton0 clicked");
+                $.ajax({
+                    url: "/user/profileList",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (userProfile) {
+                        if (userProfile != null) {
+                            showUserInfoSection(userProfile);
+                            userInfoSection.style.display = "block";
+                             $("#orderWrap").hide();
+                        } else {
+                            console.error("Failed to fetch user info");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching user info:", error);
+                    }
+                });
+            });
 			
-			    $.ajax({
-			        url: "/user/profileList",
-			        type: "GET",
-			        dataType: "json",
-			        success: function (userProfile) {
-			            console.log("Success fetching user info:", userProfile);
 			
-			            if (userProfile != null) {
-			                // 사용자 정보 업데이트
-			                console.log("Updating user info");
-			                showUserInfoSection(userProfile);
-			
-			                // 프로필 페이지 보이기
-			                console.log("Showing profile page");
-			                userInfoSection.style.display = "block"; // userInfoSection을 보여주도록 수정
-			                orderDetailsTable.style.display = "none";
-			            } else {
-			                console.error("Failed to fetch user info");
-			            }
-			        },
-			        error: function (xhr, status, error) {
-			            console.error("Error fetching user info:", error);
-			        }
-			    });
-			});
+	
 
+			   $(document).ready(function () {
+                xhrButton.addEventListener("click", function () {
+                    $.ajax({
+                        url: "/user/orderList",
+                        type: "GET",
+                        dataType: "json",
+                        success: function (orderList) {
+                            if (orderList != null) {
+                                showOrderList(orderList);
+                                userInfoSection.style.display = "none";
+                                 $("#orderWrap").show();
+                            } else {
+                                console.error("Failed to fetch order list");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching order list:", error);
+                        }
+                    });
+                });
 
-		});
+            // 주문 목록을 페이지에 표시하는 함수
+            function showOrderList(orderList) {
+                var orderWrap = $("#orderWrap");
+                orderWrap.empty();
 
+                for (var i = 0; i < orderList.length; i++) {
+                    var order = orderList[i];
+
+                      var orderHtml = '<div class="orderDiv">' +
+				            '<div class="getOrderDetailBox">' +
+				                '<div class="orderDateBox">' + order.orderDate + ' 주문</div>' +
+				            '</div>' +
+				            '<div class="orderDetailDiv">';
+				
+				        // 주문 상태에 따른 텍스트 결정
+				        var orderStatusText = '';
+				        switch (order.orderState) {
+				            case 0:
+				                orderStatusText = '주문 완료';
+				                break;
+				            case 1:
+				                orderStatusText = '배송 예정';
+				                break;
+				            case 2:
+				                orderStatusText = '주문 취소';
+				                break;
+				            case 3:
+				                orderStatusText = '배송 완료';
+				                break;
+				            default:
+				                orderStatusText = '알 수 없는 상태';
+				        }
+				
+				        // 주문 상태 텍스트 추가
+				        orderHtml += '<div class="stateText">' + orderStatusText + '</div>';
+				
+				        orderHtml += '<div class="orderDetailInfoDiv">' +
+				                        '<img src="data:' + order.contractList[0].product.imageType + ';base64,' + order.contractList[0].product.imageFile + '" alt="productImage" class="productImage">' +
+				                        '<div class="productText">' +
+				                            '<div class="ModelClass">' + order.contractList[0].product.productModel + '</div>' +
+				                            '<div class="modelName">';
+				
+				        // 주문 사이즈에 따라 텍스트 결정
+				        if (order.orderSize != 0) {
+				            orderHtml += order.contractList[0].product.productName + ' 외 ' + order.orderSize;
+				        } else {
+				            orderHtml += order.contractList[0].product.productName;
+				        }
+				
+				        orderHtml += '</div>' +
+				                        '<hr>' +
+				                        '<div>';
+				
+				        // 주문 가격에 따라 텍스트 결정
+				        if (order.orderPrice != 0) {
+				            orderHtml += '총 결제액 : <span class="spanText">' + order.orderPrice + '원</span>';
+				        }
+				        orderHtml += '</div>' +
+				                        '<div>';
+				
+				        // 렌탈 가격에 따라 텍스트 결정
+				        if (order.rentalPrice != 0) {
+				            orderHtml += '월 렌탈료 : <span class="spanText">월 ' + order.rentalPrice + '원</span>';
+				        }
+				        orderHtml += '</div>' +
+				                        '</div>' +
+				                    '</div>' +
+				                    '<div class="rightBox">' +
+				                        '<div class="rightDetailButtonDiv">' +
+				                            '<form method="get" action="/user/orderDetail">' +
+				                                '<input type="hidden" value="' + order.orderId + '" name="orderId">' +
+				                                '<button class="orderDetailButton">주문 상세조회</button>' +
+				                            '</form>' +
+				                        '</div>' +
+				                    '</div>' +
+				                '</div>' +
+				            '</div>';
+
+                    orderWrap.append(orderHtml);
+                }
+            }
+        });
+});
     </script>
 
 </body>
-
 </html>

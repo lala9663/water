@@ -30,6 +30,7 @@ import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
 import com.meta.metaway.user.service.MailSendService;
 
+import io.jsonwebtoken.lang.Collections;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -277,14 +278,27 @@ public class UserController {
 	    
 	    @GetMapping("/order")
 	    public String getUserMyOrder(HttpServletRequest request, Model model) {
-	    	try {
-	    		long userId = multiClass.getTokenUserId(request);
-		    	List<Order> orderList = userService.getUserMyOrder(userId);
-		    	model.addAttribute("orderList", orderList);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			} 
-	    	return "user/order";
+	        try {
+	            long userId = multiClass.getTokenUserId(request);
+	            List<Order> orderList = userService.getUserMyOrder(userId);
+	            model.addAttribute("orderList", orderList);
+	        } catch (Exception e) {
+	            System.out.println(e.getMessage());
+	        } 
+	        return "user/order";
+	    }
+
+	    @GetMapping("/orderList")
+	    @ResponseBody
+	    public List<Order> getUserOrderList(HttpServletRequest request) {
+	        try {
+	            long userId = multiClass.getTokenUserId(request);
+	            List<Order> orderList = userService.getUserMyOrder(userId);
+	            return orderList;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return null;
+	        }
 	    }
 
 
