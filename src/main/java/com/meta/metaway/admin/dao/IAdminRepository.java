@@ -81,6 +81,8 @@ public interface IAdminRepository {
     
     void insertViewCount(Visitor data);
     
+    List<AdminOrderDTO> dashBoardOrderList();
+    
     long selectNextVisitorId();
 
 

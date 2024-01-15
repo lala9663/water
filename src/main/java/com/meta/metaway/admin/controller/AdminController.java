@@ -234,12 +234,10 @@ public class AdminController {
     
     @GetMapping("/viewCount")
     public String showDashboard(Model model) {
-        // Retrieve data from all three endpoints
         long dailyVisitorCount = adminService.getDailyVisitorCount();
         Long visitorCount = adminService.getDailyVisitorCount();
         Double averageVisitorCount = adminService.getOverallAverageVisitorCount();
 
-        // Add data to the model
         model.addAttribute("dailyVisitorCount", dailyVisitorCount);
         model.addAttribute("visitorCount", visitorCount);
         model.addAttribute("averageVisitorCount", averageVisitorCount);
@@ -248,5 +246,33 @@ public class AdminController {
         return "admin/viewCount";
     }
     
+    @GetMapping("/adminview")
+    public String dashboard(Model model) {
+    	// 일일 조회수 
+        long dailyVisitorCount = adminService.getDailyVisitorCount();
+//        long visitorCount = adminService.getDailyVisitorCount();
+//        Double averageVisitorCount = adminService.getOverallAverageVisitorCount();
+        // 총 판매량
+        int totalSold = adminService.getTotalSalesCount(0);
+        model.addAttribute("totalSold", totalSold);
+        // 총 회원 수
+        UserCountDTO getTotalUser = adminService.getTotalUser();
+        
+        // 최근 주문 수 총 7개
+        List<AdminOrderDTO> orders = adminService.getDashboardOrderList();
+        
+        System.out.println("길이: " + orders.size());
+        System.out.println("값: " + orders.get(1).toString());
+
+        
+        model.addAttribute("userStatistics", getTotalUser);
+        model.addAttribute("dailyVisitorCount", dailyVisitorCount);
+        model.addAttribute("orders", orders);
+//        model.addAttribute("visitorCount", visitorCount);
+//        model.addAttribute("averageVisitorCount", averageVisitorCount);
+
+        return "admin/adminview";
+    }
+   
     
 }

@@ -41,6 +41,8 @@ public interface IAdminService {
     
     Long getVisitorCountByDate(LocalDate visitDate);
     Double getOverallAverageVisitorCount();
+
+    List<AdminOrderDTO> getDashboardOrderList();
     
     void insertViewCount(Visitor data);
 

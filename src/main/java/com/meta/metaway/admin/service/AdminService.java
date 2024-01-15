@@ -166,6 +166,11 @@ public class AdminService implements IAdminService {
     public void insertViewCount(Visitor data) {
         adminRepository.insertViewCount(data);
     }
+    
+    @Override
+    public List<AdminOrderDTO> getDashboardOrderList() {
+        return adminRepository.dashBoardOrderList();
+    }
 }
 
 
