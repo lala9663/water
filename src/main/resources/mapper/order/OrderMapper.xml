@@ -30,7 +30,7 @@
     <update id="cancelOrder" parameterType="com.meta.metaway.order.model.Order" >
     	update orders set 
 		order_state = 4
-		where user_id = #{userId} and order_id = #{orderId};
+		where user_id = #{userId} and order_id = #{orderId}	
     </update>
     <!-- 상태 변경  -->
     <update id="updateOrderDetailState" parameterType="com.meta.metaway.returned.model.Returned" >
@@ -48,7 +48,7 @@
     
     <!-- 시퀀스대용  -->
      <select id="getNextMaxOrderId" resultType="Long">
-    	SELECT COALESCE(MAX(order_id) + 1, 1) FROM order
+    	SELECT COALESCE(MAX(order_id) + 1, 1) FROM orders
     </select>
     <select id="getNextMaxOrderDetailId" resultType="Long">
     	SELECT COALESCE(MAX(order_detail_id) + 1, 1) FROM order_detail
