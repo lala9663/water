@@ -50,7 +50,7 @@ public interface IAdminRepository {
 	//단일 코디 목록
 	AdminStaffDTO selectOneStaffList(long staffId);
 	//단일코디ID조회
-	int getStaffId(long staffId);
+	int getOrderIdByStaffId(long staffId);
 	//단건 주문상세번호 조회
 	int getOrderDetailId(long orderDetailId);
 	//일정이있는직원조회

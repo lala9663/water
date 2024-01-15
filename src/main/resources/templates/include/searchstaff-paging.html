@@ -13,15 +13,15 @@
 <div class="pagination-container" th:fragment="searchStaffpaging">
 <ul class="pagination">
 	<li class="page-item" th:if="${nowPage >1}">
-		<a class="page-link" th:href="@{/admin/stafflist/__${nowPage-1}__(authorityName=${authorityName}, keyword=${keyword})}" aria-label="Previous">◀</a>
+		<a class="page-link" th:href="@{/admin/searchstaff/__${nowPage-1}__(authorityName=${authorityName}, keyword=${keyword})}" aria-label="Previous">◀</a>
 	</li>
 
 	<li class="page-item" th:each="i: ${#numbers.sequence(startPage, endPage)}" th:classappend="${i==nowPage}?active">
-		<a class="page-link" th:href="@{/admin/stafflist/__${i}__(authorityName=${authorityName}, keyword=${keyword})}">[[${i}]]</a>		
+		<a class="page-link" th:href="@{/admin/searchstaff/__${i}__(authorityName=${authorityName}, keyword=${keyword})}">[[${i}]]</a>		
 	</li>
 	
-	<li class="page-item" th:if="${(nowPage == 1) || (nowPage <= totalPage)}">
-		<a class="page-link" th:href="@{/admin/stafflist/__${nowPage+1}__(authorityName=${authorityName}, keyword=${keyword})}" aria-label="Next">▶</a>
+	<li class="page-item" th:if="${(nowPage == 1) || (nowPage < totalPage)}">
+		<a class="page-link" th:href="@{/admin/searchstaff/__${nowPage+1}__(authorityName=${authorityName}, keyword=${keyword})}" aria-label="Next">▶</a>
 	</li>
 </ul>
 </div>
