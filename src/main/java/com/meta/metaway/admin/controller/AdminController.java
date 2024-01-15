@@ -1,8 +1,10 @@
 package com.meta.metaway.admin.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -233,4 +235,22 @@ public class AdminController {
 
         return "admin/dashboard";
     }    
+    
+    @GetMapping("/viewCount")
+    public String showDashboard(Model model) {
+        // Retrieve data from all three endpoints
+        long dailyVisitorCount = adminService.getDailyVisitorCount();
+        Long visitorCount = adminService.getDailyVisitorCount();
+        Double averageVisitorCount = adminService.getOverallAverageVisitorCount();
+
+        // Add data to the model
+        model.addAttribute("dailyVisitorCount", dailyVisitorCount);
+        model.addAttribute("visitorCount", visitorCount);
+        model.addAttribute("averageVisitorCount", averageVisitorCount);
+
+        // Return the view name
+        return "admin/viewCount";
+    }
+    
+    
 }

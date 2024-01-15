@@ -1,5 +1,6 @@
 package com.meta.metaway.admin.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -12,6 +13,7 @@ import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
+import com.meta.metaway.admin.model.Visitor;
 
 @Repository
 @Mapper
@@ -70,6 +72,15 @@ public interface IAdminRepository {
 
     // 총 판매 수
     int getTotalSalesCount(int orderState);
+    
+    // 날짜별 방문자 수
+    Long getVisitorCountByDate(LocalDate visitDate);
+    
+    Double getOverallAverageVisitorCount();
+    
+    void insertViewCount(Visitor data);
+    
+    long selectNextVisitorId();
 
 
 }
