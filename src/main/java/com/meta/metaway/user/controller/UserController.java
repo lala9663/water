@@ -182,7 +182,7 @@ public class UserController {
 		    	userService.addProductToBasket(basket);
 		    	return ResponseEntity.ok().body("장바구니에 담았습니다!");
 			} catch (Exception e) {
-				 return ResponseEntity.ok().body("이미 장바구니에 담겨있습니다!");
+				 return ResponseEntity.badRequest().body("이미 장바구니에 담겨있습니다!");
 			}
 	    }
 	    
@@ -194,7 +194,7 @@ public class UserController {
 	    		userService.removeProductFromBasket(basket);	
 				return ResponseEntity.ok().body("삭제가 완료되었습니다");
 			} catch (Exception e) {
-				return ResponseEntity.ok().body("삭제에 실패했습니다");
+				return ResponseEntity.badRequest().body("삭제 실패");
 			}
 	    }
 	    
