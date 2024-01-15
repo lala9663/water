@@ -21,6 +21,7 @@ import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.multiClass.MultiClass;
 import com.meta.metaway.order.model.Order;
 import com.meta.metaway.order.model.OrderDetail;
+import com.meta.metaway.product.model.Contract;
 import com.meta.metaway.user.dto.EmailRequestDTO;
 import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
@@ -204,7 +205,7 @@ public class UserController {
 	    	return "user/basket";
 	    }
 	    
-	    @GetMapping("/order")
+	    @GetMapping("/sasadasdadsa")
 	    public String getUserOrders(HttpServletRequest request, Model model) {
 	    	String token = multiClass.getToken(request);
 	    	
@@ -230,6 +231,18 @@ public class UserController {
 		        model.addAttribute("orderList", orderDetailList);
 	        }
 	        return "user/orderDetailList"; 
+	    }
+	    
+	    @GetMapping("/Order")
+	    public String getUserMyOrder(HttpServletRequest request, Model model) {
+	    	try {
+	    		long userId = multiClass.getTokenUserId(request);
+		    	List<Order> orderList = userService.getUserMyOrder(userId);
+		    	model.addAttribute("orderList", orderList);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} 
+	    	return "user/Order";
 	    }
 
 

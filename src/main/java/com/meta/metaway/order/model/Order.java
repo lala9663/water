@@ -21,6 +21,7 @@ public class Order {
 	private int orderPrice;
 	private int rentalPrice;
 	private int continuDate;
+	private int orderSize;
 	
 	private List<Contract> contractList;
 	private List<Product> productList;
