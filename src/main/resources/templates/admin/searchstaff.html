@@ -16,6 +16,7 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
    <!--sweetalert-->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+   <title>직원 검색</title>
 </head>
 <body>
     <div class="staff_list">
@@ -29,7 +30,7 @@
                 <form th:action="@{/admin/searchstaff/1}"  method="get">
 				  <div>	
 	                  <select th:name="authorityName" class="custom-select">
-	                    <option >전체</option>
+	                    <option selected>전체</option>
 	                    <option th:selected="${authorityName == 'ROLE_CODI'}" value="ROLE_CODI">코디</option>
 	                    <option th:selected="${authorityName == 'ROLE_DRIVER'}" value="ROLE_DRIVER">담당기사</option>
 	                  </select>
@@ -41,9 +42,8 @@
                 </form>  
               </div>  
             </div>
-              <p id="searchResult">검색결과: <span id="resultCount">4</span>/총<span id="totalCount">4</span>명 검색결과</p>       
+            <p id="searchResult">검색결과: <span id="resultCount">4</span>/총<span id="totalCount">4</span>명 검색결과</p>       
             <table class="table table-hover">
-            
               <thead>
                 <tr>
                   <th><input type="checkbox" name="" value=""></th>
@@ -79,7 +79,7 @@
               </tbody>
             </table>
         </div>
-     	<div th:replace="~{/include/staffpaging :: staffpaging}"></div>
+     	<div th:replace="~{/include/searchstaff-paging :: searchStaffpaging}"></div>
     </div>
 </body>
 <style>

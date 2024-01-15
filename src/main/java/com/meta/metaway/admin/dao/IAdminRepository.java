@@ -62,6 +62,7 @@ public interface IAdminRepository {
 	
 	int getNextMaxOrderDetailId();
 	
+	
 	// 판매랭킹
     List<SoldRankDTO> getSoldRankProductWithoutImage(int orderState);
 
