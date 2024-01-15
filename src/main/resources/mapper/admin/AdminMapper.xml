@@ -3,7 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.meta.metaway.admin.dao.IAdminRepository">
-	<!--전체 주문 내역 조회 -->
+		<!--전체 주문 내역 조회 -->
 	<select id="findAllOrderList" resultType="com.meta.metaway.admin.dto.AdminOrderDTO">
 		<![CDATA[
 		          SELECT
@@ -85,7 +85,11 @@
 				        rownum AS rnum
 				    FROM (
 				        SELECT * FROM orders
-				        ORDER BY order_id DESC
+		         	WHERE
+	                    UPPER(order_name) LIKE UPPER('%' || #{keyword} || '%')
+	                    AND (#{orderState} IS NULL OR order_state = #{orderState})
+	                    AND (#{orderDate} IS NULL OR order_date = TO_DATE(#{orderDate}, 'YYYY-MM-DD'))
+	                    ORDER BY order_id DESC
 				    )
 				)
 				WHERE rnum BETWEEN #{start} AND #{end}
