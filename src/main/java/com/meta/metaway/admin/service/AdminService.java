@@ -87,8 +87,8 @@ public class AdminService implements IAdminService {
 	}
 	
 	@Override
-	public int getStaffId(long staffId) {
-		return adminRepository.getStaffId(staffId);
+	public int getOrderIdByStaffId(long staffId) {
+		return adminRepository.getOrderIdByStaffId(staffId);
 	}
 
 	@Override

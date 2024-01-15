@@ -28,7 +28,7 @@ public interface IAdminService {
 	//주문에 해당하는 일정조회
 	List<AdminScheduleStaffDTO> selectListScheduleStaff(long orderId);
 	void deleteSchedule(long orderId, long staffId);
-	int getStaffId(long staffId);
+	int getOrderIdByStaffId(long staffId);
 	
     List<SoldRankDTO> getSoldRankProductWithImage(int orderState);
     List<SoldRankDTO> getSoldRankProductWithoutImage(int orderState);

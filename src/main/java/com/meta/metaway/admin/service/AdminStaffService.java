@@ -31,5 +31,15 @@ public class AdminStaffService implements IAdminStaffService{
 		int start = (page-1)*10 + 1;
 		return adminStaffRepository.searchAllStaff("%"+keyword+"%", authorityName, start, start+9);
 	}
+
+	@Override
+	public void deleteStaff(long staffId) {
+		adminStaffRepository.deleteStaff(staffId);
+	}
+
+	@Override
+	public int getStaffId(long staffId) {
+		return adminStaffRepository.getStaffId(staffId);
+	}
 	
 }

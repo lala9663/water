@@ -20,16 +20,16 @@
 <body>
     <div class="staff_list">
         <div class="container">
-            <h2 class="ti_con">직원 리스트</h2>
+            <h2 class="ti_con"><a th:href="@{/admin/stafflist/1}">직원리스트</a></h2>
             <div class="m_flex_box">
               <div class="total-member">
                 <p>직원수: <span th:text="${totStaff}"></span></p>
               </div>
+              <p class="alert alert-info" th:text="${message}"></p>
               <div class="input-group mb-3">
                 <form th:action="@{/admin/searchstaff/1}"  method="get">
 				  <div>	
 	                  <select th:name="authorityName" class="custom-select">
-	                    <option >전체</option>
 	                    <option th:selected="${authorityName == 'ROLE_CODI'}" value="ROLE_CODI">코디</option>
 	                    <option th:selected="${authorityName == 'ROLE_DRIVER'}" value="ROLE_DRIVER">담당기사</option>
 	                  </select>
@@ -73,8 +73,13 @@
                   <td th:text="${staff.authorityName}"></td>
                   <td>
                     <button type="button" class="btn btn-outline-primary">수정</button>
-                    <button type="button" class="btn btn-outline-dark">삭제</button>
                   </td>
+                  <form th:id="'deleteForm_' + ${staff.staffId}" th:action="@{/admin/deletestaff/{staffId}(staffId=${staff.staffId})}" method="post">
+                     <td>
+                        <input type="hidden" name="staffId" th:value="${staff.staffId}"></input>
+                        <button type="button" th:onclick="confirmDeleteStaff([[${staff.staffId}]]);" class="btn btn-outline-dark">삭제</button>
+                     </td>
+                  </form>
                 </tr>
               </tbody>
             </table>
@@ -85,4 +90,24 @@
 <style>
 
 </style>
+<script>
+	 function confirmDeleteStaff(staffId) {
+       console.log("Staff ID:", staffId);
+        Swal.fire({
+            title: staffId+ '번 직원 삭제',
+            text: staffId +'번 직원을 삭제하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '삭제',
+            cancelButtonText: '돌아가기'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 삭제할 주문의 form을 submit
+                 $('#deleteForm_' + staffId).submit();
+            }
+        });
+    }
+</script>
 </html>
