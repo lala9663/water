@@ -18,26 +18,7 @@
 	<!-- account로 user_id 얻기 -->
 	<select id="getUserIdByAccount" parameterType="String" resultType="Long">
 	    SELECT user_id FROM users WHERE user_account = #{account}
-	</select>
-	
-	<select id="getUserAuthority" parameterType="Long" resultType="String">
-        SELECT authority_name FROM user_authority WHERE user_id = #{id}
-    </select>
-	
-	<!-- 근무지 생성 -->
-	<insert id="createWorkPlace" parameterType="com.meta.metaway.staff.model.Staff">
-	    INSERT INTO staff (staff_id, user_id, work_place)
-	    VALUES (#{staffId}, #{userId}, #{workPlace})
-	</insert>	
-	
-	
-	<!-- 근무지 정보를 업데이트-->
-	<update id="updateWorkPlace" parameterType="map">
-	    UPDATE staff
-	    SET work_place = #{workPlace}
-	    WHERE user_id = #{id}
-	</update>
-	
+	</select>	
 	
 	<select id="selectStaffMaxNo" resultType="long">
 	<![CDATA[
@@ -57,5 +38,39 @@
 	LEFT JOIN schedule S ON O.order_id = S.order_id
 	</select>
 	
+	<select id="getUserAuthority" resultType="String">
+        SELECT ua.authority_name
+        FROM user_authority ua
+        WHERE ua.user_id = #{userId}
+    </select>
+
+    <!-- 근무지를 생성 -->
+	<update id="createWorkPlace" parameterType="com.meta.metaway.staff.model.Staff">
+	    INSERT INTO staff (staff_id, user_id, work_place)
+	    VALUES (#{staffId}, #{userId}, #{workPlace})
+	</update>
 	
+	<!-- 근무지 수정 -->
+	<update id="updateWorkPlace" parameterType="com.meta.metaway.staff.model.Staff">
+	    UPDATE staff
+	    <set>
+	        work_place = #{workPlace}
+	    </set>
+	    WHERE user_id = #{userId}
+	</update>
+	
+	<select id="getWorkPlaceByUserId" parameterType="long" resultType="String">
+        SELECT work_place as workPlace
+        FROM staff
+        WHERE user_id = #{userId}
+    </select>
+	
+	<select id="getStaffByUserId" parameterType="long" resultType="com.meta.metaway.staff.model.Staff">
+        SELECT work_place as workPlace 
+        FROM staff 
+        WHERE user_id = #{userId}
+    </select>
+	
+
+    
 </mapper>

@@ -2,7 +2,6 @@ package com.meta.metaway.staff.dao;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -15,16 +14,10 @@ import com.meta.metaway.staff.model.Staff;
 @Mapper
 public interface IStaffRepository {
     Long getIdByAccount(String account);
-    
-    String getUserAuthority(Long userId);
-    
+        
 //    void checkIfUserIsCodiOrDriver(Long id);
 
     Long getUserIdByAccount(String account);
-
-    void createWorkPlace(Staff staff);
-
-    void updateWorkPlace(Map<String, Object> updateParams);
     
 	long selectStaffMaxNo();
 	
@@ -33,4 +26,13 @@ public interface IStaffRepository {
 	List<StaffListDTO> selectOrderProductList();
 	List<Product> getProductForStaff(Long userId);
 
+    String getUserAuthority(long userId);
+
+    void createWorkPlace(Staff staff);
+    
+    void updateWorkPlace(Staff staff);
+
+    String getWorkPlaceByUserId(long userId);
+    
+    Staff getStaffByUserId(long userId);
 }

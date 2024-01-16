@@ -1,10 +1,6 @@
 package com.meta.metaway.staff.service;
 
-import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +10,6 @@ import com.meta.metaway.product.model.Product;
 import com.meta.metaway.staff.dao.IStaffRepository;
 import com.meta.metaway.staff.dto.StaffListDTO;
 import com.meta.metaway.staff.model.Staff;
-import com.meta.metaway.user.model.User;
 
 @Service
 public class StaffService implements IStaffService{
@@ -31,37 +26,6 @@ public class StaffService implements IStaffService{
         
         String authority = staffRepository.getUserAuthority(id);
         return authority.equals("ROLE_CODI") || authority.equals("ROLE_DRIVER");
-    }
-
-    @Override
-    public void createWorkPlace(String account, String workplace) {
-
-    	Staff staff = new Staff();
-    	
-    	Long staffId = staffRepository.selectStaffMaxNo()+1;
-
-        if (isCodiOrDriver(account)) {
-            Long userId = staffRepository.getIdByAccount(account);
-        	staff.setStaffId(staffId);
-            staff.setUserId(userId);
-            staff.setWorkPlace(workplace);
-            
-            staffRepository.createWorkPlace(staff);
-        }    	    	
-    }
-
-    @Override
-    public void updateWorkPlace(String account, Staff staff) {
-        Long id = staffRepository.getUserIdByAccount(account);
-        if (id != null) {
-            Map<String, Object> updateParams = new HashMap<>();
-            updateParams.put("id", id);
-            updateParams.put("workPlace", staff.getWorkPlace());
-            
-            staffRepository.updateWorkPlace(updateParams);
-        } else {
-            throw new IllegalArgumentException("유효하지 않은 사용자 계정입니다.");
-        }
     }
 
 	@Override
@@ -84,7 +48,49 @@ public class StaffService implements IStaffService{
 	 public List<StaffListDTO> getOrderProductList() {
 	        return staffRepository.selectOrderProductList();
 	    }
+
 	 
+	    @Override
+	    public String getUserAuthority(int userId) {
+	        return staffRepository.getUserAuthority(userId);
+	    }
+
+	    public void createWorkPlace(long userId, String workPlace) {
+	        long staffId = staffRepository.selectStaffMaxNo()+1;
+	    	if (userId != 0) {
+	            Staff staff = new Staff();
+	            staff.setStaffId(staffId);
+	            staff.setUserId(userId);
+	            staff.setWorkPlace(workPlace);
+	            staffRepository.createWorkPlace(staff);
+	        } else {
+	            throw new IllegalArgumentException("CODI 또는 DRIVER 권한이 없습니다.");
+	        }
+	    }
+	    
+	    @Override
+	    public void updateWorkPlace(long userId, String workPlace) {
+	       
+	    	Staff staff = staffRepository.getStaffByUserId(userId);
+
+	    	System.out.println("스태프 컨트롤러: " + staff.toString());
+	        if (staff != null) {
+	        	staff.setUserId(userId);
+	            staff.setWorkPlace(workPlace);
+	            staffRepository.updateWorkPlace(staff);
+	        } else {
+	            throw new IllegalArgumentException("해당 userId에 해당하는 스태프를 찾을 수 없습니다.");
+	        }
+	    }
+
+	    @Override
+	    public String getCurrentWorkPlace(long userId) {
+	    	
+	    	String workPlace = staffRepository.getWorkPlaceByUserId(userId);
+
+	        return workPlace;
+	    }
+	    
 	 
 	
 }
