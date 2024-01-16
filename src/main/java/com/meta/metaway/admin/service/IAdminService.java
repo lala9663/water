@@ -30,6 +30,8 @@ public interface IAdminService {
 	//주문에 해당하는 일정조회
 	List<AdminScheduleStaffDTO> selectListScheduleStaff(long orderId);
 	void deleteSchedule(long orderId, long staffId);
+	
+	void deleteReturnSchedule(long orderDetailId, long staffId);
 	int getOrderIdByStaffId(long staffId);
 	
     List<SoldRankDTO> getSoldRankProductWithImage(int orderState);
@@ -55,6 +57,7 @@ public interface IAdminService {
     long getTotalOrderPriceMonth();
     
     long getTotalRentalPriceMonth();
-
+    
+    void updateCompleteOrderDetail(long orderDetailId);
 
 }

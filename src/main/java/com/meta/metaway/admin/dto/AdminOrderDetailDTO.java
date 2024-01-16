@@ -69,12 +69,10 @@ public class AdminOrderDetailDTO {
 			return "해지 신청";
 		} else if (stateType == 4) {
 			return "환불 신청";
-		} else if (stateType == 5) {
+		} else if (stateType == 8) {
 			return "반납 완료";
-		} else if (stateType == 6) {
-			return "해지 완료";
-		} else if (stateType == 7) {
-			return "환불 완료";
+		} else if (stateType == 11) {
+			return "반납 대기";
 		} else {
 			return null;
 		}

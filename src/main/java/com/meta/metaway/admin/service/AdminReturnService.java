@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.meta.metaway.admin.dao.IAdminReturnRepository;
 import com.meta.metaway.admin.dto.AdminReturnDTO;
+import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 
 @Service
 public class AdminReturnService implements IAdminReturnService {
@@ -20,8 +21,9 @@ public class AdminReturnService implements IAdminReturnService {
 	}
 
 	@Override
-	public List<AdminReturnDTO> selectAllReturnList() {
-		return adminReturnRepository.selectAllReturnList();
+	public List<AdminReturnDTO> selectAllReturnList(int page) {
+		int start =(page-1)*10 +1;
+		return adminReturnRepository.selectAllReturnList(start, start+9);
 	}
 
 	@Override
@@ -40,16 +42,25 @@ public class AdminReturnService implements IAdminReturnService {
 	}
 
 	@Override
-	public int getOrderDetailId(long orderDetailId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getOrderDetailIdByReturn(long returnId) {
+		return adminReturnRepository.getOrderDetailIdByReturn(returnId);
 	}
 
 	@Override
 	public int getReturnId(long returnId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return adminReturnRepository.getReturnId(returnId);
 	}
+
+	@Override
+	public List<AdminReturnDTO> selectAllReturnDetailList(long orderDetailId) {
+		return adminReturnRepository.selectAllReturnDetailList(orderDetailId);
+	}
+
+	@Override
+	public List<AdminScheduleStaffDTO> selectListReturnScheduleStaff(long orderDetailId) {
+		return adminReturnRepository.selectListReturnScheduleStaff(orderDetailId);
+	}
+
 	
 
 }

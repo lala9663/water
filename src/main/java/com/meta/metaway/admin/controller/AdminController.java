@@ -18,6 +18,7 @@ import com.meta.metaway.admin.dto.AdminScheduleStaffDTO;
 import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
+import com.meta.metaway.admin.service.IAdminReturnService;
 import com.meta.metaway.admin.service.IAdminService;
 import com.meta.metaway.order.dto.OrderDTO;
 import com.meta.metaway.staff.dto.StaffDTO;
@@ -30,6 +31,9 @@ public class AdminController {
 
 	@Autowired
 	IAdminService adminService;
+	
+	@Autowired
+	IAdminReturnService adminReturnService;
 
 	@GetMapping("/orderlist/{page}")
 	public String orderList(@PathVariable int page, HttpSession session, Model model) {
@@ -174,14 +178,32 @@ public class AdminController {
 		return "redirect:/admin/orderlist/1";
 	}
 	
+	@PostMapping("/assign/return/{orderDetailId}")
+	public String returnComplate(@PathVariable long orderDetailId, RedirectAttributes redirectAttr, Model model) {
+		System.out.println("반납배정완료컨트롤러");
+		adminService.updateCompleteOrderDetail(orderDetailId);
+		model.addAttribute("orderDetailId", orderDetailId);
+		redirectAttr.addFlashAttribute("message", orderDetailId+" 번 주문 배정이 완료 되었습니다.");
+		return "redirect:/admin/returnlist/1";
+	}
+	
 	@PostMapping("/cancel/{orderId}/{staffId}")
 	public String cancleScheduleDriver(@PathVariable long orderId ,@PathVariable long staffId, RedirectAttributes redirectattr) {
 		System.out.println("배정 삭제 컨트롤러");
 		adminService.deleteSchedule(orderId, staffId);
-		redirectattr.addFlashAttribute("message", orderId+" 번 주문이 취소되었습니다.");
+		redirectattr.addFlashAttribute("message", orderId+" 번 배정이 취소되었습니다.");
 		return "redirect:/admin/assign/{orderId}";
 	}
 	
+	@PostMapping("/cancel/return/{orderDetailId}/{staffId}")
+	public String cancleReturnScheduleDriver(@PathVariable long orderDetailId ,@PathVariable long staffId,RedirectAttributes redirectattr) {
+		System.out.println("반납배정 삭제 컨트롤러");
+		adminService.deleteSchedule(orderDetailId, staffId);
+		
+		redirectattr.addFlashAttribute("message", orderDetailId+" 번 반납이 취소되었습니다.");
+		
+		return "redirect:/admin/returnlist/1";
+	}
 	
     @GetMapping("/productRank")
     public String productRank(Model model) {

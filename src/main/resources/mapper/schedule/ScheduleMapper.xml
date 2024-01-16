@@ -11,5 +11,29 @@
     	<select id="getNextMaxScheduleId" resultType="int">
 	    	 SELECT COALESCE(max(schedule_id), 0) + 1 FROM schedule
 	    </select>
-
+		
+		 <!-- 반납 일정 삭제 -->
+ 	    <delete id ="deleteReturnSchedule" parameterType="long">
+	    	delete from schedule
+			where order_detail_id = #{orderDetailId} and staff_id =#{staffId}
+	    </delete>
+	    	<!-- 반납 일정 생성 -->
+	     <insert id="returnSchedule" parameterType="com.meta.metaway.schedule.model.Schedule">
+	        INSERT INTO schedule (schedule_id, visit_cycle, visit_type, visit_state, staff_id, order_id, user_id, order_detail_id,return_id)
+	        VALUES (#{scheduleId}, #{visitCycle}, #{visitType}, #{visitState}, #{staffId}, #{orderId}, #{userId}, #{orderDetailId},#{returnId})
+	    </insert>
+	    <!-- 반납일정생성시 리턴아이디 가져오기-->
+	    <select id="getReturnIdReturnSchedule" parameterType="long">
+			select r.return_id AS "returnId"
+			from return r 
+				join order_detail od on od.order_detail_id = r.order_detail_id 
+			where r.order_detail_id=#{orderDetailId} 
+		</select>
+	    <!-- 반납일정생성시 주문상세아이디 가져오기-->
+	    <select id="getOrderIdReturnSchedule" parameterType="long">
+			select r.order_detail_id AS "orderDetailId"
+			from  order_detail od 
+				join return r on r.order_detail_id = od.order_detail_id 
+			where r.order_detail_id=#{orderDetailId} 
+		</select>
     </mapper>
