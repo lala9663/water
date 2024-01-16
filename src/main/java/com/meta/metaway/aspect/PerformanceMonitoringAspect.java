@@ -22,15 +22,7 @@ public class PerformanceMonitoringAspect {
     private JavaMailSender javaMailSender;
 
 
-    @Around("execution(* com.meta.metaway.user.service.IUserService..*(..)) || "  + 
-    		"execution(* com.meta.metaway.admin.service.IAdminService..*(..)) || " +
-    		"execution(* com.meta.metaway.admin.service.IAdminStaffService..*(..)) || " +
-    		"execution(* com.meta.metaway.order.service.IOrderService..*(..)) || " +
-    		"execution(* com.meta.metaway.product.service.IProductService..*(..)) || " +
-    		"execution(* com.meta.metaway.returned.service.IReturnedService..*(..)) || " +
-    		"execution(* com.meta.metaway.schedule.service.IScheduleService..*(..)) || " +
-    		"execution(* com.meta.metaway.staff.service.IStaffService..*(..)) || " +
-    		"execution(* com.meta.metaway.admin.service.IAdminService..*(..)) || ")
+    @Around("execution(* com.meta.metaway..service.*.*(..))")
     public Object measureExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
 
