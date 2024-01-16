@@ -147,8 +147,8 @@ public class AdminController {
 		List<AdminOrderDetailDTO> orderList = adminService.selectAllOrderList(orderId);
 		model.addAttribute("orderList", orderList);
 		
-//		adminService.getOrderId(orderId);
-//		model.addAttribute("orderId",orderId);
+		adminService.getOrderId(orderId);
+		model.addAttribute("orderId",orderId);
 		System.out.println(orderId + ": orderId");
 		List<AdminStaffDTO> driverList = adminService.selectAllDriverList();
 		model.addAttribute("driverList", driverList);
