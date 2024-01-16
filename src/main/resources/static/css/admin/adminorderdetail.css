@@ -1,0 +1,84 @@
+.assignment{
+	margin-top: 120px;
+}
+
+.flex_2_1 p,
+.flex_1_3 p,
+.flex_1_2 p,
+.flex_1_1 p{
+	font-weight: bold;
+	font-size: 20px;
+	margin-bottom: -5px;
+}
+.bo ul{
+	margin-top: 7px;
+}
+
+.hight-span{
+	background: linear-gradient(to top, rgb(152, 221, 255) 50%, transparent 40%);
+}
+
+.cody-btn,
+.drive-btn{
+		 width: 175px;
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.cody-btn:hover,
+.drive-btn:hover{
+	background-color: rgb(237, 237, 237);
+}
+
+.submit-btn{
+		 width: 375px;
+    background-color: #00B0E8;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+}
+
+
+
+
+/* assignment */
+
+.assignment {display: flex;}
+.assignment .flex_1 {width: 60%;}
+.assignment em {margin-bottom: 10px; display: inline-block;}
+.assignment .flex_1 .bo,
+.assignment .flex_2 .bo {border: 1px solid #ddd; border-radius: 5px; margin-bottom: 25px;}
+.assignment .flex_1 .bo li {margin-bottom: 10px;}
+.assignment .flex_1_3 .bo {box-sizing: border-box; padding: 20px;}
+
+.assignment .flex_2 {width: 40%; box-sizing: border-box; margin-left: 20px;}
+.assignment .flex_2 h3 {font-size: 18px;}
+.assignment .flex_2 .bo {height: 380px; padding: 20px;}
+.assignment .engineer_box div.driver { font-size: 20px; background-color: #ededed; text-align: center; padding: 20px; box-sizing: border-box;}
+.assignment .engineer_box div.codi { font-size: 20px; background-color: #ededed; text-align: center; padding: 20px; box-sizing: border-box;}
+.assignment .engineer_box div p {margin: 0 !important;}
+.assignment .engineer_box button {width: 50%;}
+.assignment .flex_button {display: flex;     justify-content: center; margin-bottom: 20px;}
+.assignment .flex_button button {margin-top: 10px;}
+.pagination-container {
+      display: flex;
+        margin-top: 20px;
+        justify-content: center;
+    }
+    

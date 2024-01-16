@@ -21,9 +21,9 @@
 
 #orderDiv1{
 	
-	width: 500px;
+	width: 600px;
 	height: 580px;
-	border: 1px solid darkgray;
+	border: 1.3px solid rgb(153, 153, 153);
 	border-radius: 10px;	
 	padding: 40px;
 }
@@ -93,10 +93,10 @@
     padding: 10px;
     border: 1.3px solid rgb(225, 225, 225);
     border-radius: 5px;
-    margin-top: 24px;
+    margin-top: 22px;
     margin-left: -30px;
 }
-}
+
 
 .order-text{
 	margin-top: 10px;

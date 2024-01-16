@@ -9,6 +9,7 @@
 	width: 150px;
 	height: auto;
 	display: inline-block;
+	margin-right: 15px;
 }
 
 .mainBox{
@@ -43,7 +44,7 @@
 
 #AllProduct{
 	display: inline-block;
-	border: 1px solid gray;
+	border: 1.3px solid rgb(153, 153, 153);
 	border-radius: 10px;
 	width: 700px;
 	height: auto;
@@ -63,7 +64,8 @@
 #buttonBox{
 	width: 370px;
 	height: 200px;
-
+	border: 1.3px solid rgb(153, 153, 153);
+	border-radius: 10px;
 	margin-left: 20px;
 }
 
@@ -80,7 +82,7 @@
     padding: 10px;
     border: 1.3px solid rgb(225, 225, 225);
     border-radius: 5px;
-    margin-top: 50px;
+    margin-top: 37px;
 }
 
 
