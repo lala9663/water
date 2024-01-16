@@ -15,20 +15,27 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="/">
                         <span class="icon">
                             <ion-icon name="water-outline"></ion-icon>
                         </span>
                         <span class="title">Meta water</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="/admin/adminview">
+				  <li>
+                    <a href="/">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
-                        <span class="title">Dashboard</span>
+                        <span class="title">홈</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/adminview">
+                        <span class="icon">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                        </span>
+                        <span class="title">대시보드</span>
                     </a>
                 </li>
 
@@ -37,42 +44,42 @@
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
-                        <span class="title">Customers</span>
+                        <span class="title">직원조회</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="/admin/orderlist/1">
                         <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
-                        <span class="title">Order List</span>
+                        <span class="title">주문리스트</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="../staff/cody/list">
                         <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
+                            <ion-icon name="calendar-outline"></ion-icon>
                         </span>
-                        <span class="title">Codi List</span>
+                        <span class="title">코디</span>
                     </a>
                 </li>
                 <li>
                     <a href="../staff/drive/list">
                         <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
+                           <ion-icon name="car-sport-outline"></ion-icon>
                         </span>
-                        <span class="title">Drive List</span>
+                        <span class="title">기사</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="../product/insert">
                         <span class="icon">
-                            <ion-icon name="settings-outline"></ion-icon>
+                           <ion-icon name="color-wand-outline"></ion-icon>
                         </span>
-                        <span class="title">Add Product</span>
+                        <span class="title">상품등록</span>
                     </a>
                 </li>
 
@@ -90,7 +97,7 @@
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Sign Out</span>
+                        <span class="title">로그아웃</span>
                     </a>
                 </li>
             </ul>
@@ -103,12 +110,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
 
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </label>
-                </div>
+              
 
                 <div class="user">
                     <img th:href="@{/css/admin/assets/imgs/customer01.jpg}" alt="">
@@ -120,7 +122,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers" th:text="${dailyVisitorCount}">de 1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <div class="cardName">방문자 수</div>
                     </div>
 
                     <div class="iconBx">
@@ -131,7 +133,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers" th:text="${totalSold}">기본 0</div>
-                        <div class="cardName">Total Sold</div>
+                        <div class="cardName">전체 판매</div>
                     </div>
 
                     <div class="iconBx">
@@ -153,7 +155,7 @@
                 <div class="card">
 					<div>
 					    <div class="numbers" th:text="${monthPrice} + ${monthRentalPrice}">$7,842</div>
-					    <div class="cardName">Month Price</div>
+					    <div class="cardName">매출</div>
 					</div>
 
                     <div class="iconBx">
@@ -166,16 +168,16 @@
             <div class="details">
 			    <div class="recentOrders">
 			        <div class="cardHeader">
-			            <h2>Recent Orders</h2>
-			            <a href="/admin/orderlist/1" class="btn">View All</a>
+			            <h2>주문리스트</h2>
+			            <a href="/admin/orderlist/1" class="btn">전체보기</a>
 			        </div>
 			        <table>
 			            <thead>
 			                <tr>
-			                    <td>Name</td>
-			                    <td>Price</td>
+			                    <td>주문자명</td>
+			                    <td>가격</td>
 			                    <td>Payment</td>
-			                    <td>Status</td>
+			                    <td>현재상태</td>
 			                </tr>
 			            </thead>
 						<tbody>
@@ -206,7 +208,7 @@
                 <!-- ================= New Customers ================ -->
                 <div class="recentCustomers">
                     <div class="cardHeader">
-                        <h2>Recent Customers</h2>
+                        <h2>직원 리스트</h2>
                     </div>
                         <table>
 					        <!-- Iterate through the first 7 codi users -->

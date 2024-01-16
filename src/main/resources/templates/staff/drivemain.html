@@ -6,18 +6,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Vue.js 라이브러리 불러오기 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
         <link rel="stylesheet" th:href="@{/js/includeHTML.js}">
     <link rel="stylesheet" th:href="@{/css/dr_main.css}">
+     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Document</title>
 </head>
 
-<header th:replace="~{/include/header.html}"></header>
 <dri-body>
+	 <div id="app">
+<header th:replace="~{/include/header.html}"></header>
 <div class="dri_main">
     <div class="dri_title">
-        <p><strong>기사 상품 조회</strong></p>
+       <p>
+		<a th:href="@{/admin/adminview}" style="color: black;  text-decoration: none;">
+		<img src="/images/return.png" style="width: 30px;">
+		<strong>기사 상품 조회</strong></a></p>
     </div>
 
     <form action="" class="dri-search-bar">
@@ -75,34 +84,39 @@
         </tbody>
     </table>
 </div>
-<!-- dateModal 일정관리 모달 --> 
+
+<!-- 모달 -->
 <div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true" @show.bs.modal="initializeDate">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">방문일정체크</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5>방문 일정 선택</h5>
-                <hr>
-                <div class="dri_form">
-                    <p>방문일자 : </p>
-                    <input type="date" class="form-control form-control-sm" v-model="updatedDate" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-info" @click="saveChanges(itemStat.index + 1); updateVisitDate(itemStat.index, item.visit_date)">
-                    저장
-                </button>
-            </div>
+            <!-- 폼 시작 -->
+            <form id="updateDateForm"  name="updatedDate">
+			    <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="exampleModalLabel">방문일정체크</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			    </div>
+			    <div class="modal-body">
+			        <h5>방문 일정 선택</h5>
+			        <hr>
+			        <div class="dri_form">
+			            <p>방문일자 : </p>
+			            
+			            <input type="date" id="updatedDate" class="form-control form-control-sm"  />
+			        </div>
+			    </div>
+			    <div class="modal-footer">
+			        <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+			        <button type="submit" class="btn btn-info">저장</button>
+			    </div>
+			</form>
         </div>
     </div>
 </div>
 
+
+
 <!-- Modal 관리 모달 -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" @show.bs.modal="initializeDate">
+<div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true" @show.bs.modal="initializeDate">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,92 +125,35 @@
             </div>
             <div class="modal-body">
                 <div class="dri_form">
-					   <p>주문자 : <span id="order-id">{{ orderInfo.order_id }}</span></p>
+                    <p>주문자 : <span id="order-id">{{ orderInfo.order_id }}</span></p>
                     <p>상품명 : <span id="product-name">{{ orderInfo.product_name }}</span></p>
                     <p>주문명 : <span id="order-name">{{ orderInfo.order_name }}</span></p>
                     <p>주문일자 : <span id="order-date">{{ orderInfo.order_date }}</span></p>
                     <p>주문 주소 : <span id="order-address">{{ orderInfo.order_address }}</span></p>
                     <p>전화번호 : <span id="user-phone">{{ orderInfo.user_phone }}</span></p>
-                    <p>방문일자 : <span id="visit-date"></span></p>
-                    <p>주문 상태 : <span id="order-state">{{ orderInfo.order_state }}</span></p>   
-                    
+                    <div class="form-group">
+                        <label for="updatedDate">방문일자:</label>
+                        <input type="date" id="updatedDate" class="form-control" v-model="updatedDate" />
+                    </div>
+                    <p>주문 상태 : <span id="order-state">{{ orderInfo.order_state }}</span></p>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-info" @click="saveChanges(itemStat.index + 1); updateVisitDate(itemStat.index, item.visit_date)">
-                    저장
-                </button>
+                <button type="button" class="btn btn-info" onclick="submitForm()">저장</button>
             </div>
         </div>
     </div>
 </div>
 
 
-
-<!-- Modal
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">주문정보확인</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5>주문 정보</h5>
-                <hr>
-                <div class="dri_form">
-                    <p>상품번호 : </p>
-                    <p th:text="${item.product_id}"></p>
-                </div>
-                <div class="dri_form">
-                    <p>배송주소 : </p>
-                    <p th:text="${item.order_address}"></p>
-                </div>
-                <div class="dri_form">
-                    <p>주문일자 : </p>
-                    <p th:text="${item.order_date}"></p>
-                </div>
-                <div class="dri_form">
-                    <p>주문자 : </p>
-                    <p th:text="${item.order_name}"></p>
-                </div>
-                <div class="dri_form">
-                    <p>연락처 : </p>
-                    <p th:text="${item.user_phone}"></p>
-                </div>
-                <div class="dri_form">
-                    <p>방문상태 : </p>
-                    <p th:text="${item.order_state}"></p>
-                    <select class="form-select form-select-sm" aria-label="Default select example">
-                        <option selected>방문상태</option>
-                        <option value="1" selected>주문완료</option>
-                        <option value="2">설치준비</option>
-                        <option value="3">설치완료</option>
-                        <option value="4">방문준비</option>
-                        <option value="5">방문완료</option>
-                    </select>
-                </div>
-                <div class="dri_form">
-                    <p>방문일자 : </p>
-                    <input type="date" class="form-control form-control-sm" th:field="*{item.request_date}" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-info" @click="saveChanges(itemStat.index + 1)">
-                    저장
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
--->
+</dri-body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
+
+
 <script>
 	//테이블 list
     var app = new Vue({
@@ -219,11 +176,34 @@
         app.selectedItemIndex = null;
     });
 
-    includeHTML();
+
+
+function submitForm() {
+    // 입력된 날짜 값 가져오기
+    var updatedDate = document.getElementById("updatedDate").value;
+
+    // AJAX를 사용하여 서버에 저장 요청 보내기
+    fetch("/staff/drive/datelist", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "orderId=1&visitDate=" + updatedDate
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+        // Handle success, e.g., redirect or show a success message
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        // Handle error, e.g., show an error message
+    });
+}
+
+
 </script>
 
-
-</dri-body>
 	<footer th:replace="~{/include/footer.html}"></footer>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </html>
