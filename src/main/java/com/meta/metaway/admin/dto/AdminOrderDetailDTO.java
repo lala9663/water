@@ -7,7 +7,9 @@ import com.meta.metaway.admin.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -63,7 +65,7 @@ public class AdminOrderDetailDTO {
 
 	public String getStateType() {
     	if (stateType == 0) {
-            return "구매 완료";
+            return "즉시 구매";
         } else if (stateType == 1) {
             return "렌탈 사용중";
         } else if (stateType == 2) {
@@ -71,11 +73,15 @@ public class AdminOrderDetailDTO {
         } else if (stateType ==3) {
             return "해지 신청";
         } else if (stateType ==4) {
-            return "반납 완료";
+            return "환불 신청";
         } else if (stateType ==5) {
-            return "해지 완료";
+            return "반납 완료";
         } else if (stateType ==6) {
+        	return "해지 완료";
+		} else if (stateType ==7) {
         	return "환불 완료";
+		} else if (stateType == 8){
+			return "반납 취소";
 		} else {
 			return "알 수 없음";
 		}

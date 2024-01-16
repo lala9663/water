@@ -1,7 +1,8 @@
 .container {
     display: grid;
     margin:10px;
-  
+    margin-top: 40px;
+    margin-bottom: 90px;
 }
 
 .profile-nav {
@@ -34,7 +35,7 @@
 
 .profile-nav{
 	    width: 200px;
-	    height: auto;
+	    height: 250px;
 	    margin-top: 16vh;
 	   border:1.3px solid rgb(153, 153, 153);
 	  border-radius: 20px;
@@ -84,8 +85,8 @@
 }
 
 .profile-nav-ul a {
-    color: black; /* 링크 색상 변경 (원하는 색상으로 조절) */
-    text-decoration: none; /* 밑줄 없애기 */
+    color: black;
+    text-decoration: none;
 }
 
 .profile-nav-ul ul {
@@ -107,10 +108,7 @@
     background-color: rgb(218, 238, 255);
 }
 
-.profile-nav-ul li:first-child:hover {
-    background-color: transparent; /* 또는 다른 적절한 색상으로 설정하세요 */
-    border-bottom: 1px solid #ddd; /* 다른 메뉴 항목과 동일한 효과를 주세요 */
-}
+
 
 .profile-nav-p{
 	font-size: 18px;
@@ -169,7 +167,7 @@
             height: 220px;
             top: 50px;
             margin-top: 10px;
-            transform: translate( 0%, -50%);
+            transform: translate( 0%, -40%);
         }
 
         #modal1 .close-area {
@@ -286,3 +284,64 @@
         border-radius: 5px;
         
     }
+
+/* Order */
+.orderDiv {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.getOrderDetailBox {
+    margin-bottom: 10px;
+}
+
+.detailBox {
+    display: flex;
+}
+
+.ProductImageBox {
+    flex: 1;
+}
+
+.stateText {
+    font-weight: bold;
+}
+
+.orderDetailInfoDiv {
+    display: flex;
+}
+
+.productImage {
+    max-width: 140px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+}
+
+.rightBox {
+    flex: 1;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.orderDetailButton {
+    width: 200px;
+    background-color: #00B0E8;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
