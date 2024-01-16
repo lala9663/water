@@ -162,6 +162,8 @@
 	<select id="getUserContractList" parameterType="Long"
 		resultType="com.meta.metaway.product.model.Contract">
 		SELECT
+		A.end_date as endDate,
+		A.state_type as stateType,
 		B.contract_id AS contractId,
 		B.product_id AS
 		productId,

@@ -1,0 +1,222 @@
+#productImageBox{
+    margin: 0 auto;
+}
+
+
+#productImage{
+    width: 600px;
+   height: auto;
+}
+#productNameBox{
+    border:1.3px solid white;
+     border-radius: 20px;
+   background-color:white;
+   padding: 20px 20px 20px 20px;
+}
+
+
+
+#productBox {
+   width: 100%;
+   height: auto;
+   background-color: #F2F4F5;
+   padding: 150px 0 50px 0;
+   display: flex;
+   
+}
+#productDetailBox {
+   height: 800px;
+   width: 400px;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+
+/*상품 명*/
+#productName{
+   font-size: 24px;
+   font-weight: bold;
+   margin-top: 20px;
+}
+/*기능 명*/
+#productFunctionBox p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#productFunctionBox {
+    display: block;
+}
+
+#productFunctionBox span {
+    display: inline-block;
+    border: 1.3px solid rgb(153, 153, 153);
+    border-radius: 6px;
+    padding: 5px 10px;  
+    margin: 2px;
+    font-size: 12px;
+    width: 350px; 
+    color: black;
+}
+
+
+
+.functions{
+    border:1.3px solid rgb(153, 153, 153);
+     border-radius: 20px;
+   padding: 2px 20px 2px 20px;
+   margin-left: 15px;
+   font-weight: bold;
+}
+.functions:first-of-type{
+   margin-left: 0px;
+}
+
+#productBuyBox{
+   margin-top: 30px;
+    padding: 20px 20px 20px 20px;
+   background-color: white;   
+    border:1.3px solid rgb(153, 153, 153);
+     border-radius: 20px;
+}
+
+#buyType{
+   display: inline-block;
+   text-align: center;
+   font-size: 24px;
+   padding: 5px 50px 5px 50px;
+}
+
+#contractAll{
+   display:flex;
+}
+#rental{
+   width: 200px;
+   margin:3px;
+   margin-top: -10px;
+   background-color: white;   
+    border:1.3px solid rgb(153, 153, 153);
+     border-radius: 7px;
+     color: black;
+}
+
+
+.buyDiv span,
+.rentalDiv span{
+   color: #00B0E8;
+}
+.btn-lg{
+   width: 170px;   
+}
+
+#buttonBox{
+   margin: 0 auto;
+   width: 100%;
+   height: 100%;
+}
+
+#rentalBox{
+   margin-top: 150px;
+}
+#contractAll{
+   margin: 0 auto;
+   width: 100%;
+   height: 100%;
+}
+
+
+#admin{
+   margin-top: 30px;
+   background-color:#F2F4F5;
+   height: 40px;
+   width: 100%;
+   margin-left: 30px;
+}
+
+.btn-group {
+   width: 100%;
+}
+.btn-primary{
+   display: inline-block;
+}
+
+
+.buyDiv{
+   display: none;
+}
+#rentalBox.buyDiv span,
+#rentalBox.rentalDiv span {
+    float: right;
+}
+
+.buyDiv p,
+.rentalDiv p{
+   font-size: 16px;
+   font-weight: bold;
+}
+
+#buy{
+      width: 365px;
+   margin:3px;
+   margin-top: -10px;
+   background-color: white;   
+    border:1.3px solid rgb(153, 153, 153);
+     border-radius: 7px;
+     color: black;
+}
+
+.basketButton,
+.buyButton{
+   display: inline-block;
+   }
+
+/*장바구니, 렌탈 버튼*/
+.buyDiv .btn_cart,
+.rentalDiv .btn_cart {
+    width: 175px;
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.1px solid rgb(153, 153, 153);
+    border-radius: 5px;
+}
+.buyDiv .btn_rental,
+.rentalDiv .btn_rental{
+    width: 175px;
+    background-color: #00B0E8;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+}
+.btn_update,
+.btn_delete{
+       width: 175px;
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    text-align: center;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.1px solid rgb(153, 153, 153);
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
