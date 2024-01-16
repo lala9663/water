@@ -57,10 +57,10 @@
         <appender-ref ref="CONSOLE" />	
         <appender-ref ref="SYSLOG" />
     </root>
-	<logger name="com.meta.metaway.log" level="info" additivity="false">
+	<logger name="com.meta.metaway.log" level="warn" additivity="false">
 		<appender-ref ref="CONSOLE" />
 	</logger>
-	<logger name="access-log" level="info" additivity="false">
+	<logger name="access-log" level="warn" additivity="false">
 		<appender-ref ref="ACCESSLOG" />
 	</logger>
 	

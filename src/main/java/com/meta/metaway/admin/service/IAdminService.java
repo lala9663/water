@@ -10,6 +10,7 @@ import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
 import com.meta.metaway.admin.model.Visitor;
+import com.meta.metaway.order.dto.OrderDTO;
 import com.meta.metaway.staff.dto.StaffDTO;
 
 public interface IAdminService {
@@ -50,5 +51,10 @@ public interface IAdminService {
     List<StaffDTO> getUsersWithCodi();
     
     void insertViewCount(Visitor data);
+    
+    long getTotalOrderPriceMonth();
+    
+    long getTotalRentalPriceMonth();
+
 
 }
