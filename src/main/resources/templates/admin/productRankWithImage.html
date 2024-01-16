@@ -25,11 +25,11 @@
             <td th:text="${rowStat.count}"></td>
             <td th:text="${product.productId}"></td>
             <td th:text="${product.productName}"></td>
-            <td th:text="${product.totalSales}"></td>
+             <td th:text="${product.totalSales}"></td>
             <td>
-                <img th:if="${product.uuidName}" th:src="@{/image/{uuidName}(uuidName=${product.uuidName})}"
-                    th:alt="${product.fileName}" width="100" height="100"/>
-            </td>
+                <img th:src="'data:' + ${product.fileType} + ';base64,' + ${product.filePath}" 
+                alt="productImgage" class="productImage">
+            </td> 
         </tr>
     </tbody>
 </table>

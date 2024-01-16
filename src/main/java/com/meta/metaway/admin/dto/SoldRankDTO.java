@@ -9,9 +9,6 @@ public class SoldRankDTO {
     private Long totalSales;
     private int orderState;
     private Long salesRank;
-    private String uuidName;   
     private String filePath;
-    private String fileName;
-    private Long fileSize;
     private String fileType;
 }
