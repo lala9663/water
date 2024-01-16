@@ -95,7 +95,6 @@ public class AdminService implements IAdminService {
 
 	@Override
 	public List<AdminScheduleStaffDTO> selectListScheduleStaff(long orderId) {
-		// TODO Auto-generated method stub
 		return adminRepository.selectListScheduleStaff(orderId);
 	}
 	

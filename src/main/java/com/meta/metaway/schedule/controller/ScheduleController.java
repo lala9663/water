@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meta.metaway.schedule.service.IScheduleService;
 @RequestMapping("/schedule")
+@Controller
 public class ScheduleController {
 
 	@Autowired

@@ -89,4 +89,5 @@
 			delete from staff
 			where staff_id = #{staffId}
 		</delete>
+		
     </mapper>

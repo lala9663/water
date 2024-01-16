@@ -152,7 +152,7 @@ public class AdminController {
 		System.out.println(orderId + ": orderId");
 		List<AdminStaffDTO> driverList = adminService.selectAllDriverList();
 		model.addAttribute("driverList", driverList);
-		
+
 		List<AdminStaffDTO> codiList = adminService.selectAllCodiList();
 		model.addAttribute("codiList", codiList);
 		
@@ -167,9 +167,9 @@ public class AdminController {
 	@PostMapping("/assign/complate/{orderId}")
 	public String assignComplate(@PathVariable long orderId, RedirectAttributes redirectAttr, Model model) {
 		System.out.println("배정완료컨트롤러");
-//		orderId = adminService.getOrderId(orderId);
+		orderId = adminService.getOrderId(orderId);
 		adminService.updateCompleteOrder(orderId);
-//		model.addAttribute("orderId", orderId);
+		model.addAttribute("orderId", orderId);
 		redirectAttr.addFlashAttribute("message", orderId+" 번 주문 배정이 완료 되었습니다.");
 		return "redirect:/admin/orderlist/1";
 	}
