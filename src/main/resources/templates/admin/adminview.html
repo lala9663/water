@@ -193,7 +193,7 @@
 					            <span th:if="${order.orderState eq '주문 취소'}" th:class="'status return'">
 					                <span th:text="${order.orderState}"></span>
 					            </span>
-					            <span th:if="${order.orderState eq '주문 대기'}" th:class="'status inProgress'">
+					            <span th:if="${order.orderState eq '배정 대기'}" th:class="'status inProgress'">
 					                <span th:text="${order.orderState}"></span>
 					            </span>
 					        </td>
