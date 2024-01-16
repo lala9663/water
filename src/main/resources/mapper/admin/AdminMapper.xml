@@ -424,6 +424,26 @@
 		    JOIN staff s ON u.user_id = s.user_id
 		    WHERE a.authority_name = 'ROLE_CODI'
 		  </select> -->
+		  
+		<!-- 이번 달의 총 주문 가격 -->
+    	<select id="getTotalOrderPriceMonth" resultType="long">
+	        <![CDATA[
+	            SELECT COALESCE(SUM(order_price), 0) as totalOrderPrice
+	            FROM orders
+	            WHERE EXTRACT(MONTH FROM order_date) = EXTRACT(MONTH FROM CURRENT_DATE)
+	            AND EXTRACT(YEAR FROM order_date) = EXTRACT(YEAR FROM CURRENT_DATE)
+	        ]]>
+	    </select>
+
+		<!-- 이번 달 총 렌탈 가격 -->
+    	<select id="getTotalRentalPriceMonth" resultType="long">
+	        <![CDATA[
+	            SELECT COALESCE(SUM(rental_price), 0) as totalRentalPrice
+	            FROM orders
+	            WHERE EXTRACT(MONTH FROM order_date) = EXTRACT(MONTH FROM CURRENT_DATE)
+	            AND EXTRACT(YEAR FROM order_date) = EXTRACT(YEAR FROM CURRENT_DATE)
+	        ]]>
+	    </select>	    
 
 
 
