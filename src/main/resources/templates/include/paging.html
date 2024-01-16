@@ -9,19 +9,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
    <link rel="stylesheet" th:href="@{/css/admin/style.css}">
 </head>
+
+<!-- paging -->
 <!-- paging -->
 <div class="pagination-container" th:fragment="paging">
-<ul class="pagination">
-	<li class="page-item" th:if="${nowPage >1}">
-		<a class="page-link" th:href="@{/admin/orderlist/__${nowPage-1}__}" aria-label="Previous">◀</a>
-	</li>
+    <ul class="pagination">
+        <li class="page-item" th:if="${nowPage > 1}">
+            <a class="page-link" th:href="@{/admin/orderlist/__${nowPage-1}__}" aria-label="Previous">◀</a>
+        </li>
 
-	<li class="page-item" th:each="i: ${#numbers.sequence(startPage, endPage)}" th:classappend="${i==nowPage}?active">
-		<a class="page-link" th:href="@{/admin/orderlist/__${i}__}">[[${i}]]</a>		
-	</li>
-	
-	<li class="page-item" th:if="${(nowPage == 1) || (nowPage < totalPage)}">
-		<a class="page-link" th:href="@{/admin/orderlist/__${nowPage+1}__}" aria-label="Next">▶</a>
-	</li>
-</ul>
+        <li class="page-item" th:each="i: ${#numbers.sequence(startPage, endPage)}" th:classappend="${i==nowPage}?active">
+            <a class="page-link" th:href="@{/admin/orderlist/__${i}__}">[[${i}]]</a>
+        </li>
+
+        <li class="page-item" th:if="${(nowPage == 1) || (nowPage < totalPage)}">
+            <a class="page-link" th:href="@{/admin/orderlist/__${nowPage+1}__}" aria-label="Next">▶</a>
+        </li>
+    </ul>
 </div>
+

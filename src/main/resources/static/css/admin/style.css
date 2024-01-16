@@ -1,6 +1,12 @@
 .order_list{
 	margin-top: 110px;
 }
+
+.rantal_list{
+	margin-top: 120px;
+}
+
+
 .wrap {width: 1280px;  margin: 0 auto;}
 
 /* 회원리스트 페이지 */
@@ -82,6 +88,9 @@ table{
   .total-member {
     width: 10%;
   }
+
+
+
 
 
 

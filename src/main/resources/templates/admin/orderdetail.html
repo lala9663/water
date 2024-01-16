@@ -83,7 +83,7 @@
 		                </div>
 		                <p th:unless="${#lists.size(staff)} > 0">기사를 배정해주세요.</p>
 		                <div class="flex_button">
-                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">기사 선택</button>
+                            <button type="button" class="drive-btn" data-toggle="modal" data-target="#myModal">기사 선택</button>
                     </div>
 		            </div>
 		            <div class="engineer_box">
@@ -107,6 +107,7 @@
 		            </div>
 		            <form class="flex_button" th:action="@{/admin/assign/complate/{orderId}(orderId=${orderList[0].orderId})}" method="post">
 						<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
+		            	<button class="cancle-btn" ><a th:href="@{'/admin/orderlist/1'}">배정 취소</a></button>
 		            	<button type="submit" class="submit-btn">배정 완료</button>
 		            </form>
 		        </div>
@@ -115,7 +116,7 @@
     
        <!-- The Modal -->
    <div class="modal" id="myModal">
-       <div class="modal-dialog">
+       <div class="modal-dialog modal-lg">
          <div class="modal-content">
      
            <!-- Modal Header -->
@@ -126,7 +127,7 @@
      
            <!-- Modal body -->
            <div class="modal-body">
-              <table class="table" th:if="${driverList}">
+              <table class="driver_table" th:if="${driverList}">
              <thead class="table-success">
                <tr>
                  <th>직원번호</th>
@@ -148,23 +149,19 @@
                    <input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
                    <input type="hidden" name="staffId" th:value="${driver.staffId}">
                    <input type="hidden" name="userId" th:value="${driver.userId}">
-                  <button type="button" class="btn btn-outline-primary" th:onclick="assignStaff('driver', '[[${driver.userName}]]','[[${driver.staffId}]]','[[${driver.userId}]]')">배정</button>
+                  <button type="button" class="assign_btn" th:onclick="assignStaff('driver', '[[${driver.userName}]]','[[${driver.staffId}]]','[[${driver.userId}]]')">배정</button>
                </td>
                </tr>
              </tbody>
            </table>
            </div>
-     
-           <!-- Modal footer -->
-           <div class="modal-footer">
-             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-           </div>
+
          </div>
        </div>
      </div>
          <!-- The Codi Modal -->
    <div class="modal" id="myCodiModal">
-       <div class="modal-dialog">
+       <div class="modal-dialog modal-lg">
          <div class="modal-content">
      
            <!-- Modal Header -->
@@ -175,7 +172,7 @@
      
            <!-- Modal body -->
            <div class="modal-body">
-              <table class="table" th:if="${codiList}">
+              <table class="cody_table" th:if="${codiList}">
              <thead class="table-success">
                <tr>
                  <th>직원번호</th>
@@ -197,23 +194,22 @@
                    <input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
                    <input type="hidden" name="staffId" th:value="${codi.staffId}">
                    <input type="hidden" name="userId" th:value="${codi.userId}">
-                  <button type="button" class="btn btn-outline-primary" th:onclick="assignStaff('codi', '[[${codi.userName}]]', '[[${codi.staffId}]]','[[${codi.userId}]]')">배정</button>
+                  <button type="button" class="assign_btn" th:onclick="assignStaff('codi', '[[${codi.userName}]]', '[[${codi.staffId}]]','[[${codi.userId}]]')">배정</button>
                </td>
                </tr>
              </tbody>
            </table>
            </div>
-     
-           <!-- Modal footer -->
-           <div class="modal-footer">
-             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-           </div>
+
+           
          </div>
        </div>
      </div>
-     
-     
+    </div>
+
+<footer th:replace="~{/include/footer.html}"></footer>
 </body>
+
 
 <script>
 	
