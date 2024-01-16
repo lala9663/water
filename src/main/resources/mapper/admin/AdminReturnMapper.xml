@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.meta.metaway.admin.dao.IAdminReturnRepository">
+ 		<select id="selectTotalReturnCount" resultType="int">
+			<![CDATA[
+				select count(return_id) from return
+			]]>
+		</select>
+		
+		<select id="selectAllReturnList" resultType="com.meta.metaway.admin.dto.AdminReturnDTO">
+			select 
+				r.return_id AS "returnId",
+				r.order_detail_id AS "orderDetailId",
+				r.return_date AS "returnDate",
+				r.return_price AS "returnPrice",
+				r.return_text AS "returnText",
+			 	od.start_date as "startDate",
+				od.end_date as "endDate",
+            	od.state_type as "stateType" 
+			from return r 	
+				join order_detail od ON r.order_detail_id = od.order_detail_id
+		</select>
+		<!-- 주문상세번호조회-->
+		<select id="getOrderDetailId" resultType="int">
+			select order_detail_id FROM order_detail where order_detail_id = #{orderDetailId}
+		</select>
+
+		<!-- 반납번호조회-->
+		<select id="getReturnId" resultType="int">
+			select return_id FROM return where return_id = #{returnId}
+		</select>
+		
+		<!--<update id="updateCancelOrderDetail" parameterType="long">
+			update order_detail
+			set state_type =
+		</update>-->
+		
+		<!-- 반납 신청 수-->
+		<select id="selectReturnCount" parameterType="long">
+			select count(order_detail_id) from order_detail where state_type = 2
+		</select>
+		<!-- 해지 신청 수-->
+		<select id="selectTerminateCount" parameterType="long">
+			select count(order_detail_id) from order_detail where state_type = 3
+		</select>
+		<!-- 환불 신청 수 -->
+		<select id="selectRefundCount" parameterType="long">
+			select count(order_detail_id) from order_detail where state_type = 4
+		</select>
+		
+		<!-- 반납 상세-->
+		<select id="selectAllReturnDetailList" resultType="com.meta.metaway.admin.dto.AdminReturnDTO">
+			SELECT
+            od.order_id as "orderId",
+            od.contract_id as "contractId",
+            od.order_count as "orderCount",
+            od.start_date as "startDate",
+            od.end_date as "endDate",
+            od.state_type as "stateType",
+            o.order_name as "orderName",
+            o.order_address as "orderAddress",
+            o.order_content as "orderContent",
+            o.order_price as "orderPrice",
+            o.rental_price as "rentalPrice",
+            o.order_date as "orderDate",
+            o.request_date as "requestDate",
+            p.product_model as "productModel",
+            p.product_name as "productName",
+            c.contract_year as "contractYear",
+            c.contract_price as "contractPrice",
+            u.user_phone as "userPhone",
+            r.return_id AS "returnId",
+			r.order_detail_id AS "orderDetailId",
+			r.return_date AS "returnDate",
+			r.return_price AS "returnPrice",
+			r.return_text AS "returnText"
+	        FROM return r
+	        INNER JOIN order_detail od ON od.order_detail_id = r.order_detail_id
+	        INNER JOIN orders o ON o.order_id = od.order_id
+	        INNER JOIN product p ON p.product_id = od.product_id
+	        INNER JOIN contract c ON c.contract_id = od.contract_id
+	        INNER JOIN users u ON u.user_id = o.user_id
+	        WHERE o.order_detail_id = #{orderDetailId}
+		</select>
+    </mapper>

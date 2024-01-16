@@ -17,7 +17,7 @@
    <!--sweetalert-->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-   <title>주문 리스트</title>
+   <title>반납 상세</title>
 </head>
 
 <body>
@@ -80,32 +80,9 @@
 		                </div>
 		                <p th:unless="${#lists.size(staff)} > 0">기사를 배정해주세요.</p>
 		                <div class="flex_button">
-                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">기사 선택</button>
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal" x`>기사 선택</button>
                         </div>
 		            </div>
-		            <div class="engineer_box">
-		                <h3>코디</h3>
-		                <div th:if="${#lists.size(staff)} > 0">
-		                    <div th:each="codi : ${staff}" th:if="${codi.authorityName == 'ROLE_CODI'}">
-		                        <div class="codi" th:if="${codi != null}">
-		                            <p th:text="${codi.userName + ' (' + codi.staffId + '/' + codi.workPlace + ')'}">코디를 배정해주세요.</p>
-		                            <form class="flex_button" th:action="@{/admin/cancel/{orderId}/{staffId}(orderId=${codi.orderId}, staffId=${codi.staffId})}" method="post">
-		                                <input type="hidden" name="orderId" th:value="${codi.orderId}">
-		                                <input type="hidden" name="staffId" th:value="${codi.staffId}">
-		                                <button type="submit" class="btn btn-outline-secondary" id="cancelAssign">배정취소</button>
-		                            </form>
-		                        </div>
-		                    </div>
-		                </div>
-		                <p th:unless="${#lists.size(staff)} > 0">코디를 배정해주세요.</p>
-			            <div class="flex_button">
-	                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myCodiModal">코디 선택</button>
-	                    </div>
-		            </div>
-		            <form class="flex_button" th:action="@{/admin/assign/complate/{orderId}(orderId=${orderList[0].orderId})}" method="post">
-						<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
-		            	<button type="submit" class="btn btn-primary btn-block">배정 완료</button>
-		            </form>
 		        </div>
 		    </div>
 		</div>
@@ -159,55 +136,7 @@
          </div>
        </div>
      </div>
-         <!-- The Codi Modal -->
-   <div class="modal" id="myCodiModal">
-       <div class="modal-dialog">
-         <div class="modal-content">
-     
-           <!-- Modal Header -->
-           <div class="modal-header">
-             <h4 class="modal-title">미배정 코디 목록</h4>
-             <button type="button" class="close" data-dismiss="modal">&times;</button>
-           </div>
-     
-           <!-- Modal body -->
-           <div class="modal-body">
-              <table class="table" th:if="${codiList}">
-             <thead class="table-success">
-               <tr>
-                 <th>직원번호</th>
-                 <th>이름</th>
-                 <th>이메일</th>
-                 <th>연락처</th>
-                 <th>근무지</th>
-                 <th>관리</th>
-               </tr>
-             </thead>
-             <tbody>
-               <tr th:each="codi: ${codiList}">
-                 <td th:text="${codi.staffId}"></td>
-                 <td th:text="${codi.userName}"></td>
-                 <td th:text="${codi.userEmail}"></td>
-                 <td th:text="${codi.userPhone}"></td>
-                 <td th:text="${codi.workPlace}"></td>
-               <td>
-                   <input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
-                   <input type="hidden" name="staffId" th:value="${codi.staffId}">
-                   <input type="hidden" name="userId" th:value="${codi.userId}">
-                  <button type="button" class="btn btn-outline-primary" th:onclick="assignStaff('codi', '[[${codi.userName}]]', '[[${codi.staffId}]]','[[${codi.userId}]]')">배정</button>
-               </td>
-               </tr>
-             </tbody>
-           </table>
-           </div>
-     
-           <!-- Modal footer -->
-           <div class="modal-footer">
-             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-           </div>
-         </div>
-       </div>
-     </div>
+
 </body>
 <style>
 
@@ -245,9 +174,8 @@ function assignStaffAsync(staffType, staffName, staffId, userId) {
                     if (staffType === 'driver') {
                         $('.driver p').text(`${staffName}(${staffId})`);
                         location.reload();
-                    } else if (staffType === 'codi') {
-                        $('.codi p').text(`${staffName}(${staffId})`);
-                        location.reload();
+                    } else if (staffType.equals(null)) {
+                       console.error();
                     }
                 },
                 error: function (xhr, status, error) {

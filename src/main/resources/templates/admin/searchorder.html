@@ -29,7 +29,7 @@
          <div class="m_flex_box">
             <div class="total-orders">
                <p>총 주문: <span th:text="${totOrders}"></span></p>
-               <p>주문 대기: <span th:text="${waitOrders}"></span></p>
+               <p>배정 대기: <span th:text="${waitOrders}"></span></p>
                <p>배정 완료: <span th:text="${completeOrders}"></span></p>
                <p>주문 취소: <span th:text="${cancelledOrders}"></span></p>
                <p class="alert alert-info" th:text="${message}"></p>
@@ -38,7 +38,7 @@
                <form th:action="@{/admin/searchorder/1}"  method="get">
                   	<div>
 	                     <select th:name="orderState" class="custom-select">
-	                        <option th:selecteth:action="@{/admin/searchorder/1}" th:selected="${orderState == 0}" th:value="0">주문 대기</option>
+	                        <option th:selecteth:action="@{/admin/searchorder/1}" th:selected="${orderState == 0}" th:value="0">배정 대기</option>
 	                        <option th:selected="${orderState == 1}" th:value="1">배정 완료</option>
 	                        <option th:selected="${orderState == 2}" th:value="2">주문 취소</option>
 	                     </select>

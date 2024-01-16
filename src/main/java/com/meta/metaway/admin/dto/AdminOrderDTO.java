@@ -37,13 +37,15 @@ public class AdminOrderDTO {
     
     public String getOrderState() {
     	if (orderState == 0) {
-            return "주문 대기";
+            return "배정 대기";
         } else if (orderState == 1) {
             return "배정 완료";
         } else if (orderState == 2) {
             return "주문 취소";
-        } else {
-            return "환불 완료";
+        } else if (orderState == 3) {
+        	return "배송 완료";
+    	} else {
+            return "알 수 없음";
         }
     }
 }
