@@ -41,6 +41,8 @@ public interface IUserRepository {
     
     List<Contract> getUserContractList(long orderId);
     
+    Order getOrderByOrderId(long orderId);
+    
     Product getUserProduct(long contractId);
     
     void updatePassword(User user);

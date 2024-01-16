@@ -228,6 +228,17 @@ public class UserService implements IUserService {
 		}
 		return orderList;
 	}
+
+	@Override
+	public Order getUserMyOrderDetail(Order order) {
+			order = userRepository.getOrderByOrderId(order.getOrderId());
+			order.setContractList(userRepository.getUserContractList(order.getOrderId()));
+			for(Contract contract : order.getContractList()) {
+				contract.setProduct(userRepository.getUserProduct(contract.getContractId()));
+				contract.getProduct().setImageFile(productImageString(contract.getProduct().getImageFile()));
+			}
+		return order;
+	}
 	
 	
 }
