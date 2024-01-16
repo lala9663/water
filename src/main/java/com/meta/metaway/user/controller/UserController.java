@@ -1,5 +1,6 @@
 package com.meta.metaway.user.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.multiClass.MultiClass;
@@ -28,6 +30,7 @@ import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
 import com.meta.metaway.user.service.MailSendService;
 
+import io.jsonwebtoken.lang.Collections;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -51,21 +54,46 @@ public class UserController {
 	
 
     @GetMapping("/profile")
-    public String getProfilePage(HttpServletRequest request, Model model) {
-        String token = multiClass.getToken(request);
-
-        if (token != null) {
+    public String getProfilePage(HttpServletRequest request, Model model) {      
+    	String token = multiClass.getToken(request);
+       if (token != null) {
             String username = jwtUtil.getUsername(token);
-            User user = userService.getUserByUsername(username);
+           User user = userService.getUserByUsername(username);
 
             if (user != null) {
                 model.addAttribute("userProfile", user);
-                return "user/profile";
+                return "user/profile"; 
             }
         }
 
         return "redirect:/login";
+   }
+	
+    @GetMapping("/profileList")
+    @ResponseBody
+    public ResponseEntity<?> getUserProfile(HttpServletRequest request) {
+        try {
+            String token = multiClass.getToken(request);
+
+            if (token != null) {
+                String username = jwtUtil.getUsername(token);
+                User user = userService.getUserByUsername(username);
+
+                if (user != null) {
+                    return new ResponseEntity<>(user, HttpStatus.OK);
+                }
+            }
+
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } catch (Exception e) {
+            // Handle exceptions and return a JSON response with error details
+            return new ResponseEntity<>("Error fetching user info: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+
+
+
 
     @GetMapping("/update")
     public String getUpdateProfilePage(HttpServletRequest request, Model model) {
@@ -219,31 +247,71 @@ public class UserController {
 	        return "user/orderlist"; 
 	    }
 	    
+//	    @GetMapping("/orderdetail")
+//	    public String getUserOrderDetails(HttpServletRequest request, Model model) {
+//	    	String token = multiClass.getToken(request);
+//	    	
+//	        if (token != null) {
+//	            Long userId = jwtUtil.getId(token);
+//	            System.out.println("주문상세조회에서 유저id : " + userId);
+//	            
+//		    	List<OrderDetail> orderDetailList = userService.getOrderDetailByUserId(userId);
+//		        model.addAttribute("orderList", orderDetailList);
+//	        }
+//	        return "user/orderDetailList"; 
+//	    }
 	    @GetMapping("/orderdetail")
-	    public String getUserOrderDetails(HttpServletRequest request, Model model) {
-	    	String token = multiClass.getToken(request);
-	    	
+	    @ResponseBody
+	    public List<OrderDetail> getUserOrderDetails(HttpServletRequest request, Model model) {
+	        List<OrderDetail> orderDetailList = new ArrayList<>();
+	        String token = multiClass.getToken(request);
+
 	        if (token != null) {
 	            Long userId = jwtUtil.getId(token);
-	            System.out.println("주문상세조회에서 유저id : " + userId);
-	            
-		    	List<OrderDetail> orderDetailList = userService.getOrderDetailByUserId(userId);
-		        model.addAttribute("orderList", orderDetailList);
+	            System.out.println("주문상세조회에서 유저id: " + userId);
+
+	            orderDetailList = userService.getOrderDetailByUserId(userId);
 	        }
-	        return "user/orderDetailList"; 
+
+	        return orderDetailList;
 	    }
 	    
 	    @GetMapping("/order")
 	    public String getUserMyOrder(HttpServletRequest request, Model model) {
-	    	try {
-	    		long userId = multiClass.getTokenUserId(request);
-		    	List<Order> orderList = userService.getUserMyOrder(userId);
-		    	model.addAttribute("orderList", orderList);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			} 
-	    	return "user/order";
+	        try {
+	            long userId = multiClass.getTokenUserId(request);
+	            List<Order> orderList = userService.getUserMyOrder(userId);
+	            model.addAttribute("orderList", orderList);
+	        } catch (Exception e) {
+	            System.out.println(e.getMessage());
+	        } 
+	        return "user/order";
 	    }
+
+	    @GetMapping("/orderList")
+	    @ResponseBody
+	    public List<Order> getUserOrderList(HttpServletRequest request) {
+	        try {
+	            long userId = multiClass.getTokenUserId(request);
+	            List<Order> orderList = userService.getUserMyOrder(userId);
+	            return orderList;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return null;
+	        }
+	    }
+
+
+
+//        @PostMapping ("/mailSend")
+//        @ResponseBody
+//        @CrossOrigin
+//        public String mailSend(@RequestBody EmailRequestDTO emailDto){
+//            System.out.println("이메일 인증 이메일 :"+emailDto.getEmail());
+//
+//            return mailService.joinEmail(emailDto.getEmail());
+//        }
+
 
 	    @PostMapping("/mailSend")
 	    @ResponseBody

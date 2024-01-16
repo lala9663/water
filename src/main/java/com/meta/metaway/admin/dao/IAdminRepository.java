@@ -14,6 +14,7 @@ import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
 import com.meta.metaway.admin.model.Visitor;
+import com.meta.metaway.order.dto.OrderDTO;
 import com.meta.metaway.staff.dto.StaffDTO;
 
 @Repository
@@ -86,7 +87,10 @@ public interface IAdminRepository {
     
 //    List<StaffDTO> getUsersWithCodi();
     List<StaffDTO> getUsersWithCodi();
-
+    
+    long getTotalOrderPriceMonth();
+    
+    long getTotalRentalPriceMonth();
     
     long selectNextVisitorId();
 

@@ -19,6 +19,7 @@ import com.meta.metaway.admin.dto.AdminStaffDTO;
 import com.meta.metaway.admin.dto.SoldRankDTO;
 import com.meta.metaway.admin.dto.UserCountDTO;
 import com.meta.metaway.admin.service.IAdminService;
+import com.meta.metaway.order.dto.OrderDTO;
 import com.meta.metaway.staff.dto.StaffDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -255,7 +256,6 @@ public class AdminController {
 //        Double averageVisitorCount = adminService.getOverallAverageVisitorCount();
         // 총 판매량
         int totalSold = adminService.getTotalSalesCount(0);
-        model.addAttribute("totalSold", totalSold);
         // 총 회원 수
         UserCountDTO getTotalUser = adminService.getTotalUser();
         // 최근 주문 수 총 7개
@@ -263,12 +263,17 @@ public class AdminController {
         // 신규 codi 직원
 //        List<StaffDTO> codi = adminService.getUsersWithCodi();
         List<StaffDTO> codi = adminService.getUsersWithCodi();
-
         
+        long monthPrice = adminService.getTotalOrderPriceMonth();
+        long monthRentalPrice = adminService.getTotalRentalPriceMonth();
+
+        model.addAttribute("totalSold", totalSold);
         model.addAttribute("userStatistics", getTotalUser);
         model.addAttribute("dailyVisitorCount", dailyVisitorCount);
         model.addAttribute("orders", orders);
         model.addAttribute("codi", codi);
+        model.addAttribute("monthPrice", monthPrice);
+        model.addAttribute("monthRentalPrice", monthRentalPrice);
 
         
 //        model.addAttribute("visitorCount", visitorCount);

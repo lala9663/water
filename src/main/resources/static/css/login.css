@@ -3,10 +3,10 @@
 .login-form{
      padding: 8% 0 0;
      margin: auto;
-   margin-top: 140px;
-   margin-bottom: 30px;
+   margin-top: 280px;
+   margin-bottom: 190px;
    width: 600px;
-   height: auto;
+   height: 370px;
      border:1.3px solid rgb(153, 153, 153);
      border-radius: 20px;
      text-align: center;  
@@ -20,9 +20,10 @@
 .login-box input{
    border: none;
    border-bottom: 2px solid rgb(153, 153, 153);
-   margin-top: 15px;
-   width: 150px;
-   font-size: 16px;
+   margin-top: 30px;
+   width: 250px;
+   font-size: 17px;
+
 }
 
 .login-box input:focus{
@@ -46,11 +47,37 @@
 
 input[type="password"] {
   font:small-caption;
+     font-size: 17px;
   
 }
 
 .login-btn{
-   width: 300px;
+   width: 400px;
+  background-color: #00B0E8;
+  border-radius: 8px;
+  border-width: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
+  text-align: center;
+  transition: all 200ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 30px;
+}
+
+.join-btn{
+	   width: 400px;
   background-color: rgba(51, 51, 51, 0.05);
   border-radius: 8px;
   border-width: 0;
@@ -71,5 +98,5 @@ input[type="password"] {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  margin-top: 15px;
+  margin-top: 5px;
 }

@@ -55,7 +55,7 @@
                         <span class="icon">
                             <ion-icon name="help-outline"></ion-icon>
                         </span>
-                        <span class="title">Staff List</span>
+                        <span class="title">Codi List</span>
                     </a>
                 </li>
                 <li>
@@ -129,10 +129,10 @@
                 </div>
 
                 <div class="card">
-                    <div>
-                        <div class="numbers" th:text="${totalSold}">기본 0</div>
-                        <div class="cardName">Total Sold</div>
-                    </div>
+					<div>
+					    <div class="numbers" th:text="${monthPrice} + ${monthRentalPrice}">$7,842</div>
+					    <div class="cardName">오늘 판매 금액</div>
+					</div>
 
                     <div class="iconBx">
                         <ion-icon name="cart-outline"></ion-icon>
@@ -151,10 +151,10 @@
                 </div>
 
                 <div class="card">
-                    <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">오늘 판매 금액</div>
-                    </div>
+					<div>
+					    <div class="numbers" th:text="${monthPrice} + ${monthRentalPrice}">$7,842</div>
+					    <div class="cardName">오늘 판매 금액</div>
+					</div>
 
                     <div class="iconBx">
                         <ion-icon name="cash-outline"></ion-icon>
@@ -183,9 +183,21 @@
 						        <td th:text="${order.orderName}"></td>
 						        <td th:text="${order.orderPrice}"></td>
 						        <td th:text="${order.orderName}"></td>
-						        <td th:text="${order.orderState}"></td>
-<!--						        <td><span class="status" th:class="${order.orderState}">${order.orderState}</span></td>
--->						    </tr>
+					        <td>
+					            <span th:if="${order.orderState eq '배정 완료'}" th:class="'status delivered'">
+					                <span th:text="${order.orderState}"></span>
+					            </span>
+					            <span th:if="${order.orderState eq '배송 완료'}" th:class="'status pending'">
+					                <span th:text="${order.orderState}"></span>
+					            </span>
+					            <span th:if="${order.orderState eq '주문 취소'}" th:class="'status return'">
+					                <span th:text="${order.orderState}"></span>
+					            </span>
+					            <span th:if="${order.orderState eq '주문 대기'}" th:class="'status inProgress'">
+					                <span th:text="${order.orderState}"></span>
+					            </span>
+					        </td>
+						    </tr>
 						</tbody>
 
 			        </table>
