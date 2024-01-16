@@ -17,7 +17,10 @@
 	<div id="bodyrap">
 	<form id="insertForm" action="/product/insert" enctype="multipart/form-data" method="post">
 		 <div class="insert_title">
-        <p><span><strong>상품 등록</strong></span></p>
+        <p>
+			<a th:href="@{/admin/adminview}" style="color: black;  text-decoration: none;">
+<img src="/images/return.png" style="width: 30px;">
+			<span><strong>상품 등록</strong></span></a></p>
     </div>
 		<div id="modelBox">
 			<label for="productModel" class="form-label">상품 모델명<span>*</span></label>

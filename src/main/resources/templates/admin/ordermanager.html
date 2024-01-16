@@ -26,7 +26,13 @@
    
   
    <div class="order_list">
-         <p class="ti_con"><a th:href="@{/admin/orderlist/1}">주문 리스트</a></p>
+	  
+         <p class="ti_con">
+			  
+			 <a th:href="@{/admin/adminview}">
+				<img src="/images/return.png" style="width: 30px;">
+				 주문 리스트</a> 
+		</p>
          <div class="m_flex_box">
             <div class="total-orders">
                <p>총 주문: <span th:text="${totOrders}"></span></p>
