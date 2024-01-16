@@ -425,7 +425,7 @@
 		    WHERE a.authority_name = 'ROLE_CODI'
 		  </select> -->
 		  
-		<!-- 이번 달의 총 주문 가격 -->
+		<!-- 이번 달 총 주문 가격 -->
     	<select id="getTotalOrderPriceMonth" resultType="long">
 	        <![CDATA[
 	            SELECT COALESCE(SUM(order_price), 0) as totalOrderPrice
