@@ -35,7 +35,7 @@
     <!-- 상태 변경  -->
     <update id="updateOrderDetailState" parameterType="com.meta.metaway.returned.model.Returned" >
     	update order_detail set 
-		order_state = #{stateType}
+		state_type = #{stateType}
 		where order_detail_id = #{orderDetailId}
     </update>
     <!-- 기간 변경  -->

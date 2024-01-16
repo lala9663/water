@@ -7,10 +7,10 @@ import com.meta.metaway.returned.model.Returned;
 
 @Repository
 @Mapper
-public interface IRetunedRepository {
+public interface IReturnedRepository {
 	public void InsertReturnTable(Returned returned);
 	void updateReturnTable(Returned returned);
 	void CancelproductReturn(Returned returned);
 	void updateOrderDetailState(Returned returned);
-	long getNextMaxReturnId();
+	long getMaxReturnId();
 }

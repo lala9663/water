@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.meta.metaway.order.dao.IOrderRepository;
-import com.meta.metaway.returned.dao.IRetunedRepository;
+import com.meta.metaway.returned.dao.IReturnedRepository;
 import com.meta.metaway.returned.model.Returned;
 
 @Service
 public class RetrunedService implements IReturnedService {
 	
 	@Autowired
-	IRetunedRepository returnedRepository;
+	IReturnedRepository returnedRepository;
 	
 	@Autowired
 	IOrderRepository orderRepository;
@@ -22,23 +22,35 @@ public class RetrunedService implements IReturnedService {
 	@Override
 	public void InsertReturnTable(Returned returned) {
 		
-		LocalDateTime now = LocalDateTime.now();
-		returned.setReturnId(returnedRepository.getNextMaxReturnId());
+		
+		System.out.println(returned.toString());
+		try {
+			returned.setReturnId(returnedRepository.getMaxReturnId());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		if(returned.getStateType() == 0) {
 			returned.setStateType(4);
 		}
-		else if(returned.getStateType() == 1 && now.isBefore(returned.getReturnDate().toLocalDateTime())) {
-			returned.setStateType(3);
-		}
-		else if(returned.getStateType() == 1 && now.isAfter(returned.getReturnDate().toLocalDateTime())) {
+		else if(returned.getStateType() == 1 && returned.getReturnPrice() == 0) {
 			returned.setStateType(2);
 		}
+		else if(returned.getStateType() == 1 && returned.getReturnPrice() != 0) {
+			returned.setStateType(3);
+		}
+		returned.setReturnDate(new Timestamp(System.currentTimeMillis()));
 		orderRepository.updateOrderDetailState(returned);
 		returnedRepository.InsertReturnTable(returned);
 	}
 
 	@Override
 	public void CancelproductReturn(Returned returned) {
+		if(returned.getStateType() == 3) {
+			returned.setStateType(1);
+		}
+		else if(returned.getStateType() == 4) {
+			returned.setStateType(0);
+		}
 		orderRepository.updateOrderDetailState(returned);
 		returnedRepository.CancelproductReturn(returned);
 	}

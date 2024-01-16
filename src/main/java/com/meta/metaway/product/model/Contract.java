@@ -1,7 +1,7 @@
 package com.meta.metaway.product.model;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -15,8 +15,8 @@ public class Contract {
 	private int contractPrice;
 	private int orderCount;
 	private int stateType;
-	private Timestamp startDate;
-	private Timestamp endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	
 	private Product product;
 }
