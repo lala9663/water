@@ -10,6 +10,15 @@
 		INSERT INTO return (return_id, order_detail_id, return_price return_text)
 		VALUES (#{returnId}, #{orderDetailId}, #{return_price}, #{returnText})
 	</insert>
+	
+	<!-- 반납시 상태 변경  -->
+	<update id="updateOrderDetailState"
+		parameterType="com.meta.metaway.returned.model.Returned">
+		UPDATE order_detail set
+		state_type = #{stateType}
+		where order_detail_id = #{orderDetailId}
+	</update>
+	
 	<!-- 반납 완료시 시간설정 -->
 	<update id="updateReturnTable"
 		parameterType="com.meta.metaway.returned.model.Returned">
