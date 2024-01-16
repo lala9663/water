@@ -22,7 +22,7 @@ public class AdminOrderDetailDTO {
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 	private int stateType;
-	//order
+	// order
 	private String orderName;
 	private String orderAddress;
 	private String orderContent;
@@ -30,20 +30,19 @@ public class AdminOrderDetailDTO {
 	private int rentalPrice;
 	private LocalDateTime orderDate;
 	private LocalDateTime requestDate;
-	//product
+	// product
 	private String productModel;
 	private String productName;
-	//contract
+	// contract
 	private int contractYear;
 	private int contractPrice;
-	//user
+	// user
 	private String userPhone;
-	
-	
-	//staff
+
+	// staff
 	private long staffId;
 	private String workPlace;
-	//schedule
+	// schedule
 	private long scheduleId;
 
 	// 날짜 포맷
@@ -64,26 +63,20 @@ public class AdminOrderDetailDTO {
 	}
 
 	public String getStateType() {
-    	if (stateType == 0) {
-            return "즉시 구매";
-        } else if (stateType == 1) {
-            return "렌탈 사용중";
-        } else if (stateType == 2) {
-            return "반납 신청";
-        } else if (stateType ==3) {
-            return "해지 신청";
-        } else if (stateType ==4) {
-            return "환불 신청";
-        } else if (stateType ==5) {
-            return "반납 완료";
-        } else if (stateType ==6) {
-        	return "해지 완료";
-		} else if (stateType ==7) {
-        	return "환불 완료";
-		} else if (stateType == 8){
-			return "반납 취소";
+		if (stateType == 2) {
+			return "반납 신청";
+		} else if (stateType == 3) {
+			return "해지 신청";
+		} else if (stateType == 4) {
+			return "환불 신청";
+		} else if (stateType == 5) {
+			return "반납 완료";
+		} else if (stateType == 6) {
+			return "해지 완료";
+		} else if (stateType == 7) {
+			return "환불 완료";
 		} else {
-			return "알 수 없음";
+			return null;
 		}
 	}
 
