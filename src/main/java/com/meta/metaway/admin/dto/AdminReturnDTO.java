@@ -24,6 +24,7 @@ public class AdminReturnDTO extends AdminOrderDetailDTO{
 	private LocalDateTime returnDate;
 	private int returnPrice;
 	private String returnText;
+	private int page;
 	
 	public String getReturnDate() {
 		return DateUtil.formatLocalDateTime(returnDate);

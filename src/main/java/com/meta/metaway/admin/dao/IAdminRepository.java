@@ -59,8 +59,14 @@ public interface IAdminRepository {
 	List<AdminScheduleStaffDTO> selectListScheduleStaff(long orderId);
 	//일정삭제
 	void deleteSchedule(long orderId, long staffId);
+	
+	void deleteReturnSchedule(long orderDetailId, long staffId);
 	//직원배정완료
 	void updateStaffStatus(long staffId);
+	//반납직원 배정완료
+	void updateCompleteOrderDetail(long orderDetailId);
+	//반납직원 배정취소
+	void updateCancelOrderDetail(long orderDetailId);
 	
 	int getNextMaxOrderDetailId();
 	

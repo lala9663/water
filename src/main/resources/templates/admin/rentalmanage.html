@@ -25,7 +25,7 @@
    </div>-->
    <div class="order_list">
       <div class="container">
-         <h2 class="ti_con"><a th:href="@{/admin/returnlist}">렌탈/환불/반납 리스트</a></h2>
+         <h2 class="ti_con"><a th:href="@{/admin/returnlist/1}">렌탈/환불/반납 리스트</a></h2>
          <div class="m_flex_box">
             <div class="total-orders">
                <p>총 렌탈/환불/반납 수:<span th:text="${totReturn}"></span></p>
@@ -60,42 +60,31 @@
                <tr>
                   <th>반납번호</th>
                   <th>주문상세번호</th>
-                  <th>반납일자</th>
                   <th>위약금</th>
-                  <th>리턴사유</th>
                   <th>약정일자</th>
                   <th>만료일자</th>
                   <th>사용상태</th>
                   <th>배정</th>
-                  <th>관리</th>
                </tr>
             </thead>
             <tbody>
-               <tr th:each="return : ${returnList}">
+               <tr th:each="return : ${returnList}" th:if="${return.stateType != null}">
                   <td th:text="${return.returnId}">returnId</td>
                   <td th:text="${return.orderDetailId}">orderDetailId</td>
-                  <td th:text="${return.returnDate}">returnDate</td>
                   <td th:text="${return.returnPrice}">returnPrice</td>
-                  <td th:text="${return.returnText}">returnText</td>
                   <th th:text="${return.startDate}">startDate</th>
                   <th th:text="${return.endDate}">endDate</th>
                   <td th:text="${return.stateType}">stateType</td>
-                 <form id="">
+                 <form id="" th:action="@{/admin/return/{returnId}(returnId=${return.returnId})}" method="get">
                      <td>
                         <button type="submit" class="btn btn-outline-primary">반납</button>
-                     </td>
-                  </form>
-                  <form th:id="'deleteForm_' + ${return.orderDetailId}" th:action="@{/admin/returnorder/{orderDetailId}(orderDetailId=${return.orderDetailId})}" method="post">
-                     <td>
-                        <input type="hidden" name="orderDetailId" th:value="${return.orderDetailId}"></input>
-                        <button type="button" th:onclick="confirmDelete([[${return.orderDetailId}]]);" class="btn btn-outline-dark">반납 취소</button>
                      </td>
                   </form>
                </tr>
             </tbody>
          </table>
       </div>
-     <!-- <div th:replace="~{/include/paging :: paging}"></div>-->
+      <div th:replace="~{/include/returnpaging :: returnpaging}"></div>
    </div>
    <!-- <div>
    <footer th:replace="~{/include/footer :: footer}"></footer>    
@@ -115,11 +104,11 @@
 
     /* Thymeleaf로 주문 ID 전달 */
 
-     function confirmDelete(orderDetailId) {
-       console.log("Order Detail ID:", orderDetailId);
+     function confirmDelete(returnId) {
+       console.log("Return ID:", returnId);
         Swal.fire({
-            title: orderDetailId+ '번 반납 취소',
-            text: orderDetailId +'번 반납을 취소하시겠습니까?',
+            title: returnId+ '번 반납 취소',
+            text: returnId +'번 반납을 취소하시겠습니까?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -129,7 +118,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // 삭제할 주문의 form을 submit
-                 $('#deleteForm_' + orderDetailId).submit();
+                 $('#deleteForm_' + returnId).submit();
             }
         });
     }

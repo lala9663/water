@@ -78,13 +78,11 @@ public class AdminService implements IAdminService {
 
 	@Override
 	public List<AdminStaffDTO> selectAllCodiList() {
-		// TODO Auto-generated method stub
 		return adminRepository.selectAllCodiList();
 	}
 
 	@Override
 	public List<AdminStaffDTO> selectAllDriverList() {
-		// TODO Auto-generated method stub
 		return adminRepository.selectAllDriverList();
 	}
 	
@@ -193,9 +191,19 @@ public class AdminService implements IAdminService {
     @Override
     public long getTotalRentalPriceMonth() {
     	long totalRentalPrice = adminRepository.getTotalRentalPriceMonth();
-    	
     	return totalRentalPrice;
     }
+
+	@Override
+	public void deleteReturnSchedule(long orderDetailId, long staffId) {
+		adminRepository.deleteReturnSchedule(orderDetailId, staffId);
+		adminRepository.updateStaffStatus(staffId);
+	}
+
+	@Override
+	public void updateCompleteOrderDetail(long orderDetailId) {
+		adminRepository.updateCompleteOrderDetail(orderDetailId);
+	}
 
 }
 

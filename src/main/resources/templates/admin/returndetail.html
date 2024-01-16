@@ -21,23 +21,22 @@
 </head>
 
 <body>
-    <div class="assignment wrap">
+    <div class="return wrap">
         <div class="flex_1">
-            <div class="flex_1_1" th:each="orders :${orderList}" >
-                <em>주문고객: <span th:text="${orders.orderName}"></span> 님</em>
+			<h3 th:text="${returns[0].stateType}"></h3>
+            <div class="flex_1_1" th:each="returns : ${returns}" >
+                <em>주문고객: <span th:text="${returns.orderName}"></span> 님</em>
                 <div class="bo">
                     <div>
                         <ul>
-                            <li>제품 모델 :<span th:text="${orders.productModel}"></span></li>
-                            <li>제품 이름 :<span th:text="${orders.productName}"></span></li>
-                            <li>약정년 :<span th:text="${orders.contractYear}"></span>년</li>
-                            <li>총 가격 :<span th:text="${orders.orderPrice}"></span>원</li>
-                            <li>
-                        		월 가격 :
-		                         <span th:if="${orders.contractYear != 0}" th:text="${(orders.orderPrice / orders.contractYear) / 12 + '원'}"></span>
-		                         <span th:if="${orders.contractYear == 0}" th:text="${(orders.orderPrice / 12) + '원'}"></span>
+                            <li>제품 모델 :<span th:text="${returns.productModel}"></span></li>
+                            <li>제품 이름 :<span th:text="${returns.productName}"></span></li>
+                            <li>약정년 :<span th:text="${returns.contractYear}"></span>년</li>
+                            <li>총 가격 :<span th:text="${returns.orderPrice}"></span>원</li>
+                        	<li>총 렌탈료 :
+		                         <span th:if="${returns.contractYear != 0}" th:text="${returns.rentalPrice + '원'}"></span>
 		                     </li>
-                            <li>약정기간 :<span th:text="${orders.startDate}"></span>  ~ <span th:text="${orders.endDate}"></span></li>
+                            <li>약정기간 :<span th:text="${returns.startDate}"></span>  ~ <span th:text="${returns.endDate}"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -46,23 +45,29 @@
                 <em>고객 주소</em>
                 <div class="bo">
                     <ul>
-                        <li>고객명 : <span th:text="${orderList[0].orderName}"></span> 님</li>
-                        <li>고객 주소 : <span th:text="${orderList[0].orderAddress}"></span></li>
-                        <li>고객 연락처 :<span th:text="${orderList[0].userPhone}"></span></li>
-                        <li>요청 사항 :<span th:text="${orderList[0].orderContent}"></span></li>
+                        <li>고객명 : <span th:text="${returns[0].orderName}"></span> 님</li>
+                        <li>고객 주소 : <span th:text="${returns[0].orderAddress}"></span></li>
+                        <li>고객 연락처 :<span th:text="${returns[0].userPhone}"></span></li>
+                        <li>요청 사항 :<span th:text="${returns[0].orderContent}"></span></li>
+                    </ul>
+                </div>
+            </div>
+             <div class="flex_1_3">
+                <em th:text="${returns[0].stateType}">반납 사유</em>
+                <div class="bo">
+                    <ul>
+                        <li>반납 사유 : <span th:text="${returns[0].returnText}"></span></li>
                     </ul>
                 </div>
             </div>
             <div class="flex_1_3">
-                <em>설치 희망일</em>
-                <div class="bo" th:text="${orderList[0].requestDate}">
-                    2020/12/23 14:00
-                </div>
+                <em> 위약금 : &nbsp;<span class="return-price" th:text="${returns[0].returnPrice}"></span> </em>
+                <div class="bo" ></div>
             </div>
         </div>
 		<div class="flex_2">
 		    <div class="flex_2_1">
-		        <em>배정</em>
+		        <em>반납 배정</em>
 		        <div class="bo">
 		            <div class="engineer_box">
 		                <h3>설치 기사</h3>
@@ -70,8 +75,8 @@
 		                    <div th:each="driver : ${staff}" th:if="${driver.authorityName == 'ROLE_DRIVER'}">
 		                        <div class="driver" th:if="${driver != null}">
 		                            <p th:text="${driver.userName + ' (' + driver.staffId + '/' + driver.workPlace + ')'}">기사를 배정해주세요.</p>
-		                            <form class="flex_button" th:action="@{/admin/cancel/{orderId}/{staffId}(orderId=${driver.orderId}, staffId=${driver.staffId})}" method="post">
-		                                <input type="hidden" name="orderId" th:value="${driver.orderId}">
+		                            <form class="flex_button" th:action="@{/admin/cancel/return/{orderDetailId}/{staffId}(orderDetailId=${returns[0].orderDetailId}, staffId=${driver.staffId})}" method="post">
+		                                <input type="hidden" name="orderDetailId" th:value="${returns[0].orderDetailId}">
 		                                <input type="hidden" name="staffId" th:value="${driver.staffId}">
 		                                <button type="submit" class="btn btn-outline-secondary" id="cancelAssign" >배정취소</button>
 		                            </form>
@@ -83,50 +88,53 @@
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal" x`>기사 선택</button>
                         </div>
 		            </div>
+		            <form class="flex_button" th:action="@{/admin/assign/return/{orderDetailId}(orderDetailId=${returns[0].orderDetailId})}" method="post">
+						<input type="hidden" name="returns" th:value="${returns[0].orderDetailId}">
+		            	<button type="submit" class="submit-btn">배정 완료</button>
+		            </form>
 		        </div>
 		    </div>
 		</div>
-    
-       <!-- The Modal -->
-   <div class="modal" id="myModal">
-       <div class="modal-dialog">
-         <div class="modal-content">
-     
-           <!-- Modal Header -->
-           <div class="modal-header">
-             <h4 class="modal-title">미배정 담당기사 목록</h4>
-             <button type="button" class="close" data-dismiss="modal">&times;</button>
-           </div>
-     
-           <!-- Modal body -->
-           <div class="modal-body">
-              <table class="table" th:if="${driverList}">
-             <thead class="table-success">
-               <tr>
-                 <th>직원번호</th>
-                 <th>이름</th>
-                 <th>이메일</th>
-                 <th>연락처</th>
-                 <th>근무지</th>
-                 <th>관리</th>
-               </tr>
-             </thead>
-             <tbody>
-               <tr th:each="driver: ${driverList}">
-                 <td th:text="${driver.staffId}">1</td>
-                 <td th:text="${driver.userName}">김기사</td>
-                 <td th:text="${driver.userEmail}">john@example.com</td>
-                 <td th:text="${driver.userPhone}">010-1111-1111</td>
-                 <td th:text="${driver.workPlace}">서울</td>
-               <td>
-                   <input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
-                   <input type="hidden" name="staffId" th:value="${driver.staffId}">
-                   <input type="hidden" name="userId" th:value="${driver.userId}">
-                  <button type="button" class="btn btn-outline-primary" th:onclick="assignStaff('driver', '[[${driver.userName}]]','[[${driver.staffId}]]','[[${driver.userId}]]')">배정</button>
-               </td>
-               </tr>
-             </tbody>
-           </table>
+	       <!-- The Modal -->
+	   <div class="modal" id="myModal">
+	       <div class="modal-dialog">
+	         <div class="modal-content">
+	     
+	           <!-- Modal Header -->
+	           <div class="modal-header">
+	             <h4 class="modal-title">미배정 담당기사 목록</h4>
+	             <button type="button" class="close" data-dismiss="modal">&times;</button>
+	           </div>
+	     
+	           <!-- Modal body -->
+	           <div class="modal-body">
+	              <table class="table" th:if="${driverList}">
+	             <thead class="table-success">
+	               <tr>
+	                 <th>직원번호</th>
+	                 <th>이름</th>
+	                 <th>이메일</th>
+	                 <th>연락처</th>
+	                 <th>근무지</th>
+	                 <th>관리</th>
+	               </tr>
+	             </thead>
+	             <tbody>
+	               <tr th:each="driver: ${driverList}">
+	                 <td th:text="${driver.staffId}">1</td>
+	                 <td th:text="${driver.userName}">김기사</td>
+	                 <td th:text="${driver.userEmail}">john@example.com</td>
+	                 <td th:text="${driver.userPhone}">010-1111-1111</td>
+	                 <td th:text="${driver.workPlace}">서울</td>
+	               <td>
+	                   <input type="hidden" name="orderDetailId" th:value="${returns[0].orderDetailId}">
+	                   <input type="hidden" name="staffId" th:value="${driver.staffId}">
+	                   <input type="hidden" name="userId" th:value="${driver.userId}">
+	                  <button type="button" class="btn btn-outline-primary" th:onclick="assignStaff('driver', '[[${driver.userName}]]','[[${driver.staffId}]]','[[${driver.userId}]]')">배정</button>
+	               </td>
+	               </tr>
+	             </tbody>
+	           </table>
            </div>
      
            <!-- Modal footer -->
@@ -139,7 +147,9 @@
 
 </body>
 <style>
-
+	.return-price {
+		color: red;
+	}
 </style>
 
 <script>
@@ -150,8 +160,8 @@ function assignStaff(staffType, staffName, staffId, userId) {
 
 //직원 배정
 function assignStaffAsync(staffType, staffName, staffId, userId) {
-    const orderId = $('input[name="orderId"]').val();
-    console.log(orderId, staffType, staffId);
+    const orderDetailId = $('input[name="orderDetailId"]').val();
+    console.log(orderDetailId, staffType, staffId);
     console.log(userId);
     
     Swal.fire({
@@ -167,7 +177,7 @@ function assignStaffAsync(staffType, staffName, staffId, userId) {
         if (result.isConfirmed) {
             $.ajax({
                 type: 'POST',
-                url: `/schedule/${staffType}/${orderId}/${staffId}`,
+                url: `/admin/return/${staffType}/${orderDetailId}/${staffId}`,
                 contentType: 'application/json',
                 data: JSON.stringify({ userId: userId }),
                 success: function (data) {

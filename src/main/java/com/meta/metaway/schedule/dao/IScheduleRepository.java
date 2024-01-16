@@ -10,5 +10,8 @@ import com.meta.metaway.schedule.model.Schedule;
 public interface IScheduleRepository {
 	void insertSchedule(Schedule schedule);
 	int getNextMaxScheduleId();
-	
+	void returnSchedule(Schedule schedule);
+	void deleteReturnSchedule(long orderDetailId, long staffId);
+	int getOrderIdReturnSchedule(long orderDetailId);
+	int getReturnIdReturnSchedule(long orderDetailId);
 }
