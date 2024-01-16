@@ -35,7 +35,7 @@
 		<div class="profile-page">
 			<div id="myOrderHeaderText">주문 내역</div>
 			<div id="orderWrap">
-				<div class="orderDiv" th:each="order, orderIndex : ${orderList}" th:if="${orderIndex.index < 5}">
+				<div class="orderDiv" th:each="order, orderIndex : ${orderList}" th:if="${orderIndex.index < 4}">
 					<div class="getOrderDetailBox">
 						<div th:text="${order.orderDate} + ' 주문'" class="orderDateBox"></div>
 					</div>
