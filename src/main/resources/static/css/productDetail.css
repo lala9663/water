@@ -91,16 +91,30 @@
 #contractAll{
 	display:flex;
 }
-#rental{
+.rental{
 	width: 200px;
 	margin:3px;
+	padding: 5px 0 5px 0;
 	margin-top: -10px;
 	background-color: white;	
+	font-size: 14px;
 	 border:1.3px solid rgb(153, 153, 153);
-     border-radius: 7px;
-     color: black;
+     border-radius: 3px;
+     color: white;
+     text-align: center;
+     background-color:#6C757D;
+     cursor: pointer;
+     font-weight: bold;
 }
 
+.rental.active{
+	transition: 0.3s;
+	background-color: white;
+	color: #6C757D;
+}
+.buy{
+	width: 100%;
+}
 
 .buyDiv span,
 .rentalDiv span{
@@ -156,16 +170,6 @@
 	font-weight: bold;
 }
 
-#buy{
-		width: 365px;
-	margin:3px;
-	margin-top: -10px;
-	background-color: white;	
-	 border:1.3px solid rgb(153, 153, 153);
-     border-radius: 7px;
-     color: black;
-}
-
 .basketButton,
 .buyButton{
 	display: inline-block;
@@ -219,5 +223,9 @@
     text-decoration: none;
 }
 
+
+.rental.active{
+	
+}
 
 
