@@ -2,227 +2,234 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<link rel="stylesheet" th:href="@{/css/header.css}">
-	<link rel="stylesheet" th:href="@{/css/footer.css}">
-	<link rel="stylesheet" th:href="@{/css/profile.css}">
-	<link rel="stylesheet" th:href="@{/css/orderdetail.css}">
-	<title>MyPage myOrder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/orderdetail.css}">
+    <title>MyPage myOrder</title>
 </head>
 
 <header th:replace="~{/include/header.html}"></header>
 
 <body>
-	<div class="container">
-		<div class="profile-nav">
-			<nav class="profile-nav-ul">
-				<ul>
-					<li class="profile-nav-p">마이페이지</li>
+    <div class="container">
+        <div class="profile-nav">
+            <nav class="profile-nav-ul">
+                <ul>
+                    <li class="profile-nav-p">마이페이지</li>
+                    <li><a th:href="@{/user/myOrder}">구매 내역</a></li>
+                    <li><a th:href="@{/return}">반납 내역</a></li>
+                    <li><a th:href="@{/contract}">약정 내역</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="profile-page">
+            <!-- 주문 제품 정보 표시 -->
+            <div class="headerTextBox">
+                <div>주문 제품</div>
+            </div>
+            <div id="wrap">
+                <div class="productDetailInfoBox" th:each="cont, contIndex : ${order.contractList}">
+                    <!-- 제품 상세 정보 -->
+                    <div class="productInfoBox">
+                        <!-- 이미지 표시 -->
+                        <div class="productRightDiv">
+                            <div>
+                                <img th:src="'data:' + ${cont.product.imageType} + ';base64,' + ${cont.product.imageFile}"
+                                    alt="productImage" class="productDetailImage">
+                            </div>
+                        </div>
+                        <!-- 제품 정보 표시 -->
+                        <div class="productTextBox">
+                            <div th:text="${cont.product.productName}" class="detailName">이름</div>
+                            <div th:text="${cont.product.productModel}" class="detailModel">모델</div>
+                            <div th:if="${cont.contractYear != 0}" th:text="${cont.contractYear} + '년 약정'"
+                                class="detailYear">약정정보</div>
+                            <div th:if="${cont.contractYear == 0}" class="detailYear">즉시 구매</div>
+                        </div>
+                        <!-- 가격 및 날짜 표시 -->
+                        <div class="detailPriceDiv">
+                            <div class="pricePushbox">
+                                <div th:if="${cont.startDate != null}" th:text="'약정일 : ' + ${cont.startDate}"></div>
+                                <div th:if="${cont.endDate != null}" th:text="'만료일 : ' + ${cont.endDate}"></div>
+                            </div>
+                            <div class="productFooterText">
+                                <div class="footerText">
+                                    <div class="footerPriceText" th:if="${cont.contractYear == 0}">구입가</div>
+                                    <div class="footerPriceText" th:if="${cont.contractYear != 0}">월 렌탈료</div>
+                                    <div class="footerPriceText2" th:if="${cont.contractYear == 0}">
+                                        <span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
+                                            class="spanText"></span>
+                                    </div>
+                                    <div class="footerPriceText2" th:if="${cont.contractYear != 0}">
+                                        <span th:text="'월 ' + ${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
+                                            class="spanText"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 버튼 표시 -->
+                    <div class="DetailButtonBox">
+                        <div class="bottomButtonBox">
+                            <div class="detailButton" th:if="${cont.endDate != null}">
+                                <button th:if="${cont.stateType == 0}" class="returnButton"
+                                    th:data-order-detail-id="${cont.orderDetailId}"
+                                    th:data-end-date="${cont.endDate}">환불하기</button>
+                                <button th:if="${cont.stateType == 1 and cont.endDate < today}" class="returnButton"
+                                    th:data-order-detail-id="${cont.orderDetailId}" th:data-end-date="${cont.endDate}"
+                                    th:data-return-price="${cont.contractPrice}">해지하기</button>
+                                <button th:if="${cont.stateType == 1 and today < cont.endDate}" class="returnButton"
+                                    th:data-order-detail-id="${cont.orderDetailId}" th:data-end-date="${cont.endDate}"
+                                    반납하기</button>
+                                <div class="returnButton" th:if="${cont.stateType == 2}"
+                                    data-order-detail-id="${cont.orderDetailId}">반납 신청
+                                </div>
+                                <div class="returnButton" th:if="${cont.stateType == 3}"
+                                    data-order-detail-id="${cont.orderDetailId}">해지 신청
+                                </div>
+                                <div class="returnButton" th:if="${cont.stateType == 4}"
+                                    data-order-detail-id="${cont.orderDetailId}">환불 신청
+                                </div>
+                                <div class="returnButton" th:if="${cont.stateType == 5}"
+                                    data-order-detail-id="${cont.orderDetailId}">반납 진행중
+                                </div>
+                                <div class="returnButton" th:if="${cont.stateType == 6}"
+                                    data-order-detail-id="${cont.orderDetailId}">해지 진행중
+                                </div>
+                                <div class="returnButton" th:if="${cont.stateType == 7}"
+                                    data-order-detail-id="${cont.orderDetailId}">환불 진행중
+                                </div>
+                                <div class="returnButton" th:if="${cont.stateType == 8}"
+                                    data-order-detail-id="${cont.orderDetailId}">반납 완료
+                                </div>
+                                <div class="returnButton" th:if="${cont.stateType == 9}"
+                                    data-order-detail-id="${cont.orderDetailId}">해지 완료
+                                </div>
+                                <div class="returnButton" th:if="${cont.stateType == 10}"
+                                    data-order-detail-id="${cont.orderDetailId}">환불 완료
+                                </div>
+                            </div>
+                            <button class="basketButton">장바구니 담기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-					<li><a th:href="@{/user/myOrder}">구매 내역</a></li>
-					<!--구매 취소 내역 / 환불 내역-->
-					<li><a th:href="@{/return}">반납 내역</a></li>
-					<!--반납 신청 내역 / 반납 환불 내역-->
-					<li><a th:href="@{/contract}">약정 내역</a></li>
-					<!--약정 연장 내역 / 약정 해지 내역-->
-				</ul>
-			</nav>
-		</div>
-		<div class="profile-page">
-			<div class="headerTextBox">
-				<div>주문 제품</div>
-			</div>
-			<div id="wrap">
-				<div class="productDetailInfoBox" th:each="cont, contIndex : ${order.contractList}">
-					<div class="productInfoBox">
-						<div class="productRightDiv">
-							<div>
-								<img th:src="'data:' + ${cont.product.imageType} + ';base64,' + ${cont.product.imageFile}"
-									alt="productImage" class="productDetailImage">
-							</div>
-							<div class="productFooterText">
-								<div class="footerText">
-									<div class="footerPriceText" th:if="${cont.contractYear == 0}">구입가</div>
-									<div class="footerPriceText" th:if="${cont.contractYear != 0}">월 렌탈료</div>
-								</div>
-							</div>
-						</div>
-						<div class="productTextBox">
-							<div th:text="${cont.product.productModel}" class="detailModel">모델</div>
-							<div th:text="${cont.product.productName}" class="detailName">이름</div>
-							<div th:if="${cont.contractYear != 0}" th:text="${cont.contractYear} + '년 약정'"
-								class="detailYear">약정정보</div>
-							<div th:if="${cont.contractYear == 0}" class="detailYear">즉시 구매</div>
-						</div>
-						<div class="detailPriceDiv">
-							<div class="pricePushbox">
-								<div th:if="${cont.startDate != null}" th:text="'약정일 : ' + ${cont.startDate}"></div>
-								<div th:if="${cont.endDate != null}" th:text="'만료일 : ' + ${cont.endDate}"></div>
-							</div>
-							<div class="footerPriceText2" th:if="${cont.contractYear == 0}"><span
-									th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
-									class="spanText"></span></div>
-							<div class="footerPriceText2" th:if="${cont.contractYear != 0}"><span
-									th:text="'월 ' + ${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
-									class="spanText"></span></div>
-						</div>
-					</div>
-					<div class="DetailButtonBox">
-						<div class="bottomButtonBox">
-							<div class="detailButton" th:if="${cont.endDate != null}">
-								<button th:if="${cont.stateType == 0}" class="returnButton"
-									th:data-order-detail-id="${cont.orderDetailId}"
-									th:data-end-date="${cont.endDate}">환불하기</button>
-								<button th:if="${cont.stateType == 1 and cont.endDate < today}" class="returnButton"
-									th:data-order-detail-id="${cont.orderDetailId}" th:data-end-date="${cont.endDate}"
-									th:data-return-price="${cont.contractPrice}">해지하기</button>
-								<button th:if="${cont.stateType == 1 and today < cont.endDate}" class="returnButton"
-									th:data-order-detail-id="${cont.orderDetailId}" th:data-end-date="${cont.endDate}"
-									반납하기</button>
-									<div class="returnButton" th:if="${cont.stateType == 2}"
-										data-order-detail-id="${cont.orderDetailId}">반납 신청
-									</div>
-									<div class="returnButton" th:if="${cont.stateType == 3}"
-										data-order-detail-id="${cont.orderDetailId}">해지 신청
-									</div>
-									<div class="returnButton" th:if="${cont.stateType == 4}"
-										data-order-detail-id="${cont.orderDetailId}">환불 신청
-									</div>
-									<div class="returnButton" th:if="${cont.stateType == 5}"
-										data-order-detail-id="${cont.orderDetailId}">반납 진행중
-									</div>
-									<div class="returnButton" th:if="${cont.stateType == 6}"
-										data-order-detail-id="${cont.orderDetailId}">해지 진행중
-									</div>
-									<div class="returnButton" th:if="${cont.stateType == 7}"
-										data-order-detail-id="${cont.orderDetailId}">환불 진행중
-									</div>
-									<div class="returnButton" th:if="${cont.stateType == 8}"
-										data-order-detail-id="${cont.orderDetailId}">반납 완료
-									</div>
-									<div class="returnButton" th:if="${cont.stateType == 9}"
-										data-order-detail-id="${cont.orderDetailId}">해지 완료
-									</div>
-									<div class="returnButton" th:if="${cont.stateType == 10}"
-										data-order-detail-id="${cont.orderDetailId}">환불 완료
-									</div>
-							</div>
-							<button class="basketButton">장바구니 담기</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- 반납 모달 -->
+    <div class="modal fade" id="returnModal" tabindex="-1" aria-labelledby="returnModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="returnModalLabel">반납 사유 입력</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="returnForm" method="post" action="/path/to/your/endpoint">
+                        <div class="mb-3">
+                            <label for="returnReason" class="col-form-label">사유:</label>
+                            <input type="text" class="form-control" id="returnReason" name="returnText">
+                            <input type="hidden" id="orderDetailId" name="orderDetailId">
+                            <input type="hidden" id="endDate" name="returnDate">
+                            <input type="hidden" id="returnPrice" name="returnPrice">
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <div id="returnPriceText"></div>
+                            </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            <button type="submit" class="btn btn-primary">제출</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div class="modal fade" id="returnModal" tabindex="-1" aria-labelledby="returnModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="returnModalLabel">반납 사유 입력</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form id="returnForm" method="post" action="/path/to/your/endpoint">
-						<div class="mb-3">
-							<label for="returnReason" class="col-form-label">사유:</label>
-							<input type="text" class="form-control" id="returnReason" name="returnText">
-							<input type="hidden" id="orderDetailId" name="orderDetailId">
-							<input type="hidden" id="endDate" name="returnDate">
-							<input type="hidden" id="returnPrice" name="returnPrice">
-						</div>
-						<div class="modal-footer">
-							<div>
-								<div id="returnPriceText"></div>
-							</div>
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-							<button type="submit" class="btn btn-primary">제출</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- 스크립트 및 라이브러리 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <!-- JavaScript 코드 -->
+    <script>
+        function getMonthsDifference(date1, date2) {
+            // 두 날짜의 년도와 월을 추출합니다.
+            var year1 = date1.getFullYear();
+            var year2 = date2.getFullYear();
+            var month1 = date1.getMonth();
+            var month2 = date2.getMonth();
+
+            // 년도와 월을 이용해 월 수 차이를 계산합니다.
+            var months = (year2 - year1) * 12 + (month2 - month1);
+
+            return months;
+        }
+
+        $(document).ready(function () {
+            $('.returnButton').click(function () {
+                // orderDetailId 값을 읽어옵니다.
+                var orderDetailId = $(this).data('order-detail-id');
+                var endDate = $(this).data('end-date');
+                var price = $(this).data('return-price');
+                if (price != null) {
+                    var currentDate = new Date(); // 현재 날짜
+                    var specificDate = new Date(endDate); // 비교할 특정 날짜
+                    var monthsDifference = getMonthsDifference(currentDate, specificDate);
+                    var returnPrice = 50000 + (price * monthsDifference) / 10;
+                    $('#returnPriceText').text('위약금 : ' + returnPrice + '원');
+                }
+                // 모달의 숨겨진 input 필드에 값을 설정합니다.
+                $('#orderDetailId').val(orderDetailId);
+                $('#endDate').val(endDate);
+                $('#returnPrice').val(returnPrice);
+                // 모달 표시
+                $('#returnModal').modal('show');
+            });
+
+            $('#returnForm').submit(function (e) {
+                e.preventDefault();
+
+                // XMLHttpRequest 객체 생성
+                var xhr = new XMLHttpRequest();
+                // 요청을 보낼 서버의 URL
+                var url = "/user/return";
+
+                // 요청을 초기화합니다.
+                xhr.open("POST", url, true);
+
+                // 요청이 완료되었을 때 실행될 함수
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        var status = xhr.status;
+                        if (status === 0 || (status >= 200 && status < 400)) {
+                            // 요청이 성공적으로 완료되었을 때의 처리
+                            console.log("성공: " + xhr.responseText);
+                        } else {
+                            // 오류가 발생했을 때의 처리
+                            console.error("오류 발생: " + xhr.statusText);
+                        }
+                        // 모달 숨기기
+                        $('#returnModal').modal('hide');
+                    }
+                };
+
+                // 폼 데이터를 FormData 객체로 생성
+                var formData = new FormData(this);
+
+                // FormData 객체와 함께 요청 전송
+                xhr.send(formData);
+            });
+        });
+    </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-	crossorigin="anonymous"></script>
-
-
-<script>
-
-	function getMonthsDifference(date1, date2) {
-		// 두 날짜의 년도와 월을 추출합니다.
-		var year1 = date1.getFullYear();
-		var year2 = date2.getFullYear();
-		var month1 = date1.getMonth();
-		var month2 = date2.getMonth();
-
-		// 년도와 월을 이용해 월 수 차이를 계산합니다.
-		var months = (year2 - year1) * 12 + (month2 - month1);
-
-		return months;
-	}
-	$(document).ready(function () {
-		$('.returnButton').click(function () {
-			// orderDetailId 값을 읽어옵니다.
-			var orderDetailId = $(this).data('order-detail-id');
-			var endDate = $(this).data('end-date');
-			var price = $(this).data('return-price');
-			if (price != null) {
-				var currentDate = new Date(); // 현재 날짜
-				var specificDate = new Date(endDate); // 비교할 특정 날짜
-				var monthsDifference = getMonthsDifference(currentDate, specificDate);
-				var returnPrice = 50000 + (price * monthsDifference) / 10;
-				$('#returnPriceText').text('위약금 : ' + returnPrice + '원');
-			}
-			// 모달의 숨겨진 input 필드에 값을 설정합니다.
-			$('#orderDetailId').val(orderDetailId);
-			$('#endDate').val(endDate);
-			$('#returnPrice').val(returnPrice);
-			// 모달 표시
-			$('#returnModal').modal('show');
-		});
-
-		$('#returnForm').submit(function (e) {
-			e.preventDefault();
-
-			// XMLHttpRequest 객체 생성
-			var xhr = new XMLHttpRequest();
-			// 요청을 보낼 서버의 URL
-			var url = "/user/return";
-
-			// 요청을 초기화합니다.
-			xhr.open("POST", url, true);
-
-			// 요청이 완료되었을 때 실행될 함수
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState === XMLHttpRequest.DONE) {
-					var status = xhr.status;
-					if (status === 0 || (status >= 200 && status < 400)) {
-						// 요청이 성공적으로 완료되었을 때의 처리
-						console.log("성공: " + xhr.responseText);
-					} else {
-						// 오류가 발생했을 때의 처리
-						console.error("오류 발생: " + xhr.statusText);
-					}
-					// 모달 숨기기
-					$('#returnModal').modal('hide');
-				}
-			};
-
-			// 폼 데이터를 FormData 객체로 생성
-			var formData = new FormData(this);
-
-			// FormData 객체와 함께 요청 전송
-			xhr.send(formData);
-		});
-	});
-</script>
 
 </html>

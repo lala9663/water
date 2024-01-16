@@ -71,9 +71,33 @@
     font-weight: bold;
     padding: 10px;
     border: 1.3px solid rgb(225, 225, 225);
-    border-radius: 5px;
+    border-radius: 5px;  
 }
 
+.cancle-btn{
+			 width: 375px;
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px; 
+}
+.cancle-btn a{
+	text-decoration: none;
+	color: black;
+}
+
+table{
+	margin-left: -2px;
+	width: 770px;
+	text-align: center;
+}
 
 .table-success{
 	width: 500px;
@@ -84,6 +108,12 @@
     padding: 8px;
     margin:20px;
     text-align: center; 
+}
+
+.cody_table .table-success,
+.driver_table .table-success{
+	background-color: #00B0E8;
+	color: white;
 }
 
 

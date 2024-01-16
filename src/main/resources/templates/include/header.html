@@ -24,9 +24,10 @@
 			<a class="header-logo" href="/"><img src="/images/mainlogo.png"></a>
 
 			<ul class="links">
+				<li><a href="javascript:scrollToBest1()">INFO</a></li>
+				<li><a href="javascript:scrollToBest2()">BEST</a></li>
+				<li><a href="javascript:scrollToBest3()">foot</a></li>
 				<li><a href="/product">상품</a></li>
-				
-				<li><a href="/admin/adminview">관리자</a></li>
 
 				<form action="" class="header-search-bar">
 					<input type="search" name="search" pattern=".*\S.*" required placeholder="Search.." />
@@ -51,7 +52,7 @@
 						<li>
 							<hr class="dropdown-divider" id="headerHr" style="display: none;">
 						</li>
-						<li id="admin"><a class="dropdown-item" th:href="@{''}">관리자</a></li>
+						<li id="admin"><a class="dropdown-item" th:href="@{'/admin/adminview'}">관리자</a></li>
 						<li id="driver"><a class="dropdown-item" th:href="@{'/staff/drive/list'}">기사</a></li>
 						<li id="codi"><a class="dropdown-item" th:href="@{'/staff/cody/list'}">코디</a></li>
 					</ul>
@@ -110,5 +111,45 @@
 			document.getElementById('codi').style.display = 'none';
 		}
 	};
+	
+	function scrollToBest1() {
+    var bestSection = document.getElementById('waterInfo');
+    var offset = -100; 
+
+    var elementPosition = bestSection.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.scrollY + offset;
+
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+    });
+}
+    
+    	function scrollToBest2() {
+        var bestSection = document.getElementById('bestProduct');
+         var offset = -100;
+
+    var elementPosition = bestSection.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.scrollY + offset;
+
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+    });
+}
+
+   	function scrollToBest3() {
+        var bestSection = document.getElementById('footer');
+         var offset = -100;
+
+    var elementPosition = bestSection.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.scrollY + offset;
+
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+    });
+}
+
 </script>
 </html>

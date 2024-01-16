@@ -77,43 +77,10 @@
             <div th:unless="${userProfile != null}">
                 <p>User profile not available.</p>
             </div>
-            <!--
-				
-            <div id="orderDetailsTable" style="display: none;">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">번호</th>
-                            <th scope="col">주문번호</th>
-                            <th scope="col">주문자</th>
-                            <th scope="col">상품번호</th>
-                            <th scope="col">계약 ID?</th>
-                            <th scope="col">수량</th>
-                            <th scope="col">설치시작</th>
-                            <th scope="col">설치완료</th>
-                            <th scope="col">모델명</th>
-                            <th scope="col">주문가격</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="orderDetail : ${orderList}">
-                            <td th:text="${orderDetail.index + 1}"></td>
-                            <td th:text="${orderDetail.orderDetailId}"></td>
-                            <td th:text="${orderDetail.orderId}"></td>
-                            <td th:text="${orderDetail.productId}"></td>
-                            <td th:text="${orderDetail.contractId}"></td>
-                            <td th:text="${orderDetail.orderCount}"></td>
-                            <td th:text="${orderDetail.startDate}"></td>
-                            <td th:text="${orderDetail.endDate}"></td>
-                            <td th:text="${orderDetail.productModel}"></td>
-                            <td th:text="${orderDetail.orderPrice}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>  
-            
-			-->
-            
+
+
+
+
             	<div id="orderWrap">
 				<div class="orderDiv" th:each="order, orderIndex : ${orderList}" th:if="${orderIndex.index < 5}">
 					<div class="getOrderDetailBox">
@@ -150,7 +117,7 @@
 								<div class="rightDetailButtonDiv">
 									<form method="get" th:action="@{/user/orderDetail}">
 										<input type="hidden" th:value="${order.orderId}" name="orderId">
-										<button class="orderDetailButton">주문 상세조회</button>
+										<button class="orderDetailButton" onclick="orderDetailContent()">주문 상세조회</button>
 									</form>
 								</div>
 							</div>
@@ -163,87 +130,87 @@
     </div>
     <footer th:replace="~{/include/footer.html}"></footer>
         <script>
-document.addEventListener("DOMContentLoaded", function () {
-    // 모달 관련 요소
-	    const modal = document.getElementById("modal1");
-            const userInfoSection = document.getElementById("userInfoSection");
-            const orderDetailsTable = document.getElementById("orderDetailsTable"); // 주석 처리된 부분 사용 시 필요
-            const xhrButton = document.getElementById("xhrButton");
-            const xhrButton0 = document.getElementById("xhrButton0");
-	
-	    // 모달을 열고 닫는 함수들
-	    function modalOn() {
-            modal.style.display = "flex"
-        }
-
-        function isModalOn() {
-            return modal.style.display === "flex"
-        }
-
-        function modalOff() {
-            modal.style.display = "none"
-        }
-
-        const btnModal = document.getElementById("btn-modal1")
-        btnModal.addEventListener("click", e => {
-            modalOn()
-        })
-
-        const closeBtn = modal.querySelector(".close-area")
-        closeBtn.addEventListener("click", e => {
-            modalOff()
-        })
-
-        modal.addEventListener("click", e => {
-            const evTarget = e.target
-            if (evTarget.classList.contains("modal-overlay")) {
-                modalOff()
-            }
-        })
-
-        window.addEventListener("keyup", e => {
-            if (isModalOn() && e.key === "Escape") {
-                modalOff()
-            }
-        })
-
-        const modal2 = document.getElementById("modal2");
-
-        function modalOn2() {
-            modal2.style.display = "flex";
-        }
-
-        function isModalOn2() {
-            return modal2.style.display === "flex";
-        }
-
-        function modalOff2() {
-            modal2.style.display = "none";
-        }
-
-        const btnModal2 = document.getElementById("btn-modal2");
-        btnModal2.addEventListener("click", e => {
-            modalOn2();
-        });
-
-        const closeBtn2 = modal2.querySelector(".close-area");
-        closeBtn2.addEventListener("click", e => {
-            modalOff2();
-        });
-
-        modal2.addEventListener("click", e => {
-            const evTarget = e.target;
-            if (evTarget.classList.contains("modal-overlay")) {
-                modalOff2();
-            }
-        });
-
-        window.addEventListener("keyup", e => {
-            if (isModalOn2() && e.key === "Escape") {
-                modalOff2();
-            }
-        });
-	
+		document.addEventListener("DOMContentLoaded", function () {
+		    // 모달 관련 요소
+			    const modal = document.getElementById("modal1");
+		            const userInfoSection = document.getElementById("userInfoSection");
+		            const orderDetailsTable = document.getElementById("orderDetailsTable"); // 주석 처리된 부분 사용 시 필요
+		            const xhrButton = document.getElementById("xhrButton");
+		            const xhrButton0 = document.getElementById("xhrButton0");
+			
+			    // 모달을 열고 닫는 함수들
+			    function modalOn() {
+		            modal.style.display = "flex"
+		        }
+		
+		        function isModalOn() {
+		            return modal.style.display === "flex"
+		        }
+		
+		        function modalOff() {
+		            modal.style.display = "none"
+		        }
+		
+		        const btnModal = document.getElementById("btn-modal1")
+		        btnModal.addEventListener("click", e => {
+		            modalOn()
+		        })
+		
+		        const closeBtn = modal.querySelector(".close-area")
+		        closeBtn.addEventListener("click", e => {
+		            modalOff()
+		        })
+		
+		        modal.addEventListener("click", e => {
+		            const evTarget = e.target
+		            if (evTarget.classList.contains("modal-overlay")) {
+		                modalOff()
+		            }
+		        })
+		
+		        window.addEventListener("keyup", e => {
+		            if (isModalOn() && e.key === "Escape") {
+		                modalOff()
+		            }
+		        })
+		
+		        const modal2 = document.getElementById("modal2");
+		
+		        function modalOn2() {
+		            modal2.style.display = "flex";
+		        }
+		
+		        function isModalOn2() {
+		            return modal2.style.display === "flex";
+		        }
+		
+		        function modalOff2() {
+		            modal2.style.display = "none";
+		        }
+		
+		        const btnModal2 = document.getElementById("btn-modal2");
+		        btnModal2.addEventListener("click", e => {
+		            modalOn2();
+		        });
+		
+		        const closeBtn2 = modal2.querySelector(".close-area");
+		        closeBtn2.addEventListener("click", e => {
+		            modalOff2();
+		        });
+		
+		        modal2.addEventListener("click", e => {
+		            const evTarget = e.target;
+		            if (evTarget.classList.contains("modal-overlay")) {
+		                modalOff2();
+		            }
+		        });
+		
+		        window.addEventListener("keyup", e => {
+		            if (isModalOn2() && e.key === "Escape") {
+		                modalOff2();
+		            }
+		        });
+			
 	    // 사용자 정보 섹션을 보여주는 함수
 			function showUserInfoSection(userProfile) {
 			    // 사용자 정보 업데이트
@@ -406,6 +373,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
+        
+        
+    
+        
 });
     </script>
 
