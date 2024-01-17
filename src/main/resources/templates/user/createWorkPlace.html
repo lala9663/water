@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .modal-background {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+<div id="modalBackground" class="modal-background"></div>
+<div id="myModal" class="modal">
+  <h2>근무지 등록</h2>
+  <p>아직 근무지를 입력 안하셨습니다. 근무지를 입력하세요:</p>
+  <!-- Thymeleaf를 사용하여 서버에서 전달한 데이터(account)를 출력 -->
+  <p>계정: <span th:text="${account}"></span></p>
+  <form id="workPlaceForm" action="/user/createWorkPlace" method="post">
+    <input type="text" name="workPlace" placeholder="근무지를 입력하세요">
+    <button type="submit">Save</button>
+  </form>
+  <button onclick="closeModal()">Close Modal</button>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('myModal').style.display = 'block';
+    document.getElementById('modalBackground').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
+    document.getElementById('modalBackground').style.display = 'none';
+  }
+
+  window.onload = openModal;
+</script>
+
+</body>
+</html>
