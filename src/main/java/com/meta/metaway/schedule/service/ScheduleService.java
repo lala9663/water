@@ -36,7 +36,7 @@ public class ScheduleService implements IScheduleService{
 	        schedule.setStaffId(staffId);
 	        System.out.println(schedule.toString());
 	        scheduleRepository.insertSchedule(schedule);
-	        adminRepository.updateStaffStatus(staffId);
+//	        adminRepository.updateStaffStatus(staffId);
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -69,7 +69,7 @@ public class ScheduleService implements IScheduleService{
 	        schedule.setStaffId(staffId);
 	        System.out.println(schedule.toString());
 	        scheduleRepository.returnSchedule(schedule);
-	        adminRepository.updateStaffStatus(staffId);
+//	        adminRepository.updateStaffStatus(staffId);
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

@@ -71,6 +71,75 @@
         WHERE user_id = #{userId}
     </select>
 	
-
-    
+	<!-- 현윤 -->
+<!--  <select id="getDriverTodoList" resultType="com.meta.metaway.staff.dto.StaffScheduleDTO" parameterType="long">
+	    select 
+	        s.staff_id as "staffId",
+	        s.user_id as "userId",
+	        s.work_place as "workPlace",
+	        s.work_status as "workStatus",
+	        
+	        sc.schedule_id as "scheduleId",
+	        sc.visit_date as "visitDate",
+	        sc.visit_cycle as "visitCycle",
+	        sc.visit_type as "visitType",
+	        sc.visit_state as "visitState",
+	        sc.order_detail_id as "orderDetailId",
+	        
+	        o.order_date as "orderDate",
+	        o.order_name as "orderName",
+	        o.order_address as "orderAddress",
+	        
+	        u.user_phone as "userPhone",
+	        
+	        od.state_type as "stateType",
+	        od.end_date as "endDate"
+	    from schedule sc
+	        join users u on u.user_id = sc.user_id
+	        join staff s on s.user_id = sc.user_id    
+	        join orders o on o.user_id = sc.user_id    
+	        join order_detail od on od.order_id = o.order_id
+	    order by sc.schedule_id
+	</select>-->
+	
+	<!-- 로그인한 기사 할일 조회-->
+	<select id="getDriverTodoList" resultType="com.meta.metaway.staff.dto.StaffScheduleDTO" parameterType="long">
+        select 
+			sc.schedule_id as "scheduleId",
+			sc.order_detail_id as "orderDetailId",
+			sc.visit_date as "visitDate",
+	        o.order_date as "orderDate",
+	        o.request_date as "requestDate",
+	        o.order_name as "orderName",
+	        o.order_address as "orderAddress"
+		from schedule sc
+			join staff s on s.staff_id =sc.staff_id
+	        join users u on u.user_id = s.user_id
+	        join orders o on o.order_id = sc.order_id
+		where u.user_id=#{userId}
+		order by sc.schedule_id desc
+	</select>
+	
+	<!-- 기사 방문예정일 선택 -->
+	<update id="driverDatePick"   parameterType="com.meta.metaway.staff.dto.StaffScheduleDTO" >
+		update schedule
+		set visit_date = #{visitDate}
+		where schedule_id =#{scheduleId}
+	</update>
+	<!-- 스케쥴 가져오기-->
+	<select id="selectScheduleDriver" parameterType="long">
+		select 
+			schedule_id as "scheduleId",
+			visit_date as "visitDate",
+			visit_cycle as "visitCycle",
+			visit_state as "visitState",
+			staff_id as "staffId",
+			user_id as "userId",
+			order_id as "orderId",
+			return_id as "returnId",
+			order_detail_id as "orderDetailId"
+		from schedule
+		where schedule_id = #{scheduleId}
+	</select> 
+	
 </mapper>

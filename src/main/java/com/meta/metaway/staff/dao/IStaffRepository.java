@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.meta.metaway.product.model.Product;
+import com.meta.metaway.schedule.model.Schedule;
 import com.meta.metaway.staff.dto.StaffListDTO;
+import com.meta.metaway.staff.dto.StaffScheduleDTO;
 import com.meta.metaway.staff.model.Staff;
 
 @Repository
@@ -35,4 +37,13 @@ public interface IStaffRepository {
     String getWorkPlaceByUserId(long userId);
     
     Staff getStaffByUserId(long userId);
+    
+    //yoon----------------------
+    //기사 할일 목록
+    List<StaffScheduleDTO> getDriverTodoList(long userId);
+    //기사 방문예정일 선택 업데이트
+    void driverDatePick(StaffScheduleDTO staffSchedule);
+    //스케쥴 가져오기
+    StaffScheduleDTO selectScheduleDriver (long scheduleId);
+    
 }

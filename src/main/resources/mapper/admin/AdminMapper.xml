@@ -113,11 +113,11 @@
 	<!--  반납직원 배정 완료 -->
 	<update id="updateCompleteOrderDetail" parameterType="long">
 	    update order_detail
-	    SET state_type = 8
+	    SET state_type = 12
 	    WHERE order_detail_id = #{orderDetailId}
 	</update>
 	
-	<!--  반납직원 배정 완료 -->
+	<!--  반납직원 배정 취소 -->
 	<update id="updateCancelOrderDetail" parameterType="long">
 	    update order_detail
 	    SET state_type = 11
@@ -218,7 +218,7 @@
 		FROM users u
 		JOIN staff s ON u.user_id = s.user_id
 		JOIN user_authority a ON u.user_id = a.user_id
-		WHERE a.authority_name IN ('ROLE_CODI') AND s.work_status = 0
+		WHERE a.authority_name IN ('ROLE_CODI')
 	</select>
 	
 	<update id="updateStaffStatus" parameterType="long">
@@ -244,7 +244,7 @@
 		FROM users u
 		JOIN staff s ON u.user_id = s.user_id
 		JOIN user_authority a ON u.user_id = a.user_id
-		WHERE a.authority_name IN ('ROLE_DRIVER') AND s.work_status = 0
+		WHERE a.authority_name IN ('ROLE_DRIVER')
 	</select>
 	
 	<!-- 시퀀스대용  -->

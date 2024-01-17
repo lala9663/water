@@ -72,7 +72,9 @@ public class AdminOrderDetailDTO {
 		} else if (stateType == 8) {
 			return "반납 완료";
 		} else if (stateType == 11) {
-			return "반납 대기";
+			return "배정 취소";
+		} else if (stateType == 12) {
+			return "배정 완료";
 		} else {
 			return null;
 		}
