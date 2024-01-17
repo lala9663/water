@@ -38,48 +38,51 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
-	new Vue({
-	    el: '#app',
-	    data: {
-	        isLoginFormVisible: true,
-	        account: '',
-	        password: ''
-	    },
-	    methods: {
-	        login() {
-	            console.log('Logging in:', this.account, this.password);
-	
-	            const url = '/login'; 
-				const formData = new FormData();
-				formData.append('account', this.account);
-				formData.append('password', this.password);
-				
-				fetch(url, {
-				    method: 'POST',
-				    body: formData
-				})
-				.then(response => {
-				    if (response.ok) {
-				        const authorizationHeader = response.headers.get('Authorization');
-				        const token = authorizationHeader ? authorizationHeader.replace('Bearer ', '') : null;
+        new Vue({
+            el: '#app',
+            data: {
+                isLoginFormVisible: true,
+                account: '',
+                password: ''
+            },
+            methods: {
+                login() {
+                    console.log('Logging in:', this.account, this.password);
 
-				        sessionStorage.setItem('token', token);
-				        console.log('Token login:', token); 
+                    const url = '/login';
+                    const formData = new FormData();
+                    formData.append('account', this.account);
+                    formData.append('password', this.password);
 
-				        window.location.href = '/'; 
-				        console.log('로오오오그의ㅣ니이인ㄴ');
-				    } else {
-				        console.error('시리ㅣ잉이ㅣㅣㄹ패');
-				    }
-				})
-				.catch(error => {
-				    console.error('Error logging in:', error);
-				});
+                    fetch(url, {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                const authorizationHeader = response.headers.get('Authorization');
+                                const token = authorizationHeader ? authorizationHeader.replace('Bearer ', '') : null;
 
-	        }
-	    }
-	});
+                                sessionStorage.setItem('token', token);
+                                console.log('Token login:', token);
 
+                                window.location.href = '/';
+                                console.log('로그인 성공');
+
+                                // 로그인 성공 시 알림창
+                                alert('로그인 성공!');
+                            } else {
+                                console.error('로그인 실패');
+                                // 로그인 실패 시 알림창
+                                alert('로그인 실패! 아이디 또는 비밀번호를 확인하세요.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error logging in:', error);
+                        });
+                }
+            }
+        });
     </script>
         <!-- footer include -->
 	<footer th:replace="~{/include/footer.html}"></footer>
