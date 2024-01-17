@@ -216,6 +216,13 @@
 	var buyClass = document.querySelector('.buy');
 	button1.onclick = function () {
 		buttonValue = 0;
+		var rentalElements = document.querySelectorAll('#rental');
+		document.querySelector('.rental').classList.add('active');
+		rentalid = rentalElements[0].getAttribute('data-contract-id');
+		contract = document.querySelectorAll('.contractId');
+		contract.forEach(item => {
+			item.value = rentalid;
+		})
 		updateDiv();
 	};
 	button2.onclick = function () {
