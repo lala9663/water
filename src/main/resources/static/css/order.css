@@ -17,15 +17,6 @@
 	padding-bottom: 40px;
 }
 
-#orderDiv1{
-	
-	width: 600px;
-	height: 580px;
-	border: 1.3px solid rgb(153, 153, 153);
-	border-radius: 10px;	
-	padding: 40px;
-}
-
 .headerText span{
 	box-shadow: inset 0 -20px 0 rgb(167, 233, 255);
 }
@@ -99,3 +90,40 @@
 .order-text{
 	margin-top: 10px;
 }
+
+.orderDetailButton{
+	margin-top: 60px;
+}
+
+
+.orderDetailButton a{
+	color: white;
+	text-decoration: none;
+}
+
+.ProductImageBox img{
+	margin-top: -50px;
+}
+
+.stateText{
+	margin-left: 70px;
+	color: #00B0E8;
+	font-weight: bold;
+}
+
+
+.productText .spanText{
+	color: #00B0E8;
+	font-weight: bold;
+}
+
+
+.orderDateBox{
+	font-weight: bold;
+}
+
+#myOrderHeaderText p{
+	font-size: 26px;
+	font-weight: bold;
+}
+

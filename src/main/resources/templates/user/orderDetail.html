@@ -21,16 +21,15 @@
 	<div class="container">
 		<div class="profile-nav">
 			<nav class="profile-nav-ul">
-				<ul>
-					<li class="profile-nav-p">마이페이지</li>
-
-					<li><a th:href="@{/user/profile}">구매 내역</a></li>
-					<!--구매 취소 내역 / 환불 내역-->
-					<li><a th:href="@{/return}">반납 내역</a></li>
-					<!--반납 신청 내역 / 반납 환불 내역-->
-					<li><a th:href="@{/contract}">약정 내역</a></li>
-					<!--약정 연장 내역 / 약정 해지 내역-->
-				</ul>
+				 <ul>
+					<li class="profile-nav-p" ><a th:href="@{/user/profile}">마이페이지</a></li>
+                    <li><a th:href="@{/user/order}">구매내역</a></li>
+                    <!--구매 취소 내역 / 환불 내역-->
+                    <li >반납 내역</li>
+                    <!--반납 신청 내역 / 반납 환불 내역-->
+                    <li><a th:href="@{/contract}">회원수정</a></li>
+                    <!--약정 연장 내역 / 약정 해지 내역-->
+                </ul>
 			</nav>
 		</div>
 		<div class="profile-page">
@@ -71,8 +70,16 @@
 							</div>
 						</div>
 					</div>
+					
+				
 					<div class="DetailButtonBox">
 						<div class="bottomButtonBox">
+							
+								<div class="returnButton3">
+								<a th:href="'/product/' + ${cont.productId}" class="productRedirectButton">상품 정보 보기</a>
+							</div>
+					
+							
 							<div class="detailButton" th:if="${cont.endDate != null}">
 								<button th:if="${cont.stateType == 0}" class="returnButton"
 									th:data-order-detail-id="${cont.orderDetailId}" th:data-state-type="0">환불하기</button>
@@ -106,9 +113,7 @@
 								<div class="returnButton3" th:if="${cont.stateType == 10}">환불 완료
 								</div>
 							</div>
-							<div class="returnButton3">
-								<a th:href="'/product/' + ${cont.productId}" class="productRedirectButton">상품 정보 보기</a>
-							</div>
+							
 						</div>
 					</div>
 				</div>

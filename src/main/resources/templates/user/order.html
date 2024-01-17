@@ -9,7 +9,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" th:href="@{/css/header.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
-	<link rel="stylesheet" th:href="@{/css/myOrder.css}">
+	<link rel="stylesheet" th:href="@{/css/order.css}">
 	<link rel="stylesheet" th:href="@{/css/profile.css}">
 	<title>MyPage myOrder</title>
 </head>
@@ -20,20 +20,17 @@
 	<div class="container">
 		<div class="profile-nav">
 			<nav class="profile-nav-ul">
-				<ul>
-					<li class="profile-nav-p">마이페이지</li>
-
-					<li><a th:href="@{/user/myOrder}">구매 내역</a></li>
-					<!--구매 취소 내역 / 환불 내역-->
-					<li><a th:href="@{/return}">반납 내역</a></li>
-					<!--반납 신청 내역 / 반납 환불 내역-->
-					<li><a th:href="@{/contract}">약정 내역</a></li>
-					<!--약정 연장 내역 / 약정 해지 내역-->
-				</ul>
+				 <ul>
+					<li class="profile-nav-p" ><a th:href="@{/user/profile}">마이페이지</a></li>
+                    <li><a th:href="@{/user/order}">구매내역</a></li>
+                    <li >반납 내역</li>
+                    <li><a th:href="@{/contract}">회원수정</a></li>
+                    
+                </ul>
 			</nav>
 		</div>
 		<div class="profile-page">
-			<div id="myOrderHeaderText">주문 내역</div>
+			<div id="myOrderHeaderText"><p>주문 내역</p></div>
 			<div id="orderWrap">
 				<div class="orderDiv" th:each="order, orderIndex : ${orderList}" th:if="${orderIndex.index < 4}">
 					<div class="getOrderDetailBox">
@@ -70,7 +67,7 @@
 								<div class="rightDetailButtonDiv">
 									<form method="get" th:action="@{/user/orderDetail}">
 										<input type="hidden" th:value="${order.orderId}" name="orderId">
-										<button class="orderDetailButton">주문 상세조회</button>
+										<button class="orderDetailButton"><a th:href="@{/user/orderDetail}">주문 상세조회</a></button>
 									</form>
 								</div>
 							</div>
