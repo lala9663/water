@@ -1,60 +1,67 @@
-.order_list{
+.order_list {
 	margin-top: 110px;
 }
 
-.rantal_list{
+.rantal_list {
 	margin-top: 120px;
 }
 
 
-.wrap {width: 1280px;  margin: 0 auto;}
+.wrap {
+	width: 1280px;
+	margin: 0 auto;
+}
 
 /* 회원리스트 페이지 */
-table{
+table {
 	margin-left: 20px;
 	margin-right: 20px;
 }
 
 .ti_con a {
-        margin: 20px;
-    	font-size: 30px;
-    	color: black;
-    	text-decoration: none;
-    	font-weight: bold;
+	margin: 20px;
+	font-size: 30px;
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 
-.total-orders p{
+.total-orders p {
 	margin-left: 30px;
 }
-.total-orders span{
+
+.total-orders span {
 	color: #00B0E8;
 }
 
-.search-select{
+.search-select {
 	margin-left: 5px;
 }
 
 
 .member_list .input-group {
-    align-items: center;
+	align-items: center;
 }
-.total-orders{
+
+.total-orders {
 	display: flex;
 	margin-left: 5px;
 }
 
-.search-bar{
+.search-bar {
 	display: flex;
 }
-.search-bar p{
-	text-align:center;
-    margin-top: 10px;
-    margin-left: 25px;
+
+.search-bar p {
+	text-align: center;
+	margin-top: 10px;
+	margin-left: 25px;
 }
+
 .input-group {
-    justify-content:start;
-  }
+	justify-content: start;
+}
 
 
 .search-bar .datepicker,
@@ -64,33 +71,33 @@ table{
 	border: none;
 	border-bottom: 1px solid rgb(153, 153, 153);
 	margin-bottom: 18px;
-    margin-left: 15px;
+	margin-left: 15px;
 }
-.input-group-append{
+
+.input-group-append {
 	display: flex;
 }
-  .input-group-append .search-btn {
-    border: none;
-    padding: 15px 10px;
-    background: none;
-    filter: invert(100%);
-    margin-top: -10px;
-  }
-  
-  .input-group-append .search-icon{
-    height: 25px;
-  }
 
-.member_list  .m_flex_box {
-    display: flex;
-} 
+.input-group-append .search-btn {
+	border: none;
+	padding: 15px 10px;
+	background: none;
+	filter: invert(100%);
+	margin-top: -10px;
+}
 
-  .total-member {
-    width: 10%;
-  }
+.input-group-append .search-icon {
+	height: 25px;
+}
 
+.member_list .m_flex_box {
+	display: flex;
+}
 
+.total-member {
+	width: 10%;
+}
 
-
-
-
+li {
+	list-style-type: none;
+}
