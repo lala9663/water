@@ -25,9 +25,6 @@ public class StaffService implements IStaffService {
 	@Autowired
 	IStaffRepository staffRepository;
 
-	@Autowired
-	private JWTUtil jwtUtil;
-
 	@Override
 	public boolean isCodiOrDriver(String account) {
 		Long id = staffRepository.getIdByAccount(account); // 사용자 이름으로부터 ID를 가져옵니다.
@@ -59,7 +56,7 @@ public class StaffService implements IStaffService {
 	}
 
 	@Override
-	public String getUserAuthority(int userId) {
+	public String getUserAuthority(long userId) {
 		return staffRepository.getUserAuthority(userId);
 	}
 

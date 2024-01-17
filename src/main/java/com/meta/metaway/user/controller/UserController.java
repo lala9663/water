@@ -1,9 +1,8 @@
 package com.meta.metaway.user.controller;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,25 +13,21 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.meta.metaway.global.MultiClass;
 import com.meta.metaway.jwt.JWTUtil;
 import com.meta.metaway.order.model.Order;
-import com.meta.metaway.order.model.OrderDetail;
-import com.meta.metaway.product.model.Contract;
+import com.meta.metaway.staff.service.IStaffService;
 import com.meta.metaway.user.dto.EmailRequestDTO;
 import com.meta.metaway.user.model.Basket;
 import com.meta.metaway.user.model.User;
 import com.meta.metaway.user.service.IUserService;
 import com.meta.metaway.user.service.MailSendService;
 
-import io.jsonwebtoken.lang.Collections;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -53,21 +48,69 @@ public class UserController {
 
 	@Autowired
 	private MailSendService mailService;
+	
+	@Autowired
+	private IStaffService staffService;
 
 	@GetMapping("/profile")
 	public String getProfilePage(HttpServletRequest request, Model model) {
-		String token = multiClass.getToken(request);
-		if (token != null) {
-			String username = jwtUtil.getUsername(token);
-			User user = userService.getUserByUsername(username);
+	    String token = multiClass.getToken(request);
 
-			if (user != null) {
-				model.addAttribute("userProfile", user);
-				return "user/profile";
-			}
-		}
+	    if (token != null) {
+	        long userId = jwtUtil.getId(token);
+	        String username = jwtUtil.getUsername(token);
+	        User user = userService.getUserByUsername(username);
+	        String workPlace = staffService.getCurrentWorkPlace(userId);
+	        String role = jwtUtil.getRole(token);
+	        System.out.println("권한: " + role );
+	        model.addAttribute("userProfile", user);
 
-		return "redirect:/login";
+	        if (workPlace == null && (role.contains("CODI") || role.contains("DRIVER"))) {
+	            return "redirect:/user/createWorkPlace";
+	        } else {
+	            return "user/profile";
+	        }
+	    }
+
+	    return "redirect:/login";
+	}
+
+	@GetMapping("/createWorkPlace")
+	public String getProfileInputPage(HttpServletRequest request, Model model) {
+	    String token = multiClass.getToken(request);
+	    long userId = jwtUtil.getId(token);
+        String account = jwtUtil.getUsername(token);
+        model.addAttribute("account", account);
+
+        
+		return "user/createWorkPlace";
+	}
+
+	@PostMapping("/createWorkPlace")
+	public String handleProfileInput(@RequestParam("workPlace") String workPlace, HttpServletRequest request) {
+	    String token = multiClass.getToken(request);
+
+	    if (token != null) {
+	        long userId = jwtUtil.getId(token);
+	        staffService.createWorkPlace(userId, workPlace);
+	        return "redirect:/user/profile";
+	    }
+
+	    return "redirect:/login";
+	}
+
+	
+	@PostMapping("/saveWorkPlace")
+	@ResponseBody
+	public ResponseEntity<String> saveWorkPlace(HttpServletRequest request, @RequestBody Map<String, String> payload) {
+	    String token = multiClass.getToken(request);
+	    long userId = jwtUtil.getId(token);
+		String workPlace = payload.get("workPlace");
+		System.out.println("저장 근무지: " + workPlace);
+
+	    staffService.createWorkPlace(userId, workPlace);
+
+	    return ResponseEntity.ok("Workplace saved successfully");
 	}
 
 	@GetMapping("/profileList")

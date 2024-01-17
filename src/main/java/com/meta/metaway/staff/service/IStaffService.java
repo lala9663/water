@@ -1,13 +1,10 @@
 package com.meta.metaway.staff.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.meta.metaway.product.model.Product;
-import com.meta.metaway.schedule.model.Schedule;
 import com.meta.metaway.staff.dto.StaffListDTO;
 import com.meta.metaway.staff.dto.StaffScheduleDTO;
-import com.meta.metaway.staff.model.Staff;
 
 public interface IStaffService {
 	
@@ -21,15 +18,13 @@ public interface IStaffService {
 	List<StaffListDTO> getOrderProductList();
 	List<Product> getProductForStaff(String account);
 	
-    String getUserAuthority(int userId);
+    String getUserAuthority(long userId);
 
     void createWorkPlace(long userId, String workPlace);
     
     void updateWorkPlace(long userId, String workPlace);
 
     String getCurrentWorkPlace(long userId);
-    
-    //yoon---------------------------------
     
     //기사 할일 목록
     List<StaffScheduleDTO> getDriverTodoList(long userId);
