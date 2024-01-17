@@ -56,6 +56,7 @@ public class AuthController {
     @PostMapping("/join")
     public String joinUser(@Valid JoinDTO joinDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            // 유효성 검사에 실패한 경우
 
             Logger logger = LoggerFactory.getLogger(this.getClass());
             logger.error("회원 가입 유효성 검사 실패: " + bindingResult.getAllErrors());
@@ -68,6 +69,11 @@ public class AuthController {
         return "redirect:/login";
     }
 
+	@GetMapping("/login")
+	public String login() {
+
+	 return "/user/login";
+	}
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
