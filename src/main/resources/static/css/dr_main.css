@@ -98,3 +98,8 @@ select .form-select-sm{
     background-color: #f8f9fa;
     border: 1px solid #ced4da;
 }
+
+
+.ol, ul {
+padding-left: 0;	
+	}
