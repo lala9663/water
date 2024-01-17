@@ -17,6 +17,11 @@
     justify-content: space-between;
 }
 
+.YearText1{
+	display: flex;
+	justify-content: space-between;
+}
+
 #wrap {
     display: grid;
     margin-top: 140px;
