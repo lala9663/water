@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.meta.metaway.global.MultiClass;
 import com.meta.metaway.jwt.JWTUtil;
-import com.meta.metaway.multiClass.MultiClass;
 import com.meta.metaway.order.model.Order;
 import com.meta.metaway.order.model.OrderDetail;
 import com.meta.metaway.product.model.Contract;
