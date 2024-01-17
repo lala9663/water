@@ -205,6 +205,7 @@ public class AdminController {
 		return "redirect:/admin/returnlist/1";
 	}
 	
+	// 여기서부터 url 미적용
     @GetMapping("/productRank")
     public String productRank(Model model) {
         List<SoldRankDTO> productRankList = adminService.getSoldRankProductWithoutImage(0);
