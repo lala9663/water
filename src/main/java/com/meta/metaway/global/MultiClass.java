@@ -1,4 +1,4 @@
-package com.meta.metaway.multiClass;
+package com.meta.metaway.global;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
