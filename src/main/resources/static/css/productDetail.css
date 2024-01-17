@@ -102,13 +102,13 @@
 	margin:3px;
 	padding: 5px 0 5px 0;
 	margin-top: -10px;
-	background-color: white;	
+	background-color: gainsboro;	
 	font-size: 14px;
 	 border:1.3px solid rgb(153, 153, 153);
      border-radius: 3px;
-     color: white;
+     color:gainsboro;
      text-align: center;
-     background-color:#6C757D;
+     background-color:white;
      cursor: pointer;
      font-weight: bold;
 }
@@ -116,7 +116,8 @@
 .rental.active{
 	transition: 0.3s;
 	background-color: white;
-	color: #6C757D;
+	color: black;
+	font-weight: bold;
 }
 .buy{
 	width: 100%;
