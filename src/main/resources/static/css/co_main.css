@@ -1,5 +1,5 @@
 .dri_main{
-    margin-top: 110px;
+    margin-top: 10px;
 }
 
 .fw-bold{
@@ -16,7 +16,9 @@
     font-size: 30px;
 }
 
-
+.dri_main{
+	padding: 50px;
+}
 
 .dri-search-bar {
     margin-left: 40px;
