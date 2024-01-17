@@ -55,20 +55,20 @@
 						</div>
 						<div class="detailPriceDiv">
 							<div class="pricePushbox">
-								<div th:if="${cont.startDate != null}" th:text="'약정일 : ' + ${cont.startDate}" class="pushText"></div>
+								<div th:if="${cont.startDate != null}" th:text="'약정일 : ' + ${cont.startDate}"
+									class="pushText"></div>
 								<div th:if="${cont.endDate != null}" th:text="'만료일 : ' + ${cont.endDate}"></div>
 							</div>
 							<div class="footerPriceText2" th:if="${cont.contractYear == 0}">
-								<span
-									th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
+								<span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
 									class="spanText">
 								</span>
 							</div>
 							<div class="footerPriceText2" th:if="${cont.contractYear != 0}">
-								월 렌탈료 :  
-								<span
-									th:text="'월 ' + ${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
-									class="spanText"></span></div>
+								월 렌탈료 :
+								<span th:text="'월 ' + ${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
+									class="spanText"></span>
+							</div>
 						</div>
 					</div>
 					<div class="DetailButtonBox">
@@ -106,7 +106,9 @@
 								<div class="returnButton3" th:if="${cont.stateType == 10}">환불 완료
 								</div>
 							</div>
-							<button class="basketButton">장바구니 담기</button>
+							<div class="returnButton3">
+								<a th:href="'/product/' + ${cont.productId}" class="productRedirectButton">상품 정보 보기</a>
+							</div>
 						</div>
 					</div>
 				</div>
