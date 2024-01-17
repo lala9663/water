@@ -96,6 +96,20 @@ input[type="password"] {
     
 }
 
+#accountCheck{
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    
+}
+
 #emailVerificationBox input{
 	margin-left: 30px;
 }

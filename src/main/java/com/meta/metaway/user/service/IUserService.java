@@ -38,4 +38,7 @@ public interface IUserService {
     List<Order> getUserMyOrder(long userId);
     
     Order getUserMyOrderDetail(Order order);
+
+    int isAccountAvailable(String account);
+
 }

@@ -15,13 +15,14 @@
 
 <header th:replace="~{/include/header.html}"></header>
 <join-body>
-	<div class="join-form">
+ 	<div class="join-form">
     <h1><span>JOIN</span></h1>
     <form action="/join" method="post" name="form1">
 		
 		<div class="join-box">
 			<img src="images/user.png">			
         	<input type="text" id="account" name="account" class="input-area" required placeholder="your id">
+        	<button type="button" id="accountCheck" onclick="fn_accountCheck();" value="N">중복확인</button>
        	 <span></span>
 		</div>
 		
@@ -181,6 +182,22 @@ function execPostCode() {
 		}).open();
 	};
 	
+	function fn_accountCheck(){
+		$.ajax({
+			url : "/api/checkAccount",
+			type : "POST",
+			dataType : "JSON",
+			data: {"account" : $("#account").val()},
+			success : function (data){
+				if(data == 1) {
+					alert("이미 등록된 계정입니다.");
+				} else if (data == 0) {
+					$("#accountCheck").attr("value", "Y");
+					alert("사용 가능한 계정입니다")
+				}
+			}
+		});
+	}
 </script>
     <script>
         includeHTML();

@@ -47,6 +47,8 @@ public interface IUserRepository {
     
     void updatePassword(User user);
     
+    int checkAccount(String account);
+    
     long selectUserMaxNo();
 
 }

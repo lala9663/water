@@ -240,5 +240,9 @@ public class UserService implements IUserService {
 		return order;
 	}
 	
-	
+	@Override
+    public int isAccountAvailable(String account) {
+		int result = userRepository.checkAccount(account);
+        return result;
+    }
 }
