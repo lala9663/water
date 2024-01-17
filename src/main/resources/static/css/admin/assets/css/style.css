@@ -1,4 +1,4 @@
-/* =========== Google Fonts ============ */
+ /* =========== Google Fonts ============ */
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 /* =============== Globals ============== */
@@ -26,6 +26,21 @@ body {
 .container {
   position: relative;
   width: 100%;
+}
+
+ .submit-btn{
+		 width: 70px;
+    background-color: #00B0E8;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px;  
 }
 
 /* =============== Navigation ================ */

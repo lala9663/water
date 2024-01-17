@@ -49,6 +49,7 @@
    border-radius: 10px;
    text-decoration: none;
    color: inherit;
+   margin-left: 0 auto;
 }
 
 
@@ -56,9 +57,10 @@
 
 /*정수기 이미지 출력 */
 .productImage{
-   width: 100%;
-   height: auto;
+   
+   height: 220px;
    margin-bottom: 10px;
+   margin-left: 13%;
 }
 
 /*정수기 기능 출력 */

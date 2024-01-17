@@ -1,6 +1,7 @@
-.assignment{
-	margin-top: 120px;
+.return{
+	margin-top: 70px;
 	margin-bottom: 30px;
+	margin-left: 50px;
 }
 
 .flex_2_1 p,
@@ -17,6 +18,15 @@
 
 .hight-span{
 	background: linear-gradient(to top, rgb(152, 221, 255) 50%, transparent 40%);
+}
+
+em {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.flex_1-p{
+	font-size: 31px;
 }
 
 .cody-btn,
@@ -59,7 +69,7 @@
 	background-color: rgb(237, 237, 237);
 }
 
-.submit-btn{
+.return-btn{
 		 width: 375px;
     background-color: #00B0E8;
     border-radius: 8px;
@@ -109,40 +119,58 @@ table{
     margin:20px;
     text-align: center; 
 }
-
+.return-table .table-success,
 .cody_table .table-success,
 .driver_table .table-success{
 	background-color: #00B0E8;
 	color: white;
+	margin-bottom: 5px;
+}
+tbody {
+	margin-bottom: 111px;
+	
 }
 
-.m_flex_box{
-	width: 100%;
+.return_btn_btn{
+				 width: 65px;
+    background-color: white;
+    border-radius: 8px;
+    color: black;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-size: 14px;
+    padding: 6px;
+    border: 1.3px solid rgb(225, 225, 225);
+    border-radius: 5px; 
+    margin-left: 50px;
 }
 
+.return_btn_btn:hover{
+	background-color: rgb(237, 237, 237);
+}
 /* assignment */
 
-.assignment {display: flex;}
-.assignment .flex_1 {width: 60%;}
-.assignment em {margin-bottom: 10px; display: inline-block;}
-.assignment .flex_1 .bo,
-.assignment .flex_2 .bo { border: 1px solid #ddd; border-radius: 5px; margin-bottom: 25px;}
-.assignment .flex_1 .bo li {margin-bottom: 10px;}
-.assignment .flex_1_3 .bo {box-sizing: border-box; padding: 20px;}
+.return {display: flex;}
+.return .flex_1 {width: 60%;}
+.return em {margin-bottom: 10px; display: inline-block;}
+.return .flex_1 .bo,
+.return .flex_2 .bo { border: 1px solid #ddd; border-radius: 5px; margin-bottom: 25px;}
+.return .flex_1 .bo li {margin-bottom: 10px;}
+.return .flex_1_3 .bo {box-sizing: border-box; padding: 20px;}
 
-.assignment .flex_2 {width: 40%; box-sizing: border-box; margin-left: 20px;}
-.assignment .flex_2 h3 {font-size: 18px;}
-.assignment .flex_2 .bo {height: auto; padding: 20px;}
-.assignment .engineer_box div.driver { font-size: 20px; background-color: #ededed; text-align: center; padding: 20px; box-sizing: border-box;}
-.assignment .engineer_box div.codi { font-size: 20px; background-color: #ededed; text-align: center; padding: 20px; box-sizing: border-box;}
-.assignment .engineer_box div p {margin: 0 !important;}
-.assignment .engineer_box button {width: 50%;}
-.assignment .flex_button {display: flex;     justify-content: center; margin-bottom: 20px;}
-.assignment .flex_button button {margin-top: 10px;}
+.return .flex_2 {width: 40%; box-sizing: border-box; margin-left: 20px;}
+.return .flex_2 h3 {font-size: 18px;}
+.return .flex_2 .bo {height: auto; padding: 20px;}
+.return .flex_2_1 {margin-top: 63px;}
+.return .engineer_box div.driver { font-size: 20px; background-color: #ededed; text-align: center; padding: 20px; box-sizing: border-box;}
+.return .engineer_box div.codi { font-size: 20px; background-color: #ededed; text-align: center; padding: 20px; box-sizing: border-box;}
+.return .engineer_box div p {margin: 0 !important;}
+.return .engineer_box button {width: 50%;}
+.return .flex_button {display: flex;     justify-content: center; margin-bottom: 20px;}
+.return .flex_button button {margin-top: 10px;}
 .pagination-container {
       display: flex;
         margin-top: 20px;
         justify-content: center;
     }
-    
-    
