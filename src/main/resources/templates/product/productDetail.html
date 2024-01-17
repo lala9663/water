@@ -101,7 +101,7 @@
 				</div>
 			</div>
 			<!-- Button trigger modal -->
-			<div id="admin">
+			<div id="adminButton">
 				<button type="button" class="btn_delete" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 					삭제하기
 				</button>
@@ -290,6 +290,21 @@
 	}
 
 
+</script>
+<script>
+	function getCookie(name) {
+		const value = document.cookie.charAt(11);
+		return value;
+	}
+	
+	window.addEventListener('load', function () {
+		const token = getCookie('userNumber');
+		console.log(token);
+		if (token !== '4') {
+			const adminElement = document.getElementById('adminButton');
+			adminElement.style.display = 'none';
+		}
+	});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

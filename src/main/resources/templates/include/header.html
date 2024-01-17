@@ -79,7 +79,7 @@
 		return value;
 	}
 
-	window.onload = function () {
+	window.addEventListener('load', function() {
 		const token = getCookie('userNumber');
 		if (token) {
 			document.getElementById('login').style.display = 'none';
@@ -110,7 +110,7 @@
 			document.getElementById('driver').style.display = 'none';
 			document.getElementById('codi').style.display = 'none';
 		}
-	};
+	});
 	
 	function scrollToBest1() {
     var bestSection = document.getElementById('waterInfo');

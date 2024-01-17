@@ -24,7 +24,7 @@
 				<ul>
 					<li class="profile-nav-p">마이페이지</li>
 
-					<li><a th:href="@{/user/myOrder}">구매 내역</a></li>
+					<li><a th:href="@{/user/profile}">구매 내역</a></li>
 					<!--구매 취소 내역 / 환불 내역-->
 					<li><a th:href="@{/return}">반납 내역</a></li>
 					<!--반납 신청 내역 / 반납 환불 내역-->
@@ -45,12 +45,6 @@
 								<img th:src="'data:' + ${cont.product.imageType} + ';base64,' + ${cont.product.imageFile}"
 									alt="productImage" class="productDetailImage">
 							</div>
-							<div class="productFooterText">
-								<div class="footerText">
-									<div class="footerPriceText" th:if="${cont.contractYear == 0}">구입가</div>
-									<div class="footerPriceText" th:if="${cont.contractYear != 0}">월 렌탈료</div>
-								</div>
-							</div>
 						</div>
 						<div class="productTextBox">
 							<div th:text="${cont.product.productModel}" class="detailModel">모델</div>
@@ -61,13 +55,18 @@
 						</div>
 						<div class="detailPriceDiv">
 							<div class="pricePushbox">
-								<div th:if="${cont.startDate != null}" th:text="'약정일 : ' + ${cont.startDate}"></div>
+								<div th:if="${cont.startDate != null}" th:text="'약정일 : ' + ${cont.startDate}" class="pushText"></div>
 								<div th:if="${cont.endDate != null}" th:text="'만료일 : ' + ${cont.endDate}"></div>
 							</div>
-							<div class="footerPriceText2" th:if="${cont.contractYear == 0}"><span
+							<div class="footerPriceText2" th:if="${cont.contractYear == 0}">
+								<span
 									th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
-									class="spanText"></span></div>
-							<div class="footerPriceText2" th:if="${cont.contractYear != 0}"><span
+									class="spanText">
+								</span>
+							</div>
+							<div class="footerPriceText2" th:if="${cont.contractYear != 0}">
+								월 렌탈료 :  
+								<span
 									th:text="'월 ' + ${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
 									class="spanText"></span></div>
 						</div>
