@@ -17,10 +17,10 @@
 <join-body>
  	<div class="join-form">
     <h1><span>JOIN</span></h1>
-		<form id="joinForm" action="/join" method="post" name="form1">
+    <form action="/join" method="post" name="form1">
 		
 		<div class="join-box">
-			<img src="images/user.png">			
+			<img src="images/user.png" class="user">			
         	<input type="text" id="account" name="account" class="input-area" required placeholder="your id">
         	<button type="button" id="accountCheck" onclick="fn_accountCheck();" value="N">중복확인</button>
        	 <span></span>
@@ -62,16 +62,16 @@
         		<input type="text" id="age" name="age" placeholder="your age">
         </div>
         
-<div class="form-group">                   
-<input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="zipcode" id="addr1" type="text" readonly="readonly" >
-    <button type="button" class="btn-address" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
-</div>
-<div class="form-group">
-    <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="streetadr" id="addr2" type="text" readonly="readonly" />
-</div>
-<div class="form-group">
-    <input class="form-control" placeholder="상세주소" name="detailadr" id="addr3" type="text"  />
-</div>
+		<div class="form-group">                   
+		<input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="zipcode" id="addr1" type="text" readonly="readonly" >
+		    <button type="button" class="btn-address" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
+		</div>
+		<div class="form-group">
+		    <input class="form-control" style="top: 2px;" placeholder="도로명 주소" name="streetadr" id="addr2" type="text" readonly="readonly" />
+		</div>
+		<div class="form-group">
+		    <input class="form-control" placeholder="상세주소" name="detailadr" id="addr3" type="text"  />
+		</div>
 <!--		<div>
 			<input type="text" name="zipcode" maxlength="5" readonly>
 			<input type="button" value="우편번호 검색" id="btn"> <br>
@@ -198,78 +198,6 @@ function execPostCode() {
 			}
 		});
 	}
-	
-$(document).ready(function () {
-    // 계정 필드의 blur 이벤트에 유효성 검사 함수를 연결
-    $("#account").on("blur", function () {
-        var account = $(this).val();
-        validateAccount(account);
-    });
-
-    // 비밀번호 필드의 blur 이벤트에 유효성 검사 함수를 연결
-    $("#password").on("blur", function () {
-        var password = $(this).val();
-        validatePassword(password);
-    });
-
-    // 이메일 필드의 blur 이벤트에 유효성 검사 함수를 연결
-    $("#email").on("blur", function () {
-        var email = $(this).val();
-        validateEmail(email);
-    });
-
-    // 이름 필드의 blur 이벤트에 유효성 검사 함수를 연결
-    $("#name").on("blur", function () {
-        var name = $(this).val();
-        validateName(name);
-    });
-
-    // 전화번호 필드의 blur 이벤트에 유효성 검사 함수를 연결
-    $("#phone").on("blur", function () {
-        var phone = $(this).val();
-        validatePhone(phone);
-    });
-
-    // 이메일 유효성 검사 함수
-    function validateEmail(email) {
-        if (email.trim() !== "" && !isValidEmail(email)) {
-            alert("유효한 이메일 주소를 입력하세요.");
-        }
-    }
-
-    // 이름 유효성 검사 함수
-    function validateName(name) {
-        if (name.trim() === "") {
-            alert("이름은 필수 입력 항목입니다.");
-        }
-    }
-
-    // 비밀번호 유효성 검사 함수
-    function validatePassword(password) {
-        if (password.length < 6) {
-            alert("비밀번호는 최소 6글자 이상이어야 합니다.");
-        }
-    }
-
-    // 전화번호 유효성 검사 함수
-    function validatePhone(phone) {
-        if (phone.trim() !== "" && !isValidPhoneNumber(phone)) {
-            alert("올바른 전화번호 형식이 아닙니다. (010-1234-5678)");
-        }
-    }
-
-    // 이메일 유효성 검사 함수
-    function isValidEmail(email) {
-        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        return emailRegex.test(email);
-    }
-
-    // 전화번호 유효성 검사 함수
-    function isValidPhoneNumber(phone) {
-        var phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
-        return phoneRegex.test(phone);
-    }
-});
 </script>
     <script>
         includeHTML();

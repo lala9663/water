@@ -59,6 +59,10 @@
 	display: flex;
 }
 
+.orderDetailInfoDiv img{
+	height:200px;
+	}
+
 .stateText{
 	font-size: 18px;
 	font-weight: bold;

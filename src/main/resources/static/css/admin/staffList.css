@@ -1,0 +1,104 @@
+.staff_list{
+	margin-top: 70px;
+}
+
+.total-member p{
+	margin-left: 40px;
+}
+.total-member span{
+	color: #00B0E8;
+}
+
+.order_list{
+	margin-top: 110px;
+}
+
+.rantal_list{
+	margin-top: 120px;
+}
+
+
+.wrap {width: 1280px;  margin: 0 auto;}
+
+
+
+.ti_con a {
+        margin: 20px;
+    	font-size: 30px;
+    	color: black;
+    	text-decoration: none;
+    	font-weight: bold;
+    	
+}
+
+#searchResult{
+
+}
+
+.search-select{
+	margin-left: 5px;
+}
+
+.input-group form{
+	display: flex;
+}
+
+.input-group .input-group {
+    align-items: center;
+}
+
+.total-orders{
+	display: flex;
+	margin-left: 5px;
+}
+
+.search-bar{
+	display: flex;
+}
+.search-bar p{
+	text-align:center;
+    margin-top: 10px;
+
+}
+.input-group {
+    justify-content:start;
+  }
+
+
+
+.input-group .custom-select,
+.input-group .form-control {
+	width: 200px;
+	border: none;
+	border-bottom: 1px solid rgb(153, 153, 153);
+	margin-bottom: 18px;
+
+}
+.input-group-append{
+	display: flex;
+}
+  .input-group-append .search-btn {
+    border: none;
+    padding: 15px 10px;
+    background: none;
+    filter: invert(100%);
+    margin-top: -10px;
+  }
+  
+  .input-group-append .search-icon{
+    height: 25px;
+  }
+
+.member_list  .m_flex_box {
+    display: flex;
+} 
+
+  .total-member {
+    width: 10%;
+  }
+
+
+
+
+
+
