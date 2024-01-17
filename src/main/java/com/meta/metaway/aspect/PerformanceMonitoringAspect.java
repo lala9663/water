@@ -1,6 +1,8 @@
 package com.meta.metaway.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -20,6 +22,8 @@ public class PerformanceMonitoringAspect {
     
     @Autowired
     private JavaMailSender javaMailSender;
+    
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @Around("execution(* com.meta.metaway..service.*.*(..))")
@@ -31,12 +35,14 @@ public class PerformanceMonitoringAspect {
         long endTime = System.currentTimeMillis();
         long executionTime = endTime - startTime;
 
-    	Logger logger = LoggerFactory.getLogger(this.getClass());
         logger.info("{} executed in {}ms", joinPoint.getSignature(), executionTime);
 
         if (executionTime > THRESHOLD) {
             // 임계치를 초과하는 경우 이메일로 경고 보내기
             sendEmailAlert("Method execution time exceeded threshold!", joinPoint.getSignature().toString(), executionTime);
+        
+            logger.warn("Execution time exceeded the threshold! Sent an email alert.");
+
         }
 
         return result;
@@ -49,5 +55,14 @@ public class PerformanceMonitoringAspect {
         message.setText("시간 초과: " + methodSignature + "\n초과 시간: " + executionTime + "ms");
 
         javaMailSender.send(message);
+    }
+    
+    @After("execution(* com.meta.metaway.global.GlobalExceptionHandler.*(..))")
+    public void logExceptionHandling(JoinPoint joinPoint) {
+    	String methodName = joinPoint.getSignature().getName();
+        String className = joinPoint.getTarget().getClass().getName();
+        Object[] args = joinPoint.getArgs();
+
+        logger.info("예외처리 메소드 '{}' 클래스 '{}' 실행 - Arguments: {}", methodName, className, args);
     }
 }
