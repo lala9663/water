@@ -1,6 +1,8 @@
 package com.meta.metaway.staff.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import com.meta.metaway.admin.util.DateUtil;
 
@@ -27,6 +29,7 @@ public class StaffScheduleDTO {
 	private long orderId;
 	private long returnId;
 	private long orderDetailId;
+	private LocalTime visitTime;
 	
 	//orders
 	private LocalDateTime orderDate;
@@ -40,21 +43,6 @@ public class StaffScheduleDTO {
 	//order_detail
 	private int stateType;
 	private LocalDateTime endDate;
-	
-	public String getVisitDate() {
-		return DateUtil.formatLocalDateTime(visitDate);
-	}
-	public String getOrderDate() {
-		return  DateUtil.formatLocalDateTime(orderDate);
-	}
-	
-	public String getEndDate() {
-		return  DateUtil.formatLocalDateTime(endDate);
-	}
-	
-	public String getRequestDate() {
-		return  DateUtil.formatLocalDateTime(requestDate);
-	}
 	
 	
 }

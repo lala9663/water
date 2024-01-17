@@ -10,6 +10,10 @@ import com.meta.metaway.staff.dto.StaffScheduleDTO;
 import com.meta.metaway.staff.model.Staff;
 
 public interface IStaffService {
+	
+//	조건부 세팅하기
+	void settingScheduleDate(StaffScheduleDTO staff);
+	
     boolean isCodiOrDriver(String account);
     Long getUserIdByAccount(String account);
     
@@ -31,4 +35,6 @@ public interface IStaffService {
     List<StaffScheduleDTO> getDriverTodoList(long userId);
     //기사 방문예정일 선택
     void driverDatePick(StaffScheduleDTO staffSchedule);
+    //업무가 완료되었을때
+    void completeSchedule(StaffScheduleDTO staff);
 }
