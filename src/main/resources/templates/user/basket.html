@@ -40,7 +40,7 @@
 								<div th:text="${pro.productName}" class="nameText">이름명</div>
 								<div class="YearText1">
 									<div th:if="${pro.contractYear != 0}" th:text="${pro.contractYear} + '년 약정'"></div>
-									<div class="AllPrice" th:text="'총 금액 : '+ (${pro.contractYear} * 12 *  ${pro.contractPrice}) + '원'">총금액</div>
+									<div th:if="${pro.contractYear != 0}" class="AllPrice" th:text="'총 금액 : '+ (${pro.contractYear} * 12 *  ${pro.contractPrice}) + '원'">총금액</div>
 								</div>
 								<div th:if="${pro.contractYear == 0}" class="YearText2">즉시 구매</div>
 								<hr>
