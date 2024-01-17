@@ -113,6 +113,7 @@ public class UserController {
 	    return ResponseEntity.ok("Workplace saved successfully");
 	}
 
+	// url 미적용
 	@GetMapping("/profileList")
 	@ResponseBody
 	public ResponseEntity<?> getUserProfile(HttpServletRequest request) {
@@ -288,19 +289,6 @@ public class UserController {
 		return "user/orderlist";
 	}
 
-//	    @GetMapping("/orderdetail")
-//	    public String getUserOrderDetails(HttpServletRequest request, Model model) {
-//	    	String token = multiClass.getToken(request);
-//	    	
-//	        if (token != null) {
-//	            Long userId = jwtUtil.getId(token);
-//	            System.out.println("주문상세조회에서 유저id : " + userId);
-//	            
-//		    	List<OrderDetail> orderDetailList = userService.getOrderDetailByUserId(userId);
-//		        model.addAttribute("orderList", orderDetailList);
-//	        }
-//	        return "user/orderDetailList"; 
-//	    }
 	@GetMapping("/orderDetail")
 	public String getUserOrderDetails(HttpServletRequest request, Model model, @ModelAttribute Order order) {
 		order = userService.getUserMyOrderDetail(order);
@@ -333,15 +321,6 @@ public class UserController {
 			return null;
 		}
 	}
-
-//        @PostMapping ("/mailSend")
-//        @ResponseBody
-//        @CrossOrigin
-//        public String mailSend(@RequestBody EmailRequestDTO emailDto){
-//            System.out.println("이메일 인증 이메일 :"+emailDto.getEmail());
-//
-//            return mailService.joinEmail(emailDto.getEmail());
-//        }
 
 	@PostMapping("/mailSend")
 	@ResponseBody
