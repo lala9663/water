@@ -146,7 +146,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers" th:text="${totalSold} + '건'">기본 0</div>
-                        <div class="cardName">이달 판매</div>
+                        <div class="cardName">주문 건 수</div>
                     </div>
 
                     <div class="iconBx">
@@ -188,16 +188,21 @@
 			            <thead>
 			                <tr>
 			                    <td>주문자명</td>
-			                    <td>가격</td>
-			                    <td>Payment</td>
-			                    <td>현재상태</td>
+			                    <td>구매유형</td>
+			                    <td>주소</td>
+			                    <td></td>
+			                    <td>배송현황</td>
 			                </tr>
 			            </thead>
 						<tbody>
 						    <tr th:each="order, iterStat : ${orders}" th:if="${iterStat.index < 7}">
 						        <td th:text="${order.orderName}"></td>
-						        <td th:text="${order.orderPrice}"></td>
-						        <td th:text="${order.orderName}"></td>
+						        <td>
+							        <span th:if="${order.orderPrice == 0}">렌탈</span>
+							        <span th:if="${order.orderPrice != 0}">구매</span>
+							    </td>						       
+							     <td th:text="${order.orderAddress}"></td>
+					       		 <td>
 					        <td>
 					            <span th:if="${order.orderState eq '배정 완료'}" th:class="'status delivered'">
 					                <span th:text="${order.orderState}"></span>
