@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.meta.metaway.product.model.Contract;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.schedule.model.Schedule;
 import com.meta.metaway.staff.dto.StaffListDTO;
@@ -45,5 +46,18 @@ public interface IStaffRepository {
     void driverDatePick(StaffScheduleDTO staffSchedule);
     //스케쥴 가져오기
     StaffScheduleDTO selectScheduleDriver (long scheduleId);
+    
+//    오더 디테일 아이디를 통해 스케쥴 변경하기
+    void settingScheduleDateByorderDetailId(StaffScheduleDTO staff);
+    
+    void updateScheduleState(StaffScheduleDTO staff);
+    
+    void updateOrderState(StaffScheduleDTO staff);
+    
+    void updateOrderDetailState(StaffScheduleDTO staff);
+    
+    void updateOrderDetailDate(Contract contract);
+    
+    Contract getOrderDetailContractYear(StaffScheduleDTO staff);
     
 }

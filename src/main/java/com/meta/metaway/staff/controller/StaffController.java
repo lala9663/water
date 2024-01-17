@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,27 +46,27 @@ public class StaffController {
 	private IStaffService staffService;
 	@Autowired
 	private MultiClass multiClass;
-
-	// staff 기사 회원 주문 목록 리스트
-	@GetMapping("/drive/list")
-	public String getOrderProductList(HttpSession session, Model model) {
-		// 주문 상품 목록 조회
-		List<StaffListDTO> orderProductList = staffService.getOrderProductList();
-
-		model.addAttribute("staffList", orderProductList);
-		return "staff/drivemain";
+	
+//	gong
+	
+	@PostMapping("/settingDate")
+	public String settingScheduleDate(HttpServletRequest request, Model model, @ModelAttribute StaffScheduleDTO staff) {
+		System.out.println(staff.getVisitDate());
+		staffService.settingScheduleDate(staff);
+		return "redirect:/staff/driver/todo";
 	}
-
-	// staff 코디 회원 주문 목록 리스트
-	@GetMapping("/cody/list")
-	public String getCodyProductList(HttpSession session, Model model) {
-		// 주문 상품 목록 조회
-		List<StaffListDTO> orderProductList = staffService.getOrderProductList();
-
-		model.addAttribute("staffList", orderProductList);
-		return "staff/codymain";
+	
+	@PostMapping("/completeOrder")
+	public String completeSchedule(HttpServletRequest request, Model model, @ModelAttribute StaffScheduleDTO staff) {
+		staffService.completeSchedule(staff);
+		return "redirect:/staff/driver/todo";
 	}
+	
 
+	
+	
+	
+//	
 	@GetMapping("/createWorkPlace")
 	public String showCreateWorkPlaceForm(HttpServletRequest request, Model model) {
 		String token = multiClass.getToken(request);
@@ -147,7 +148,4 @@ public class StaffController {
 		redirectAttr.addFlashAttribute("message", "배송 예정일이 지정되었습니다. " + visitDate);
 		return "redirect:/driver/todo";
 	}
-
-	//
-
 }

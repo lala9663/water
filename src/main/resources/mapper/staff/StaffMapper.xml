@@ -2,144 +2,221 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.meta.metaway.staff.dao.IStaffRepository">
-	
-	<select id="getIdByAccount" parameterType="String" resultType="Long">
-	    SELECT user_id as id FROM users WHERE user_account = #{account}
+
+	<select id="getIdByAccount" parameterType="String"
+		resultType="Long">
+		SELECT user_id as id FROM users WHERE user_account =
+		#{account}
 	</select>
-	
-	<!-- 사용자가 코디 또는 드라이버인지 확인-->
+
+	<!-- 사용자가 코디 또는 드라이버인지 확인 -->
 	<select id="checkIfUserIsCodiOrDriver" parameterType="Long">
-	    SELECT authority_name
-	    FROM user_authority
-	    WHERE user_id = #{id}
-	    AND (authority_name = 'ROLE_CODI' OR authority_name = 'ROLE_DRIVER')
+		SELECT
+		authority_name
+		FROM user_authority
+		WHERE user_id = #{id}
+		AND
+		(authority_name = 'ROLE_CODI' OR authority_name = 'ROLE_DRIVER')
 	</select>
 
 	<!-- account로 user_id 얻기 -->
-	<select id="getUserIdByAccount" parameterType="String" resultType="Long">
-	    SELECT user_id FROM users WHERE user_account = #{account}
-	</select>	
-	
+	<select id="getUserIdByAccount" parameterType="String"
+		resultType="Long">
+		SELECT user_id FROM users WHERE user_account = #{account}
+	</select>
+
 	<select id="selectStaffMaxNo" resultType="long">
 	<![CDATA[
 		SELECT NVL(MAX(staff_id),0) AS "staffId"
 		FROM staff
 	]]>
-	</select>	
-	
-	<!--drive product list-->
-	<select id="selectOrderProductList" >
-	SELECT 
-	    O.order_id, P.product_name, O.order_name, O.order_date, O.order_address,  U.user_phone,S.visit_date,O.order_state
-	FROM orders O
-	LEFT JOIN users U ON O.user_id = U.user_id
-	LEFT JOIN order_detail OD ON O.order_id = OD.order_id
-	LEFT JOIN product P ON OD.product_id = P.product_id
-	LEFT JOIN schedule S ON O.order_id = S.order_id
 	</select>
-	
-	<select id="getUserAuthority" resultType="String">
-        SELECT ua.authority_name
-        FROM user_authority ua
-        WHERE ua.user_id = #{userId}
-    </select>
 
-    <!-- 근무지를 생성 -->
-	<update id="createWorkPlace" parameterType="com.meta.metaway.staff.model.Staff">
-	    INSERT INTO staff (staff_id, user_id, work_place)
-	    VALUES (#{staffId}, #{userId}, #{workPlace})
-	</update>
-	
-	<!-- 근무지 수정 -->
-	<update id="updateWorkPlace" parameterType="com.meta.metaway.staff.model.Staff">
-	    UPDATE staff
-	    <set>
-	        work_place = #{workPlace}
-	    </set>
-	    WHERE user_id = #{userId}
-	</update>
-	
-	<select id="getWorkPlaceByUserId" parameterType="long" resultType="String">
-        SELECT work_place as workPlace
-        FROM staff
-        WHERE user_id = #{userId}
-    </select>
-	
-	<select id="getStaffByUserId" parameterType="long" resultType="com.meta.metaway.staff.model.Staff">
-        SELECT work_place as workPlace 
-        FROM staff 
-        WHERE user_id = #{userId}
-    </select>
-	
-	<!-- 현윤 -->
-<!--  <select id="getDriverTodoList" resultType="com.meta.metaway.staff.dto.StaffScheduleDTO" parameterType="long">
-	    select 
-	        s.staff_id as "staffId",
-	        s.user_id as "userId",
-	        s.work_place as "workPlace",
-	        s.work_status as "workStatus",
-	        
-	        sc.schedule_id as "scheduleId",
-	        sc.visit_date as "visitDate",
-	        sc.visit_cycle as "visitCycle",
-	        sc.visit_type as "visitType",
-	        sc.visit_state as "visitState",
-	        sc.order_detail_id as "orderDetailId",
-	        
-	        o.order_date as "orderDate",
-	        o.order_name as "orderName",
-	        o.order_address as "orderAddress",
-	        
-	        u.user_phone as "userPhone",
-	        
-	        od.state_type as "stateType",
-	        od.end_date as "endDate"
-	    from schedule sc
-	        join users u on u.user_id = sc.user_id
-	        join staff s on s.user_id = sc.user_id    
-	        join orders o on o.user_id = sc.user_id    
-	        join order_detail od on od.order_id = o.order_id
-	    order by sc.schedule_id
-	</select>-->
-	
-	<!-- 로그인한 기사 할일 조회-->
-	<select id="getDriverTodoList" resultType="com.meta.metaway.staff.dto.StaffScheduleDTO" parameterType="long">
-        select 
-			sc.schedule_id as "scheduleId",
-			sc.order_detail_id as "orderDetailId",
-			sc.visit_date as "visitDate",
-	        o.order_date as "orderDate",
-	        o.request_date as "requestDate",
-	        o.order_name as "orderName",
-	        o.order_address as "orderAddress"
-		from schedule sc
-			join staff s on s.staff_id =sc.staff_id
-	        join users u on u.user_id = s.user_id
-	        join orders o on o.order_id = sc.order_id
-		where u.user_id=#{userId}
-		order by sc.schedule_id desc
+	<!--drive product list -->
+	<select id="selectOrderProductList">
+		SELECT
+		O.order_id, P.product_name, O.order_name,
+		O.order_date, O.order_address,
+		U.user_phone,S.visit_date,O.order_state
+		FROM orders O
+		LEFT JOIN users U ON O.user_id = U.user_id
+		LEFT JOIN
+		order_detail OD ON O.order_id = OD.order_id
+		LEFT JOIN product P ON
+		OD.product_id = P.product_id
+		LEFT JOIN schedule S ON O.order_id =
+		S.order_id
 	</select>
-	
-	<!-- 기사 방문예정일 선택 -->
-	<update id="driverDatePick"   parameterType="com.meta.metaway.staff.dto.StaffScheduleDTO" >
-		update schedule
-		set visit_date = #{visitDate}
-		where schedule_id =#{scheduleId}
+
+	<select id="getUserAuthority" resultType="String">
+		SELECT
+		ua.authority_name
+		FROM user_authority ua
+		WHERE ua.user_id = #{userId}
+	</select>
+
+	<!-- 근무지를 생성 -->
+	<update id="createWorkPlace"
+		parameterType="com.meta.metaway.staff.model.Staff">
+		INSERT INTO staff (staff_id, user_id, work_place)
+		VALUES
+		(#{staffId}, #{userId}, #{workPlace})
 	</update>
-	<!-- 스케쥴 가져오기-->
+
+	<!-- 근무지 수정 -->
+	<update id="updateWorkPlace"
+		parameterType="com.meta.metaway.staff.model.Staff">
+		UPDATE staff
+		<set>
+			work_place = #{workPlace}
+		</set>
+		WHERE user_id = #{userId}
+	</update>
+
+
+	<update id="updateScheduleState"
+		parameterType="com.meta.metaway.staff.dto.StaffScheduleDTO">
+		update
+		schedule
+		set visit_state = 1
+		where schedule_id =
+		#{scheduleId}
+	</update>
+
+
+	<select id="getWorkPlaceByUserId" parameterType="long"
+		resultType="String">
+		SELECT work_place as workPlace
+		FROM staff
+		WHERE user_id =
+		#{userId}
+	</select>
+
+	<select id="getStaffByUserId" parameterType="long"
+		resultType="com.meta.metaway.staff.model.Staff">
+		SELECT work_place as workPlace
+		FROM staff
+		WHERE user_id =
+		#{userId}
+	</select>
+
+	<!-- 현윤 -->
+	<!-- <select id="getDriverTodoList" resultType="com.meta.metaway.staff.dto.StaffScheduleDTO" 
+		parameterType="long"> select s.staff_id as "staffId", s.user_id as "userId", 
+		s.work_place as "workPlace", s.work_status as "workStatus", sc.schedule_id 
+		as "scheduleId", sc.visit_date as "visitDate", sc.visit_cycle as "visitCycle", 
+		sc.visit_type as "visitType", sc.visit_state as "visitState", sc.order_detail_id 
+		as "orderDetailId", o.order_date as "orderDate", o.order_name as "orderName", 
+		o.order_address as "orderAddress", u.user_phone as "userPhone", od.state_type 
+		as "stateType", od.end_date as "endDate" from schedule sc join users u on 
+		u.user_id = sc.user_id join staff s on s.user_id = sc.user_id join orders 
+		o on o.user_id = sc.user_id join order_detail od on od.order_id = o.order_id 
+		order by sc.schedule_id </select> -->
+
+	<!-- 로그인한 기사 할일 조회 -->
+	<select id="getDriverTodoList"
+		resultType="com.meta.metaway.staff.dto.StaffScheduleDTO"
+		parameterType="long">
+		select
+		sc.schedule_id as "scheduleId",
+		sc.order_detail_id
+		as "orderDetailId",
+		sc.visit_date as "visitDate",
+		sc.visit_type as
+		"visitType",
+		o.order_id as "orderId",
+		o.order_date as "orderDate",
+		o.request_date as "requestDate",
+		o.order_name as "orderName",
+		o.order_address as "orderAddress"
+		from schedule sc
+		join staff s on
+		s.staff_id =sc.staff_id
+		join users u on u.user_id = s.user_id
+		join
+		orders o on o.order_id = sc.order_id
+		where u.user_id = #{userId} and sc.visit_state = 0
+		order
+		by sc.schedule_id desc
+	</select>
+
+	<!-- 기사 방문예정일 선택 -->
+	<update id="driverDatePick"
+		parameterType="com.meta.metaway.staff.dto.StaffScheduleDTO">
+		update
+		schedule
+		set visit_date = #{requestDate}
+		where
+		schedule_id =#{scheduleId}
+	</update>
+
+	<update id="settingScheduleDateByorderDetailId"
+		parameterType="com.meta.metaway.staff.dto.StaffScheduleDTO">
+		update
+		order_detail
+		set state_type = #{stateType}
+		where
+		order_detail_id =
+		#{orderDetailId}
+	</update>
+
+	<update id="updateOrderState"
+		parameterType="com.meta.metaway.staff.dto.StaffScheduleDTO">
+		update
+		orders
+		set order_state = 3
+		where order_id =
+		#{orderId}
+	</update>
+
+	<update id="updateOrderDetailState"
+		parameterType="com.meta.metaway.staff.dto.StaffScheduleDTO">
+		update
+		order_detail
+		set state_type = #{stateType}
+		where
+		order_detail_id = #{orderDetailId}
+	</update>
+
+
+	<update id="updateOrderDetailDate"
+		parameterType="com.meta.metaway.product.model.Contract">
+		update
+		order_detail
+		set start_date = #{startDate}, end_date = #{endDate}
+		where order_detail_id = #{orderDetailId}
+	</update>
+
+
+
+	<!-- 약정기간 가져오기 -->
+	<select id="getOrderDetailContractYear"
+		parameterType="com.meta.metaway.staff.dto.StaffScheduleDTO"
+		resultType="com.meta.metaway.product.model.Contract">
+		select
+		B.order_detail_id as orderDetailId, C.contract_year as contractYear
+		from orders A join order_detail B on A.order_id = B.order_id
+		left join contract C on B.contract_id = C.contract_id
+		where A.order_id = #{orderId}
+	</select>
+
+
+	<!-- 스케쥴 가져오기 -->
 	<select id="selectScheduleDriver" parameterType="long">
-		select 
-			schedule_id as "scheduleId",
-			visit_date as "visitDate",
-			visit_cycle as "visitCycle",
-			visit_state as "visitState",
-			staff_id as "staffId",
-			user_id as "userId",
-			order_id as "orderId",
-			return_id as "returnId",
-			order_detail_id as "orderDetailId"
+		select
+		schedule_id as "scheduleId",
+		visit_date as "visitDate",
+		visit_cycle as
+		"visitCycle",
+		visit_state as "visitState",
+		staff_id as "staffId",
+		user_id as "userId",
+		order_id as "orderId",
+		return_id as "returnId",
+		order_detail_id as "orderDetailId"
 		from schedule
-		where schedule_id = #{scheduleId}
-	</select> 
-	
+		where schedule_id =
+		#{scheduleId}
+	</select>
+
 </mapper>
