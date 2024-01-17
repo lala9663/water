@@ -167,7 +167,7 @@
 
                 <div class="card">
 					<div>
-						<div class="numbers" th:text="${monthPrice + monthRentalPrice}">$7,842</div>
+						<div class="numbers" th:text="${#numbers.formatInteger(monthPrice + monthRentalPrice, 0, 'COMMA')}">$7,842</div>
 					    <div class="cardName">이달 매출</div>
 					</div>
 

@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.meta.metaway.global.MultiClass;
 import com.meta.metaway.jwt.JWTUtil;
-import com.meta.metaway.multiClass.MultiClass;
 import com.meta.metaway.product.model.Product;
 import com.meta.metaway.schedule.service.IScheduleService;
 import com.meta.metaway.staff.dto.StaffListDTO;
@@ -126,7 +126,6 @@ public class StaffController {
 		model.addAttribute("driver", dirverTodo);
 
 		return "staff/drive-todo";
-
 	}
 
 	@PostMapping("/driver/delivery/{scheduleId}")
