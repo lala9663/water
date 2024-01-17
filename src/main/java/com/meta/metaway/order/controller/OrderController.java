@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.meta.metaway.multiClass.MultiClass;
+import com.meta.metaway.global.MultiClass;
 import com.meta.metaway.order.model.Order;
 import com.meta.metaway.order.service.IOrderService;
 import com.meta.metaway.product.model.Contract;
