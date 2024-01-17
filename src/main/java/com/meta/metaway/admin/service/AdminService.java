@@ -99,7 +99,7 @@ public class AdminService implements IAdminService {
 	@Override
 	public void deleteSchedule(long orderId, long staffId) {
 		adminRepository.deleteSchedule(orderId, staffId);
-		adminRepository.updateStaffStatus(staffId);
+//		adminRepository.updateStaffStatus(staffId);
 	}
 
 	@Override
@@ -197,7 +197,7 @@ public class AdminService implements IAdminService {
 	@Override
 	public void deleteReturnSchedule(long orderDetailId, long staffId) {
 		adminRepository.deleteReturnSchedule(orderDetailId, staffId);
-		adminRepository.updateStaffStatus(staffId);
+//		adminRepository.updateStaffStatus(staffId);
 	}
 
 	@Override
