@@ -217,6 +217,9 @@
 		#{userId}
 	</select>
 
+    <select id="checkAccount" resultType="int" parameterType="com.meta.metaway.user.model.User">
+        SELECT COUNT(*) FROM users WHERE user_account = #{account}
+    </select>
 
 
 
