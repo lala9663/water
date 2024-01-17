@@ -38,25 +38,27 @@
 							<div id="ProductTextBox">
 								<div th:text="${pro.productModel}" class="modelText">모델명</div>
 								<div th:text="${pro.productName}" class="nameText">이름명</div>
-								<div th:if="${pro.contractYear != 0}" th:text="${pro.contractYear} + '년 약정'"
-									class="YearText1">약정</div>
+								<div class="YearText1">
+									<div th:if="${pro.contractYear != 0}" th:text="${pro.contractYear} + '년 약정'"></div>
+									<div class="AllPrice" th:text="'총 금액 : '+ (${pro.contractYear} * 12 *  ${pro.contractPrice}) + '원'">총금액</div>
+								</div>
 								<div th:if="${pro.contractYear == 0}" class="YearText2">즉시 구매</div>
 								<hr>
 								<div th:if="${pro.contractYear != 0}" class="priceText">렌탈료
-								<span 
-								th:text="'월 ' + ${#numbers.formatInteger(pro.contractPrice, 0, 'COMMA')} + '원'"
-									th:data-price="${pro.contractPrice}" class="priceText1"></span>
+									<span
+										th:text="'월 ' + ${#numbers.formatInteger(pro.contractPrice, 0, 'COMMA')} + '원'"
+										th:data-price="${pro.contractPrice}" class="priceText1"></span>
 								</div>
 								<div th:if="${pro.contractYear == 0}" class="priceText"> 가격
-								<span
-								th:text="${#numbers.formatInteger(pro.contractPrice, 0, 'COMMA')} + '원'"
-									th:data-price="${pro.contractPrice}" class="priceText2"></span>
+									<span th:text="${#numbers.formatInteger(pro.contractPrice, 0, 'COMMA')} + '원'"
+										th:data-price="${pro.contractPrice}" class="priceText2"></span>
 								</div>
 							</div>
 							<div class="deleteBox">
-							    <button class="deleteButton" th:data-id="${pro.contractId}" onclick="deleteBasketRequest(event)">
-							        <img src="/images/x.jpg" alt="Delete Icon" class="deleteIcon">
-							    </button>
+								<button class="deleteButton" th:data-id="${pro.contractId}"
+									onclick="deleteBasketRequest(event)">
+									<img src="/images/x.jpg" alt="Delete Icon" class="deleteIcon">
+								</button>
 							</div>
 
 						</div>
@@ -69,8 +71,8 @@
 
 							<button class="get-submit-btn" type="submit">구입하기</button>
 						</div>
-						
-						
+
+
 					</div>
 				</div>
 			</form>
@@ -103,32 +105,32 @@
 		else {
 			document.querySelector('.AllpriceText1').style.display = "none";
 		}
-		
+
 		if (buyPrice != 0) {
 			buyValue.textContent = formatBuy + '원';
-			}
+		}
 		else {
 			document.querySelector('.AllpriceText2').style.display = "none";
 		}
-			
+
 	});
 </script>
 <script>
 	function deleteBasketRequest(event) {
 		event.preventDefault();
-		
-				
+
+
 		var value = event.target.closest('.deleteButton');
 		var contractId = value.getAttribute('data-id');
 		var formData = new FormData();
-		formData.append('contractId',contractId);
-		
+		formData.append('contractId', contractId);
+
 		var xhr = new XMLHttpRequest();
 		var url = "/user/basket/remove";
-		xhr.open("post",url,true);
+		xhr.open("post", url, true);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		
-		
+
+
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === XMLHttpRequest.DONE) {
 				var status = xhr.status;
@@ -145,5 +147,8 @@
 		xhr.send(new URLSearchParams(formData).toString());
 	};
 </script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+	crossorigin="anonymous"></script>
+
 </html>
