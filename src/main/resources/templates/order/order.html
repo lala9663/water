@@ -10,6 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/header.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
 	<link rel="stylesheet" th:href="@{/css/order.css}">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<title>상품 결제</title>
 </head>
 
@@ -20,8 +21,8 @@
 		<form method="post" id="orderForm" action="order/apply">
 			<div id="orderDiv1">
 				<div class="headerText"><span>상품 결제
-					<img src="/images/card.png">
-				</span>
+						<img src="/images/card.png">
+					</span>
 				</div>
 				<input type="hidden" value="1">
 				<div class="order-text">
@@ -40,7 +41,8 @@
 				</div>
 				<div class="order-text">
 					<label for="orderContent" class="form-label">요청 사항<span>*</span></label>
-					<textarea name="orderContent" id="orderContent" class="form-control" rows="5" cols="30" placeholder="요청사항을 입력해주세요."></textarea>
+					<textarea name="orderContent" id="orderContent" class="form-control" rows="5" cols="30"
+						placeholder="요청사항을 입력해주세요."></textarea>
 				</div>
 			</div>
 			<div id="orderDiv2">
@@ -84,14 +86,33 @@
 								class="priceTextSpan"></span></div>
 					</div>
 				</div>
-				
-					<button class="submit-btn" type="submit" >결제하기</button>
-			
+
+				<button class="submit-btn" type="submit">결제하기</button>
+
 			</div>
 		</form>
 	</div>
 </body>
 <footer th:replace="/include/footer.html"></footer>
+<script>
+	var form = document.querySelector('#orderForm');
+	var button = document.querySelector('.submit-btn');
 
+	button.addEventListener('click', function (event) {
+		event.preventDefault();
+			Swal.fire({
+				icon: "success",
+				title: "주문이 완료되었습니다!",
+				showConfirmButton: false,
+				timer: 1000
+			});
+		setTimeout(function () {
+			form.submit(); // 1.5초 후 폼 제출
+		},1200 ); // 3초 후 SweetAlert 실행
+	});
+</script>
+<script>
+
+</script>
 
 </html>
