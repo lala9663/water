@@ -3,10 +3,13 @@ package com.meta.metaway.user.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meta.metaway.admin.service.IAdminService;
 import com.meta.metaway.user.dto.JoinDTO;
@@ -16,6 +19,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class AuthController {
@@ -50,17 +54,20 @@ public class AuthController {
     }
     
     @PostMapping("/join")
-    public String joinUser(JoinDTO joinDTO) {
+    public String joinUser(@Valid JoinDTO joinDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+
+            Logger logger = LoggerFactory.getLogger(this.getClass());
+            logger.error("회원 가입 유효성 검사 실패: " + bindingResult.getAllErrors());
+
+            return "user/join";
+        }
+
         userService.joinProcess(joinDTO);
-        
-        return "redirect:/login"; 
+
+        return "redirect:/login";
     }
-    
-	@GetMapping("/login")
-	public String login() {
-		  
-	 return "/user/login";
-	}
+
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -85,5 +92,13 @@ public class AuthController {
         return "redirect:/login";
     }
 
-   
+    @PostMapping("/api/checkAccount")
+    @ResponseBody
+    public int checkAccount(String account) {
+    	
+    	int result = userService.isAccountAvailable(account);
+    	
+    	return result;
+    }
+
 }
