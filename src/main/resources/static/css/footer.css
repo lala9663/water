@@ -10,6 +10,7 @@ footer-body {
   background-color: #f4f4f4;
   align-items: start;
   width: 100%;
+  
 }
 
   
@@ -146,4 +147,5 @@ footer-body {
 
     .footer-nav-title{
       font-size: 18px;
+      margin-left: -80%;
     }

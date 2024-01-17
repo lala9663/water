@@ -24,9 +24,9 @@
                     <li class="profile-nav-p" id="xhrButton0">마이페이지</li>
                     <li id="xhrButton" onclick="updateOrderList()">구매 내역</li>
                     <!--구매 취소 내역 / 환불 내역-->
-                    <li  id="xhrButton1">반납 내역</li>
+                    <li >반납 내역</li>
                     <!--반납 신청 내역 / 반납 환불 내역-->
-                    <li><a th:href="@{/contract}">약정 내역</a></li>
+                    <li><a th:href="@{/contract}">회원수정</a></li>
                     <!--약정 연장 내역 / 약정 해지 내역-->
                 </ul>
             </nav>
@@ -40,7 +40,7 @@
                 <p>Name: <span th:text="${userProfile.name}"></span></p>
                 <p>Phone: <span th:text="${userProfile.phone}"></span></p>
                 <p>Age: <span th:text="${userProfile.age}"></span></p>
-                <p>Address: <span th:text="${userProfile.address}"></span></p>
+               
 
                 <button class="pwd-btn" id="btn-modal1">비밀번호 변경</button>
                 <button class="pwd-btn" id="btn-modal2">회원 탈퇴</button>

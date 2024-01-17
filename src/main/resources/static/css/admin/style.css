@@ -7,6 +7,7 @@
 }
 
 
+
 .wrap {
 	width: 1280px;
 	margin: 0 auto;
@@ -18,7 +19,7 @@ table {
 	margin-right: 20px;
 }
 
-.ti_con a {
+.ti_con {
 	margin: 20px;
 	font-size: 30px;
 	color: black;
