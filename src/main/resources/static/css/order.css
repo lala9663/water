@@ -102,11 +102,12 @@
 }
 
 .ProductImageBox img{
-	margin-top: -50px;
+	margin-top: -20px;
 }
 
 .stateText{
-	margin-left: 70px;
+	text-align: center;
+	font-size: 24px;	
 	color: #00B0E8;
 	font-weight: bold;
 }
