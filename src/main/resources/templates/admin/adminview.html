@@ -191,7 +191,7 @@
 								<span th:if="${order.orderPrice == 0}">렌탈</span>
 								<span th:if="${order.orderPrice != 0}">구매</span>
 							</td>
-							<td th:text="${order.orderAddress}"></td>
+							<td th:text="${order.streetadr}"></td>
 							<td>
 							<td>
 								<span th:if="${order.orderState eq '배정 완료'}" th:class="'status delivered'">

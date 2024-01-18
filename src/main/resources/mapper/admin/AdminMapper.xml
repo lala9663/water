@@ -413,7 +413,9 @@
 		        request_date AS requestDate,
 		        order_name AS orderName,
 		        order_state AS orderState,
-		        order_address AS orderAddress, 
+		        zipcode AS zipcode, 
+		        streetadr AS streetadr,
+		        detailadr AS detailadr,
 		        order_price AS orderPrice,
 		        rental_price AS rentalPrice
 		    FROM orders
