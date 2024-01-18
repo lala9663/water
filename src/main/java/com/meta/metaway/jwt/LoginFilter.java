@@ -69,7 +69,7 @@ public class LoginFilter extends CustomUsernamePasswordAuthenticationFilter {
         if(jwtUtil.getRole(token).equals("ROLE_ADMIN")) {
         	numberToken = "4";
         }
-        else if(jwtUtil.getRole(token).equals("ROEL_DRIVER")) {
+        else if(jwtUtil.getRole(token).equals("ROLE_DRIVER")) {
         	numberToken = "3";
         }
         else if(jwtUtil.getRole(token).equals("ROLE_CODI")) {
