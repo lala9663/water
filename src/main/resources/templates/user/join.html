@@ -21,25 +21,23 @@
 		
 		<div class="join-box">
 			<img src="images/user.png" class="user">			
-        	<input type="text" id="account" name="account" class="input-area" required placeholder="your id">
+        	<input type="text" id="account" name="account" class="input-area" required placeholder="아이디">
         	<button type="button" id="accountCheck" onclick="fn_accountCheck();" value="N">중복확인</button>
        	 <span></span>
 		</div>
 		
 		<div class="join-box">
     	<img src="images/pwd.png">
-    <input type="password" id="password" name="password" required placeholder="your password">
+    		<input type="password" id="password" name="password" required placeholder="6자 이상으로 입력해주세요">
 		</div>
-
-		
+	
 		<div class="join-box">
 		    <img src="images/email.png" class="email-img">
-		    <input type="email" id="email" name="email" required placeholder="your email">
+		    <input type="email" id="email" name="email" required placeholder="이메일">
 		    <button type="button" id="sendVerificationEmail">인증요청</button>
 
-		    <!-- 이메일 전송 성공 시, 인증 칸을 보이게 설정 -->
 		    <div id="emailVerificationBox" style="display:none;">
-		        <input type="text" id="emailVerificationCode" placeholder="Enter Verification Code">
+		        <input type="text" id="emailVerificationCode" placeholder="인증 코드">
 		        <button type="button" id="emailVerificationBtn">인증</button>
 		        <span class="verificationResult"></span>
 		    </div>
@@ -49,17 +47,17 @@
 		
 		<div class="join-box">
 			<img src="images/user.png">	
-       		 <input type="text" id="name" name="name" placeholder="your name">
+       		 <input type="text" id="name" name="name" placeholder="이름">
         </div>
 
 		<div class="join-box">
 			<img src="images/phone.png">	
-       		 <input type="text" id="phone" name="phone" placeholder="your phone">
+       		 <input type="text" id="phone" name="phone" placeholder="휴대폰">
          </div>  
               
 		<div class="join-box">
 			<img src="images/birth.png">	
-        		<input type="text" id="age" name="age" placeholder="your age">
+        		<input type="text" id="age" name="age" placeholder="나이">
         </div>
         
 		<div class="form-group">                   
