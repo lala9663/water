@@ -40,9 +40,10 @@ public class MailSendService {
 
         String setFrom = "lala96632040@gmail.com";
         String toMail = email;
-        String title = "회원 가입 인증 이메일 입니다.";
-        String content = "나의 APP을 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + authNumber + "입니다." + "<br>"
-                + "인증번호를 제대로 입력해주세요";
+        String title = "인증 메일 발송 완료 ❕";
+        String content = "메타웨이를 방문해주셔서 감사합니다." + "<br><br>" +
+                         "인증번호는 " + authNumber + "입니다." + "<br>" +
+                         "인증번호를 입력해주세요.";
         mailSend(setFrom, toMail, title, content);
 
         return Integer.toString(authNumber);
