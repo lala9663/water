@@ -13,7 +13,6 @@
 	<!-- =============== 내비바 ================ -->
 
 	<div class="navigation">
-		<th:block class="adminView">
 		<ul>
 			<li>
 				<a href="/">
@@ -31,7 +30,7 @@
 					<span class="title" id="HomeButton">홈</span>
 				</a>
 			</li>
-			<li>
+			<li class="adminView">
 				<a href="/admin/adminview">
 					<span class="icon">
 						<ion-icon name="document-text-outline"></ion-icon>
@@ -40,7 +39,7 @@
 				</a>
 			</li>
 
-			<li>
+			<li class="adminView">
 				<a href="/product/insert">
 					<span class="icon">
 						<ion-icon name="color-wand-outline"></ion-icon>
@@ -49,7 +48,7 @@
 				</a>
 			</li>
 
-			<li>
+			<li class="adminView">
 				<a href="/admin/orderlist/1">
 					<span class="icon">
 						<ion-icon name="bar-chart-outline"></ion-icon>
@@ -58,7 +57,7 @@
 				</a>
 			</li>
 
-			<li>
+			<li class="adminView">
 				<a href="/admin/returnlist/1">
 					<span class="icon">
 						<ion-icon name="refresh-circle-outline"></ion-icon>
@@ -67,7 +66,7 @@
 				</a>
 			</li>
 
-			<li>
+			<li class="adminView">
 				<a href="/admin/stafflist/1">
 					<span class="icon">
 						<ion-icon name="people-outline"></ion-icon>
@@ -75,11 +74,10 @@
 					<span class="title">직원조회</span>
 				</a>
 			</li>
-</th:block>
 
 
 			<li class="codiView">
-				<a href="/staff/cody/list">
+				<a href="../staff/cody/list">
 					<span class="icon">
 						<ion-icon name="calendar-outline"></ion-icon>
 					</span>
@@ -96,18 +94,8 @@
 			</li>
 
 
-
 			<li>
-				<!--                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="lock-closed-outline"></ion-icon>
-                        </span>
-                        <span class="title">statistics</span>
-                    </a>
-                </li>-->
-
-			<li>
-				<a href="/logout">
+				<a href="/">
 					<span class="icon">
 						<ion-icon name="log-out-outline"></ion-icon>
 					</span>
@@ -277,21 +265,27 @@
 
 	</script>
 
-	<script>
-
-
-		function getCookie(name) {
-			const value = document.cookie.charAt(11);
-			return value;
-		}
-
+	<!-- ====== ionicons ======= -->
+	<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
+	<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
+</body>
+<script>		
+	function getCookie(name) {
+					const value = document.cookie.charAt(11);
+					return value;
+				}
 		window.addEventListener('load', function () {
 			const token = getCookie('userNumber');
+			var adminButton = document.querySelectorAll(".adminView");
+			console.log(token);
+
+
 			if (token) {
 				// 'ROLE_ADMIN' 권한이 없으면 'admin' 요소를 숨깁니다
 				if (token !== "4") {
-					var adminButton = document.querySelector(".adminView");
-					if (adminButton) adminButton.style.display = 'none';
+					adminButton.forEach(item => {
+						item.style.display = 'none';
+					})
 				}
 
 				// 'ROLE_DRIVER' 권한이 없으면 'driver' 요소를 숨깁니다
@@ -309,11 +303,4 @@
 		});
 
 	</script>
-
-
-	<!-- ====== ionicons ======= -->
-	<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
-	<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
-</body>
-
 </html>
