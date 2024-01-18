@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.meta.metaway.global.MultiClass;
 import com.meta.metaway.jwt.JWTUtil;
+import com.meta.metaway.schedule.service.IScheduleService;
 import com.meta.metaway.staff.dto.StaffScheduleDTO;
 import com.meta.metaway.staff.service.IStaffService;
 
@@ -31,6 +32,8 @@ public class StaffController {
 	private IStaffService staffService;
 	@Autowired
 	private MultiClass multiClass;
+	@Autowired
+	private IScheduleService scheduleService;
 	
 	@PostMapping("/settingDate")
 	public String settingScheduleDate(HttpServletRequest request, Model model, @ModelAttribute StaffScheduleDTO staff) {
@@ -39,10 +42,23 @@ public class StaffController {
 		return "redirect:/staff/driver/todo";
 	}
 	
+	@PostMapping("/settingCodyDate")
+	public String settingCodiScheduleDate(HttpServletRequest request, Model model, @ModelAttribute StaffScheduleDTO staff) {
+		System.out.println(staff.getVisitDate());
+		staffService.settingScheduleDate(staff);
+		return "redirect:/staff/cody/list";
+	}
+	
 	@PostMapping("/completeOrder")
 	public String completeSchedule(HttpServletRequest request, Model model, @ModelAttribute StaffScheduleDTO staff) {
 		staffService.completeSchedule(staff);
 		return "redirect:/staff/driver/todo";
+	}
+	
+	@PostMapping("/completeCodiOrder")
+	public String completeCodiSchedule(HttpServletRequest request, Model model, @ModelAttribute StaffScheduleDTO staff) {
+		staffService.completeSchedule(staff);
+		return "redirect:/staff/cody/list";
 	}
 	
 	@GetMapping("/createWorkPlace")
@@ -125,6 +141,8 @@ public class StaffController {
 		return "redirect:/driver/todo";
 	}
 	
+	
+	
 	@GetMapping("/cody/list")
 	public String getCodiTodoList(HttpServletRequest request, Model model) {
 		String token = multiClass.getToken(request);
@@ -135,5 +153,25 @@ public class StaffController {
 		model.addAttribute("codi", codyTodo );
 
 		return "staff/cody-todo";
+	}
+	
+	@PostMapping("/cody/delivery/{scheduleId}")
+	public String codyJob(HttpServletRequest request, @PathVariable long scheduleId,
+			@RequestParam LocalDateTime visitDate,
+			RedirectAttributes redirectAttr, Model model) {
+		System.out.println("코디 날짜 지정 컨트롤러");
+		String token = multiClass.getToken(request);
+		long userId = jwtUtil.getId(token);
+		System.out.println(userId + ": 유저아이디");
+		
+		StaffScheduleDTO staffSchedule = new StaffScheduleDTO();
+        staffSchedule.setUserId(userId);
+        staffSchedule.setScheduleId(scheduleId);
+        staffSchedule.setVisitDate(visitDate);
+
+        staffService.driverDatePick(staffSchedule);
+		System.out.println(scheduleId + "," + visitDate + "scheduleId, visitDate");
+		redirectAttr.addFlashAttribute("message", "배송 예정일이 지정되었습니다. " + visitDate);
+		return "redirect:/cody/list";
 	}
 }

@@ -1,5 +1,7 @@
 package com.meta.metaway.schedule.dao;
 
+import java.time.LocalDateTime;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +18,6 @@ public interface IScheduleRepository {
 	int getReturnIdReturnSchedule(long orderDetailId);
 	void updateCodiTypeAndCycle(long scheduleId);
 	int getScheduleIdFromStaff(long scheduleId);
+	void insertCodiSchedule(Schedule schedule);
+	LocalDateTime getRequestDate(long scheduleId);
 }

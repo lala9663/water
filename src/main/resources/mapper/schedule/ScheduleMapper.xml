@@ -7,7 +7,10 @@
 	        INSERT INTO schedule (schedule_id, visit_cycle, visit_type, visit_state, staff_id, user_id, order_id)
 	        VALUES (#{scheduleId}, #{visitCycle}, #{visitType}, #{visitState}, #{staffId}, #{userId}, #{orderId})
 	    </insert>
-
+		 <insert id="insertCodiSchedule" parameterType="com.meta.metaway.schedule.model.Schedule">
+	        INSERT INTO schedule (schedule_id, visit_date, visit_cycle, visit_type, visit_state, staff_id, user_id, order_id)
+	        VALUES (#{scheduleId}, #{visitDate}, #{visitCycle}, #{visitType}, #{visitState}, #{staffId}, #{userId}, #{orderId})
+	    </insert>
     	<select id="getNextMaxScheduleId" resultType="int">
 	    	 SELECT COALESCE(max(schedule_id), 0) + 1 FROM schedule
 	    </select>
@@ -47,5 +50,10 @@
 			SET visit_type = 1, visit_cycle=2
 			WHERE schedule_id = #{scheduleId};
 		</update>
-		
+		<select id ="getRequestDate" parameterType="long">
+			 select o.request_date as "requestDate"
+	         from orders o
+	         join schedule s on o.order_id = s.order_id
+	         where s.schedule_id = #{scheduleId}
+		</select>
     </mapper>

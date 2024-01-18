@@ -1,5 +1,8 @@
 package com.meta.metaway.schedule.service;
 
+import java.time.LocalDateTime;
+import java.time.Period;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,6 +97,7 @@ public class ScheduleService implements IScheduleService{
 			System.out.println("cody insert start");
 			Schedule schedule = new Schedule();
 			schedule.setScheduleId(scheduleRepository.getNextMaxScheduleId());
+			schedule.setVisitDate(LocalDateTime.now().plus(Period.ofMonths(2)));
 			schedule.setVisitCycle(2);
 			schedule.setVisitType(1);
 			schedule.setVisitState(0);
@@ -101,7 +105,7 @@ public class ScheduleService implements IScheduleService{
 			schedule.setOrderId(orderId);
 	        schedule.setStaffId(staffId);
 	        System.out.println(schedule.toString());
-	        scheduleRepository.insertSchedule(schedule);
+	        scheduleRepository.insertCodiSchedule(schedule);
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

@@ -156,10 +156,7 @@
 								<li>총 가격 :<span th:text="${orders.orderPrice}"></span>원</li>
 								<li>
 									월 가격 :
-									<span th:if="${orders.contractYear != 0}"
-										th:text="${(orders.orderPrice / orders.contractYear) / 12 + '원'}"></span>
-									<span th:if="${orders.contractYear == 0}"
-										th:text="${(orders.orderPrice / 12) + '원'}"></span>
+									<span th:text="${orders.rentalPrice}"></span>
 								</li>
 								<li>약정기간 :<span th:text="${orders.startDate}"></span> ~ <span
 										th:text="${orders.endDate}"></span></li>

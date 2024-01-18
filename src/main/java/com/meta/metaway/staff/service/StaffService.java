@@ -154,4 +154,9 @@ public class StaffService implements IStaffService {
 		return staffRepository.getCodyTodoList(userId);
 	}
 
+	@Override
+	public void completeCodiSchedule(StaffScheduleDTO staff) {
+		staffRepository.updateScheduleState(staff);
+	}
+
 }
