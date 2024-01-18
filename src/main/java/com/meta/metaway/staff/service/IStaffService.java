@@ -33,6 +33,7 @@ public interface IStaffService {
     //업무가 완료되었을때
     void completeSchedule(StaffScheduleDTO staff);
     
+    void completeCodiSchedule(StaffScheduleDTO staff);
     //코디 할일 목록
     List<StaffScheduleDTO> getCodyTodoList(long userId);
 }

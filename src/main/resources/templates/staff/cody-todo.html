@@ -148,12 +148,12 @@
 
 					<th scope="col">일정번호</th>
 					<th scope="col">주문날짜</th>
-					<th scope="col">방문요청일</th>
 					<th scope="col">방문주소</th>
 					<th scope="col">회원이름</th>
 					<th scope="col">방문타입</th>
 					<th scope="col">방문예정일</th>
 					<th scope="col">관리</th>
+					<th scope="col">처리</th>
 				</tr>
 			</thead>
 
@@ -162,14 +162,13 @@
 					<th th:text="${itemStat.index + 1}"></th>
 					<td th:text="${codi.scheduleId}"></td>
 					<td th:text="${codi.orderDate}"></td>
-					<td th:text="${codi.requestDate}"></td>
 					<td th:text="${codi.orderAddress}"></td>
 					<td th:text="${codi.orderName}"></td>
 					<td th:text="${codi.visitType }">정기 점검</td>
 					<td th:text="${codi.visitDate}"></td>
 					<td>
-					<!--	방문 전
-						<form th:if="${codi.visitType == 0 and codi.visitDate == null}" action="/staff/settingDate" method="post">
+						<!--방문 전-->
+						<form th:if="${codi.visitState == 0 and codi.visitDate != null}" action="/staff/settingCodyDate" method="post">
 							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
 							<input type="time" id="appointmentTime" name="visitTime">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
@@ -180,7 +179,7 @@
 								날짜선택
 							</button>
 						</form>
-						<form th:if="${codi.visitType == 2 and driver.visitDate == null}" action="/staff/settingDate" method="post">
+						<form th:if="${codi.visitState == 1 and codi.visitDate != null}" action="/staff/settingCodyDate" method="post">
 							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
 							<input type="time" id="appointmentTime" name="visitTime">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
@@ -191,8 +190,9 @@
 						</form>
 						
 						
-						방문 후
-						<form th:if="${codi.visitType == 0 and codi.visitDate != null}" action="/staff/completeOrder" method="post">
+						<!--방문 후-->
+						<td>
+						<form  th:if="${codi.visitState == 0 and codi.visitDate != null}" action="/staff/completeCodiOrder" method="post">
 							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${codi.orderId}" name="orderId">
@@ -202,7 +202,7 @@
 								업무 완료
 							</button>
 						</form>
-						<form th:if="${codi.visitType == 2 and driver.visitDate != null}" action="/staff/completeOrder" method="post">
+						<form th:if="${codi.visitState == 1 and codi.visitDate != null} " action="/staff/completeCodiOrder" method="post">
 							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${codi.visitType}" name="visitType">
@@ -210,8 +210,7 @@
 								업무 완료
 							</button>
 						</form>
-						
-						
+						</td>
 						
 						
 						
