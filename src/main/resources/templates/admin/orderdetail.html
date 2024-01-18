@@ -39,10 +39,10 @@
 					<span class="icon">
 						<ion-icon name="home-outline"></ion-icon>
 					</span>
-					<span class="title" id="HomeButton">홈</span>
+					<span class="title">홈</span>
 				</a>
 			</li>
-			<li class="adminView">
+			<li>
 				<a href="/admin/adminview">
 					<span class="icon">
 						<ion-icon name="document-text-outline"></ion-icon>
@@ -51,8 +51,8 @@
 				</a>
 			</li>
 
-			<li class="adminView">
-				<a href="/product/insert">
+			<li>
+				<a href="../product/insert">
 					<span class="icon">
 						<ion-icon name="color-wand-outline"></ion-icon>
 					</span>
@@ -60,7 +60,7 @@
 				</a>
 			</li>
 
-			<li class="adminView">
+			<li>
 				<a href="/admin/orderlist/1">
 					<span class="icon">
 						<ion-icon name="bar-chart-outline"></ion-icon>
@@ -69,7 +69,7 @@
 				</a>
 			</li>
 
-			<li class="adminView">
+			<li>
 				<a href="/admin/returnlist/1">
 					<span class="icon">
 						<ion-icon name="refresh-circle-outline"></ion-icon>
@@ -77,8 +77,7 @@
 					<span class="title">환불/반납</span>
 				</a>
 			</li>
-
-			<li class="adminView">
+			<li>
 				<a href="/admin/stafflist/1">
 					<span class="icon">
 						<ion-icon name="people-outline"></ion-icon>
@@ -88,7 +87,7 @@
 			</li>
 
 
-			<li class="codiView">
+			<li>
 				<a href="../staff/cody/list">
 					<span class="icon">
 						<ion-icon name="calendar-outline"></ion-icon>
@@ -96,7 +95,7 @@
 					<span class="title">코디</span>
 				</a>
 			</li>
-			<li class="driverView">
+			<li>
 				<a href="/staff/driver/todo">
 					<span class="icon">
 						<ion-icon name="car-sport-outline"></ion-icon>
@@ -105,6 +104,16 @@
 				</a>
 			</li>
 
+
+
+			<li>
+				<!--                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </span>
+                        <span class="title">statistics</span>
+                    </a>
+                </li>-->
 
 			<li>
 				<a href="/">
@@ -116,253 +125,255 @@
 			</li>
 		</ul>
 	</div>
-	<!-- ============================================= -->
-	<div class="main">
-		<div class="topbar">
-			<div class="toggle">
-				<ion-icon name="menu-outline"></ion-icon>
-			</div>
+	
+	   <!-- ============================================= -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
 
+              
 
+                <div class="user">
+                    <img th:href="@{/css/admin/assets/imgs/customer01.jpg}" alt="">
+                </div>
+            </div>
 
-			<div class="user">
-				<img th:href="@{/css/admin/assets/imgs/customer01.jpg}" alt="">
-			</div>
-		</div>
-
-		<!-- ========================= Main ==================== -->
-		<div class="main">
-			<div class="assignment wrap">
-				<div class="flex_1">
-					<div class="flex_1_1" th:each="orders :${orderList}">
-						<p><span class="hight-span"> <em>주문고객: <span th:text="${orders.orderName}"></span> 님</em></span>
-						</p>
-						<div class="bo">
-							<div>
-								<ul>
-									<li>제품 모델 :<span th:text="${orders.productModel}"></span></li>
-									<li>제품 이름 :<span th:text="${orders.productName}"></span></li>
-									<li>약정년 :<span th:text="${orders.contractYear}"></span>년</li>
-									<li>총 가격 :<span th:text="${orders.orderPrice}"></span>원</li>
-									<li>
-										월 가격 :
-										<span th:text="${orders.rentalPrice}"></span>
-									</li>
-									<li>약정기간 :<span th:text="${orders.startDate}"></span> ~ <span
-											th:text="${orders.endDate}"></span></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="flex_1_2">
-						<p><span class="hight-span"><em>고객 주소</em></span></p>
-						<div class="bo">
+	<!-- ========================= Main ==================== -->
+	
+		<div class="assignment wrap">
+			<div class="flex_1">
+				<div class="flex_1_1" th:each="orders :${orderList}">
+					<p><span class="hight-span"> <em>주문고객: <span th:text="${orders.orderName}"></span> 님</em></span>
+					</p>
+					<div class="bo">
+						<div>
 							<ul>
-								<li>고객명 : <span th:text="${orderList[0].orderName}"></span> 님</li>
-								<li>고객 주소 : <span th:text="${orderList[0].orderAddress}"></span></li>
-								<li>고객 연락처 :<span th:text="${orderList[0].userPhone}"></span></li>
-								<li>요청 사항 :<span th:text="${orderList[0].orderContent}"></span></li>
+								<li>제품 모델 :<span th:text="${orders.productModel}"></span></li>
+								<li>제품 이름 :<span th:text="${orders.productName}"></span></li>
+								<li>약정년 :<span th:text="${orders.contractYear}"></span>년</li>
+								<li>총 가격 :<span th:text="${orders.orderPrice}"></span>원</li>
+								<li>
+									월 가격 :
+									<span th:if="${orders.contractYear != 0}"
+										th:text="${(orders.orderPrice / orders.contractYear) / 12 + '원'}"></span>
+									<span th:if="${orders.contractYear == 0}"
+										th:text="${(orders.orderPrice / 12) + '원'}"></span>
+								</li>
+								<li>약정기간 :<span th:text="${orders.startDate}"></span> ~ <span
+										th:text="${orders.endDate}"></span></li>
 							</ul>
 						</div>
 					</div>
-					<div class="flex_1_3">
-						<p><span class="hight-span"><em>설치 희망일</em></span></p>
-						<div class="bo" th:text="${orderList[0].requestDate}">
-							2020/12/23 14:00
-						</div>
+				</div>
+				<div class="flex_1_2">
+					<p><span class="hight-span"><em>고객 주소</em></span></p>
+					<div class="bo">
+						<ul>
+							<li>고객명 : <span th:text="${orderList[0].orderName}"></span> 님</li>
+							<li>고객 주소 : <span th:text="${orderList[0].orderAddress}"></span></li>
+							<li>고객 연락처 :<span th:text="${orderList[0].userPhone}"></span></li>
+							<li>요청 사항 :<span th:text="${orderList[0].orderContent}"></span></li>
+						</ul>
 					</div>
 				</div>
-				<div class="flex_2">
-					<div class="flex_2_1">
-						<p><span class="hight-span"><em>배정</em></span></p>
-						<div class="bo">
-							<div class="engineer_box">
-								<h3>설치 기사</h3>
-								<div th:if="${#lists.size(staff)} > 0">
-									<div th:each="driver : ${staff}" th:if="${driver.authorityName == 'ROLE_DRIVER'}">
-										<div class="driver" th:if="${driver != null}">
-											<p
-												th:text="${driver.userName + ' (' + driver.staffId + '/' + driver.workPlace + ')'}">
-												기사를 배정해주세요.</p>
-											<form class="flex_button"
-												th:action="@{/admin/cancel/{orderId}/{staffId}(orderId=${driver.orderId}, staffId=${driver.staffId})}"
-												method="post">
-												<input type="hidden" name="orderId" th:value="${driver.orderId}">
-												<input type="hidden" name="staffId" th:value="${driver.staffId}">
-												<button type="submit" class="btn btn-outline-secondary"
-													id="cancelAssign">배정취소</button>
-											</form>
-										</div>
+				<div class="flex_1_3">
+					<p><span class="hight-span"><em>설치 희망일</em></span></p>
+					<div class="bo" th:text="${orderList[0].requestDate}">
+						2020/12/23 14:00
+					</div>
+				</div>
+			</div>
+			<div class="flex_2">
+				<div class="flex_2_1">
+					<p><span class="hight-span"><em>배정</em></span></p>
+					<div class="bo">
+						<div class="engineer_box">
+							<h3>설치 기사</h3>
+							<div th:if="${#lists.size(staff)} > 0">
+								<div th:each="driver : ${staff}" th:if="${driver.authorityName == 'ROLE_DRIVER'}">
+									<div class="driver" th:if="${driver != null}">
+										<p
+											th:text="${driver.userName + ' (' + driver.staffId + '/' + driver.workPlace + ')'}">
+											기사를 배정해주세요.</p>
+										<form class="flex_button"
+											th:action="@{/admin/cancel/{orderId}/{staffId}(orderId=${driver.orderId}, staffId=${driver.staffId})}"
+											method="post">
+											<input type="hidden" name="orderId" th:value="${driver.orderId}">
+											<input type="hidden" name="staffId" th:value="${driver.staffId}">
+											<button type="submit" class="btn btn-outline-secondary"
+												id="cancelAssign">배정취소</button>
+										</form>
 									</div>
 								</div>
-								<p th:unless="${#lists.size(staff)} > 0">기사를 배정해주세요.</p>
-								<div class="flex_button">
-									<button type="button" class="drive-btn" data-toggle="modal"
-										data-target="#myModal">기사
-										선택</button>
-								</div>
 							</div>
-							<div class="engineer_box">
-								<h3>코디</h3>
-								<div th:if="${#lists.size(staff)} > 0">
-									<div th:each="codi : ${staff}" th:if="${codi.authorityName == 'ROLE_CODI'}">
-										<div class="codi" th:if="${codi != null}">
-											<p
-												th:text="${codi.userName + ' (' + codi.staffId + '/' + codi.workPlace + ')'}">
-												코디를 배정해주세요.</p>
-											<form class="flex_button"
-												th:action="@{/admin/cancel/{orderId}/{staffId}(orderId=${codi.orderId}, staffId=${codi.staffId})}"
-												method="post">
-												<input type="hidden" name="orderId" th:value="${codi.orderId}">
-												<input type="hidden" name="staffId" th:value="${codi.staffId}">
-												<button type="submit" class="btn btn-outline-secondary"
-													id="cancelAssign">배정취소</button>
-											</form>
-										</div>
+							<p th:unless="${#lists.size(staff)} > 0">기사를 배정해주세요.</p>
+							<div class="flex_button">
+								<button type="button" class="drive-btn" data-toggle="modal" data-target="#myModal">기사
+									선택</button>
+							</div>
+						</div>
+						<div class="engineer_box">
+							<h3>코디</h3>
+							<div th:if="${#lists.size(staff)} > 0">
+								<div th:each="codi : ${staff}" th:if="${codi.authorityName == 'ROLE_CODI'}">
+									<div class="codi" th:if="${codi != null}">
+										<p
+											th:text="${codi.userName + ' (' + codi.staffId + '/' + codi.workPlace + ')'}">
+											코디를 배정해주세요.</p>
+										<form class="flex_button"
+											th:action="@{/admin/cancel/{orderId}/{staffId}(orderId=${codi.orderId}, staffId=${codi.staffId})}"
+											method="post">
+											<input type="hidden" name="orderId" th:value="${codi.orderId}">
+											<input type="hidden" name="staffId" th:value="${codi.staffId}">
+											<button type="submit" class="btn btn-outline-secondary"
+												id="cancelAssign">배정취소</button>
+										</form>
 									</div>
 								</div>
-								<p th:unless="${#lists.size(staff)} > 0">코디를 배정해주세요.</p>
-								<div class="flex_button">
-									<button type="button" class="cody-btn" data-toggle="modal"
-										data-target="#myCodiModal">코디
-										선택</button>
-								</div>
 							</div>
-							<form class="flex_button"
-								th:action="@{/admin/assign/complate/{orderId}(orderId=${orderList[0].orderId})}"
-								method="post">
-								<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
-								<button class="cancle-btn"><a th:href="@{'/admin/orderlist/1'}">배정 취소</a></button>
-								<button type="submit" class="submit-btn">배정 완료</button>
-							</form>
+							<p th:unless="${#lists.size(staff)} > 0">코디를 배정해주세요.</p>
+							<div class="flex_button">
+								<button type="button" class="cody-btn" data-toggle="modal" data-target="#myCodiModal">코디
+									선택</button>
+							</div>
 						</div>
-					</div>
-				</div>
-
-				<!-- The Modal -->
-				<div class="modal" id="myModal">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-
-							<!-- Modal Header -->
-							<div class="modal-header">
-								<h4 class="modal-title">미배정 담당기사 목록</h4>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-							</div>
-
-							<!-- Modal body -->
-							<div class="modal-body">
-								<table class="driver_table" th:if="${driverList}">
-									<thead class="table-success">
-										<tr>
-											<th>직원번호</th>
-											<th>이름</th>
-											<th>이메일</th>
-											<th>연락처</th>
-											<th>근무지</th>
-											<th>관리</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="driver: ${driverList}">
-											<td th:text="${driver.staffId}">1</td>
-											<td th:text="${driver.userName}">김기사</td>
-											<td th:text="${driver.userEmail}">john@example.com</td>
-											<td th:text="${driver.userPhone}">010-1111-1111</td>
-											<td th:text="${driver.workPlace}">서울</td>
-											<td>
-												<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
-												<input type="hidden" name="staffId" th:value="${driver.staffId}">
-												<input type="hidden" name="userId" th:value="${driver.userId}">
-												<button type="button" class="assign_btn"
-													th:onclick="assignStaff('driver', '[[${driver.userName}]]','[[${driver.staffId}]]','[[${driver.userId}]]')">배정</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-						</div>
-					</div>
-				</div>
-				<!-- The Codi Modal -->
-				<div class="modal" id="myCodiModal">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-
-							<!-- Modal Header -->
-							<div class="modal-header">
-								<h4 class="modal-title">미배정 코디 목록</h4>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-							</div>
-
-							<!-- Modal body -->
-							<div class="modal-body">
-								<table class="cody_table" th:if="${codiList}">
-									<thead class="table-success">
-										<tr>
-											<th>직원번호</th>
-											<th>이름</th>
-											<th>이메일</th>
-											<th>연락처</th>
-											<th>근무지</th>
-											<th>관리</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="codi: ${codiList}">
-											<td th:text="${codi.staffId}"></td>
-											<td th:text="${codi.userName}"></td>
-											<td th:text="${codi.userEmail}"></td>
-											<td th:text="${codi.userPhone}"></td>
-											<td th:text="${codi.workPlace}"></td>
-											<td>
-												<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
-												<input type="hidden" name="staffId" th:value="${codi.staffId}">
-												<input type="hidden" name="userId" th:value="${codi.userId}">
-												<button type="button" class="assign_btn"
-													th:onclick="assignStaff('codi', '[[${codi.userName}]]', '[[${codi.staffId}]]','[[${codi.userId}]]')">배정</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-
-
-						</div>
+						<form class="flex_button"
+							th:action="@{/admin/assign/complate/{orderId}(orderId=${orderList[0].orderId})}"
+							method="post">
+							<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
+							<button class="cancle-btn"><a th:href="@{'/admin/orderlist/1'}">배정 취소</a></button>
+							<button type="submit" class="submit-btn">배정 완료</button>
+						</form>
 					</div>
 				</div>
 			</div>
 
+			<!-- The Modal -->
+			<div class="modal" id="myModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">미배정 담당기사 목록</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<table class="driver_table" th:if="${driverList}">
+								<thead class="table-success">
+									<tr>
+										<th>직원번호</th>
+										<th>이름</th>
+										<th>이메일</th>
+										<th>연락처</th>
+										<th>근무지</th>
+										<th>관리</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="driver: ${driverList}">
+										<td th:text="${driver.staffId}">1</td>
+										<td th:text="${driver.userName}">김기사</td>
+										<td th:text="${driver.userEmail}">john@example.com</td>
+										<td th:text="${driver.userPhone}">010-1111-1111</td>
+										<td th:text="${driver.workPlace}">서울</td>
+										<td>
+											<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
+											<input type="hidden" name="staffId" th:value="${driver.staffId}">
+											<input type="hidden" name="userId" th:value="${driver.userId}">
+											<button type="button" class="assign_btn"
+												th:onclick="assignStaff('driver', '[[${driver.userName}]]','[[${driver.staffId}]]','[[${driver.userId}]]')">배정</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- The Codi Modal -->
+			<div class="modal" id="myCodiModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">미배정 코디 목록</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<table class="cody_table" th:if="${codiList}">
+								<thead class="table-success">
+									<tr>
+										<th>직원번호</th>
+										<th>이름</th>
+										<th>이메일</th>
+										<th>연락처</th>
+										<th>근무지</th>
+										<th>관리</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="codi: ${codiList}">
+										<td th:text="${codi.staffId}"></td>
+										<td th:text="${codi.userName}"></td>
+										<td th:text="${codi.userEmail}"></td>
+										<td th:text="${codi.userPhone}"></td>
+										<td th:text="${codi.workPlace}"></td>
+										<td>
+											<input type="hidden" name="orderId" th:value="${orderList[0].orderId}">
+											<input type="hidden" name="staffId" th:value="${codi.staffId}">
+											<input type="hidden" name="userId" th:value="${codi.userId}">
+											<button type="button" class="assign_btn"
+												th:onclick="assignStaff('codi', '[[${codi.userName}]]', '[[${codi.staffId}]]','[[${codi.userId}]]')">배정</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- =========== Scripts =========  -->
-		<script th:inline="javascript">
-			/* add hovered class to selected list item */
-			let list = document.querySelectorAll(".navigation li");
 
-			function activeLink() {
-				list.forEach((item) => {
-					item.classList.remove("hovered");
-				});
-				this.classList.add("hovered");
-			}
 
-			list.forEach((item) => item.addEventListener("mouseover", activeLink));
+	<!-- =========== Scripts =========  -->
+	<script th:inline="javascript">
+		/* add hovered class to selected list item */
+		let list = document.querySelectorAll(".navigation li");
 
-			/* Menu Toggle */
-			let toggle = document.querySelector(".toggle");
-			let navigation = document.querySelector(".navigation");
-			let main = document.querySelector(".main");
+		function activeLink() {
+			list.forEach((item) => {
+				item.classList.remove("hovered");
+			});
+			this.classList.add("hovered");
+		}
 
-			toggle.onclick = function () {
-				navigation.classList.toggle("active");
-				main.classList.toggle("active");
-			};
-		</script>
+		list.forEach((item) => item.addEventListener("mouseover", activeLink));
 
-		<!-- ====== ionicons ======= -->
-		<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
-		<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
+		/* Menu Toggle */
+		let toggle = document.querySelector(".toggle");
+		let navigation = document.querySelector(".navigation");
+		let main = document.querySelector(".main");
+
+		toggle.onclick = function () {
+			navigation.classList.toggle("active");
+			main.classList.toggle("active");
+		};
+	</script>
+
+	<!-- ====== ionicons ======= -->
+	<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
+	<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
 </body>
 <script>
 
@@ -415,43 +426,6 @@
 	}
 
 
-
-</script>
-
-<script>
-
-
-	function getCookie(name) {
-		const value = document.cookie.charAt(11);
-		return value;
-	}
-
-	window.addEventListener('load', function () {
-		const token = getCookie('userNumber');
-		var adminButton = document.querySelectorAll(".adminView");
-
-
-		if (token) {
-			// 'ROLE_ADMIN' 권한이 없으면 'admin' 요소를 숨깁니다
-			if (token !== "4") {
-				adminButton.forEach(item => {
-					item.style.display = 'none';
-				})
-			}
-
-			// 'ROLE_DRIVER' 권한이 없으면 'driver' 요소를 숨깁니다
-			if (token !== "3") {
-				var driverButton = document.querySelector(".driverView");
-				if (driverButton) driverButton.style.display = 'none';
-			}
-
-			// 'ROLE_CODI' 권한이 없으면 'codi' 요소를 숨깁니다
-			if (token !== "2") {
-				var codiButton = document.querySelector(".codiView");
-				if (codiButton) codiButton.style.display = 'none';
-			}
-		}
-	});
 
 </script>
 
