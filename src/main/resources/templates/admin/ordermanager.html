@@ -194,7 +194,7 @@
 								<form id="" th:action="@{/admin/assign/{orderId}(orderId=${order.orderId})}"
 									method="get">
 									<td>
-										<button type="submit" class="btn btn-outline-primary">배정</button>
+										<button type="submit" class="submit-btn">배정</button>
 									</td>
 								</form>
 								<form th:id="'deleteForm_' + ${order.orderId}"
@@ -202,7 +202,7 @@
 									<td>
 										<input type="hidden" name="orderId" th:value="${order.orderId}"></input>
 										<button type="button" th:onclick="confirmDelete([[${order.orderId}]]);"
-											class="btn btn-outline-dark">주문 취소</button>
+											class="cancle-btn">주문 취소</button>
 									</td>
 								</form>
 							</tr>
