@@ -2,315 +2,329 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>관리자 대시보드</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<title>관리자 대시보드</title>
 	<link rel="stylesheet" th:href="@{/css/admin/assets/css/style.css}">
 	<link rel="stylesheet" th:href="@{/css/productInsert.css}">
 </head>
 
 <body>
-    <!-- =============== 내비바 ================ -->
-    
-        <div class="navigation">
-			<th:block class="adminView">
-            <ul>
-                <li>
-                    <a href="/">
-                        <span class="icon">
-                            <ion-icon name="water-outline"></ion-icon>
-                        </span>
-                        <span class="title">Meta water</span>
-                    </a>
-                </li>
-				  <li>
-                    <a href="/">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
-                        <span class="title" id="HomeButton">홈</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/adminview">
-                        <span class="icon">
-                            <ion-icon name="document-text-outline"></ion-icon>
-                        </span>
-                        <span class="title">대시보드</span>
-                    </a>
-                </li>
-                
-                 <li>
-                    <a href="../product/insert">
-                        <span class="icon">
-                           <ion-icon name="color-wand-outline"></ion-icon>
-                        </span>
-                        <span class="title">상품등록</span>
-                    </a>
-                </li>
-                
-                 <li>
-                    <a href="/admin/orderlist/1">
-                        <span class="icon">
-                            <ion-icon name="bar-chart-outline"></ion-icon>
-                        </span>
-                        <span class="title">주문리스트</span>
-                    </a>
-                </li>
-                
-                 <li>
-                    <a href="/admin/returnlist/1">
-                        <span class="icon">
-                            <ion-icon name="refresh-circle-outline"></ion-icon>
-                        </span>
-                        <span class="title">환불/반납</span>
-                    </a>
-                </li>
+	<!-- =============== 내비바 ================ -->
 
-                <li>
-                    <a href="/admin/stafflist/1">
-                        <span class="icon">
-                            <ion-icon name="people-outline"></ion-icon>
-                        </span>
-                        <span class="title">직원조회</span>
-                    </a>
-                </li>
-	</th:block>
-               
+	<div class="navigation">
+		<ul>
+			<li>
+				<a href="/">
+					<span class="icon">
+						<ion-icon name="water-outline"></ion-icon>
+					</span>
+					<span class="title">Meta water</span>
+				</a>
+			</li>
+			<li>
+				<a href="/">
+					<span class="icon">
+						<ion-icon name="home-outline"></ion-icon>
+					</span>
+					<span class="title" id="HomeButton">홈</span>
+				</a>
+			</li>
+			<li class="adminView">
+				<a href="/admin/adminview">
+					<span class="icon">
+						<ion-icon name="document-text-outline"></ion-icon>
+					</span>
+					<span class="title">대시보드</span>
+				</a>
+			</li>
 
-                <li>
-                    <a href="../staff/cody/list">
-                        <span class="icon">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                        </span>
-                        <span class="title">코디</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../staff/drive/list">
-                        <span class="icon">
-                           <ion-icon name="car-sport-outline"></ion-icon>
-                        </span>
-                        <span class="title">기사</span>
-                    </a>
-                </li>
+			<li class="adminView">
+				<a href="/product/insert">
+					<span class="icon">
+						<ion-icon name="color-wand-outline"></ion-icon>
+					</span>
+					<span class="title">상품등록</span>
+				</a>
+			</li>
+
+			<li class="adminView">
+				<a href="/admin/orderlist/1">
+					<span class="icon">
+						<ion-icon name="bar-chart-outline"></ion-icon>
+					</span>
+					<span class="title">주문리스트</span>
+				</a>
+			</li>
+
+			<li class="adminView">
+				<a href="/admin/returnlist/1">
+					<span class="icon">
+						<ion-icon name="refresh-circle-outline"></ion-icon>
+					</span>
+					<span class="title">환불/반납</span>
+				</a>
+			</li>
+
+			<li class="adminView">
+				<a href="/admin/stafflist/1">
+					<span class="icon">
+						<ion-icon name="people-outline"></ion-icon>
+					</span>
+					<span class="title">직원조회</span>
+				</a>
+			</li>
 
 
-                <li>
-                    <a href="/">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
-                        <span class="title">로그아웃</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+			<li class="codiView">
+				<a href="../staff/cody/list">
+					<span class="icon">
+						<ion-icon name="calendar-outline"></ion-icon>
+					</span>
+					<span class="title">코디</span>
+				</a>
+			</li>
+			<li class="driverView">
+				<a href="/staff/driver/todo">
+					<span class="icon">
+						<ion-icon name="car-sport-outline"></ion-icon>
+					</span>
+					<span class="title">기사</span>
+				</a>
+			</li>
 
-        <!-- ========================= Main ==================== -->
-        <div class="main">
-            <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
 
-              
+			<li>
+				<a href="/">
+					<span class="icon">
+						<ion-icon name="log-out-outline"></ion-icon>
+					</span>
+					<span class="title">로그아웃</span>
+				</a>
+			</li>
+		</ul>
+	</div>
 
-                <div class="user">
-                    <img th:href="@{/css/admin/assets/imgs/customer01.jpg}" alt="">
-                </div>
-            </div>
-            
-            
-     <!-- ========================= List ==================== -->
+	<!-- ========================= Main ==================== -->
+	<div class="main">
+		<div class="topbar">
+			<div class="toggle">
+				<ion-icon name="menu-outline"></ion-icon>
+			</div>
 
-	<div id="bodyrap">
-	<form id="insertForm" action="/product/insert" enctype="multipart/form-data" method="post">
-		 <div class="insert_title">
-        <p>
-			<a th:href="@{/admin/adminview}" style="color: black;  text-decoration: none;">
-<img src="/images/return.png" style="width: 30px;">
-			<span><strong>상품 등록</strong></span></a></p>
-    </div>
-		<div id="modelBox">
-			<label for="productModel" class="form-label">상품 모델명<span>*</span></label>
-			<input type="text" id="productModel" name="productModel" class="form-control" placeholder="상품 모델번호을 입력해주세요.">
+
+
+			<div class="user">
+				<img th:href="@{/css/admin/assets/imgs/customer01.jpg}" alt="">
+			</div>
 		</div>
-		<div id="nameBox">
-			<label for="productName" class="form-label">상품 이름<span>*</span></label>
-			<input type="text" id="productName" name="productName" class="form-control" placeholder="상품 모델명을 입력해주세요.">
-		</div>
-		
-		
-		<div id="formBox">
-			<div>상품 메뉴<span>*</span></div>
-			<label for="formId1" class="form_radio">데스크탑</label>
-			<input class="form-check-input" type="radio" id="formId1" name="formId" value="1">
-			<label for="formId2" class="form_radio">빌트인</label>
-			<input class="form-check-input" type="radio" id="formId2" name="formId" value="2">
-			<label for="formId3" class="form_radio">스탠드</label>
-			<input class="form-check-input" type="radio" id="formId3" name="formId" value="3">
-		</div>
-		
-		
-		<div id="function_Box"  class="" role="group" >
-			<div>상품 메뉴<span>*</span></div>
-			<input type="checkbox" id="btncheck1" name="function" value="1" class="btn-check"  autocomplete="off">
-			<label for="btncheck1" class="btn btn-outline-primary">냉정수기</label>
-			<input type="checkbox" id="checkbox2" name="function" value="2" class="btn-check"  autocomplete="off">
-			<label for="checkbox2" class="btn btn-outline-primary">온정수기</label>
-			<input type="checkbox" id="checkbox3" name="function" value="3" class="btn-check"  autocomplete="off">
-			<label for="checkbox3" class="btn btn-outline-primary">냉온정수기</label>
-			<input type="checkbox" id="checkbox4" name="function" value="4" class="btn-check"  autocomplete="off">
-			<label for="checkbox4" class="btn btn-outline-primary">얼음</label>
-			<input type="checkbox" id="btncheck3" name="function" value="5" class="btn-check"  autocomplete="off">
-			<label for="btncheck3" class="btn btn-outline-primary">탄산</label>
-		</div>
-		
-		<div id="dateBox">
-			<div>제품출시일<span>*</span></div>
-			<input type="date" id="productDate" name="productDate">
-		</div>
-		<div id="imageBox">
-			<label for="productFile" class="form-label">이미지 파일 선택<span>*</span></label>
-			<input type="file" id="productFile" class="form-control" name="productFile">
-		</div>
-			<div id="contractForm">
-				
-			<button id="addButton" class="btn btn-dark">약정 추가</button>
-		</div>
-		<button class="insert-btn">확인</button>
-	</form>
-	
-<script>
-	var itemIndex = 0;
-    var button = document.getElementById('addButton');
-	button.addEventListener("click", function (event) {
-		event.preventDefault();
-		if(itemIndex < 3)
-        addItem();
-	})
-
-	function addItem() {
-		var form = document.getElementById('contractForm');
-		
-		var divBox = document.createElement('div');
-		divBox.className = 'functionBox';
-		var div = document.createElement('div');
-		div.className= 'priceBox';
-
-		var inputYear0 = document.createElement('input');
-		var inputYear3 = document.createElement('input');
-		var inputYear6 = document.createElement('input');
-		
-		inputYear0.type = 'radio';
-		inputYear0.name = 'contract[' + itemIndex + '].contractYear';
-		inputYear0.value = '0';
-
-		
-		inputYear3.type = 'radio';
-		inputYear3.name = 'contract[' + itemIndex + '].contractYear';
-		inputYear3.value = '3';
 
 
-		inputYear6.type = 'radio';
-		inputYear6.name = 'contract[' + itemIndex + '].contractYear';
-		inputYear6.value = '6';
+		<!-- ========================= List ==================== -->
 
-	
-		var labelYear0 = document.createElement('label');
-        labelYear0.textContent = '구매';
-        inputYear0.style.marginLeft = '10px';
-
-        var labelYear3 = document.createElement('label');
-        labelYear3.textContent = '3년';
-        inputYear3.style.marginLeft = '10px';
-
-        var labelYear6 = document.createElement('label');
-        labelYear6.textContent = '6년';
-        inputYear6.style.marginLeft = '10px';
-        
-		var inputPrice = document.createElement('input');
-		inputPrice.type = 'number';
-		inputPrice.name = 'contract[' + itemIndex + '].contractPrice';
-		inputPrice.placeholder = '가격(렌탈료)';
-
-		divBox.appendChild(inputYear0);
-        divBox.appendChild(labelYear0);
-        divBox.appendChild(inputYear3);
-        divBox.appendChild(labelYear3);
-        divBox.appendChild(inputYear6);
-        divBox.appendChild(labelYear6);
-        divBox.appendChild(div);
-        divBox.appendChild(inputPrice);
-        
-        form.appendChild(divBox);
-		itemIndex++;
-	}
-</script>
-  <!-- =========== Scripts =========  -->
-	<script th:inline="javascript">
-	    /* add hovered class to selected list item */
-	    let list = document.querySelectorAll(".navigation li");
-	
-	    function activeLink() {
-	        list.forEach((item) => {
-	            item.classList.remove("hovered");
-	        });
-	        this.classList.add("hovered");
-	    }
-	
-	    list.forEach((item) => item.addEventListener("mouseover", activeLink));
-	
-	    /* Menu Toggle */
-	    let toggle = document.querySelector(".toggle");
-	    let navigation = document.querySelector(".navigation");
-	    let main = document.querySelector(".main");
-	
-	    toggle.onclick = function () {
-	        navigation.classList.toggle("active");
-	        main.classList.toggle("active");
-	    };
-		
-		
-	</script>
-<script>
+		<div id="bodyrap">
+			<form id="insertForm" action="/product/insert" enctype="multipart/form-data" method="post">
+				<div class="insert_title">
+					<p>
+						<a th:href="@{/admin/adminview}" style="color: black;  text-decoration: none;">
+							<img src="/images/return.png" style="width: 30px;">
+							<span><strong>상품 등록</strong></span></a>
+					</p>
+				</div>
+				<div id="modelBox">
+					<label for="productModel" class="form-label">상품 모델명<span>*</span></label>
+					<input type="text" id="productModel" name="productModel" class="form-control"
+						placeholder="상품 모델번호을 입력해주세요.">
+				</div>
+				<div id="nameBox">
+					<label for="productName" class="form-label">상품 이름<span>*</span></label>
+					<input type="text" id="productName" name="productName" class="form-control"
+						placeholder="상품 모델명을 입력해주세요.">
+				</div>
 
 
-		function getCookie(name) {
-			const value = document.cookie.charAt(11);
-			return value;
-		}
+				<div id="formBox">
+					<div>상품 메뉴<span>*</span></div>
+					<label for="formId1" class="form_radio">데스크탑</label>
+					<input class="form-check-input" type="radio" id="formId1" name="formId" value="1">
+					<label for="formId2" class="form_radio">빌트인</label>
+					<input class="form-check-input" type="radio" id="formId2" name="formId" value="2">
+					<label for="formId3" class="form_radio">스탠드</label>
+					<input class="form-check-input" type="radio" id="formId3" name="formId" value="3">
+				</div>
 
-		window.addEventListener('load', function () {
-			const token = getCookie('userNumber');
-			if (token) {
-				// 'ROLE_ADMIN' 권한이 없으면 'admin' 요소를 숨깁니다
-				if (token !== "4") {
-					var adminButton = document.querySelector(".adminView");
-					if (adminButton) adminButton.style.display = 'none';
+
+				<div id="function_Box" class="" role="group">
+					<div>상품 메뉴<span>*</span></div>
+					<input type="checkbox" id="btncheck1" name="function" value="1" class="btn-check"
+						autocomplete="off">
+					<label for="btncheck1" class="btn btn-outline-primary">냉정수기</label>
+					<input type="checkbox" id="checkbox2" name="function" value="2" class="btn-check"
+						autocomplete="off">
+					<label for="checkbox2" class="btn btn-outline-primary">온정수기</label>
+					<input type="checkbox" id="checkbox3" name="function" value="3" class="btn-check"
+						autocomplete="off">
+					<label for="checkbox3" class="btn btn-outline-primary">냉온정수기</label>
+					<input type="checkbox" id="checkbox4" name="function" value="4" class="btn-check"
+						autocomplete="off">
+					<label for="checkbox4" class="btn btn-outline-primary">얼음</label>
+					<input type="checkbox" id="btncheck3" name="function" value="5" class="btn-check"
+						autocomplete="off">
+					<label for="btncheck3" class="btn btn-outline-primary">탄산</label>
+				</div>
+
+				<div id="dateBox">
+					<div>제품출시일<span>*</span></div>
+					<input type="date" id="productDate" name="productDate">
+				</div>
+				<div id="imageBox">
+					<label for="productFile" class="form-label">이미지 파일 선택<span>*</span></label>
+					<input type="file" id="productFile" class="form-control" name="productFile">
+				</div>
+				<div id="contractForm">
+
+					<button id="addButton" class="btn btn-dark">약정 추가</button>
+				</div>
+				<button class="insert-btn">확인</button>
+			</form>
+
+			<script>
+				var itemIndex = 0;
+				var button = document.getElementById('addButton');
+				button.addEventListener("click", function (event) {
+					event.preventDefault();
+					if (itemIndex < 3)
+						addItem();
+				})
+
+				function addItem() {
+					var form = document.getElementById('contractForm');
+
+					var divBox = document.createElement('div');
+					divBox.className = 'functionBox';
+					var div = document.createElement('div');
+					div.className = 'priceBox';
+
+					var inputYear0 = document.createElement('input');
+					var inputYear3 = document.createElement('input');
+					var inputYear6 = document.createElement('input');
+
+					inputYear0.type = 'radio';
+					inputYear0.name = 'contract[' + itemIndex + '].contractYear';
+					inputYear0.value = '0';
+
+
+					inputYear3.type = 'radio';
+					inputYear3.name = 'contract[' + itemIndex + '].contractYear';
+					inputYear3.value = '3';
+
+
+					inputYear6.type = 'radio';
+					inputYear6.name = 'contract[' + itemIndex + '].contractYear';
+					inputYear6.value = '6';
+
+
+					var labelYear0 = document.createElement('label');
+					labelYear0.textContent = '구매';
+					inputYear0.style.marginLeft = '10px';
+
+					var labelYear3 = document.createElement('label');
+					labelYear3.textContent = '3년';
+					inputYear3.style.marginLeft = '10px';
+
+					var labelYear6 = document.createElement('label');
+					labelYear6.textContent = '6년';
+					inputYear6.style.marginLeft = '10px';
+
+					var inputPrice = document.createElement('input');
+					inputPrice.type = 'number';
+					inputPrice.name = 'contract[' + itemIndex + '].contractPrice';
+					inputPrice.placeholder = '가격(렌탈료)';
+
+					divBox.appendChild(inputYear0);
+					divBox.appendChild(labelYear0);
+					divBox.appendChild(inputYear3);
+					divBox.appendChild(labelYear3);
+					divBox.appendChild(inputYear6);
+					divBox.appendChild(labelYear6);
+					divBox.appendChild(div);
+					divBox.appendChild(inputPrice);
+
+					form.appendChild(divBox);
+					itemIndex++;
+				}
+			</script>
+			<!-- =========== Scripts =========  -->
+			<script th:inline="javascript">
+				/* add hovered class to selected list item */
+				let list = document.querySelectorAll(".navigation li");
+
+				function activeLink() {
+					list.forEach((item) => {
+						item.classList.remove("hovered");
+					});
+					this.classList.add("hovered");
 				}
 
-				// 'ROLE_DRIVER' 권한이 없으면 'driver' 요소를 숨깁니다
-				if (token !== "3") {
-					var driverButton = document.querySelector(".driverView");
-					if (driverButton) driverButton.style.display = 'none';
+				list.forEach((item) => item.addEventListener("mouseover", activeLink));
+
+				/* Menu Toggle */
+				let toggle = document.querySelector(".toggle");
+				let navigation = document.querySelector(".navigation");
+				let main = document.querySelector(".main");
+
+				toggle.onclick = function () {
+					navigation.classList.toggle("active");
+					main.classList.toggle("active");
+				};
+
+
+			</script>
+			<script>
+
+
+				function getCookie(name) {
+					const value = document.cookie.charAt(11);
+					return value;
 				}
 
-				// 'ROLE_CODI' 권한이 없으면 'codi' 요소를 숨깁니다
-				if (token !== "2") {
-					var codiButton = document.querySelector(".codiView");
-					if (codiButton) codiButton.style.display = 'none';
-				}
-			}
-		});
+				window.addEventListener('load', function () {
+					const token = getCookie('userNumber');
+					var adminButton = document.querySelectorAll(".adminView");
 
-	</script>
-    <!-- ====== ionicons ======= -->
-    <script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
-    <script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+					if (token) {
+						// 'ROLE_ADMIN' 권한이 없으면 'admin' 요소를 숨깁니다
+						if (token !== "4") {
+							adminButton.forEach(item => {
+								item.style.display = 'none';
+							})
+						}
+
+						// 'ROLE_DRIVER' 권한이 없으면 'driver' 요소를 숨깁니다
+						if (token !== "3") {
+							var driverButton = document.querySelector(".driverView");
+							if (driverButton) driverButton.style.display = 'none';
+						}
+
+						// 'ROLE_CODI' 권한이 없으면 'codi' 요소를 숨깁니다
+						if (token !== "2") {
+							var codiButton = document.querySelector(".codiView");
+							if (codiButton) codiButton.style.display = 'none';
+						}
+					}
+				});
+
+			</script>
+			<!-- ====== ionicons ======= -->
+			<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
+			<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+				integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+				crossorigin="anonymous"></script>
 </body>
+
 </html>
