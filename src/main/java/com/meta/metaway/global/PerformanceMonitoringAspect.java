@@ -39,7 +39,7 @@ public class PerformanceMonitoringAspect {
 
         if (executionTime > THRESHOLD) {
             // 임계치를 초과하는 경우 이메일로 경고 보내기
-            sendEmailAlert("임계치를 초과했습니다!", joinPoint.getSignature().toString(), executionTime);
+            sendEmailAlert("메타웨이 서비스에서 임계치를 초과했습니다!", joinPoint.getSignature().toString(), executionTime);
         
             logger.warn("Execution time exceeded the threshold! Sent an email alert.");
 

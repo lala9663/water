@@ -40,7 +40,7 @@ public class MailSendService {
 
         String setFrom = "lala96632040@gmail.com";
         String toMail = email;
-        String title = "인증 메일 발송 완료 ❕";
+        String title = "메타웨이 인증번호!";
         String content = "메타웨이를 방문해주셔서 감사합니다." + "<br><br>" +
                          "인증번호는 " + authNumber + "입니다." + "<br>" +
                          "인증번호를 입력해주세요.";
