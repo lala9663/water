@@ -128,7 +128,7 @@
 		o.order_date as "orderDate",
 		o.request_date as "requestDate",
 		o.order_name as "orderName",
-		o.order_address as "orderAddress"
+		o.streetadr as "orderAddress"
 		from schedule sc
 		join staff s on
 		s.staff_id =sc.staff_id
@@ -238,7 +238,7 @@
 		o.order_date as "orderDate",
 		o.request_date as "requestDate",
 		o.order_name as "orderName",
-		o.order_address as "orderAddress"
+		o.streetadr as "orderAddress"
 		from schedule sc
 		join staff s on
 		s.staff_id =sc.staff_id
