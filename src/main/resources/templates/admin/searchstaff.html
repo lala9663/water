@@ -2,24 +2,152 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-   <!--jquery-->
-   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-   <link rel="stylesheet" th:href="@{/css/admin/style.css}">
-   <!-- Datepicker 관련 라이브러리 추가 -->
-   <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
-   <!--sweetalert-->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-   <title>직원 검색</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+	<!--jquery-->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/admin/style.css}">
+	
+	<link rel="stylesheet" th:href="@{/css/admin/paging.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/staffList.css}">
+	<!-- Datepicker 관련 라이브러리 추가 -->
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+	<!--sweetalert-->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+	<title>반납 상세</title>
+	<link rel="stylesheet" th:href="@{/css/admin/assets/css/style.css}">
 </head>
+
 <body>
-    <div class="staff_list">
+	<!-- =============== 내비바 ================ -->
+	<div class="navigation">
+		<ul>
+			<li>
+				<a href="/">
+					<span class="icon">
+						<ion-icon name="water-outline"></ion-icon>
+					</span>
+					<span class="title">Meta water</span>
+				</a>
+			</li>
+			<li>
+				<a href="/">
+					<span class="icon">
+						<ion-icon name="home-outline"></ion-icon>
+					</span>
+					<span class="title">홈</span>
+				</a>
+			</li>
+			<li>
+				<a href="/admin/adminview">
+					<span class="icon">
+						<ion-icon name="document-text-outline"></ion-icon>
+					</span>
+					<span class="title">대시보드</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="../product/insert">
+					<span class="icon">
+						<ion-icon name="color-wand-outline"></ion-icon>
+					</span>
+					<span class="title">상품등록</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/admin/orderlist/1">
+					<span class="icon">
+						<ion-icon name="bar-chart-outline"></ion-icon>
+					</span>
+					<span class="title">주문리스트</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/admin/returnlist/1">
+					<span class="icon">
+						<ion-icon name="refresh-circle-outline"></ion-icon>
+					</span>
+					<span class="title">환불/반납</span>
+				</a>
+			</li>
+
+                <li>
+                    <a href="/admin/stafflist/1">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">직원조회</span>
+                    </a>
+                </li>
+
+
+			<li>
+				<a href="../staff/cody/list">
+					<span class="icon">
+						<ion-icon name="calendar-outline"></ion-icon>
+					</span>
+					<span class="title">코디</span>
+				</a>
+			</li>
+			<li>
+				<a href="/staff/driver/todo">
+					<span class="icon">
+						<ion-icon name="car-sport-outline"></ion-icon>
+					</span>
+					<span class="title">기사</span>
+				</a>
+			</li>
+
+
+
+			<li>
+				<!--                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </span>
+                        <span class="title">statistics</span>
+                    </a>
+                </li>-->
+
+			<li>
+				<a href="/">
+					<span class="icon">
+						<ion-icon name="log-out-outline"></ion-icon>
+					</span>
+					<span class="title">로그아웃</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+	
+	   <!-- ============================================= -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+              
+
+                <div class="user">
+                    <img th:href="@{/css/admin/assets/imgs/customer01.jpg}" alt="">
+                </div>
+            </div>
+
+	<!-- ========================= Main ==================== -->
+
+<div class="staff_list">
         <div class="container">
          	<h2 class="ti_con"><a th:href="@{/admin/stafflist/1}">전체직원리스트</a></h2>
             <div class="m_flex_box">
@@ -36,16 +164,20 @@
                   </div>
 	              <div class="input-group-append">
 				   	<input type="text" th:name="keyword" class="form-control" th:value="${keyword}" placeholder="이름을 검색해주세요"></input>
-                    <input type="submit" class="btn btn-primary active" value="검색"></input>
+                     <span class="input-group-btn">
+				            <button class="search-btn" type="submit">
+				                <img src="/images/search2.png" class="search-icon" />
+				            </button>
+				        </span>
 	              </div>
                 </form>  
               </div>  
             </div>
-            <p id="searchResult">검색결과: <span id="resultCount">4</span>/총<span id="totalCount">4</span>명 검색결과</p>       
+  
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th><input type="checkbox" name="" value=""></th>
+                 
                   <th>번호</th>
                   <th>아이디</th>
                   <th>이메일</th>
@@ -60,7 +192,7 @@
               </thead>
               <tbody>
                 <tr th:each="staff: ${staffList}">
-                  <td><input type="checkbox" name="" value=""></td>
+                  
                   <td th:text="${staff.staffId}"></td>
                   <td th:text="${staff.userAccount}"></td>
                   <td th:text="${staff.userEmail}"></td>
@@ -70,9 +202,6 @@
                   <td th:text="${staff.workPlace}"></td>
                   <td th:text="${staff.workStatus}"></td>
                   <td th:text="${staff.authorityName}"></td>
-                  <td>
-                    <button type="button" class="btn btn-outline-primary">수정</button>
-                  </td>
                   <form th:id="'deleteForm_' + ${staff.staffId}" th:action="@{/admin/deletestaff/{staffId}(staffId=${staff.staffId})}" method="post">
                      <td>
                         <input type="hidden" name="staffId" th:value="${staff.staffId}"></input>
@@ -85,28 +214,87 @@
         </div>
      	<div th:replace="~{/include/searchstaff-paging :: searchStaffpaging}"></div>
     </div>
-</body>
-<style>
 
-</style>
+		<!-- =========== Scripts =========  -->
+		<script th:inline="javascript">
+			/* add hovered class to selected list item */
+			let list = document.querySelectorAll(".navigation li");
+
+			function activeLink() {
+				list.forEach((item) => {
+					item.classList.remove("hovered");
+				});
+				this.classList.add("hovered");
+			}
+
+			list.forEach((item) => item.addEventListener("mouseover", activeLink));
+
+			/* Menu Toggle */
+			let toggle = document.querySelector(".toggle");
+			let navigation = document.querySelector(".navigation");
+			let main = document.querySelector(".main");
+
+			toggle.onclick = function () {
+				navigation.classList.toggle("active");
+				main.classList.toggle("active");
+			};
+		</script>
+
+		<!-- ====== ionicons ======= -->
+		<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
+		<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
+</body>
+
 <script>
-	 function confirmDeleteStaff(staffId) {
-       console.log("Staff ID:", staffId);
-        Swal.fire({
-            title: staffId+ '번 직원 삭제',
-            text: staffId +'번 직원을 삭제하시겠습니까?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '삭제',
-            cancelButtonText: '돌아가기'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // 삭제할 주문의 form을 submit
-                 $('#deleteForm_' + staffId).submit();
-            }
-        });
-    }
+	
+function assignStaff(staffType, staffName, staffId, userId) {
+    assignStaffAsync(staffType, staffName, staffId, userId);
+}
+
+//직원 배정
+function assignStaffAsync(staffType, staffName, staffId, userId) {
+    const orderDetailId = $('input[name="orderDetailId"]').val();
+    console.log(orderDetailId, staffType, staffId);
+    console.log(userId);
+    
+    Swal.fire({
+        title: '직원 배정 확인',
+        text: `${staffName}을(를) 선택하시겠습니까?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: `/admin/return/${staffType}/${orderDetailId}/${staffId}`,
+                contentType: 'application/json',
+                data: JSON.stringify({ userId: userId }),
+                success: function (data) {
+                    if (staffType === 'driver') {
+                        $('.driver p').text(`${staffName}(${staffId})`);
+                        location.reload();
+                    } else if (staffType.equals(null)) {
+                       console.error();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Failed to assign staff:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '배정 실패',
+                        text: '직원을 배정하는 데 문제가 발생했습니다.',
+                    });
+                }
+            });
+        }
+    });
+}
+
+    
+
 </script>
 </html>
