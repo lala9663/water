@@ -72,7 +72,7 @@
             od.end_date as "endDate",
             od.state_type as "stateType",
             o.order_name as "orderName",
-            o.order_address as "orderAddress",
+            o.streetadr as "orderAddress",
             o.order_content as "orderContent",
             o.order_price as "orderPrice",
             o.rental_price as "rentalPrice",
