@@ -56,9 +56,9 @@
 											class="modelName"></div>
 										<hr>
 										<div th:if="${order.orderPrice} != 0">총 결제액 : <span
-												th:text="${order.orderPrice} + '원'" class="spanText"></span></div>
+												 th:text="${#numbers.formatInteger(order.orderPrice, 0, 'COMMA')} + '원'" class="spanText"></span></div>
 										<div th:if="${order.rentalPrice} != 0">월 렌탈료 : <span
-												th:text="'월 ' + ${order.rentalPrice} + '원'" class="spanText"></span>
+												 th:text="${#numbers.formatInteger(order.rentalPrice, 0, 'COMMA')} + '원'" class="spanText"></span>
 										</div>
 									</div>
 								</div>
@@ -67,7 +67,7 @@
 								<div class="rightDetailButtonDiv">
 									<form method="get" th:action="@{/user/orderDetail}">
 										<input type="hidden" th:value="${order.orderId}" name="orderId">
-										<button class="orderDetailButton"><a th:href="@{/user/orderDetail}">주문 상세조회</a></button>
+										<button class="orderDetailButton">주문 상세조회</button>
 									</form>
 								</div>
 							</div>

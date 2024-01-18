@@ -59,6 +59,7 @@
 								<div th:if="${cont.endDate != null}" th:text="'만료일 : ' + ${cont.endDate}"></div>
 							</div>
 							<div class="footerPriceText2" th:if="${cont.contractYear == 0}">
+								구입가 : 
 								<span th:text="${#numbers.formatInteger(cont.contractPrice, 0, 'COMMA')} + '원'"
 									class="spanText">
 								</span>
