@@ -129,7 +129,7 @@
 		request_date as requestDate,
 		order_name as orderName,
 		order_state as orderState,
-		order_address as
+		streetadr as
 		orderAddress,
 		order_price as orderPrice,
 		rental_price as rentalPrice
@@ -149,7 +149,7 @@
 		request_date as requestDate,
 		order_name as orderName,
 		order_state as orderState,
-		order_address as
+		streetadr as
 		orderAddress,
 		order_price as orderPrice,
 		rental_price as rentalPrice
