@@ -27,7 +27,7 @@
 				        request_date AS "requestDate",
 				        order_name AS "orderName",
 				        order_state AS "orderState",
-				        order_address AS "orderAddress", 
+				        streetadr AS "orderAddress", 
 				        order_price AS "orderPrice",
 				        rental_price AS "rentalPrice",
 				        rownum AS rnum
@@ -79,7 +79,7 @@
 				        request_date AS "requestDate",
 				        order_name AS "orderName",
 				        order_state AS "orderState",
-				        order_address AS "orderAddress", 
+				        streetadr AS "orderAddress", 
 				        order_price AS "orderPrice",
 				        rental_price AS "rentalPrice",
 				        rownum AS rnum
@@ -160,7 +160,7 @@
 				        request_date AS "requestDate",
 				        order_name AS "orderName",
 				        order_state AS "orderState",
-				        order_address AS "orderAddress", 
+				        streetadr AS "orderAddress", 
 				        order_price AS "orderPrice",
 				        rental_price AS "rentalPrice",
 				        rownum AS rnum
@@ -185,7 +185,7 @@
             od.end_date as "endDate",
             od.state_type as "stateType",
             o.order_name as "orderName",
-            o.order_address as "orderAddress",
+            o.streetadr as "orderAddress",
             o.order_content as "orderContent",
             o.order_price as "orderPrice",
             o.rental_price as "rentalPrice",
