@@ -18,6 +18,9 @@ public class Order {
 	private short orderState;
 	private String orderName;
 	private String orderAddress;
+    private String zipcode;
+    private String streetadr;
+    private String detailadr;
 	private int orderPrice;
 	private int rentalPrice;
 	private int continuDate;

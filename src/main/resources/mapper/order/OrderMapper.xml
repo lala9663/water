@@ -16,8 +16,8 @@
     
     <!-- 주문 넣기 -->
     <insert id="InsertOrder" parameterType="com.meta.metaway.order.model.Order">
-    	INSERT INTO orders(order_id, user_id, order_content, order_date, request_date, order_name, order_state, order_address, order_price, rental_price)
-    	values (#{orderId},#{userId},#{orderContent},SYSDATE, #{requestDate}, #{orderName}, #{orderState}, #{orderAddress}, #{orderPrice}, #{rentalPrice})
+    	INSERT INTO orders(order_id, user_id, order_content, order_date, request_date, order_name, order_state, zipcode, streetadr, detailadr, order_price, rental_price)
+    	values (#{orderId},#{userId},#{orderContent},SYSDATE, #{requestDate}, #{orderName}, #{orderState}, #{zipcode}, #{streetadr}, #{detailadr}, #{orderPrice}, #{rentalPrice})
     </insert>
     
     <!-- 주문 상세 넣기 -->
