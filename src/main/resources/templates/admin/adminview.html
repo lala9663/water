@@ -2,102 +2,103 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 대시보드</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>관리자 대시보드</title>
 	<link rel="stylesheet" th:href="@{/css/admin/assets/css/style.css}">
 </head>
 
 <body>
-    <!-- =============== 내비바 ================ -->
-   
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="/">
-                        <span class="icon">
-                            <ion-icon name="water-outline"></ion-icon>
-                        </span>
-                        <span class="title">Meta water</span>
-                    </a>
-                </li>
-				  <li>
-                    <a href="/">
-                        <span class="icon">
-                            <ion-icon name="home-outline"></ion-icon>
-                        </span>
-                        <span class="title" id="HomeButton">홈</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/adminview">
-                        <span class="icon">
-                            <ion-icon name="document-text-outline"></ion-icon>
-                        </span>
-                        <span class="title">대시보드</span>
-                    </a>
-                </li>
-                
-                 <li>
-                    <a href="/product/insert">
-                        <span class="icon">
-                           <ion-icon name="color-wand-outline"></ion-icon>
-                        </span>
-                        <span class="title">상품등록</span>
-                    </a>
-                </li>
-                
-                 <li>
-                    <a href="/admin/orderlist/1">
-                        <span class="icon">
-                            <ion-icon name="bar-chart-outline"></ion-icon>
-                        </span>
-                        <span class="title">주문리스트</span>
-                    </a>
-                </li>
-                
-                 <li>
-                    <a href="/admin/returnlist/1">
-                        <span class="icon">
-                            <ion-icon name="refresh-circle-outline"></ion-icon>
-                        </span>
-                        <span class="title">환불/반납</span>
-                    </a>
-                </li>
+	<!-- =============== 내비바 ================ -->
 
-                <li>
-                    <a href="/admin/stafflist/1">
-                        <span class="icon">
-                            <ion-icon name="people-outline"></ion-icon>
-                        </span>
-                        <span class="title">직원조회</span>
-                    </a>
-                </li>
+	<div class="navigation">
+		<th:block class="adminView">
+		<ul>
+			<li>
+				<a href="/">
+					<span class="icon">
+						<ion-icon name="water-outline"></ion-icon>
+					</span>
+					<span class="title">Meta water</span>
+				</a>
+			</li>
+			<li>
+				<a href="/">
+					<span class="icon">
+						<ion-icon name="home-outline"></ion-icon>
+					</span>
+					<span class="title" id="HomeButton">홈</span>
+				</a>
+			</li>
+			<li>
+				<a href="/admin/adminview">
+					<span class="icon">
+						<ion-icon name="document-text-outline"></ion-icon>
+					</span>
+					<span class="title">대시보드</span>
+				</a>
+			</li>
 
-               
+			<li>
+				<a href="/product/insert">
+					<span class="icon">
+						<ion-icon name="color-wand-outline"></ion-icon>
+					</span>
+					<span class="title">상품등록</span>
+				</a>
+			</li>
 
-                <li>
-                    <a href="/staff/cody/list">
-                        <span class="icon">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                        </span>
-                        <span class="title">코디</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/staff/driver/todo">
-                        <span class="icon">
-                           <ion-icon name="car-sport-outline"></ion-icon>
-                        </span>
-                        <span class="title">기사</span>
-                    </a>
-                </li>
+			<li>
+				<a href="/admin/orderlist/1">
+					<span class="icon">
+						<ion-icon name="bar-chart-outline"></ion-icon>
+					</span>
+					<span class="title">주문리스트</span>
+				</a>
+			</li>
 
-               
+			<li>
+				<a href="/admin/returnlist/1">
+					<span class="icon">
+						<ion-icon name="refresh-circle-outline"></ion-icon>
+					</span>
+					<span class="title">환불/반납</span>
+				</a>
+			</li>
 
-                <li>
-<!--                    <a href="#">
+			<li>
+				<a href="/admin/stafflist/1">
+					<span class="icon">
+						<ion-icon name="people-outline"></ion-icon>
+					</span>
+					<span class="title">직원조회</span>
+				</a>
+			</li>
+</th:block>
+
+
+			<li class="codiView">
+				<a href="/staff/cody/list">
+					<span class="icon">
+						<ion-icon name="calendar-outline"></ion-icon>
+					</span>
+					<span class="title">코디</span>
+				</a>
+			</li>
+			<li class="driverView">
+				<a href="/staff/driver/todo">
+					<span class="icon">
+						<ion-icon name="car-sport-outline"></ion-icon>
+					</span>
+					<span class="title">기사</span>
+				</a>
+			</li>
+
+
+
+			<li>
+				<!--                    <a href="#">
                         <span class="icon">
                             <ion-icon name="lock-closed-outline"></ion-icon>
                         </span>
@@ -105,179 +106,214 @@
                     </a>
                 </li>-->
 
-                <li>
-                    <a href="/logout">
-                        <span class="icon">
-                            <ion-icon name="log-out-outline"></ion-icon>
-                        </span>
-                        <span class="title">로그아웃</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+			<li>
+				<a href="/logout">
+					<span class="icon">
+						<ion-icon name="log-out-outline"></ion-icon>
+					</span>
+					<span class="title">로그아웃</span>
+				</a>
+			</li>
+		</ul>
+	</div>
 
-        <!-- ========================= Main ==================== -->
-        <div class="main">
-            <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
+	<!-- ========================= Main ==================== -->
+	<div class="main">
+		<div class="topbar">
+			<div class="toggle">
+				<ion-icon name="menu-outline"></ion-icon>
+			</div>
 
-              
 
-                <div class="user">
-                    <img th:href="@{/css/admin/assets/imgs/customer01.jpg}" alt="">
-                </div>
-            </div>
 
-            <!-- ======================= Cards ================== -->
-            <div class="cardBox">
-                <div class="card">
-                    <div>
-                        <div class="numbers" th:text="${dailyVisitorCount} + '번'">de 1,504</div>
-                        <div class="cardName">방문자 수</div>
-                    </div>
+			<div class="user">
+				<img th:href="@{/css/admin/assets/imgs/customer01.jpg}" alt="">
+			</div>
+		</div>
 
-                    <div class="iconBx">
-                        <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-                </div>
+		<!-- ======================= Cards ================== -->
+		<div class="cardBox">
+			<div class="card">
+				<div>
+					<div class="numbers" th:text="${dailyVisitorCount} + '번'">de 1,504</div>
+					<div class="cardName">방문자 수</div>
+				</div>
 
-                <div class="card">
-                    <div>
-                        <div class="numbers" th:text="${totalSold} + '건'">기본 0</div>
-                        <div class="cardName">주문 건 수</div>
-                    </div>
+				<div class="iconBx">
+					<ion-icon name="eye-outline"></ion-icon>
+				</div>
+			</div>
 
-                    <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
-                    </div>
-                </div>
+			<div class="card">
+				<div>
+					<div class="numbers" th:text="${totalSold} + '건'">기본 0</div>
+					<div class="cardName">주문 건 수</div>
+				</div>
 
-                <div class="card">
-                    <div>
-						<div class="numbers" th:text="${userStatistics.totalAllCount} + '명'">기본 0</div>
-                        <div class="cardName">회원수</div>
-                    </div>
+				<div class="iconBx">
+					<ion-icon name="cart-outline"></ion-icon>
+				</div>
+			</div>
 
-                    <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
+			<div class="card">
+				<div>
+					<div class="numbers" th:text="${userStatistics.totalAllCount} + '명'">기본 0</div>
+					<div class="cardName">회원수</div>
+				</div>
 
-                <div class="card">
-					<div>
-						<div class="numbers" th:text="${#numbers.formatInteger(monthPrice + monthRentalPrice, 0, 'COMMA')}">$7,842</div>
-					    <div class="cardName">이달 매출</div>
-					</div>
+				<div class="iconBx">
+					<ion-icon name="chatbubbles-outline"></ion-icon>
+				</div>
+			</div>
 
-                    <div class="iconBx">
-                        <ion-icon name="cash-outline"></ion-icon>
-                    </div>
-                </div>
-            </div>
+			<div class="card">
+				<div>
+					<div class="numbers" th:text="${#numbers.formatInteger(monthPrice + monthRentalPrice, 0, 'COMMA')}">
+						$7,842</div>
+					<div class="cardName">이달 매출</div>
+				</div>
 
-            <!-- ================ Order Details List ================= -->
-            <div class="details">
-			    <div class="recentOrders">
-			        <div class="cardHeader">
-			            <h2>주문리스트</h2>
-			            <a href="/admin/orderlist/1" class="btn">전체보기</a>
-			        </div>
-			        <table>
-			            <thead>
-			                <tr>
-			                    <td>주문자명</td>
-			                    <td>구매유형</td>
-			                    <td>주소</td>
-			                    <td></td>
-			                    <td>배송현황</td>
-			                </tr>
-			            </thead>
-						<tbody>
-						    <tr th:each="order, iterStat : ${orders}" th:if="${iterStat.index < 7}">
-						        <td th:text="${order.orderName}"></td>
-						        <td>
-							        <span th:if="${order.orderPrice == 0}">렌탈</span>
-							        <span th:if="${order.orderPrice != 0}">구매</span>
-							    </td>						       
-							     <td th:text="${order.orderAddress}"></td>
-					       		 <td>
-					        <td>
-					            <span th:if="${order.orderState eq '배정 완료'}" th:class="'status delivered'">
-					                <span th:text="${order.orderState}"></span>
-					            </span>
-					            <span th:if="${order.orderState eq '배송 완료'}" th:class="'status pending'">
-					                <span th:text="${order.orderState}"></span>
-					            </span>
-					            <span th:if="${order.orderState eq '주문 취소'}" th:class="'status return'">
-					                <span th:text="${order.orderState}"></span>
-					            </span>
-					            <span th:if="${order.orderState eq '배정 대기'}" th:class="'status inProgress'">
-					                <span th:text="${order.orderState}"></span>
-					            </span>
-					        </td>
-						    </tr>
-						</tbody>
+				<div class="iconBx">
+					<ion-icon name="cash-outline"></ion-icon>
+				</div>
+			</div>
+		</div>
 
-			        </table>
-			    </div>
+		<!-- ================ Order Details List ================= -->
+		<div class="details">
+			<div class="recentOrders">
+				<div class="cardHeader">
+					<h2>주문리스트</h2>
+					<a href="/admin/orderlist/1" class="btn">전체보기</a>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<td>주문자명</td>
+							<td>구매유형</td>
+							<td>주소</td>
+							<td></td>
+							<td>배송현황</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="order, iterStat : ${orders}" th:if="${iterStat.index < 7}">
+							<td th:text="${order.orderName}"></td>
+							<td>
+								<span th:if="${order.orderPrice == 0}">렌탈</span>
+								<span th:if="${order.orderPrice != 0}">구매</span>
+							</td>
+							<td th:text="${order.orderAddress}"></td>
+							<td>
+							<td>
+								<span th:if="${order.orderState eq '배정 완료'}" th:class="'status delivered'">
+									<span th:text="${order.orderState}"></span>
+								</span>
+								<span th:if="${order.orderState eq '배송 완료'}" th:class="'status pending'">
+									<span th:text="${order.orderState}"></span>
+								</span>
+								<span th:if="${order.orderState eq '주문 취소'}" th:class="'status return'">
+									<span th:text="${order.orderState}"></span>
+								</span>
+								<span th:if="${order.orderState eq '배정 대기'}" th:class="'status inProgress'">
+									<span th:text="${order.orderState}"></span>
+								</span>
+							</td>
+						</tr>
+					</tbody>
 
-                <!-- ================= New Customers ================ -->
-                <div class="recentCustomers">
-                    <div class="cardHeader">
-                        <h2>직원 리스트</h2>
-                    </div>
-                        <table>
-					        <!-- Iterate through the first 7 codi users -->
-					        <tr th:each="codi, iterStat : ${codi}" th:if="${iterStat.index < 7}">
-					            <td width="60px">
-					                <!-- Assuming codi has an image property, update it accordingly -->
-					                <div class="imgBx">
-					                    <img th:src="@{/css/admin/assets/imgs/profile.jpg}" alt="">
-					                </div>
-					            </td>
-					            <td>
-					                <h4 th:text="${codi.user_name}"></h4>
-					                <p th:text="${codi.work_place}"></p>
-					            </td>
-					        </tr>
-					    </table>
-                </div>
-            </div>
-        </div>
- 
+				</table>
+			</div>
 
-    <!-- =========== Scripts =========  -->
+			<!-- ================= New Customers ================ -->
+			<div class="recentCustomers">
+				<div class="cardHeader">
+					<h2>직원 리스트</h2>
+				</div>
+				<table>
+					<!-- Iterate through the first 7 codi users -->
+					<tr th:each="codi, iterStat : ${codi}" th:if="${iterStat.index < 7}">
+						<td width="60px">
+							<!-- Assuming codi has an image property, update it accordingly -->
+							<div class="imgBx">
+								<img th:src="@{/css/admin/assets/imgs/profile.jpg}" alt="">
+							</div>
+						</td>
+						<td>
+							<h4 th:text="${codi.user_name}"></h4>
+							<p th:text="${codi.work_place}"></p>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- =========== Scripts =========  -->
 	<script th:inline="javascript">
-	    /* add hovered class to selected list item */
-	    let list = document.querySelectorAll(".navigation li");
-	
-	    function activeLink() {
-	        list.forEach((item) => {
-	            item.classList.remove("hovered");
-	        });
-	        this.classList.add("hovered");
-	    }
-	
-	    list.forEach((item) => item.addEventListener("mouseover", activeLink));
-	
-	    /* Menu Toggle */
-	    let toggle = document.querySelector(".toggle");
-	    let navigation = document.querySelector(".navigation");
-	    let main = document.querySelector(".main");
-	
-	    toggle.onclick = function () {
-	        navigation.classList.toggle("active");
-	        main.classList.toggle("active");
-	    };
-		
-		
+		/* add hovered class to selected list item */
+		let list = document.querySelectorAll(".navigation li");
+
+		function activeLink() {
+			list.forEach((item) => {
+				item.classList.remove("hovered");
+			});
+			this.classList.add("hovered");
+		}
+
+		list.forEach((item) => item.addEventListener("mouseover", activeLink));
+
+		/* Menu Toggle */
+		let toggle = document.querySelector(".toggle");
+		let navigation = document.querySelector(".navigation");
+		let main = document.querySelector(".main");
+
+		toggle.onclick = function () {
+			navigation.classList.toggle("active");
+			main.classList.toggle("active");
+		};
+
+
 	</script>
 
-    <!-- ====== ionicons ======= -->
-    <script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
-    <script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
+	<script>
+
+
+		function getCookie(name) {
+			const value = document.cookie.charAt(11);
+			return value;
+		}
+
+		window.addEventListener('load', function () {
+			const token = getCookie('userNumber');
+			if (token) {
+				// 'ROLE_ADMIN' 권한이 없으면 'admin' 요소를 숨깁니다
+				if (token !== "4") {
+					var adminButton = document.querySelector(".adminView");
+					if (adminButton) adminButton.style.display = 'none';
+				}
+
+				// 'ROLE_DRIVER' 권한이 없으면 'driver' 요소를 숨깁니다
+				if (token !== "3") {
+					var driverButton = document.querySelector(".driverView");
+					if (driverButton) driverButton.style.display = 'none';
+				}
+
+				// 'ROLE_CODI' 권한이 없으면 'codi' 요소를 숨깁니다
+				if (token !== "2") {
+					var codiButton = document.querySelector(".codiView");
+					if (codiButton) codiButton.style.display = 'none';
+				}
+			}
+		});
+
+	</script>
+
+
+	<!-- ====== ionicons ======= -->
+	<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
+	<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
 </body>
 
 </html>

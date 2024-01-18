@@ -27,6 +27,7 @@
 <body>
 	<!-- =============== 내비바 ================ -->
 	<div class="navigation">
+		<th:block class="adminView">
 		<ul>
 			<li>
 				<a href="/">
@@ -90,7 +91,9 @@
                 </li>
 
 
-			<li>
+			</th:block>
+
+			<li class="codiView">
 				<a href="../staff/cody/list">
 					<span class="icon">
 						<ion-icon name="calendar-outline"></ion-icon>
@@ -98,7 +101,7 @@
 					<span class="title">코디</span>
 				</a>
 			</li>
-			<li>
+			<li class="driverView">
 				<a href="/staff/driver/todo">
 					<span class="icon">
 						<ion-icon name="car-sport-outline"></ion-icon>
@@ -361,4 +364,36 @@ function assignStaffAsync(staffType, staffName, staffId, userId) {
     
 
 </script>
+<script>
+
+
+		function getCookie(name) {
+			const value = document.cookie.charAt(11);
+			return value;
+		}
+
+		window.addEventListener('load', function () {
+			const token = getCookie('userNumber');
+			if (token) {
+				// 'ROLE_ADMIN' 권한이 없으면 'admin' 요소를 숨깁니다
+				if (token !== "4") {
+					var adminButton = document.querySelector(".adminView");
+					if (adminButton) adminButton.style.display = 'none';
+				}
+
+				// 'ROLE_DRIVER' 권한이 없으면 'driver' 요소를 숨깁니다
+				if (token !== "3") {
+					var driverButton = document.querySelector(".driverView");
+					if (driverButton) driverButton.style.display = 'none';
+				}
+
+				// 'ROLE_CODI' 권한이 없으면 'codi' 요소를 숨깁니다
+				if (token !== "2") {
+					var codiButton = document.querySelector(".codiView");
+					if (codiButton) codiButton.style.display = 'none';
+				}
+			}
+		});
+
+	</script>
 </html>
