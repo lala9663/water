@@ -22,6 +22,9 @@ public class AdminOrderDTO {
 	private String orderAddress;
 	private int orderPrice;
 	private int rentalPrice;
+	private String zipcode;
+	private String streetadr;
+	private String detailadr;
 	
 	private long orderDetailId;
 	private String productModel;
