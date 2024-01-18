@@ -31,10 +31,10 @@
                         email: email
                     }),
                     success: function (response) {
-                        alert("Verification email sent successfully!");
+                        alert("해당 이메일로 인증코드를 전송했습니다!");
                     },
                     error: function (error) {
-                        alert("Error sending verification email: " + error.responseText);
+                        alert("이메일 전송 실패: " + error.responseText);
                     }
                 });
             });

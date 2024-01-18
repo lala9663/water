@@ -1,4 +1,4 @@
-package com.meta.metaway.aspect;
+package com.meta.metaway.global;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -39,7 +39,7 @@ public class PerformanceMonitoringAspect {
 
         if (executionTime > THRESHOLD) {
             // 임계치를 초과하는 경우 이메일로 경고 보내기
-            sendEmailAlert("Method execution time exceeded threshold!", joinPoint.getSignature().toString(), executionTime);
+            sendEmailAlert("임계치를 초과했습니다!", joinPoint.getSignature().toString(), executionTime);
         
             logger.warn("Execution time exceeded the threshold! Sent an email alert.");
 
@@ -52,7 +52,7 @@ public class PerformanceMonitoringAspect {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo("lala9663@naver.com");
         message.setSubject(subject);
-        message.setText("시간 초과: " + methodSignature + "\n초과 시간: " + executionTime + "ms");
+        message.setText("시간 초과: " + methodSignature + "\n초과 시간: " + executionTime + "ms" + "\n 이 부분을 보완하세요");
 
         javaMailSender.send(message);
     }

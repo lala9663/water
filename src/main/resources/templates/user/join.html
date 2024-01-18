@@ -98,15 +98,15 @@
                     email: email
                 }),
                 success: function (response) {
-                    alert("Verification email sent successfully!");
-                    $(".successEmailChk").text("Verification email sent successfully!");
+                    alert("해당 이메일로 인증코드를 전송했습니다!");
+                    $(".successEmailChk").text("이메일을 확인해주세요!");
                     $(".successEmailChk").css("color", "green");
                     // 이메일 전송 성공 시, 인증 칸을 보이게 설정
                     $("#emailVerificationBox").show();
                 },
                 error: function (error) {
                     alert("Error sending verification email: " + error.responseText);
-                    $(".successEmailChk").text("Error sending verification email. Please try again.");
+                    $(".successEmailChk").text("전송 실패 다시 시도해주세요");
                     $(".successEmailChk").css("color", "red");
                 }
             });
