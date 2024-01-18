@@ -33,7 +33,7 @@
 				<p>주문 내역</p>
 			</div>
 			<div id="orderWrap">
-				<div class="orderDiv" th:each="order, orderIndex : ${orderList}" th:if="${orderIndex.index < 4}">
+				<div class="orderDiv" th:each="order, orderIndex : ${orderList}">
 					<div class="getOrderDetailBox">
 						<div th:text="${order.orderDate} + ' 주문'" class="orderDateBox"></div>
 					</div>

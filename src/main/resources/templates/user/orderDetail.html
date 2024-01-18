@@ -53,9 +53,9 @@
 						</div>
 						<div class="detailPriceDiv">
 							<div class="pricePushbox">
-								<div th:if="${cont.startDate != null}" th:text="'약정일 : ' + ${cont.startDate}"
+								<div th:if="${cont.startDate != null and cont.contractYear != 0}" th:text="'약정일 : ' + ${cont.startDate}"
 									class="pushText"></div>
-								<div th:if="${cont.endDate != null}" th:text="'만료일 : ' + ${cont.endDate}"></div>
+								<div th:if="${cont.startDate != null and cont.contractYear != 0}" th:text="'만료일 : ' + ${cont.endDate}"></div>
 							</div>
 							<div class="footerPriceText2" th:if="${cont.contractYear == 0}">
 								구입가 : 
