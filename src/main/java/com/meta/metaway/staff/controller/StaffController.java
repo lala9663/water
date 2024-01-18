@@ -124,4 +124,16 @@ public class StaffController {
 		redirectAttr.addFlashAttribute("message", "배송 예정일이 지정되었습니다. " + visitDate);
 		return "redirect:/driver/todo";
 	}
+	
+	@GetMapping("/cody/list")
+	public String getCodiTodoList(HttpServletRequest request, Model model) {
+		String token = multiClass.getToken(request);
+		long userId = jwtUtil.getId(token);
+		System.out.println(userId + ": 유저아이디");
+
+		List<StaffScheduleDTO> codyTodo = staffService.getCodyTodoList(userId);
+		model.addAttribute("codi", codyTodo );
+
+		return "staff/cody-todo";
+	}
 }

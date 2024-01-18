@@ -69,11 +69,43 @@ public class ScheduleService implements IScheduleService{
 	        schedule.setStaffId(staffId);
 	        System.out.println(schedule.toString());
 	        scheduleRepository.returnSchedule(schedule);
+	        
 //	        adminRepository.updateStaffStatus(staffId);
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 
+	}
+
+	@Override
+	public void updateCodiTypeAndCycle(long scheduleId ) {
+		scheduleRepository.updateCodiTypeAndCycle(scheduleId);
+	}
+
+	@Override
+	public int getScheduleIdFromStaff(long scheduleId) {
+		return scheduleRepository.getScheduleIdFromStaff(scheduleId);
+	}
+
+	@Override
+	public void assignCodiStaff(long orderId, long staffId, long userId) {
+		try {
+			System.out.println("cody insert start");
+			Schedule schedule = new Schedule();
+			schedule.setScheduleId(scheduleRepository.getNextMaxScheduleId());
+			schedule.setVisitCycle(2);
+			schedule.setVisitType(1);
+			schedule.setVisitState(0);
+			schedule.setUserId(userId);
+			schedule.setOrderId(orderId);
+	        schedule.setStaffId(staffId);
+	        System.out.println(schedule.toString());
+	        scheduleRepository.insertSchedule(schedule);
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		
 	}
 }

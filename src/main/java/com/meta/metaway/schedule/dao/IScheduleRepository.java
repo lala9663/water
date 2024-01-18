@@ -14,4 +14,6 @@ public interface IScheduleRepository {
 	void deleteReturnSchedule(long orderDetailId, long staffId);
 	int getOrderIdReturnSchedule(long orderDetailId);
 	int getReturnIdReturnSchedule(long orderDetailId);
+	void updateCodiTypeAndCycle(long scheduleId);
+	int getScheduleIdFromStaff(long scheduleId);
 }

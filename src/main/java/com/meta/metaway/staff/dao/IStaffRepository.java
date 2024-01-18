@@ -60,4 +60,5 @@ public interface IStaffRepository {
     
     Contract getOrderDetailContractYear(StaffScheduleDTO staff);
     
+    List<StaffScheduleDTO> getCodyTodoList(long userId);
 }

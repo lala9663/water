@@ -29,6 +29,7 @@
 				join order_detail od on od.order_detail_id = r.order_detail_id 
 			where r.order_detail_id=#{orderDetailId} 
 		</select>
+		
 	    <!-- 반납일정생성시 주문상세아이디 가져오기-->
 	    <select id="getOrderIdReturnSchedule" parameterType="long">
 			select r.order_detail_id AS "orderDetailId"
@@ -36,4 +37,15 @@
 				join return r on r.order_detail_id = od.order_detail_id 
 			where r.order_detail_id=#{orderDetailId} 
 		</select>
+		<select id="getScheduleIdFromStaff" parameterType="long"> 
+			select schedule_id
+			from schedule
+			where schedule_id=#{scheduleId}
+		</select>
+		<update id = "updateCodiTypeAndCycle" parameterType="com.meta.metaway.schedule.model.Schedule">
+			UPDATE SCHEDULE
+			SET visit_type = 1, visit_cycle=2
+			WHERE schedule_id = #{scheduleId};
+		</update>
+		
     </mapper>

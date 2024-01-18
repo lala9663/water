@@ -218,5 +218,32 @@
 		where schedule_id =
 		#{scheduleId}
 	</select>
+	
+<!-- 로그인한 코디 할일 조회 -->
+	<select id="getCodyTodoList"
+		resultType="com.meta.metaway.staff.dto.StaffScheduleDTO"
+		parameterType="long">
+		select
+		sc.schedule_id as "scheduleId",
+		sc.order_detail_id
+		as "orderDetailId",
+		sc.visit_date as "visitDate",
+		sc.visit_type as
+		"visitType",
+		o.order_id as "orderId",
+		o.order_date as "orderDate",
+		o.request_date as "requestDate",
+		o.order_name as "orderName",
+		o.order_address as "orderAddress"
+		from schedule sc
+		join staff s on
+		s.staff_id =sc.staff_id
+		join users u on u.user_id = s.user_id
+		join
+		orders o on o.order_id = sc.order_id
+		where u.user_id = #{userId} and sc.visit_state = 0
+		order
+		by sc.schedule_id desc
+	</select>
 
 </mapper>

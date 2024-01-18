@@ -148,4 +148,10 @@ public class StaffService implements IStaffService {
 		}
 	}
 
+	@Override
+	public List<StaffScheduleDTO> getCodyTodoList(long userId) {
+		// TODO Auto-generated method stub
+		return staffRepository.getCodyTodoList(userId);
+	}
+
 }
