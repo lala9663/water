@@ -83,7 +83,7 @@
 
 
 			<li class="codiView">
-				<a href="../staff/cody/list">
+				<a href="/staff/cody/list">
 					<span class="icon">
 						<ion-icon name="calendar-outline"></ion-icon>
 					</span>
@@ -101,7 +101,7 @@
 
 
 			<li>
-				<a href="/">
+				<a href="/logout">
 					<span class="icon">
 						<ion-icon name="log-out-outline"></ion-icon>
 					</span>
@@ -133,8 +133,6 @@
 			<thead>
 				<tr>
 					<th scope="col">번호</th>
-
-					<th scope="col">일정번호</th>
 					<th scope="col">주문날짜</th>
 					<th scope="col">방문요청일</th>
 					<th scope="col">방문주소</th>
@@ -148,7 +146,6 @@
 			<tbody>
 				<tr th:each="driver, itemStat : ${driver}" :id="'item-' + ${itemStat.index + 1}" class="table-form">
 					<th th:text="${itemStat.index + 1}"></th>
-					<td th:text="${driver.scheduleId}"></td>
 					<td th:text="${driver.orderDate}"></td>
 					<td th:text="${driver.requestDate}"></td>
 					<td th:text="${driver.orderAddress}"></td>
@@ -166,7 +163,7 @@
 							<input type="hidden" th:value="${driver.visitType}" name="visitType">
 							<button type="submit" class="btn btn-info" data-bs-toggle="modal"
 								data-bs-target="#dateModal">
-								날짜선택
+								방문시간 확정
 							</button>
 						</form>
 						<form th:if="${driver.visitType == 2 and driver.visitDate == null}" action="/staff/settingDate" method="post">
@@ -175,7 +172,7 @@
 							<input type="hidden" th:value="${driver.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${driver.visitType}" name="visitType">
 							<button type="submit" class="btn btn-info">
-								날짜선택
+								방문시간 확정
 							</button>
 						</form>
 						

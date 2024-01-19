@@ -275,20 +275,6 @@ public class UserController {
 		return "user/basket";
 	}
 
-	@GetMapping("/sasadasdadsa")
-	public String getUserOrders(HttpServletRequest request, Model model) {
-		String token = multiClass.getToken(request);
-
-		if (token != null) {
-			Long userId = jwtUtil.getId(token);
-			System.out.println("주문조회에서 유저id : " + userId);
-
-			List<Order> orderList = userService.getOrdersByUserId(userId);
-			model.addAttribute("orderList", orderList);
-		}
-		return "user/orderlist";
-	}
-
 	@GetMapping("/orderDetail")
 	public String getUserOrderDetails(HttpServletRequest request, Model model, @ModelAttribute Order order) {
 		order = userService.getUserMyOrderDetail(order);
