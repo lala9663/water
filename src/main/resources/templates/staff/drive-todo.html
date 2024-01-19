@@ -146,13 +146,13 @@
 			<tbody>
 				<tr th:each="driver, itemStat : ${driver}" :id="'item-' + ${itemStat.index + 1}" class="table-form">
 					<th th:text="${itemStat.index + 1}"></th>
-					<td th:text="${driver.orderDate}"></td>
-					<td th:text="${driver.requestDate}"></td>
+					<td th:text="${#temporals.format(driver.orderDate, 'yyyy-MM-dd HH:mm')}"></td>
+					<td th:text="${#temporals.format(driver.requestDate, 'yyyy-MM-dd	')}"></td>
 					<td th:text="${driver.orderAddress}"></td>
 					<td th:text="${driver.orderName}"></td>
 					<td th:if="${driver.visitType == 0}">배송</td>
 					<td th:if="${driver.visitType == 2}">수거</td>
-					<td th:text="${driver.visitDate}"></td>
+					<td th:text="${#temporals.format(driver.visitDate, 'yyyy-MM-dd HH:mm')}"></td>
 					<td>
 						<!--방문 전-->
 						<form th:if="${driver.visitType == 0 and driver.visitDate == null}" action="/staff/settingDate" method="post">
