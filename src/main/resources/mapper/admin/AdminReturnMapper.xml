@@ -33,7 +33,7 @@
 					     )
 				     )
 			     WHERE rnum BETWEEN #{start} AND #{end}
-			     ORDER BY "returnId"	
+			     ORDER BY "returnId" DESC	
 			]]>
 		</select>
 
