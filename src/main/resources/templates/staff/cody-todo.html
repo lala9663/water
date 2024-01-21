@@ -155,7 +155,7 @@
 					<td>
 						<!--방문 전-->
 						<form th:if="${codi.visitState == 0 and codi.visitDate != null}" action="/staff/settingCodyDate" method="post" class="DateForm">
-							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
+							<input type="hidden" name="requestDate" th:value="${codi.visitDate}">
 							<input type="time" id="appointmentTime" name="visitTime">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${codi.orderId}" name="orderId">
@@ -166,7 +166,7 @@
 							</button>
 						</form>
 						<form th:if="${codi.visitState == 1 and codi.visitDate != null}" action="/staff/settingCodyDate" method="post" class="DateForm">
-							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
+							<input type="hidden" name="requestDate" th:value="${codi.visitDate}">
 							<input type="time" id="appointmentTime" name="visitTime">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${codi.visitType}" name="visitType">
