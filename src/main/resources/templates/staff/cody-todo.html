@@ -13,6 +13,7 @@
 	<link rel="stylesheet" th:href="@{/js/includeHTML.js}">
 	<link rel="stylesheet" th:href="@{/css/dr_main.css}">
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<title>Document</title>
 </head>
 
@@ -153,23 +154,23 @@
 					<td th:text="${#temporals.format(codi.visitDate, 'yyyy-MM-dd HH:mm')}"></td>
 					<td>
 						<!--방문 전-->
-						<form th:if="${codi.visitState == 0 and codi.visitDate != null}" action="/staff/settingCodyDate" method="post">
+						<form th:if="${codi.visitState == 0 and codi.visitDate != null}" action="/staff/settingCodyDate" method="post" class="DateForm">
 							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
 							<input type="time" id="appointmentTime" name="visitTime">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${codi.orderId}" name="orderId">
 							<input type="hidden" th:value="${codi.visitType}" name="visitType">
-							<button type="submit" class="btn btn-info" data-bs-toggle="modal"
+							<button type="submit" class="btn btn-info DateButton" data-bs-toggle="modal"
 								data-bs-target="#dateModal">
 								방문시간 확정
 							</button>
 						</form>
-						<form th:if="${codi.visitState == 1 and codi.visitDate != null}" action="/staff/settingCodyDate" method="post">
+						<form th:if="${codi.visitState == 1 and codi.visitDate != null}" action="/staff/settingCodyDate" method="post" class="DateForm">
 							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
 							<input type="time" id="appointmentTime" name="visitTime">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${codi.visitType}" name="visitType">
-							<button type="submit" class="btn btn-info">
+							<button type="submit" class="btn btn-info DateButton">
 								방문시간 확정
 							</button>
 						</form>
@@ -182,7 +183,7 @@
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${codi.orderId}" name="orderId">
 							<input type="hidden" th:value="${codi.visitType}" name="visitType">
-							<button type="submit" class="btn btn-info" data-bs-toggle="modal" class="CompleteButton"
+							<button type="submit" class="btn btn-info CompleteButton" data-bs-toggle="modal"
 								data-bs-target="#dateModal">
 								업무 완료
 							</button>
@@ -191,7 +192,7 @@
 							<input type="hidden" name="requestDate" th:value="${codi.requestDate}">
 							<input type="hidden" th:value="${codi.scheduleId}" name="scheduleId">
 							<input type="hidden" th:value="${codi.visitType}" name="visitType" >
-							<button type="submit" class="btn btn-info" class="CompleteButton">
+							<button type="submit" class="btn btn-info CompleteButton">
 								업무 완료
 							</button>
 						</form>
@@ -269,10 +270,7 @@
 				});
 
 			</script>
-	<!-- ====== ionicons ======= -->
-	<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
-	<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
-	<script>
+			<script>
 		var forms = document.querySelectorAll('.CompleteForm');
 		var buttons = document.querySelectorAll('.CompleteButton');
 		buttons.forEach(button => {
@@ -293,7 +291,7 @@
 							text: "고생하셨습니다!",
 							icon: "success"
 						}).then(() => {
-							var form = button.closest('.completeForm'); // 클릭한 버튼에 가장 가까운 form 요소를 찾음
+							var form = button.closest('.CompleteForm'); // 클릭한 버튼에 가장 가까운 form 요소를 찾음
 							if (form) {
 								form.submit();
 							}
@@ -303,6 +301,42 @@
 			});
 		});
 	</script>
+	
+	
+				<script>
+		var forms = document.querySelectorAll('.DateForm');
+		var buttons = document.querySelectorAll('.DateButton');
+		buttons.forEach(button => {
+			button.addEventListener('click', function (event) {
+				event.preventDefault();
+				Swal.fire({
+					title: "방문시간 확인",
+					text: "방문 시간을 확정하시겠습니까?",
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#3085d6",
+					cancelButtonColor: "#d33",
+					confirmButtonText: "Yes"
+				}).then((result) => {
+					if (result.isConfirmed) {
+						Swal.fire({
+							title: "반영 완료!",
+							text: "방문 예정 시간이 확정되었습니다.",
+							icon: "success"
+						}).then(() => {
+							var form = button.closest('.DateForm'); // 클릭한 버튼에 가장 가까운 form 요소를 찾음
+							if (form) {
+								form.submit();
+							}
+						});
+					}
+				});
+			});
+		});
+	</script>
+	<!-- ====== ionicons ======= -->
+	<script type="module" th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js}"></script>
+	<script nomodule th:src="@{https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js}"></script>
 </body>
 
 </html>
