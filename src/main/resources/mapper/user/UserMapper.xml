@@ -135,6 +135,7 @@
 		rental_price as rentalPrice
 		FROM orders
 		WHERE user_id = #{userId}
+		ORDER BY orderId DESC
 	</select>
 	
 	
