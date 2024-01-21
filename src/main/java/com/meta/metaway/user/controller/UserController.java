@@ -271,8 +271,12 @@ public class UserController {
 
 	@GetMapping("/basket")
 	public String getBasketInfo(HttpServletRequest request, Model model) {
-		model.addAttribute("product", userService.getBasketItemsByUserId(multiClass.getTokenUserId(request)));
-		return "user/basket";
+		try {
+			model.addAttribute("product", userService.getBasketItemsByUserId(multiClass.getTokenUserId(request)));	
+			return "user/basket";
+		} catch (Exception e) {
+			return "redirect:/login";
+		}
 	}
 
 	@GetMapping("/orderDetail")

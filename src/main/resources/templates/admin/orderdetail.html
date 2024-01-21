@@ -152,11 +152,11 @@
 							<ul>
 								<li>제품 모델 :<span th:text="${orders.productModel}"></span></li>
 								<li>제품 이름 :<span th:text="${orders.productName}"></span></li>
-								<li>약정년 :<span th:text="${orders.contractYear}"></span>년</li>
-								<li>총 가격 :<span th:text="${orders.orderPrice}"></span>원</li>
-								<li>
+								<li th:if="${orders.contractYear != 0}">약정년 :<span th:text="${orders.contractYear}"></span>년</li>
+								<li th:if="${orders.orderPrice != 0}">총 가격 :<span th:text="${orders.orderPrice}"></span>원</li>
+								<li th:if="${orders.rentalPrice != 0}">
 									월 가격 :
-									<span th:text="${orders.rentalPrice}"></span>
+									<span th:text="'월 ' +	 ${orders.rentalPrice} + '원'"></span>
 								</li>
 								<li>약정기간 :<span th:text="${orders.startDate}"></span> ~ <span
 										th:text="${orders.endDate}"></span></li>
